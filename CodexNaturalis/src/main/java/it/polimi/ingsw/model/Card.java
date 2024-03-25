@@ -34,23 +34,40 @@ abstract class Card {
 
             if (CornerIndex == 1){
                 CartaSopra.visibleCorner[4].covered=true;
+                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSopra);
+                return true;
             }
             if (CornerIndex == 2){
                 CartaSopra.visibleCorner[3].covered=true;
+                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSopra);
+                return true;
             }
             if (CornerIndex == 3){
                 CartaSopra.visibleCorner[2].covered=true;
+                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSopra);
+                return true;
             }
             if (CornerIndex == 4){
                 CartaSopra.visibleCorner[1].covered=true;
+                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSopra);
+                return true;
             }
 
 
-        //    CornerIndex.linkedCard(CartaSopra);
 
 
         }
-    return true;
+        else if (visibleCorner[CornerIndex] != null) {
+            System.out.println("l'angolo non è presente");
+            return false;
+        }
+        else if (CartaSotto.visibleCorner[CornerIndex].covered!=false) {
+            System.out.println("l'angolo è già coperto");
+            return false;
+        }
+
+        System.out.println("qualcosa è andato storto, non è stato piazzato");
+        return false;
     }
 
 
