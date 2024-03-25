@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="Primo commit2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="giorgiomonaco &lt;giorgio.monaco@mail.polimi.it&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -57,11 +60,24 @@
       <workItem from="1710251973681" duration="75000" />
       <workItem from="1710253119735" duration="573000" />
       <workItem from="1710253707155" duration="391000" />
-      <workItem from="1711371346402" duration="657000" />
+      <workItem from="1711371346402" duration="1000000" />
     </task>
+    <task id="LOCAL-00001" summary="Primo commit2">
+      <option name="closed" value="true" />
+      <created>1711372320771</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711372320771</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Primo commit2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Primo commit2" />
   </component>
 </project>
