@@ -2,17 +2,17 @@ package it.polimi.ingsw.model;
 
 public class GameBoard {
     private Card[][] boardMatrix;
-    private static final int sideLenght = 115;
+    private static final int sideLength = 115;
     private Player player;
 
-
+    //constructor
     public GameBoard() {
-        this.boardMatrix = new Card[sideLenght][sideLenght];
+        this.boardMatrix = new Card[sideLength][sideLength];
     }
 
-//methods
+    //methods
     public Card getCard(int x, int y){
-        if ((x < 0 || x > sideLenght) || (y <0 || y > sideLenght) || boardMatrix[x][y] == null){
+        if ((x < 0 || x > sideLength) || (y <0 || y > sideLength) || boardMatrix[x][y] == null){
             System.out.println("Operazione Fallita");
             return null;
         }
@@ -22,7 +22,7 @@ public class GameBoard {
         }
     }
     public boolean placeCard(int x, int y, Card card){
-        if ((x < 0 || x > sideLenght) || (y <0 || y > sideLenght) || boardMatrix[x][y] == null){
+        if ((x < 0 || x > sideLength) || (y <0 || y > sideLength) || boardMatrix[x][y] == null){
             System.out.println("Operazione Fallita");
             return false;
         }
