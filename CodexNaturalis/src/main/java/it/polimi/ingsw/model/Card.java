@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-abstract class Card {
+abstract public class Card {
     private String colour;
     private int points;
     public Corner[] visibleCorner; //da 1 a 4, posso istanziare dentro?

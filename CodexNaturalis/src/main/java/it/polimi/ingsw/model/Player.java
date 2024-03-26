@@ -39,8 +39,17 @@ public class Player {
         availableCards.remove(card);
 
     }
-    public void drawCard(){
+
+    // choosing where to draw the card, either from the visible ones, or from the covered deck
+    public void drawCardDeck(){
         Card tempCard = Deck.drawDeck();
+
+        availableCards.add(tempCard);
+    }
+
+    public void drawCardVisible(){
+        Card tempCard = Deck.drawVisible();
+
         availableCards.add(tempCard);
     }
 }
