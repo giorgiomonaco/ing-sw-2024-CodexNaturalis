@@ -42,14 +42,12 @@ public class Player {
 
     public int getPoints(){
         return this.points;
->>>>>>> origin/main
     }
 
     public List<Card> getAvailableCards() {
         return availableCards;
     }
 
-<<<<<<< HEAD
     public void setBeginner(boolean beginner) {
         this.beginner = beginner;
     }
@@ -67,7 +65,6 @@ public class Player {
     }
 
 
-=======
     public int[] getElements() {
         return elements;
     }
@@ -93,5 +90,4 @@ public class Player {
 
         availableCards.add(tempCard);
     }
->>>>>>> origin/main
 }
