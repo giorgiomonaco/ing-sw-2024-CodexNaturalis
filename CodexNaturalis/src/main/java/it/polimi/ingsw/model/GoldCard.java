@@ -7,9 +7,10 @@ public class GoldCard {
     public int[] getFixedAttributes() {
         return FixedAttributes;
     }
-    public boolean checkReq(player P){
+    public boolean checkReq(Player P){
         for(int i=0;i<6;i++){
-            if requirements[i]>P.elements[i]{
+            boolean b = requirements[i] > P.elements[i];
+            if (b) {
                     System.out.println("\nnon hai abbastanza elementi");
                     return false;
             }
