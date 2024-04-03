@@ -1,28 +1,9 @@
 package it.polimi.ingsw.model;
 
-import java.util.List;
-<<<<<<< HEAD
 
-public class Player {
-    public String colour;
-    public int points;
-    public boolean beginner;
-    public int[] elements;
-    private List<Card> availableCards;
-
-
-    public String getColour() {
-        return colour;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public int[] getElements() {
-        return elements;
-=======
 import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private String colour;
     private int points;
