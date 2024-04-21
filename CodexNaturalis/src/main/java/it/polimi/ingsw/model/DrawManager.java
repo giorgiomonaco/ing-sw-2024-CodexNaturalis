@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 import java.util.*;
 public class DrawManager {
     //This class manage all the drawing of the game

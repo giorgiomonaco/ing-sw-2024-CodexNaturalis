@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public abstract class Card {
 
     //If the angles array is null => non visible!!!!

@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 import java.util.*;
 public class Token {
     //this class represents the colored tokens of the players

@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class GameBoardManager {
     //This class create all the boards for the players, personals and common
     private Game game;

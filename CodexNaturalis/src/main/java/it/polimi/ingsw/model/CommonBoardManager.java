@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class CommonBoardManager {
 
     private final Game game;

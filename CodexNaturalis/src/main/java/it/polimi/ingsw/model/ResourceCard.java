@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class ResourceCard extends Card{
     //class representing the resource cards by now onl with a name
     private final String cardName;

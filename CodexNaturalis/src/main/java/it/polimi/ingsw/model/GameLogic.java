@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 import java.util.Scanner;
 
 public class GameLogic {

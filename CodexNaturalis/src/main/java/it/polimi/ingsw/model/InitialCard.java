@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class InitialCard extends Card{
     //By now we have only the name of the card
     private final String cardName;

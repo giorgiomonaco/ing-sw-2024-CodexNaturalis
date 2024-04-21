@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class AvailableResourcesManager {
     //Object of this class has to take the count of the amount
     //of resources a player has in that particular moment

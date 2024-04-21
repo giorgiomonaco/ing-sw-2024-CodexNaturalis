@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public abstract class Symbol {
     //the Symbol has its name, representing the symbol
     private final String symbolName;

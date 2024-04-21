@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 import javax.swing.*;
 import java.util.*;
 public class CommonBoard {

@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class VisibleAngle extends Angle{
     //every visible angle has a symbol in it,
     //It may be null, so the angle is empty

@@ -1,3 +1,6 @@
+package it.polimi.ingsw.model;
+
+
 public class GameBoard {
 
     //Grid representing the game board
