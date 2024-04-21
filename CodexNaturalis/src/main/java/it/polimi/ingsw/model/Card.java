@@ -1,79 +1,58 @@
-package it.polimi.ingsw.model;
+public abstract class Card {
 
-abstract public class Card {
-    private String colour;
-    private int points;
-    public Corner[] visibleCorner; //da 1 a 4, posso istanziare dentro?
-    public int CornerIndex;
-    public int CardIndex;
-    public boolean side;
+    //If the angles array is null => non visible!!!!
 
- // GETTER DI OGNI ATTRIBUTO
-    public boolean isSide() {
-        return side;
-    }
+    //Array representing the 4 angles in the front side of the card
+    //0 = top right
+    //1 = bottom right
+    //2 = bottom left
+    //3 = top left
+    private final Angle[] frontAngles = new Angle[4];
 
-    public String getColour() {
-        return colour;
-    }
+    //array representing the 4 angles of the back of the card
+    //same enumeration
+    private final Angle[] backAngles = new Angle[4];
 
-    public int getPoints() {
-        return points;
-    }
+    //central symbol on the back of the card
+    private final Symbol backSymbol;
 
-    public Corner[] getVisibleCorner() {
-        return visibleCorner;
-    }
+    //Attribute that defines if we are playing/considering
+    //the front or the back of the card
+    //if true = front visible
+    //if false = back visible
+    private boolean frontSide;
 
-
-
-
-    public boolean placeCardOnCorner(int CornerIndex, Card CartaSopra, Card CartaSotto){
-        if (visibleCorner[CornerIndex] != null && CartaSotto.visibleCorner[CornerIndex].covered==false) {
-            CartaSotto.visibleCorner[CornerIndex].covered=true;
-
-            if (CornerIndex == 1){
-                CartaSopra.visibleCorner[4].covered=true;
-                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSotto, CartaSopra);
-                System.out.println("\ncarta piazzata");
-                return true;
-            }
-            if (CornerIndex == 2){
-                CartaSopra.visibleCorner[3].covered=true;
-                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSotto, CartaSopra);
-                System.out.println("\ncarta piazzata");
-                return true;
-            }
-            if (CornerIndex == 3){
-                CartaSopra.visibleCorner[2].covered=true;
-                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSotto, CartaSopra);
-                System.out.println("\ncarta piazzata");
-                return true;
-            }
-            if (CornerIndex == 4){
-                CartaSopra.visibleCorner[1].covered=true;
-                CartaSotto.visibleCorner[CornerIndex].linkCard(CartaSotto, CartaSopra);
-                System.out.println("\ncarta piazzata");
-                return true;
-            }
-
-
-
-
+    //Constructor
+    public Card(Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol){
+        for (int i = 0; i < 4; i++ ){
+            this.frontAngles[i] = frontAngles[i];
+            this.backAngles[i] = backAngles[i];
         }
-        else if (visibleCorner[CornerIndex] != null) {
-            System.out.println("\nl'angolo non è presente");
-            return false;
-        }
-        else if (CartaSotto.visibleCorner[CornerIndex].covered!=false) {
-            System.out.println("\nl'angolo è già coperto");
-            return false;
-        }
-
-        System.out.println("\nqualcosa è andato storto, non è stato piazzato");
-        return false;
+        this.backSymbol = backSymbol;
     }
 
+    //get of the front angles
+    public Angle[] getFrontAngles() {
+        return frontAngles;
+    }
 
+    //get of the back angles
+    public Angle[] getBackAngles() {
+        return backAngles;
+    }
 
+    //set of the bool var for front or back side
+    public void setFrontSide(boolean frontSide) {
+        this.frontSide = frontSide;
+    }
+
+    //check if it has been played front or back side
+    public boolean isFrontSide() {
+        return frontSide;
+    }
+
+    //getter of the symbol in the back of the card
+    public Symbol getBackSymbol() {
+        return backSymbol;
+    }
 }
