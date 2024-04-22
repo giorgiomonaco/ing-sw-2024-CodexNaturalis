@@ -1,5 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
 
+
+import it.polimi.ingsw.model.*;
 
 import java.util.Scanner;
 
@@ -45,7 +47,7 @@ public class PlayCardManager {
             //calling the board method that does so
             playerBoard.insertCard(card, placeX, placeY);
 
-        } else if (card instanceof  GoldCard){
+        } else if (card instanceof GoldCard){
             //here things get more difficult
         }
     }

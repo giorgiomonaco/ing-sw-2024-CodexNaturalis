@@ -1,5 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
 
+
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameBoard;
+import it.polimi.ingsw.model.VisibleAngle;
 
 public class AvailableResourcesManager {
     //Object of this class has to take the count of the amount

@@ -1,5 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
 
+
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameBoard;
+import it.polimi.ingsw.model.Player;
 
 public class GameBoardManager {
     //This class create all the boards for the players, personals and common

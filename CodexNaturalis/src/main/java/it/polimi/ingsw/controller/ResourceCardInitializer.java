@@ -1,4 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
+
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.ResourceCard;
+import it.polimi.ingsw.model.Symbol;
 
 import java.io.FileReader;
 import java.io.IOException;

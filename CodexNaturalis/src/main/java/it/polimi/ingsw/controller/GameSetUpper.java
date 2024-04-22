@@ -1,5 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
 
+
+import it.polimi.ingsw.model.Game;
 
 public class GameSetUpper {
     //this class manage the creation of the managers of the game and the start of the game
