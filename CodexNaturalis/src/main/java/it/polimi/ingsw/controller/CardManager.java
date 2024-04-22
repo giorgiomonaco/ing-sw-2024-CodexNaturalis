@@ -16,7 +16,7 @@ public class CardManager {
     //1 = leaf (res)
     //2 = fox (res)
     //3 = butterfly (res)
-    //4 = sword (obj)
+    //4 = feather (obj)
     //5 = bottle (obj)
     //6 = scroll (obj)
     private final List<Symbol> symbols = new ArrayList<>();

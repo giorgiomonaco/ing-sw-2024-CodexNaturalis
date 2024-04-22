@@ -3,6 +3,13 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,51 +26,129 @@ public class GoldCardsInitializer {
     }
 
     //Method to initialize the gold cards, creation and call to add card to game
-    public void initializeGoldCards() {
-        //creation of the first card
-        //We have to crete the 4 front angles for the specific card
-        Angle[] firstGoldCardFrontAngles =  new Angle[4];
-        firstGoldCardFrontAngles[0] = new VisibleAngle(symbols.get(0));
-        firstGoldCardFrontAngles[1] = new VisibleAngle(symbols.get(1));
-        firstGoldCardFrontAngles[2] = new VisibleAngle(symbols.get(2));
-        firstGoldCardFrontAngles[3] = new VisibleAngle(symbols.get(3));
+    public void initializeResourceCards() {
+        try (Reader reader = new FileReader("CodexNaturalis/deliverables/goldCards.json");
+             JsonReader jsonReader = Json.createReader(reader)) {
 
-        //then we create the 4 back angles for the card
-        Angle[] firstGoldCardBackAngles = new Angle[4];
-        firstGoldCardBackAngles[0] = new VisibleAngle(symbols.get(0));
-        firstGoldCardBackAngles[1] = null; //This is a not visible angle
-        firstGoldCardBackAngles[2] = new VisibleAngle(symbols.get(2));
-        firstGoldCardBackAngles[3] = new VisibleAngle(null); //this is a visible angle but empty
+            JsonArray jsonArray = jsonReader.readArray();
 
-        //We create the var with the point the card gives if played
-        int firstGoldCardFrontPoints = 1;
-        //We create the list of needed symbols on the board to
-        List<Symbol> neededSymbols = new ArrayList<>();
-        neededSymbols.add(symbols.get(3));
-        neededSymbols.add(symbols.get(5));
+            for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
+                // Store the values of each JSON object
+                String topLeft = jsonObject.getString("topLeft");
+                String topRight = jsonObject.getString("topRight");
+                String bottomLeft = jsonObject.getString("bottomLeft");
+                String bottomRight = jsonObject.getString("bottomRight");
+                String pointsForEach = jsonObject.getString("pointsForEach");
+                String points = jsonObject.getString("points");
+                String reqMushroom = jsonObject.getString("reqMushroom");
+                String reqLeaf = jsonObject.getString("reqLeaf");
+                String reqFox = jsonObject.getString("reqFox");
+                String reqButterfly = jsonObject.getString("reqButterfly");
+                String type = jsonObject.getString("type");
 
-        //now we can create the card
-        GoldCard firstGoldCard = new GoldCard("first",firstGoldCardFrontAngles,
-                firstGoldCardBackAngles, symbols.get(2), firstGoldCardFrontPoints, neededSymbols);
-        //then we add the card to the game
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
-        addCardToGame(firstGoldCard);
+                // Creating the card front angles
+                Angle[] resCardFrontAngles =  new Angle[4];
 
+                String[] corners = {topLeft, topRight, bottomLeft, bottomRight};
+                int i = 0;
 
-        //-----------------------------------Only for fun ----------------------------------------------
+                // Automation of card angles creation
 
+                for (String corner : corners) {
+                    switch (corner) {
+                        case "mushroom":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(0));
+                            break;
+                        case "leaf":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(1));
+                            break;
+                        case "fox":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(2));
+                            break;
+                        case "butterfly":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(3));
+                            break;
+                        case "feather":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(4));
+                            break;
+                        case "bottle":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(5));
+                            break;
+                        case "scroll":
+                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(6));
+                            break;
+                        case "empty":
+                            resCardFrontAngles[i] = new VisibleAngle(null);
+                            break;
+                        case "null":
+                            resCardFrontAngles[i] = null;
+                            break;
+                        default:
+                            System.out.println("Error while parsing through cards");
+                    }
+                    i++;
+                }
 
-        //-----------------------------------End of fun--------------------------------
+                // Creating backside angles
+                Angle[] resCardBackAngles = new Angle[4];
+                resCardBackAngles[0] = new VisibleAngle(null);
+                resCardBackAngles[1] = new VisibleAngle(null);
+                resCardBackAngles[2] = new VisibleAngle(null);
+                resCardBackAngles[3] = new VisibleAngle(null);
 
+                // Getting the points of the card
+                int pointsInt = Integer.parseInt(points);
 
+                //getting the symbol of the card
+                Symbol backSymbol = null;
+                switch (type){
+                    case "orange":
+                        backSymbol = symbols.get(0);
+                        break;
+                    case "green":
+                        backSymbol = symbols.get(1);
+                        break;
+                    case "blue":
+                        backSymbol = symbols.get(2);
+                        break;
+                    case "purple":
+                        backSymbol = symbols.get(3);
+                        break;
+                    default:
+                        System.out.println("Error while parsing through cards");
+                }
+
+                //getting the card condition for points
+                int condition;
+                switch (pointsForEach){
+                    case "false":
+                        condition = 0;
+                        break;
+                    case "coveredAngle":
+                        condition = 1;
+                        break;
+                    case "feather":
+                        condition = 2;
+                        break;
+                    case "bottle":
+                        condition = 3;
+                        break;
+                    case "scroll":
+                        condition = 4;
+                        break;
+                    default:
+                        System.out.println("Error while parsing through cards");
+                }
+
+                ResourceCard resourceCard = new  ResourceCard( cardNumber,  pointsInt,
+                        resCardFrontAngles, resCardBackAngles, backSymbol);
+                addCardToGame(resourceCard);
+
+                cardNumber++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //we add them to the obj card deck of the game

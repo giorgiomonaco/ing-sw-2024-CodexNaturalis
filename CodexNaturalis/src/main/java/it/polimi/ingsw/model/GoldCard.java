@@ -8,17 +8,20 @@ public class GoldCard extends Card {
 
     //name of the card if it has one
     private final String cardName;
+    // Card condition for points (points for each covered angle, symbol, or for just placing the card
+    private final int condition;
     //number of points the card gives when played
     private final int cardPoints;
     //Visible symbols needed on the game board to play the card
     private final List<Symbol> neededSymbols;
 
     //Constructor
-    public GoldCard(String name, Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol,
+    public GoldCard(String name, Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol, int condition,
                     int cardPoints, List<Symbol> neededSymbols){
         super(frontAngles, backAngles, backSymbol);
         //we assign the name of the card
         this.cardName = name;
+        this.condition = condition;
         //We assign the value of the card points
         this.cardPoints = cardPoints;
         //we assign the symbols needed to play the card
