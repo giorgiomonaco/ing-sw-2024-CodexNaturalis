@@ -15,6 +15,7 @@ import java.util.List;
 
 public class GoldCardsInitializer {
     private final Game game;
+    private int cardNumber = 0;
 
     //list of the symbols to create the cards
     //remember they are 7 - see card manager for the list
@@ -26,7 +27,7 @@ public class GoldCardsInitializer {
     }
 
     //Method to initialize the gold cards, creation and call to add card to game
-    public void initializeResourceCards() {
+    public void initializeGoldCards() {
         try (Reader reader = new FileReader("CodexNaturalis/deliverables/goldCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
@@ -47,41 +48,39 @@ public class GoldCardsInitializer {
                 String type = jsonObject.getString("type");
 
                 // Creating the card front angles
-                Angle[] resCardFrontAngles =  new Angle[4];
-
+                Angle[] goldCardFrontAngles =  new Angle[4];
                 String[] corners = {topLeft, topRight, bottomLeft, bottomRight};
                 int i = 0;
-
                 // Automation of card angles creation
 
                 for (String corner : corners) {
                     switch (corner) {
                         case "mushroom":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(0));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(0));
                             break;
                         case "leaf":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(1));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(1));
                             break;
                         case "fox":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(2));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(2));
                             break;
                         case "butterfly":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(3));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(3));
                             break;
                         case "feather":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(4));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(4));
                             break;
                         case "bottle":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(5));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(5));
                             break;
                         case "scroll":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(6));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(6));
                             break;
                         case "empty":
-                            resCardFrontAngles[i] = new VisibleAngle(null);
+                            goldCardFrontAngles[i] = new VisibleAngle(null);
                             break;
                         case "null":
-                            resCardFrontAngles[i] = null;
+                            goldCardFrontAngles[i] = null;
                             break;
                         default:
                             System.out.println("Error while parsing through cards");
@@ -90,11 +89,11 @@ public class GoldCardsInitializer {
                 }
 
                 // Creating backside angles
-                Angle[] resCardBackAngles = new Angle[4];
-                resCardBackAngles[0] = new VisibleAngle(null);
-                resCardBackAngles[1] = new VisibleAngle(null);
-                resCardBackAngles[2] = new VisibleAngle(null);
-                resCardBackAngles[3] = new VisibleAngle(null);
+                Angle[] goldCardBackAngles = new Angle[4];
+                goldCardBackAngles[0] = new VisibleAngle(null);
+                goldCardBackAngles[1] = new VisibleAngle(null);
+                goldCardBackAngles[2] = new VisibleAngle(null);
+                goldCardBackAngles[3] = new VisibleAngle(null);
 
                 // Getting the points of the card
                 int pointsInt = Integer.parseInt(points);
@@ -119,7 +118,7 @@ public class GoldCardsInitializer {
                 }
 
                 //getting the card condition for points
-                int condition;
+                int condition = 0;
                 switch (pointsForEach){
                     case "false":
                         condition = 0;
@@ -140,9 +139,16 @@ public class GoldCardsInitializer {
                         System.out.println("Error while parsing through cards");
                 }
 
-                ResourceCard resourceCard = new  ResourceCard( cardNumber,  pointsInt,
-                        resCardFrontAngles, resCardBackAngles, backSymbol);
-                addCardToGame(resourceCard);
+                //getting the required resources
+                int[] neededSymbols ={0,0,0,0};
+                String[] reqSymb = {reqMushroom, reqLeaf, reqFox, reqButterfly};
+                i = 0;
+                for (String symbol : reqSymb){
+                    neededSymbols[i] = Integer.parseInt(symbol);
+                    i++;
+                }
+                GoldCard goldCard = new GoldCard(cardNumber, goldCardFrontAngles, goldCardBackAngles, backSymbol, condition, pointsInt, neededSymbols);
+                addCardToGame(goldCard);
 
                 cardNumber++;
             }
