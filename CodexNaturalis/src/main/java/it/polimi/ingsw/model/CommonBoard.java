@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model;
 
 
-import it.polimi.ingsw.controller.PointTracker;
-
 import java.util.*;
 public class CommonBoard {
     //Board common to every player

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model;
 
 
-import it.polimi.ingsw.controller.GameLogic;
-import it.polimi.ingsw.controller.GameSetUpper;
-
 public class Main {
     public static void main(String[] args) {
 
