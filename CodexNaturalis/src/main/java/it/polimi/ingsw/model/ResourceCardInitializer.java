@@ -28,7 +28,7 @@ public class ResourceCardInitializer {
 
     // Initialize cards, creation and call to adder to deck
     public void initializeResourceCards() {
-        try (Reader reader = new FileReader("CodexNaturalis/deliverables/resCards.json");
+        try (Reader reader = new FileReader("/Users/giorgiomonaco/Desktop/ProgIngSw/CodexNaturalis/deliverables/resCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
@@ -123,6 +123,8 @@ public class ResourceCardInitializer {
             }
         } catch (IOException e) {
             e.printStackTrace();
+
+            throw new RuntimeException("Impossibile caricare le carte.");
         }
     }
 

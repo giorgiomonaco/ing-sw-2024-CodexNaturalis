@@ -28,7 +28,10 @@ public class GoldCardsInitializer {
 
     //Method to initialize the gold cards, creation and call to add card to game
     public void initializeGoldCards() {
-        try (Reader reader = new FileReader("CodexNaturalis/deliverables/goldCards.json");
+
+        //String path = this.getClass().getResourceAsStream("/");
+
+        try (Reader reader = new FileReader("/Users/giorgiomonaco/Desktop/ProgIngSw/CodexNaturalis/deliverables/goldCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
