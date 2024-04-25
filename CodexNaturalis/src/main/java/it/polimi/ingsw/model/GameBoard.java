@@ -7,8 +7,8 @@ public class GameBoard {
     //It may be a matrix of cards
 
     //dimensions of the matrix
-    private final int MAX_X = 10;
-    private final int MAX_Y = 10;
+    private final int MAX_X = 100;
+    private final int MAX_Y = 100;
     private final Card[][] cardMatrix = new Card[MAX_X][MAX_Y];
 
     //we insert a card

@@ -45,6 +45,9 @@ public class PlayCardManager {
             card.setFrontSide(choice == "front");
             //then we place the card
             //calling the board method that does so
+
+            GameBoard one = new GameBoard();
+            getAvailableBoxes(one);
             playerBoard.insertCard(card, placeX, placeY);
 
         } else if (card instanceof GoldCard){
