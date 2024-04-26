@@ -76,30 +76,45 @@ public class GameLogic {
                 //will be useless with graphics
                 Scanner scan = new Scanner(System.in);
                 String choice = scan.nextLine();
+                if (!(choice.equals("card 1")) || !(choice.equals("card 2")) || !(choice.equals("card 3")) ) {
+                    while (true ){
+                        System.out.println("input errato, correggi");
+                        scan = new Scanner(System.in);
+                        choice = scan.nextLine();
+                        if(choice.equals("card 1") || choice.equals("card 2") || choice.equals("card 3")) {
+                            break;
+                        }
+                    }
                 //we prepare a variable to contain the card selected by player to be played
                 Card chosenCard;
-                //create a switch case to use the choice made
-                //--------------don't remember how to use default by now!!!--------------
-                switch (choice) {
-                    case "card 1":
-                        //we get that specific card
-                        chosenCard = game.getCurrentPlayer().getPlayerResourceCards().get(0);
-                        //we ask to play that card
-                        playCardManager.playCard(chosenCard);
-                    case "card 2":
-                        //we get that specific card
-                        chosenCard = game.getCurrentPlayer().getPlayerResourceCards().get(1);
-                        //we ask to play that card
-                        playCardManager.playCard(chosenCard);
-                    case "card 3":
-                        //we get that specific card
-                        chosenCard = game.getCurrentPlayer().getPlayerGoldCards().get(0);
-                        //we ask to play that card
-                        playCardManager.playCard(chosenCard);
-                }
 
-                //draw phase of the players:
-                //by calling the draw manager
+
+                    //create a switch case to use the choice made
+                    //--------------don't remember how to use default by now!!!--------------
+                    switch (choice) {
+                        case "card 1":
+                            //we get that specific card
+                            chosenCard = game.getCurrentPlayer().getPlayerResourceCards().get(0);
+                            //we ask to play that card
+                            playCardManager.playCard(chosenCard);
+                        case "card 2":
+                            //we get that specific card
+                            //System.out.println("funziona 1");
+                            chosenCard = game.getCurrentPlayer().getPlayerResourceCards().get(1);
+                            //System.out.println("funziona 2");
+                            //we ask to play that card
+                            playCardManager.playCard(chosenCard);
+                            //System.out.println("funziona 3");
+                        case "card 3":
+                            //we get that specific card
+                            chosenCard = game.getCurrentPlayer().getPlayerGoldCards().get(0);
+                            //we ask to play that card
+                            playCardManager.playCard(chosenCard);
+                    }
+
+                    //draw phase of the players:
+                    //by calling the draw manager
+                }
 
             }
         }
