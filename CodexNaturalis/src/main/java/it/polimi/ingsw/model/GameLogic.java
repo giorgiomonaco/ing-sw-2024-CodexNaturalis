@@ -1,6 +1,10 @@
 package it.polimi.ingsw.model;
 
 
+import it.polimi.ingsw.controller.AvailableResourcesManager;
+import it.polimi.ingsw.controller.DrawManager;
+import it.polimi.ingsw.controller.PlayCardManager;
+
 import java.util.Scanner;
 
 public class GameLogic {

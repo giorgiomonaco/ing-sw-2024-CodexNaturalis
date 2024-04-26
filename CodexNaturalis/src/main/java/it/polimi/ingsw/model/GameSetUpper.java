@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
 
+import it.polimi.ingsw.controller.*;
+
 public class GameSetUpper {
     //this class manage the creation of the managers of the game and the start of the game
     //Things like distribution of tokens to players, creating and adding players to the game
