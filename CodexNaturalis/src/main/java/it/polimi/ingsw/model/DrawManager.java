@@ -36,6 +36,13 @@ public class DrawManager {
     public void distributeInitialCards(Player p){
         //We take the first card (aka draw) from the Initial cards deck
         InitialCard card = game.drawInitialCard();
+        //The player has o decide weather to play the card upfront or downside
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Do you want to play the front or the back of the card?");
+        String choice = scan.nextLine();
+        if (choice.equals("front")){
+            card.setFrontSide(true);
+        }
         //then we place that card in the middle of the player board
         p.getGameBoard().placeInitialCard(card);
     }
