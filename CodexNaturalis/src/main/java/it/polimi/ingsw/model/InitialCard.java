@@ -11,7 +11,7 @@ public class InitialCard extends Card{
         this.cardName = name;
     }
 
-    //getter of the card name ù
+    //getter of the card name
     public String getCardName() {
         return cardName;
     }

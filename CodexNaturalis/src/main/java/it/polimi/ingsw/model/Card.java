@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 
 public abstract class Card {
 
-    //If the angles array is null => non visible!!!!
+    //If the angles array is null => not visible!!!!
 
     //Array representing the 4 angles in the front side of the card
     //0 = top right

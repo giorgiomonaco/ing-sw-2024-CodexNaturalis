@@ -34,7 +34,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ResourceCard drawResourceCard(){
-        return resourceDeck.get(0);
+        return resourceDeck.getFirst();
     }
 
     //Get all the list of the resource cards
@@ -47,7 +47,6 @@ public class Game {
         resourceDeck.remove(card);
     }
 
-
     //Add a card to the gold deck
     public void addGoldCardToDeck(GoldCard card){
         goldDeck.add(card);
@@ -55,7 +54,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public GoldCard drawGoldCard(){
-        return goldDeck.get(0);
+        return goldDeck.getFirst();
     }
 
     //Get all the list of the resource cards
@@ -75,7 +74,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ObjectiveCard drawObjectiveCard(){
-        return objectiveDeck.get(0);
+        return objectiveDeck.getFirst();
     }
 
     //Get all the list of the resource cards
@@ -96,7 +95,7 @@ public class Game {
 
     //Get of the first card of the Initial deck (aka draw)
     public InitialCard drawInitialCard(){
-        return initialCardsDeck.get(0);
+        return initialCardsDeck.getFirst();
     }
 
     //Get all the list of the Initial cards
