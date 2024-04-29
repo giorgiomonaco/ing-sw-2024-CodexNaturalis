@@ -8,8 +8,8 @@ public class CommonBoard {
 
     private final Game game;
 
-    //all the discovered cards
-    private final List<ResourceCard> discoveredSourceCards = new ArrayList<>();
+    //All the discovered cards
+    private final List<ResourceCard> discoveredResourceCards = new ArrayList<>();
 
     //All the discovered gold cards
     private final List<GoldCard> discoveredGoldCards = new ArrayList<>();
@@ -29,12 +29,12 @@ public class CommonBoard {
 
     //get the list of the resource discovered cards
     public List<ResourceCard> getDiscoveredSourceCards() {
-        return discoveredSourceCards;
+        return discoveredResourceCards;
     }
 
     //add a source card from the deck to discovered ones
     public void addDiscoveredSourceCard(ResourceCard card){
-        discoveredSourceCards.add(card);
+        discoveredResourceCards.add(card);
     }
 
 

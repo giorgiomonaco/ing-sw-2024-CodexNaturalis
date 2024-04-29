@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 
 import java.util.List;
 
+//manca check durante piazzamento della carta con risorse necessarie e del player
 public class ObjectiveCard extends Card{
 
     //Temporary/for working issues name of the card
