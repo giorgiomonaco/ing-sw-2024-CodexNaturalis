@@ -31,7 +31,7 @@ public class Server {
     }
 
     private void start() {
-        rmiServer.start();
         tcpServer.start();
+        rmiServer.start();
     }
 }
