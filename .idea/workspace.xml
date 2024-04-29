@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="clent TCP">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/server/ServerTCP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +31,7 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="3fc22867-090e-48e3-b892-d67b2ee8d989" />
+        <option name="accountId" value="0ff4c74c-7bd0-4aaf-b335-839444eeb4b6" />
         <option name="url" value="https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce.git" />
       </UrlAndAccount>
     </option>
@@ -156,7 +154,9 @@
       <workItem from="1712138291064" duration="5412000" />
       <workItem from="1713883133862" duration="4213000" />
       <workItem from="1714401125935" duration="9413000" />
-      <workItem from="1714417787734" duration="660000" />
+      <workItem from="1714417787734" duration="754000" />
+      <workItem from="1714418600927" duration="15000" />
+      <workItem from="1714418701442" duration="27000" />
     </task>
     <task id="LOCAL-00001" summary="prova">
       <option name="closed" value="true" />
@@ -190,7 +190,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714417844455</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="clent TCP">
+      <option name="closed" value="true" />
+      <created>1714418470506</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714418470506</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

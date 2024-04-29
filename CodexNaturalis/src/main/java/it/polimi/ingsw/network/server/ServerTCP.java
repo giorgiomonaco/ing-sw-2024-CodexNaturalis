@@ -22,11 +22,11 @@ public class ServerTCP {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // trying to send a message
-            // out.println("Ciao, server!");
+             out.println("Ciao, server!");
 
             // reading server answer and reply
-            // String rispostaDalServer = in.readLine();
-            // System.out.println("Risposta dal server: " + rispostaDalServer);
+             String rispostaDalServer = in.readLine();
+             System.out.println("Risposta dal server: " + rispostaDalServer);
 
             // socket closure
             socket.close();
