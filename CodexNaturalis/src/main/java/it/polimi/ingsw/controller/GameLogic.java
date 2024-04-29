@@ -1,9 +1,13 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
 
 
 import it.polimi.ingsw.controller.AvailableResourcesManager;
 import it.polimi.ingsw.controller.DrawManager;
 import it.polimi.ingsw.controller.PlayCardManager;
+import it.polimi.ingsw.model.Card;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.view.ViewTry;
 
 import java.util.Scanner;
 
@@ -17,6 +21,7 @@ public class GameLogic {
 
     //First we need the game it is referring to
     private final Game game;
+    private final ViewTry view;
 
     //then we need the game states
     //play: turns keep going until ending conditions reached
@@ -31,8 +36,9 @@ public class GameLogic {
 
 
     //constructor
-    public GameLogic(Game game){
+    public GameLogic(Game game, ViewTry view){
         this.game = game;
+        this.view = view;
     }
 
 
@@ -44,7 +50,7 @@ public class GameLogic {
         //don't like cus there is already another one
         //very, very ugly to create it in the main tho so better like this
         //I think the previous will be garbage collected after exiting setup
-        DrawManager drawManager = new DrawManager(game);
+        DrawManager drawManager = new DrawManager(game, view);
 
         //We also need an object that manages the play of the cards
         //to make this class not 10k lines and so complex

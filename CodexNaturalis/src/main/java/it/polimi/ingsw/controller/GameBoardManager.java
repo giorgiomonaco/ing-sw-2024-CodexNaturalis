@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.GameBoard;
 import it.polimi.ingsw.model.Player;
 
 public class GameBoardManager {
-    //This class create all the boards for the players, personals and common
+    //This class create all the boards for the players
     private Game game;
 
     //Constructor

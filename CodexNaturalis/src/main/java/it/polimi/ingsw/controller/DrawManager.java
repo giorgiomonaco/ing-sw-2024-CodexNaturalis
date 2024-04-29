@@ -2,15 +2,18 @@ package it.polimi.ingsw.controller;
 
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.view.ViewTry;
 
 import java.util.*;
 public class DrawManager {
     //This class manage all the drawing of the game
     private final Game game;
+    private final ViewTry view;
 
     //Constructor
-    public DrawManager(Game game){
+    public DrawManager(Game game, ViewTry view){
         this.game = game;
+        this.view = view;
     }
 
     //initialize players hand
@@ -91,24 +94,21 @@ public class DrawManager {
         //Get the cards from the hand
         List<ObjectiveCard> playerObjHand = p.getPlayerObjectiveCards();
         //get the names of the cards he got (I don't like do it like that but still...)
-        String card1 = playerObjHand.get(0).getCardName();
-        String card2 = playerObjHand.get(1).getCardName();
+        //We collect the names of the cards to choose from in a list
+        List<String> choiceCardList = new ArrayList<>();
+        choiceCardList.add(playerObjHand.get(0).getCardName());
+        choiceCardList.add(playerObjHand.get(1).getCardName());
         //Get the name of the player to be clear on who is choosing the card to keep
         String playerName = p.getPlayerName();
-        //Make the player know which cards he has in hand
-        System.out.println( playerName + " you have this Objective Cards in hand: "
-                            + card1 + " , " + card2);
-        System.out.println("which one you want to keep? first or second? ");
+        //we collect the choice on which card to keep by the view
+        String choice = view.playerObjectiveCardChoice(playerName, choiceCardList);
 
         //we create a var choice to loop on until a choice is actually made
         boolean choiceMade = false;
-        //Create the scanner for the player answer
-        Scanner scanner = new Scanner(System.in);
+
         //loop on the choice until choice made
         do {
-            String input = scanner.nextLine();
-
-            if (input.equals("first")) {
+            if (choice.equals("first")) {
                 //before removing the card from the hand
                 //we place it at the bottom of the obj card deck
                 game.addObjectiveCardToDeck(p.getObjectiveCardFromHand(1));
@@ -117,7 +117,7 @@ public class DrawManager {
                 //the player made a valid choice seo we can exit the loop
                 choiceMade = true;
 
-            } else if (input.equals("second")) {
+            } else if (choice.equals("second")) {
                 //before removing the card from the hand
                 //we place it at the bottom of the obj card deck
                 game.addObjectiveCardToDeck(p.getObjectiveCardFromHand(0));
@@ -126,17 +126,10 @@ public class DrawManager {
                 //the player made a valid choice seo we can exit the loop
                 choiceMade = true;
             } else {
-                //Error message if the choice was not valid, we stay into the loop
-                System.out.println("Incorrect answer, retry");
+                choice = view.askAgainObjectiveCards();
             }
         } while(!choiceMade);
 
-        //-------------------Check if choice worked----------------------------
-        //Check if the right card is still there
-        String cardKept = p.getPlayerObjectiveCards().get(0).getCardName();
-        System.out.println("You kept " + cardKept);
-        //Check if the hand has actually size 1
-        int objHandSize = p.getPlayerObjectiveCards().size();
-        System.out.println("size of the obj hand = " + objHandSize);
+
     }
 }

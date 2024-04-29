@@ -1,7 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
 
 
 import it.polimi.ingsw.controller.*;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.view.ViewTry;
 
 public class GameSetUpper {
     //this class manage the creation of the managers of the game and the start of the game
@@ -9,21 +11,28 @@ public class GameSetUpper {
     //distribution of first cards to players
 
     private final Game game;
+    private final ViewTry view;
 
     //Constructor
-    public GameSetUpper(Game game){
+    public GameSetUpper(Game game, ViewTry view){
         this.game = game;
+        this.view = view;
     }
 
     //Initialization of the game
     public void gameSetUp(){
+        //First thing it does is make the game advance to "initializing state"
+        //since game starts in sleep by default = +1 is initialization
+        //may be checkable by an if (getState == 0) ...
+        game.advanceGameState();
+
         //creation of player manager
-        PlayerManager playerManager = new PlayerManager(game);
+        PlayerManager playerManager = new PlayerManager(game, view);
         //Initialization of the players
         playerManager.playersInitialization();
 
         //create the token manager
-        TokenManager tokenManager = new TokenManager(game);
+        TokenManager tokenManager = new TokenManager(game,view);
         //we give every player a token
         tokenManager.initializeTokens();
 
@@ -48,7 +57,7 @@ public class GameSetUpper {
         commonBoardManager.initializeCommonBoard();
 
         //Creation of the draw manager
-        DrawManager drawManager = new DrawManager(game);
+        DrawManager drawManager = new DrawManager(game, view);
         //Initialization of hands:
         //Every player draw the first cards
         //Choice about the secret obj card

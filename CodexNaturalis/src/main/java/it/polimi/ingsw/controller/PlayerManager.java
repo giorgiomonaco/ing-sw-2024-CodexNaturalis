@@ -3,36 +3,42 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.view.ViewTry;
 
 import java.util.Scanner;
 
 public class PlayerManager {
+    //This class manages the creation of players based on how many wants to play,
+    //and it adds the players to the game
     private final Game game;
+    private final ViewTry view;
 
     //Constructor
-    public PlayerManager(Game game){
+    public PlayerManager(Game game, ViewTry view){
         this.game = game;
+        this.view = view;
     }
 
     public void playersInitialization(){
-        Scanner scanner = new Scanner(System.in);
-        //Ask how many players
-        System.out.println("How many Players?");
-        //Read response
-        int input = scanner.nextInt();
-        for(int i = 0; i < input; i++){
-            addPlayerToGame(i);
+        //we get how many players are playing from the view interaction with the user
+        int numOfPlayers = view.getNumOfPlayers();
+        //check if the num of players is valid
+        //if not we repeat the question
+        while(numOfPlayers < 1 || numOfPlayers > 4) {
+            numOfPlayers = view.askAgainNumOfPlayer();
+        }
+        //For each we want the name
+        //And which token he/she wants from the available pool
+        for (int a = 0; a < numOfPlayers; a++) {
+            //we collect the name of that player
+            String playerName = view.getPlayerName(a + 1);
+            //then we add it to the game
+            addPlayerToGame(playerName);
         }
     }
-    public void addPlayerToGame(int playerNumber){
-        //Creation of scanner for the insertion of the name of the player
-        Scanner scanner = new Scanner(System.in);
-        //Ask the name of the player
-        System.out.println("Name of player number " + (playerNumber + 1));
-        //scan answer
-        String input = scanner.nextLine();
-        //Now we create a new player
-        Player p = new Player(game, input);
+
+    public void addPlayerToGame(String playerName){
+        Player p = new Player(game,playerName);
         game.addPlayer(p);
     }
 

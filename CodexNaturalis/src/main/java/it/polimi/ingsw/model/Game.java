@@ -5,6 +5,14 @@ public class Game {
 
     //Class with all the elements necessary to the game
 
+    //The game-state attribute necessary for every coherent move in the game
+    private static GameState gameState;
+    //We need to associate a game state to the game asap
+    //So we do in the constructor
+    public Game(GameState gState){
+        this.gameState = gState;
+    }
+
     //List of the players
     List<Player> playerList = new ArrayList<>();
 
@@ -34,7 +42,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ResourceCard drawResourceCard(){
-        return resourceDeck.getFirst();
+        return resourceDeck.get(0);
     }
 
     //Get all the list of the resource cards
@@ -54,7 +62,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public GoldCard drawGoldCard(){
-        return goldDeck.getFirst();
+        return goldDeck.get(0);
     }
 
     //Get all the list of the resource cards
@@ -74,7 +82,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ObjectiveCard drawObjectiveCard(){
-        return objectiveDeck.getFirst();
+        return objectiveDeck.get(0);
     }
 
     //Get all the list of the resource cards
@@ -95,7 +103,7 @@ public class Game {
 
     //Get of the first card of the Initial deck (aka draw)
     public InitialCard drawInitialCard(){
-        return initialCardsDeck.getFirst();
+        return initialCardsDeck.get(0);
     }
 
     //Get all the list of the Initial cards
@@ -137,5 +145,20 @@ public class Game {
     //getter of current player
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    //Getter of the current game state
+    public int getGameState(){
+        return gameState.getGameState();
+    }
+
+    //We want to get to next phase of the game
+    public void advanceGameState(){
+        gameState.setGameState(gameState.getGameState() + 1);
+    }
+
+    //We had an error, so we want to close everything "stacca stacca"
+    public void forcedGameExit(){
+        gameState.setGameState(5);
     }
 }
