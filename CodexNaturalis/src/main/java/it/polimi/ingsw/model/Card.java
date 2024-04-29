@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
 
+import javax.imageio.plugins.tiff.TIFFField;
+
 public abstract class Card {
 
     //If the angles array is null => not visible!!!!
@@ -57,5 +59,8 @@ public abstract class Card {
     //getter of the symbol in the back of the card
     public Symbol getBackSymbol() {
         return backSymbol;
+    }
+
+    public TIFFField get(String topLeft) {
     }
 }

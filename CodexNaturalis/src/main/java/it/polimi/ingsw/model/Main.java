@@ -1,21 +1,22 @@
 package it.polimi.ingsw.model;
 
 
+import it.polimi.ingsw.controller.GameLogic;
+import it.polimi.ingsw.controller.GameSetUpper;
+import it.polimi.ingsw.controller.MainController;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(/*String[] args*/) {
 
-        //Create the game
-        Game game = new Game();
+        //We want a controller that creates the obj game and the game state to handle it
+        // We want to create a main controller to which communicate for any changes and
+        //Handling every situation comes up
+        MainController mainController = new MainController();
+        //The controller has to do everything to set up
+        //Nothing is started in the model
+        mainController.playGame();
 
-        //Create  the game set up
-        GameSetUpper gameSetUpper = new GameSetUpper(game);
-        //Start the setup of the game
-        gameSetUpper.gameSetUp();
 
-        //we create the game logic
-        //the thing that manages all the game played after setup
-        GameLogic gameLogic = new GameLogic(game);
-        gameLogic.playGame();
 
         }
     }

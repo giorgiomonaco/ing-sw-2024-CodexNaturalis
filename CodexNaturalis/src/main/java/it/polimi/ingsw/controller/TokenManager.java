@@ -4,7 +4,9 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Token;
+import it.polimi.ingsw.view.ViewTry;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,21 +14,25 @@ public class TokenManager {
     //This class manages the assignment of the tokens to the players at start of the game
     private final Game game;
 
-    //counter used to determine the token we will assign until everyone used
+    private final ViewTry view;
+
     private int tokenCounter = 0;
 
     //List of all the tokens available for the game
     private final List<Token> tokens = new ArrayList<>();
 
     //Constructor of the class
-    public TokenManager(Game game) {
+    public TokenManager(Game game, ViewTry view) {
         this.game = game;
+        this.view = view;
     }
 
     //Initialize tokens, aka assign all tokens to all players
     public void initializeTokens() {
         //As first thing we create all the tokens and populate the list of tokens
         createTokens();
+        //start communicating the token assignment
+        view.startInformingOfTokens();
         //for each player in the players game list
         for (Player p : game.getPlayerList()) {
             //we call assign token to give each a different token until available
@@ -60,15 +66,11 @@ public class TokenManager {
     //Method that assign a token to the player at start of game
     //In an automatic way
     public void assignToken(Player p) {
-        //check if we have tokens left to assign
-        if (tokenCounter >= tokens.size()) {
-            System.out.println("ERROR, all tokens already assigned");
-        } else {
-            //We take the color we have to assign next and assign it to the player
+            //Assign the color of the token for each player
             p.setPlayerToken(tokens.get(tokenCounter));
-            //then we increment the counter to have the next token for next iteration
+            //And we communicate the assignment
+            view.ackPersonalToken(p.getPlayerName(), tokens.get(tokenCounter).getTokenColor());
             tokenCounter++;
         }
-    }
 
 }
