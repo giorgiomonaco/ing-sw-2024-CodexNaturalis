@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 
-public class Angle {
+public class VisibleAngle {
     //every visible VisibleAngle has a symbol in it,
     //It may be null, so the VisibleAngle is empty
     //!!!!!!!!!!!!!!!!!!Don't like this class cus only subclass of VisibleAngle,
@@ -13,7 +13,7 @@ public class Angle {
     private boolean notCovered = true;
 
     //constructor
-    public Angle(Symbol symbol){
+    public VisibleAngle(Symbol symbol){
         this.symbol = symbol;
     }
 
