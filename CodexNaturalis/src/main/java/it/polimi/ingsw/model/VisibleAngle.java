@@ -1,15 +1,14 @@
 package it.polimi.ingsw.model;
 
-//secondo me rimovibile
 
-public class VisibleAngle extends Angle{
-    //every visible angle has a symbol in it,
-    //It may be null, so the angle is empty
-    //!!!!!!!!!!!!!!!!!!Don't like this class cus only subclass of angle,
+public class VisibleAngle {
+    //every visible VisibleAngle has a symbol in it,
+    //It may be null, so the VisibleAngle is empty
+    //!!!!!!!!!!!!!!!!!!Don't like this class cus only subclass of VisibleAngle,
     //may be useless have a distinction
     private final Symbol symbol;
 
-    //attribute tha determines if the angle is visible or not,
+    //attribute tha determines if the VisibleAngle is visible or not,
     //used to check how and which resources are available
     private boolean notCovered = true;
 
@@ -23,12 +22,12 @@ public class VisibleAngle extends Angle{
         return symbol;
     }
 
-    //get if angle covered or not
+    //get if VisibleAngle covered or not
     public boolean isNotCovered() {
         return notCovered;
     }
 
-    //change the state of the coverage of the angle
+    //change the state of the coverage of the VisibleAngle
     public void setNotCovered(boolean notCovered) {
         this.notCovered = notCovered;
     }

@@ -51,7 +51,7 @@ public class GoldCardsInitializer {
                 String type = jsonObject.getString("type");
 
                 // Creating the card front angles
-                Angle[] goldCardFrontAngles =  new Angle[4];
+                VisibleAngle[] goldCardFrontAngles =  new VisibleAngle[4];
                 String[] corners = {topLeft, topRight, bottomLeft, bottomRight};
                 int i = 0;
                 // Automation of card angles creation
@@ -92,7 +92,7 @@ public class GoldCardsInitializer {
                 }
 
                 // Creating backside angles
-                Angle[] goldCardBackAngles = new Angle[4];
+                VisibleAngle[] goldCardBackAngles = new VisibleAngle[4];
                 goldCardBackAngles[0] = new VisibleAngle(null);
                 goldCardBackAngles[1] = new VisibleAngle(null);
                 goldCardBackAngles[2] = new VisibleAngle(null);

@@ -15,7 +15,7 @@ public class ObjectiveCard extends Card{
 
     //Constructor
     public ObjectiveCard(String name, int cardPoints, List<Symbol> cardConditions,
-                         Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol){
+                         VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
         super(frontAngles,backAngles, backSymbol);
         this.cardName = name;
         this.cardConditions = cardConditions;

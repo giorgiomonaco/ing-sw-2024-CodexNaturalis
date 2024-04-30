@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 
-import it.polimi.ingsw.model.Angle;
+import it.polimi.ingsw.model.VisibleAngle;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ObjectiveCard;
 import it.polimi.ingsw.model.Symbol;
@@ -26,8 +26,8 @@ public class ObjectiveCardInitializer {
         //only points and conditions to give those points
 
         //!!angles and back symbol are non existing => null
-        Angle[] firstObjectiveCardFrontAngles = new Angle[4];
-        Angle[] firstObjectiveCardBackAngles = new Angle[4];
+        VisibleAngle[] firstObjectiveCardFrontAngles = new VisibleAngle[4];
+        VisibleAngle[] firstObjectiveCardBackAngles = new VisibleAngle[4];
         //We create the point conditions
         Symbol firstConditionSymbol = symbols.get(4);
         Symbol secondConditionSymbol = symbols.get(5);
