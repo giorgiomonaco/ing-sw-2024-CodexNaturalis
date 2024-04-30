@@ -92,7 +92,7 @@ public class DrawManager {
     //choice of the player on which objective card to keep
     public void playerObjectiveCardChoice(Player p){
         //Get the cards from the hand
-        List<ObjectiveCard> playerObjHand = p.getPlayerObjectiveCards();
+        ObjectiveCard playerObjHand = p.getPlayerObjectiveCard();
         //get the names of the cards he got (I don't like do it like that but still...)
         //We collect the names of the cards to choose from in a list
         List<String> choiceCardList = new ArrayList<>();

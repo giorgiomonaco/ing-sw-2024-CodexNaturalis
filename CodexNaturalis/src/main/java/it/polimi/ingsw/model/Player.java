@@ -20,7 +20,7 @@ public class Player {
     private final List<GoldCard> playerGoldCards = new ArrayList<>();
 
     //List of the Objective cards the player have
-    private final List<ObjectiveCard> playerObjectiveCards = new ArrayList<>();
+    private ObjectiveCard playerObjectiveCard;
 
     //Every player has a counter/token
     private Token playerToken;
@@ -85,23 +85,18 @@ public class Player {
 
 
     //Getter of the list of the obj cards now in hand
-    public List<ObjectiveCard> getPlayerObjectiveCards(){
-        return playerObjectiveCards;
+    public ObjectiveCard getPlayerObjectiveCard(){
+        return playerObjectiveCard;
     }
 
     //Method to add a card to the list of resource cards
-    public void addObjectiveCard(ObjectiveCard card){
-        playerObjectiveCards.add(card);
+    public void setObjectiveCard(ObjectiveCard card){
+        playerObjectiveCard = card;
     }
 
     //method to get a card from the list by index
-    public ObjectiveCard getObjectiveCardFromHand(int index){
-        return playerObjectiveCards.get(index);
-    }
-
-    //method to remove a card from the player hand passing the object
-    public void removeObjectiveCardFromHand(ObjectiveCard card){
-        playerObjectiveCards.remove(card);
+    public ObjectiveCard getObjectiveCardFromHand(){
+        return playerObjectiveCard;
     }
 
     //Method to assign the token to the player

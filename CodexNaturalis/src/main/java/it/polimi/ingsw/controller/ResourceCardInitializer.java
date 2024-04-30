@@ -28,7 +28,7 @@ public class ResourceCardInitializer {
 
     // Initialize cards, creation and call to adder to deck
     public void initializeResourceCards() {
-        try (Reader reader = new FileReader("/Users/giorgiomonaco/Desktop/ProgIngSw/CodexNaturalis/deliverables/resCards.json");
+        try (Reader reader = new FileReader("C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce/CodexNaturalis/src/main/resources/resCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
@@ -43,7 +43,7 @@ public class ResourceCardInitializer {
                 String type = jsonObject.getString("type");
 
                 // Creating the card
-                Angle[] resCardFrontAngles =  new Angle[4];
+                VisibleAngle[] resCardFrontAngles =  new VisibleAngle[4];
 
                 String[] corners = {topLeft, topRight, bottomLeft, bottomRight};
                 int i = 0;
@@ -85,7 +85,7 @@ public class ResourceCardInitializer {
                     i++;
                 }
                 // Creating backside angles
-                Angle[] resCardBackAngles = new Angle[4];
+                VisibleAngle[] resCardBackAngles = new VisibleAngle[4];
                 resCardBackAngles[0] = new VisibleAngle(null);
                 resCardBackAngles[1] = new VisibleAngle(null);
                 resCardBackAngles[2] = new VisibleAngle(null);

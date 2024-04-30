@@ -4,7 +4,11 @@ package it.polimi.ingsw.model;
 public class GameBoard {
 
     //Grid representing the game board
-    //It may be a matrix of cards
+    //Implementing a grid of card were those can be placed and a grid of integer for easier checks
+    //Checkboard= -1 empty slot
+    //chechboard= 0 placeable slot
+    //checkboard= 1 there is a card
+
 
     //dimensions of the matrix
     private final int MAX_X = 100;
@@ -17,24 +21,62 @@ public class GameBoard {
         currentCheckBoard = this.CheckBoard;
         for(int i=0;i<MAX_X;i++){
             for(int j=0;j<MAX_Y;j++){
-                currentCheckBoard[i][j] = 0;
+                currentCheckBoard[i][j] = -1;
             }
         }
+
         return currentCheckBoard;
     }
 
     //we insert a card
     public void insertCard(Card card, int x, int y) {
-       // checkRightPlacement(card, x, y);
+       /* checkRightPlacement(card, x, y);
         cardMatrix[x][y] = card;
-        CheckBoard[x][y] = 1;
+        CheckBoard[x][y] = 1; */
+        if(CheckBoard[x][y]==0){
+            if(card.isFrontSide()){
+                if(true){
+                    //se ha angolo è piazzabile a
+            }
+            }
+
+        }
+        
     }
 
     //insertion of the initial card in the middle of the board
     public void placeInitialCard(InitialCard card) {
         cardMatrix[(MAX_X / 2)][MAX_Y / 2] = card;
         CheckBoard[(MAX_X / 2)][MAX_Y / 2] = 1;
-    }
+        if(card.isFrontSide()){
+        if(card.getFrontVisibleAngle(3)!=null){
+                CheckBoard[(MAX_X / 2)-1][(MAX_Y / 2)-1]=0;
+        }
+        if(card.getFrontVisibleAngle(0)!=null){
+            CheckBoard[(MAX_X / 2)+1][(MAX_Y / 2)+1]=0;
+        }
+        if(card.getFrontVisibleAngle(1)!=null){
+            CheckBoard[(MAX_X / 2)+1][(MAX_Y / 2)-1]=0;
+        }
+        if(card.getFrontVisibleAngle(2)!=null){
+            CheckBoard[(MAX_X / 2)-1][(MAX_Y / 2)+1]=0;
+        }
+        }
+        else {if(card.getBackVisibleAngle(3)!=null){
+            CheckBoard[(MAX_X / 2)-1][(MAX_Y / 2)-1]=0;
+        }
+            if(card.getBackVisibleAngle(0)!=null){
+                CheckBoard[(MAX_X / 2)+1][(MAX_Y / 2)+1]=0;
+            }
+            if(card.getBackVisibleAngle(1)!=null){
+                CheckBoard[(MAX_X / 2)+1][(MAX_Y / 2)-1]=0;
+            }
+            if(card.getBackVisibleAngle(2)!=null){
+                CheckBoard[(MAX_X / 2)-1][(MAX_Y / 2)+1]=0;
+            }
+        }
+        }
+
 
     //get max x dimension of the matrix
     public int getMAX_X() {
@@ -53,15 +95,17 @@ public class GameBoard {
 
     //l'utente selezionerà a schermo le coordinate dove piazzare la carta che vuole giocare, a questo punto
     //possiamo o rendere empty l'angolo sottostante o linkarlo alla carta sopra
-    /*
+
+/*
     public void checkRightPlacement(Card placingCard, int x, int y){
 
-        Card upperLeft = cardMatrix[x-1][y-1];
-        String topLeft = upperLeft.get("TopLeft").getAsString();
         if (CheckBoard[x][y]==0){
-            if (CheckBoard[x-1][y-1]==1 && cardMatrix[x-1][y-1]!=null && upperLeft. )
+            if (CheckBoard[x-1][y-1]==1 && cardMatrix[x-1][y-1]!=null && placingCard.getFrontVisibleAngle(0)!=null ){
+
+
+            }
         }
-            SERVE CAPIRE COME LEGGERE NON ASSENZA DI CORNER DELLA CARTA SELEZIONATA DAL FILE JSON
+
     }
-    */
+*/
 }

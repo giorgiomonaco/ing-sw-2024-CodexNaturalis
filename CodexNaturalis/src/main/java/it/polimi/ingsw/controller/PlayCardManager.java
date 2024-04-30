@@ -70,11 +70,11 @@ public class PlayCardManager {
                     if(playerBoard.getCardMatrix()[i][j].isFrontSide()) {
                         //check the angles of the card
                         for (int a = 0; a < 4; a++) {
-                            //We want to check if the angle is visible:
+                            //We want to check if the VisibleAngle is visible:
                             //first check if instance of visibleAngle
                             //then check the attribute notCovered
 
-                            //Check if is a visible angle
+                            //Check if is a visible VisibleAngle
                             if (playerBoard.getCardMatrix()[i][j].getFrontAngles()[a] instanceof VisibleAngle) {
                                 //if so, we check if it is covered or not by another card
                                 if (((VisibleAngle) playerBoard.getCardMatrix()[i][j].getFrontAngles()[a]).isNotCovered()) {
@@ -101,11 +101,11 @@ public class PlayCardManager {
                     } else {
                         //Same ut with back angles
                         for (int a = 0; a < 4; a++) {
-                            //We want to check if the angle is visible:
+                            //We want to check if the VisibleAngle is visible:
                             //first check if instance of visibleAngle
                             //then check the attribute notCovered
 
-                            //Check if is a visible angle
+                            //Check if is a visible VisibleAngle
                             if (playerBoard.getCardMatrix()[i][j].getBackAngles()[a] instanceof VisibleAngle) {
                                 //if so, we check if it is covered or not by another card
                                 if (((VisibleAngle) playerBoard.getCardMatrix()[i][j].getBackAngles()[a]).isNotCovered()) {
