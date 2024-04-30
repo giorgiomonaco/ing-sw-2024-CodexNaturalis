@@ -75,9 +75,9 @@ public class PlayCardManager {
                             //then check the attribute notCovered
 
                             //Check if is a visible VisibleAngle
-                            if (playerBoard.getCardMatrix()[i][j].getFrontAngles()[a] instanceof Angle) {
+                            if (playerBoard.getCardMatrix()[i][j].getFrontAngles()[a] instanceof VisibleAngle) {
                                 //if so, we check if it is covered or not by another card
-                                if (((Angle) playerBoard.getCardMatrix()[i][j].getFrontAngles()[a]).isNotCovered()) {
+                                if (((VisibleAngle) playerBoard.getCardMatrix()[i][j].getFrontAngles()[a]).isNotCovered()) {
 
                                     //we create the temporary x and y representing the free box
                                     //given by the corner and then adding or subtracting from the card box the right amount
@@ -106,9 +106,9 @@ public class PlayCardManager {
                             //then check the attribute notCovered
 
                             //Check if is a visible VisibleAngle
-                            if (playerBoard.getCardMatrix()[i][j].getBackAngles()[a] instanceof Angle) {
+                            if (playerBoard.getCardMatrix()[i][j].getBackAngles()[a] instanceof VisibleAngle) {
                                 //if so, we check if it is covered or not by another card
-                                if (((Angle) playerBoard.getCardMatrix()[i][j].getBackAngles()[a]).isNotCovered()) {
+                                if (((VisibleAngle) playerBoard.getCardMatrix()[i][j].getBackAngles()[a]).isNotCovered()) {
                                     //if it is not covered we can take this in consideration as indicator
                                     //of an empty box that may be used to play our card
                                     System.out.println("Utilizable box! is box " + i + ";" + j);
