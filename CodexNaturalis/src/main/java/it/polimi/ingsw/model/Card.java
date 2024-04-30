@@ -61,13 +61,21 @@ public abstract class Card {
         return backSymbol;
     }
 
-    public TIFFField get(String topLeft) {
-        return null;
-    }
 
-    public VisibleAngle getVisibleAngleFront(int position){
+
+    public VisibleAngle getFrontVisibleAngle(int position){
         if (frontAngles[position] != null){
             return frontAngles[position];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public VisibleAngle getBackVisibleAngle(int position){
+        if (backAngles[position] != null){
+            return backAngles[position];
         }
         else
         {
