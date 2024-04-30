@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+//secondo me rimovibile
 
 public class VisibleAngle extends Angle{
     //every visible angle has a symbol in it,

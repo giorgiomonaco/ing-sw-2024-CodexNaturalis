@@ -1,0 +1,323 @@
+[
+  {
+	"topLeft": "scroll",
+	"topRight": "null",
+	"bottomLeft": "leaf",
+	"bottomRight": "fox",
+	"points": "0",
+	"type": "green"
+  },
+  {
+	"topLeft": "mushroom",
+	"topRight": "mushroom",
+	"bottomLeft": "null",
+	"bottomRight": "empty",
+	"points": "0",
+	"type": "orange"
+
+  },
+  {
+	"topLeft": "null",
+	"topRight": "butterfly",
+	"bottomLeft": "bottle",
+	"bottomRight": "fox",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "null",
+	"bottomLeft": "leaf",
+	"bottomRight": "leaf",
+	"points": "0",
+	"type": "green"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "empty",
+	"bottomLeft": "fox",
+	"bottomRight": "fox",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "mushroom",
+	"topRight": "leaf",
+	"bottomLeft": "null",
+	"bottomRight": "bottle",
+	"points": "0",
+	"type": "green"
+  },
+  {
+	"topLeft": "leaf",
+	"topRight": "fox",
+	"bottomLeft": "null",
+	"bottomRight": "scroll",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "fox",
+	"bottomLeft": "null",
+	"bottomRight": "fox",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "null",
+	"bottomLeft": "mushroom",
+	"bottomRight": "mushroom",
+	"points": "0",
+	"type": "orange"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "fox",
+	"bottomLeft": "empty",
+	"bottomRight": "null",
+	"points": "1",
+	"type": "blue"
+  },
+  {
+	"topLeft": "mushroom",
+	"topRight": "butterfly",
+	"bottomLeft": "scroll",
+	"bottomRight": "null",
+	"points": "0",
+	"type": "orange"
+  },
+  {
+	"topLeft": "butterfly",
+	"topRight": "leaf",
+	"bottomLeft": "bottle",
+	"bottomRight": "null",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "mushroom",
+	"topRight": "null",
+	"bottomLeft": "empty",
+	"bottomRight": "empty",
+	"points": "1",
+	"type": "orange"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "empty",
+	"bottomLeft": "fox",
+	"bottomRight": "empty",
+	"points": "1",
+	"type": "blue"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "butterfly",
+	"bottomLeft": "empty",
+	"bottomRight": "empty",
+	"points": "1",
+	"type": "purple"
+  },
+  {
+	"topLeft": "mushroom",
+	"topRight": "empty",
+	"bottomLeft": "mushroom",
+	"bottomRight": "null",
+	"points": "0",
+	"type": "orange"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "empty",
+	"bottomLeft": "mushroom",
+	"bottomRight": "empty",
+	"points": "1",
+	"type": "orange"
+  },
+  {
+	"topLeft": "leaf",
+	"topRight": "empty",
+	"bottomLeft": "leaf",
+	"bottomRight": "null",
+	"points": "0",
+	"type": "green"
+  },
+  {
+	"topLeft": "feather",
+	"topRight": "null",
+	"bottomLeft": "fox",
+	"bottomRight": "empty",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "fox",
+	"topRight": "null",
+	"bottomLeft": "fox",
+	"bottomRight": "empty",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "empty",
+	"bottomLeft": "null",
+	"bottomRight": "leaf",
+	"points": "1",
+	"type": "green"
+  },
+  {
+	"topLeft": "scroll",
+	"topRight": "butterfly",
+	"bottomLeft": "null",
+	"bottomRight": "mushroom",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "feather",
+	"bottomLeft": "fox",
+	"bottomRight": "butterfly",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "leaf",
+	"bottomLeft": "empty",
+	"bottomRight": "leaf",
+	"points": "0",
+	"type": "green"
+  },
+  {
+	"topLeft": "bottle",
+	"topRight": "mushroom",
+	"bottomLeft": "null",
+	"bottomRight": "fox",
+	"points": "0",
+	"type": "orange"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "mushroom",
+	"bottomLeft": "empty",
+	"bottomRight": "mushroom",
+	"points": "0",
+	"type": "orange"
+  },
+  {
+	"topLeft": "leaf",
+	"topRight": "leaf",
+	"bottomLeft": "null",
+	"bottomRight": "empty",
+	"points": "0",
+	"type": "green"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "butterfly",
+	"bottomLeft": "null",
+	"bottomRight": "butterfly",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "mushroom",
+	"bottomLeft": "empty",
+	"bottomRight": "null",
+	"points": "1",
+	"type": "orange"
+  },
+  {
+	"topLeft": "fox",
+	"topRight": "fox",
+	"bottomLeft": "empty",
+	"bottomRight": "null",
+	"points": "0",
+	"type": "blue"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "feather",
+	"bottomLeft": "leaf",
+	"bottomRight": "mushroom",
+	"points": "0",
+	"type": "orange"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "empty",
+	"bottomLeft": "butterfly",
+	"bottomRight": "butterfly",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "null",
+	"bottomLeft": "empty",
+	"bottomRight": "fox",
+	"points": "1",
+	"type": "blue"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "empty",
+	"bottomLeft": "null",
+	"bottomRight": "butterfly",
+	"points": "1",
+	"type": "purple"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "leaf",
+	"bottomLeft": "empty",
+	"bottomRight": "empty",
+	"points": "1",
+	"type": "green"
+  },
+  {
+	"topLeft": "butterfly",
+	"topRight": "null",
+	"bottomLeft": "empty",
+	"bottomRight": "empty",
+	"points": "1",
+	"type": "purple"
+  },
+  {
+	"topLeft": "butterfly",
+	"topRight": "null",
+	"bottomLeft": "butterfly",
+	"bottomRight": "empty",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "butterfly",
+	"topRight": "butterfly",
+	"bottomLeft": "empty",
+	"bottomRight": "null",
+	"points": "0",
+	"type": "purple"
+  },
+  {
+	"topLeft": "empty",
+	"topRight": "empty",
+	"bottomLeft": "leaf",
+	"bottomRight": "null",
+	"points": "1",
+	"type": "green"
+  },
+  {
+	"topLeft": "null",
+	"topRight": "butterfly",
+	"bottomLeft": "feather",
+	"bottomRight": "leaf",
+	"points": "0",
+	"type": "green"
+  }
+]

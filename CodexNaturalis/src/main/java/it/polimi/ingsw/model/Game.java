@@ -132,7 +132,7 @@ public class Game {
         this.commonBoard = commonBoard;
     }
 
-    //get f the common board
+    //get the common board
     public CommonBoard getCommonBoard(){
         return commonBoard;
     }
@@ -145,6 +145,10 @@ public class Game {
     //getter of current player
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public Player getNextPlayer(){int index = playerList.indexOf(getCurrentPlayer());
+    return playerList.get(index+1);
     }
 
     //Getter of the current game state
