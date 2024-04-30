@@ -41,17 +41,18 @@
     &quot;assignee&quot;: &quot;tommasonerii&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce.git",
-    "accountId": "b201f078-dce0-427e-9c07-e5320827e13b"
-  }
-}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="3fc22867-090e-48e3-b892-d67b2ee8d989" />
+        <option name="url" value="https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="downloadSourcesAutomatically" value="true" />
-        <option name="workspaceImportForciblyTurnedOn" value="true" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -62,7 +63,7 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2dahCwWW8E39pIZMQ0JQU8Rvshk" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -120,8 +121,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="jdk-22-openjdk-22-f644763e9732-8c5c9ae5" />
       </set>
     </attachedChunks>
   </component>
@@ -137,7 +137,6 @@
       <workItem from="1712137957213" duration="263000" />
       <workItem from="1712138291064" duration="5412000" />
       <workItem from="1713883133862" duration="4213000" />
-      <workItem from="1714471734027" duration="833000" />
     </task>
     <task id="LOCAL-00001" summary="prova">
       <option name="closed" value="true" />
