@@ -10,7 +10,7 @@ public class GameBoard {
     private final int MAX_X = 100;
     private final int MAX_Y = 100;
     private final Card[][] cardMatrix = new Card[MAX_X][MAX_Y];
-    private int[][] CheckBoard =new int [MAX_X][MAX_Y];
+    private int[][] CheckBoard = new int [MAX_X][MAX_Y];
 
     //resetter of checkBoard
     public int[][] cleanCheckBoard(int[][] currentCheckBoard){
