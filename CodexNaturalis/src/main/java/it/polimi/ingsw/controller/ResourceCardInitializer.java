@@ -43,7 +43,7 @@ public class ResourceCardInitializer {
                 String type = jsonObject.getString("type");
 
                 // Creating the card
-                VisibleAngle[] resCardFrontAngles =  new VisibleAngle[4];
+                Angle[] resCardFrontAngles =  new Angle[4];
 
                 String[] corners = {topLeft, topRight, bottomLeft, bottomRight};
                 int i = 0;
@@ -53,28 +53,28 @@ public class ResourceCardInitializer {
                 for (String corner : corners) {
                     switch (corner) {
                         case "mushroom":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(0));
+                            resCardFrontAngles[i] = new Angle(symbols.get(0));
                             break;
                         case "leaf":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(1));
+                            resCardFrontAngles[i] = new Angle(symbols.get(1));
                             break;
                         case "fox":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(2));
+                            resCardFrontAngles[i] = new Angle(symbols.get(2));
                             break;
                         case "butterfly":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(3));
+                            resCardFrontAngles[i] = new Angle(symbols.get(3));
                             break;
                         case "feather":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(4));
+                            resCardFrontAngles[i] = new Angle(symbols.get(4));
                             break;
                         case "bottle":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(5));
+                            resCardFrontAngles[i] = new Angle(symbols.get(5));
                             break;
                         case "scroll":
-                            resCardFrontAngles[i] = new VisibleAngle(symbols.get(6));
+                            resCardFrontAngles[i] = new Angle(symbols.get(6));
                             break;
                         case "empty":
-                            resCardFrontAngles[i] = new VisibleAngle(null);
+                            resCardFrontAngles[i] = new Angle(null);
                             break;
                         case "null":
                             resCardFrontAngles[i] = null;
@@ -85,11 +85,11 @@ public class ResourceCardInitializer {
                     i++;
                 }
                 // Creating backside angles
-                VisibleAngle[] resCardBackAngles = new VisibleAngle[4];
-                resCardBackAngles[0] = new VisibleAngle(null);
-                resCardBackAngles[1] = new VisibleAngle(null);
-                resCardBackAngles[2] = new VisibleAngle(null);
-                resCardBackAngles[3] = new VisibleAngle(null);
+                Angle[] resCardBackAngles = new Angle[4];
+                resCardBackAngles[0] = new Angle(null);
+                resCardBackAngles[1] = new Angle(null);
+                resCardBackAngles[2] = new Angle(null);
+                resCardBackAngles[3] = new Angle(null);
 
                 // Getting the points of the card
 

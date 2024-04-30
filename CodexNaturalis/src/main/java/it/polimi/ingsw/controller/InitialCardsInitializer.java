@@ -34,36 +34,36 @@ public class InitialCardsInitializer {
         //there are like 80 cards
 
         //crete the list of the corresponding angles to the first initial card:
-        VisibleAngle[] firstInitialFrontCardAngles =  new VisibleAngle[4];
-        firstInitialFrontCardAngles[0] = new VisibleAngle(symbolList.get(0));
-        firstInitialFrontCardAngles[1] = new VisibleAngle(symbolList.get(1));
-        firstInitialFrontCardAngles[2] = new VisibleAngle(symbolList.get(2));
-        firstInitialFrontCardAngles[3] = new VisibleAngle(symbolList.get(3));
+        Angle[] firstInitialFrontCardAngles =  new Angle[4];
+        firstInitialFrontCardAngles[0] = new Angle(symbolList.get(0));
+        firstInitialFrontCardAngles[1] = new Angle(symbolList.get(1));
+        firstInitialFrontCardAngles[2] = new Angle(symbolList.get(2));
+        firstInitialFrontCardAngles[3] = new Angle(symbolList.get(3));
         //create the list of the corresponding back angles of first card: (they are all null)
-        VisibleAngle[] firstInitialBackCardAngles = new VisibleAngle[4];
+        Angle[] firstInitialBackCardAngles = new Angle[4];
 
         //create the card using the angles and a symbol for the back
         InitialCard c1 = new InitialCard("A",firstInitialFrontCardAngles,firstInitialBackCardAngles,symbolList.get(0));
 
         //crete the list of the corresponding angles to the second initial card:
-        VisibleAngle[] secondInitialFrontCardAngles =  new VisibleAngle[4];
-        secondInitialFrontCardAngles[0] = new VisibleAngle(symbolList.get(3));
-        secondInitialFrontCardAngles[1] = new VisibleAngle(symbolList.get(0));
-        secondInitialFrontCardAngles[2] = new VisibleAngle(symbolList.get(2));
-        secondInitialFrontCardAngles[3] = new VisibleAngle(symbolList.get(1));
+        Angle[] secondInitialFrontCardAngles =  new Angle[4];
+        secondInitialFrontCardAngles[0] = new Angle(symbolList.get(3));
+        secondInitialFrontCardAngles[1] = new Angle(symbolList.get(0));
+        secondInitialFrontCardAngles[2] = new Angle(symbolList.get(2));
+        secondInitialFrontCardAngles[3] = new Angle(symbolList.get(1));
         //create the list of the corresponding back angles of first card: (all null)
-        VisibleAngle[] secondInitialBackCardAngles = new VisibleAngle[4];
+        Angle[] secondInitialBackCardAngles = new Angle[4];
 
         InitialCard c2 = new InitialCard("B", secondInitialFrontCardAngles, secondInitialBackCardAngles, symbolList.get(1));
 
         //create the list of angles corresponding to the front of the third card
-        VisibleAngle[] thirdInitialFrontCardAngles = new VisibleAngle[4];
-        thirdInitialFrontCardAngles[0] = new VisibleAngle(symbolList.get(1));
-        thirdInitialFrontCardAngles[1] = new VisibleAngle(symbolList.get(3));
-        thirdInitialFrontCardAngles[2] = new VisibleAngle(symbolList.get(2));
-        thirdInitialFrontCardAngles[3] = new VisibleAngle(symbolList.get(0));
+        Angle[] thirdInitialFrontCardAngles = new Angle[4];
+        thirdInitialFrontCardAngles[0] = new Angle(symbolList.get(1));
+        thirdInitialFrontCardAngles[1] = new Angle(symbolList.get(3));
+        thirdInitialFrontCardAngles[2] = new Angle(symbolList.get(2));
+        thirdInitialFrontCardAngles[3] = new Angle(symbolList.get(0));
         //create the list of all the back angles of the third card
-        VisibleAngle[] thirdInitialBackCardAngles = new VisibleAngle[4];
+        Angle[] thirdInitialBackCardAngles = new Angle[4];
 
         InitialCard c3 = new InitialCard("C", thirdInitialFrontCardAngles, thirdInitialBackCardAngles, symbolList.get(2));
 

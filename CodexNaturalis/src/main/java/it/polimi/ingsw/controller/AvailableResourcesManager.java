@@ -3,7 +3,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameBoard;
-import it.polimi.ingsw.model.VisibleAngle;
+import it.polimi.ingsw.model.Angle;
 
 public class AvailableResourcesManager {
     //Object of this class has to take the count of the amount
@@ -45,12 +45,12 @@ public class AvailableResourcesManager {
                         //we check if they are covered
                         for (int a = 0; a < 4; a++){
                             //check class
-                            if(currentBoard.getCardMatrix()[i][j].getFrontAngles()[a] instanceof VisibleAngle){
+                            if(currentBoard.getCardMatrix()[i][j].getFrontAngles()[a] instanceof Angle){
                                 //Check coverage and presence of a symbol
-                                if(((VisibleAngle) currentBoard.getCardMatrix()[i][j].getFrontAngles()[a]).isNotCovered() &&
-                                        (((VisibleAngle) currentBoard.getCardMatrix()[i][j].getFrontAngles()[a]).getSymbol() != null)){
+                                if(((Angle) currentBoard.getCardMatrix()[i][j].getFrontAngles()[a]).isNotCovered() &&
+                                        (((Angle) currentBoard.getCardMatrix()[i][j].getFrontAngles()[a]).getSymbol() != null)){
                                     //get the symbol inside it
-                                    String symbolType = ((VisibleAngle) currentBoard.getCardMatrix()[i][j].getFrontAngles()[a]).getSymbol().getSymbolName();
+                                    String symbolType = ((Angle) currentBoard.getCardMatrix()[i][j].getFrontAngles()[a]).getSymbol().getSymbolName();
                                     //call the adder
                                     symbolAdder(symbolType);
 

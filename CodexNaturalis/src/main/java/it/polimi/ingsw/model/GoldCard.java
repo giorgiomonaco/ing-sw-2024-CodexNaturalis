@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GoldCard extends Card {
 
     //name of the card if it has one
@@ -16,7 +13,7 @@ public class GoldCard extends Card {
     private final int[] neededSymbols;
 
     //Constructor
-    public GoldCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol, int condition,
+    public GoldCard(int name, Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol, int condition,
                     int cardPoints, int[] neededSymbols){
         super(frontAngles, backAngles, backSymbol);
         //we assign the name of the card

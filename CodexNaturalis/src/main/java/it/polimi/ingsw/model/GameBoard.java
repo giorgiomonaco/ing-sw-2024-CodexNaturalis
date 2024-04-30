@@ -4,7 +4,7 @@ package it.polimi.ingsw.model;
 public class GameBoard {
 
     //Grid representing the game board
-    //It may be a matrix of cards
+    //Implementing a grid of card were those can be placed and a grid of integer for easier checks
 
     //dimensions of the matrix
     private final int MAX_X = 100;
@@ -17,7 +17,7 @@ public class GameBoard {
         currentCheckBoard = this.CheckBoard;
         for(int i=0;i<MAX_X;i++){
             for(int j=0;j<MAX_Y;j++){
-                currentCheckBoard[i][j] = 0;
+                currentCheckBoard[i][j] = -1;
             }
         }
         return currentCheckBoard;
@@ -28,6 +28,7 @@ public class GameBoard {
        // checkRightPlacement(card, x, y);
         cardMatrix[x][y] = card;
         CheckBoard[x][y] = 1;
+        
     }
 
     //insertion of the initial card in the middle of the board
