@@ -12,11 +12,11 @@ public abstract class Card {
     //1 = bottom right
     //2 = bottom left
     //3 = top left
-    private final VisibleAngle[] frontAngles = new VisibleAngle[4];
+    private final Angle[] frontAngles = new Angle[4];
 
     //array representing the 4 angles of the back of the card
     //same enumeration
-    private final VisibleAngle[] backAngles = new VisibleAngle[4];
+    private final Angle[] backAngles = new Angle[4];
 
     //central symbol on the back of the card
     private final Symbol backSymbol;
@@ -28,7 +28,7 @@ public abstract class Card {
     private boolean frontSide;
 
     //Constructor
-    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
+    public Card(Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol){
         for (int i = 0; i < 4; i++ ){
             this.frontAngles[i] = frontAngles[i];
             this.backAngles[i] = backAngles[i];
@@ -37,12 +37,12 @@ public abstract class Card {
     }
 
     //get of the front angles
-    public VisibleAngle[] getFrontAngles() {
+    public Angle[] getFrontAngles() {
         return frontAngles;
     }
 
     //get of the back angles
-    public VisibleAngle[] getBackAngles() {
+    public Angle[] getBackAngles() {
         return backAngles;
     }
 
@@ -61,7 +61,5 @@ public abstract class Card {
         return backSymbol;
     }
 
-    public TIFFField get(String topLeft) {
-        return null;
-    }
+
 }
