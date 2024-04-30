@@ -26,12 +26,12 @@ public class Server {
         try {
             server.start();
         } catch (Exception e) {
-            System.err.println("Unable to start the server.");
+            System.err.println("Error on starting the server.");
         }
     }
 
     private void start() {
-        tcpServer.start();
         rmiServer.start();
+        tcpServer.start();
     }
 }
