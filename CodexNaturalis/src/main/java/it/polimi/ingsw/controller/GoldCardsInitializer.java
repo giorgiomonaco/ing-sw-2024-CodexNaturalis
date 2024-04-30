@@ -50,7 +50,7 @@ public class GoldCardsInitializer {
                 String type = jsonObject.getString("type");
 
                 // Creating the card front angles
-                Angle[] goldCardFrontAngles =  new Angle[4];
+                VisibleAngle[] goldCardFrontAngles =  new VisibleAngle[4];
                 String[] corners = {topLeft, topRight, bottomLeft, bottomRight};
                 int i = 0;
                 // Automation of card angles creation
@@ -58,28 +58,28 @@ public class GoldCardsInitializer {
                 for (String corner : corners) {
                     switch (corner) {
                         case "mushroom":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(0));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(0));
                             break;
                         case "leaf":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(1));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(1));
                             break;
                         case "fox":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(2));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(2));
                             break;
                         case "butterfly":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(3));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(3));
                             break;
                         case "feather":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(4));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(4));
                             break;
                         case "bottle":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(5));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(5));
                             break;
                         case "scroll":
-                            goldCardFrontAngles[i] = new Angle(symbols.get(6));
+                            goldCardFrontAngles[i] = new VisibleAngle(symbols.get(6));
                             break;
                         case "empty":
-                            goldCardFrontAngles[i] = new Angle(null);
+                            goldCardFrontAngles[i] = new VisibleAngle(null);
                             break;
                         case "null":
                             goldCardFrontAngles[i] = null;
@@ -91,11 +91,11 @@ public class GoldCardsInitializer {
                 }
 
                 // Creating backside angles
-                Angle[] goldCardBackAngles = new Angle[4];
-                goldCardBackAngles[0] = new Angle(null);
-                goldCardBackAngles[1] = new Angle(null);
-                goldCardBackAngles[2] = new Angle(null);
-                goldCardBackAngles[3] = new Angle(null);
+                VisibleAngle[] goldCardBackAngles = new VisibleAngle[4];
+                goldCardBackAngles[0] = new VisibleAngle(null);
+                goldCardBackAngles[1] = new VisibleAngle(null);
+                goldCardBackAngles[2] = new VisibleAngle(null);
+                goldCardBackAngles[3] = new VisibleAngle(null);
 
                 // Getting the points of the card
                 int pointsInt = Integer.parseInt(points);

@@ -17,6 +17,10 @@ public class CommonBoard {
     //Common discovered objective cards
     private final List<ObjectiveCard> commonObjectiveDiscoveredCards = new ArrayList<>();
 
+    //private final List<ResourceCard> resourceDeck;
+
+    //private final List<GoldCard> goldDeck;
+
     //The point tracker for the game
     private PointTracker pointTracker;
 
@@ -28,7 +32,7 @@ public class CommonBoard {
 
 
     //get the list of the resource discovered cards
-    public List<ResourceCard> getDiscoveredSourceCards() {
+    public List<ResourceCard> getDiscoveredResourceCards() {
         return discoveredResourceCards;
     }
 
