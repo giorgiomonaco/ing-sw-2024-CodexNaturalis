@@ -40,6 +40,35 @@ public class ViewTry {
         System.out.println(player + ": " + token);
     }
 
+    //Token choice
+    public String askForTokenSelection(List<String> availableTokens ) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("which token color  do you want? These are the available ones:");
+        for (String s : availableTokens) {
+            System.out.println(s);
+        }
+        Boolean choiceMade = false;
+        String choice;
+        do {
+            choice = scan.nextLine();
+            for (String s : availableTokens) {
+                if (choice.equals(s)) {
+                    choiceMade = true;
+                   break;
+                }
+            }
+            //ask to insert a acceptable answer
+            askAgainColor();
+        } while (!choiceMade);
+
+        return choice;
+    }
+
+    //ask again for color selection
+    public void askAgainColor(){
+        System.out.println("invalid selction, please retry");
+    }
+
 //-------------------------------- Choice on initial card  --------------------------------
     public String playerObjectiveCardChoice(String player, List<String> startingCards){
         System.out.println("This is your starting cards: ");

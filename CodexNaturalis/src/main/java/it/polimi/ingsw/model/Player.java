@@ -102,6 +102,7 @@ public class Player {
     //Method to assign the token to the player
     public void setPlayerToken(Token token){
         this.playerToken = token;
+        //notify the view
     }
 
     //Method to get the color of the player token

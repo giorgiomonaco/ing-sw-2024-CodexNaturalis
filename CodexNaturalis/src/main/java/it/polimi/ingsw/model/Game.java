@@ -161,6 +161,11 @@ public class Game {
         gameState.setGameState(gameState.getGameState() + 1);
     }
 
+    //Setter of the game state
+    public void setGameState(int state){
+        gameState.setGameState(state);
+    }
+
     //We had an error, so we want to close everything "stacca stacca"
     public void forcedGameExit(){
         gameState.setGameState(5);

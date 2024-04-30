@@ -24,7 +24,8 @@ public class GameSetUpper {
         //First thing it does is make the game advance to "initializing state"
         //since game starts in sleep by default = +1 is initialization
         //may be checkable by an if (getState == 0) ...
-        game.advanceGameState();
+        //gameState = 1 -> initializing of the game
+        game.setGameState(1);
 
         //creation of player manager
         PlayerManager playerManager = new PlayerManager(game, view);

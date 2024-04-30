@@ -35,8 +35,15 @@ public class TokenManager {
         view.startInformingOfTokens();
         //for each player in the players game list
         for (Player p : game.getPlayerList()) {
-            //we call assign token to give each a different token until available
-            assignToken(p);
+            if(p == game.getCurrentPlayer()){
+                //first player get the black token
+                p.setPlayerToken(tokens.get(0));
+                //we remove then the tokens from the list
+                tokens.remove(0);
+            } else {
+                //we ask the player which color he wants
+                String choice = view.askForTokenSelection();
+            }
         }
     }
 
