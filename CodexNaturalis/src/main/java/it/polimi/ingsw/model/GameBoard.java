@@ -36,7 +36,7 @@ public class GameBoard {
         if(CheckBoard[x][y]==0){
             if(card.isFrontSide()){
                 if(true){
-                    //se ha angolo è piazzabile
+                    //se ha angolo è piazzabile a
             }
             }
 
