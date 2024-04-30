@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 
-import it.polimi.ingsw.model.Angle;
+import it.polimi.ingsw.model.VisibleAngle;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ObjectiveCard;
 import it.polimi.ingsw.model.Symbol;
