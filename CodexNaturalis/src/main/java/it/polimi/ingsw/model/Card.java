@@ -61,6 +61,4 @@ public abstract class Card {
         return backSymbol;
     }
 
-    public TIFFField get(String topLeft) {
-    }
 }
