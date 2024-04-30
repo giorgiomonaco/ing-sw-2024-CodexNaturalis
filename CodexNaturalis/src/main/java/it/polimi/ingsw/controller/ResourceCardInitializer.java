@@ -28,7 +28,7 @@ public class ResourceCardInitializer {
 
     // Initialize cards, creation and call to adder to deck
     public void initializeResourceCards() {
-        try (Reader reader = new FileReader("/Users/giorgiomonaco/Desktop/ProgIngSw/CodexNaturalis/deliverables/resCards.json");
+        try (Reader reader = new FileReader("C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce/CodexNaturalis/src/main/resources/resCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
