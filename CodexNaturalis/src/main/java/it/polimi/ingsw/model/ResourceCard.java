@@ -9,7 +9,7 @@ public class ResourceCard extends Card{
     private final int cardPoints;
 
     //Constructor
-    public ResourceCard(int number, int points, Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol){
+    public ResourceCard(int number, int points, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
         super(frontAngles, backAngles, backSymbol);
         this.cardNumber = number;
         this.cardPoints = points;

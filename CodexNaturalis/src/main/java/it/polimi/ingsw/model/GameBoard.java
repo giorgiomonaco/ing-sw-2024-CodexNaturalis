@@ -96,7 +96,7 @@ public class GameBoard {
     //l'utente selezionerà a schermo le coordinate dove piazzare la carta che vuole giocare, a questo punto
     //possiamo o rendere empty l'angolo sottostante o linkarlo alla carta sopra
 
-
+/*
     public void checkRightPlacement(Card placingCard, int x, int y){
 
         if (CheckBoard[x][y]==0){
@@ -107,5 +107,5 @@ public class GameBoard {
         }
 
     }
-
+*/
 }

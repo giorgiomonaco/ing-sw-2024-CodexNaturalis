@@ -6,7 +6,7 @@ public class InitialCard extends Card{
     private final String cardName;
 
     //Constructor
-    public InitialCard(String name, Angle[] frontAngles, Angle[] backAngles, Symbol backSymbol){
+    public InitialCard(String name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
         super(frontAngles,backAngles,backSymbol);
         this.cardName = name;
     }
