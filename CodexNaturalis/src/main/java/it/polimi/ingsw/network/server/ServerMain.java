@@ -1,17 +1,15 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.network.client.Client;
-
 import java.rmi.RemoteException;
 
 /**
  * Main class of the server, it starts both the RMI server and the socket server.
  */
-public class Server {
+public class ServerMain {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
 
-    public Server() {
+    public ServerMain() {
         try {
             this.rmiServer = new ServerRMI();
             this.tcpServer = new ServerTCP();
@@ -21,7 +19,7 @@ public class Server {
     }
     public static void main(String[] args) {
 
-        Server server = new Server();
+        ServerMain server = new ServerMain();
 
         try {
             server.start();

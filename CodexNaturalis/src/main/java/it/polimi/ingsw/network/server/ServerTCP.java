@@ -28,7 +28,7 @@ public class ServerTCP {
         try {
             serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
-            System.err.println("The port " + PORT + " is not available for the TCP Server.");
+            System.err.println("The port " + PORT + " is not available for the TCP server.");
             return;
         }
         System.out.println("TCP server is ready on port: " + PORT);

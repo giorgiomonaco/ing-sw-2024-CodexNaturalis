@@ -16,7 +16,7 @@ public class ClientRMI {
             RMIServerInterface stub = (RMIServerInterface) registry.lookup("RMIServerInterface");
             stub.login("Gio");
         } catch (RemoteException | NotBoundException e) {
-            System.err.println("Client exception: " + e.toString());
+            System.err.println("ClientMain exception: " + e.toString());
         }
     }
 }
