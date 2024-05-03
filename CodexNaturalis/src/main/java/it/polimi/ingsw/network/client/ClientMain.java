@@ -10,6 +10,10 @@ public class ClientMain {
         String selString;
         int selection = 0;
         ViewMode selectedView;
+        ClientManager cliManager = null;
+        String serverIP;
+        int serverPort;
+        String registry;
 
         System.out.println("Hello! Please, choose one of the current options to start the game:");
         System.out.println("Press [1] for GUI");
@@ -46,5 +50,7 @@ public class ClientMain {
         if(selection == 1) System.out.println("You selected RMI.");
         else System.out.println("You selected TCP.");
 
+        selection == 1 ? cliManager = new ClientManager(selectedView, registry, serverIP, serverPort) :
+                cliManager = new ClientManager(selectedView, serverIP, serverPort);
     }
 }

@@ -8,11 +8,14 @@ import java.rmi.RemoteException;
 public class ServerMain {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
+    private ServerHandler handler;
+    private ServerConfigurationBase configurationBase;
 
     public ServerMain() {
         try {
             this.rmiServer = new ServerRMI();
             this.tcpServer = new ServerTCP();
+            this.configurationBase = new ServerConfigurationBase();
         } catch (RemoteException e) {
             System.err.println("Unable to create a new server, maybe one is already running.");
         }
@@ -29,6 +32,8 @@ public class ServerMain {
     }
 
     private void start() {
+        handler = new ServerHandler(configurationBase);
+        handler.init();
         rmiServer.start();
         tcpServer.start();
     }
