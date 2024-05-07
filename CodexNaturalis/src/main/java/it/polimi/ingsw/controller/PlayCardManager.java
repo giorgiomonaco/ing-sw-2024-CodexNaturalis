@@ -2,7 +2,11 @@ package it.polimi.ingsw.controller;
 
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.view.ViewTry;
+import it.polimi.ingsw.controller.GameBoardManager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PlayCardManager {
@@ -15,128 +19,209 @@ public class PlayCardManager {
     //we need the game we are referring to
     private final Game game;
 
+    private final ViewTry view;
+
+    private GameBoardManager boardManager;
+
+    private PointManager pointManager;
+
+    //variable to cycle on while checking if a card is actually playable or not
+    boolean playableCard = true;
+
     //we prepare the variables for the placement of the card
     //not elegant but works, may review this later
     private int placeX;
     private int placeY;
 
     //constructor
-    public PlayCardManager(Game game){
+    public PlayCardManager(Game game, ViewTry view){
         this.game = game;
+        this.view = view;
     }
 
-    //play a card
-    public void playCard(Card card){
-        //We start by taking in consideration the game board of the player playing
-        GameBoard playerBoard = game.getCurrentPlayer().getGameBoard();
+    /*
+    Method for preparing the play of a card
+    Asks the player which one he wants to play and then calls the method to play it
+     */
+    public void startPlayPhase(Player p){
+        /*
+        Structure of this:
+        do:
+            ask which card to play
+            if front or back
+            where to place it
+            if placing not possible
+         while: placing is not ok/ask at end if sure about it
+         */
 
-        if(card instanceof ResourceCard){
-            //Ask the player where he wants to put the card
-            getAvailableBoxes(playerBoard);
+        /*
+        We get the possible places to play it
+        How?
+        Cycle on the matrix and collect how many "1" (=available place)
+        Look at the lowest and highest x and y
+        So we print a matrix big just enough to see the places to place the cards.
+         */
+        boardManager = new GameBoardManager(game, view);
+        boardManager.displaceAvailableBoxes();
+        Card selectedCard = null;
 
-            //Ask if Player wants to play front or back of the card
-            System.out.println("Do you want to play the front or the back of the card?");
+        do {
+            selectedCard = askForCard(p);
+            sideChoice(selectedCard);
+            placeCard(selectedCard);
+        } while(!playableCard);
+         /*
+        We now have to:
+        . Assign points
+         */
+        pointManager  = new PointManager(game, view);
+        pointManager.givePoints(selectedCard);
 
-            //Create the scanner for response
-            Scanner scan = new Scanner(System.in);
-            String playerChoice = scan.nextLine();
-            String choice = scan.nextLine();
-            //set the side
-            card.setFrontSide(choice == "front");
-            //then we place the card
-            //calling the board method that does so
+    }
 
-            GameBoard one = new GameBoard();
-            getAvailableBoxes(one);
-            playerBoard.insertCard(card, placeX, placeY);
-
-        } else if (card instanceof GoldCard){
-            //here things get more difficult
+    /*
+    Method that plays a resource card
+     */
+    private Card askForCard(Player p) {
+        //We first collect the names of all the cards in hand (res and gold)
+        List<String> resCardinHand = new ArrayList<>();
+        for (ResourceCard card : p.getPlayerResourceCards()) {
+            resCardinHand.add(String.valueOf(card.getCardID()));
         }
-    }
+        //same with gold cards in hand
+        List<String> goldCardinHand = new ArrayList<>();
+        for (GoldCard card : p.getPlayerGoldCards()) {
+            goldCardinHand.add(String.valueOf(card.getCardID()));
+        }
+        /*
+        We collect the choice of the player
+        represented by 2 strings:
+        1. The type of card
+        2. which of the ones of that type he wants to play
+         */
+        String[] playedCard = view.getPlayedCard(resCardinHand, goldCardinHand);
 
-    //method that gets the boxes where Player can put the card
-    public void getAvailableBoxes(GameBoard playerBoard){
-        //cycles the game board of the player to find where the cards are currently played
-        //for each card it finds, checks if there are any visible corner
-        //if so => card playable there
-        for(int i = 0; i < playerBoard.getMAX_X(); i++){
-            for (int j = 0; j < playerBoard.getMAX_Y(); j++){
-                //if in that place there is a card
-                if(playerBoard.getCardMatrix()[i][j] != null){
+        /*
+        Now we want to pick exactly that card from the players hand,
+        so we check the type and the position,
+        then we pick that form the hand of player
+         */
 
-                    //we want to know if that card has been played front or back side
-                    //to know if check availability of which side of the card
-                    if(playerBoard.getCardMatrix()[i][j].isFrontSide()) {
-                        //check the angles of the card
-                        for (int a = 0; a < 4; a++) {
-                            //We want to check if the VisibleAngle is visible:
-                            //first check if instance of visibleAngle
-                            //then check the attribute notCovered
-
-                            //Check if is a visible VisibleAngle
-                            if (playerBoard.getCardMatrix()[i][j].getFrontAngles()[a] instanceof VisibleAngle) {
-                                //if so, we check if it is covered or not by another card
-                                if (((VisibleAngle) playerBoard.getCardMatrix()[i][j].getFrontAngles()[a]).isNotCovered()) {
-
-                                    //we create the temporary x and y representing the free box
-                                    //given by the corner and then adding or subtracting from the card box the right amount
-                                    //remember checking if out of the matrix!!
-
-                                    System.out.println("Utilizable box! is box " + i + ";" + j);
-                                    System.out.println("place here the card?");
-                                    Scanner scan = new Scanner(System.in);
-                                    String choice = scan.nextLine();
-                                    if (choice == "yes") {
-                                        //we set the place variables to place the card later
-                                        placeX = i;
-                                        placeY = j;
-                                        //we exit the cycle
-                                        break;
-                                    }
-                                }
-                            }
-
-                        }
-                    } else {
-                        //Same ut with back angles
-                        for (int a = 0; a < 4; a++) {
-                            //We want to check if the VisibleAngle is visible:
-                            //first check if instance of visibleAngle
-                            //then check the attribute notCovered
-
-                            //Check if is a visible VisibleAngle
-                            if (playerBoard.getCardMatrix()[i][j].getBackAngles()[a] instanceof VisibleAngle) {
-                                //if so, we check if it is covered or not by another card
-                                if (((VisibleAngle) playerBoard.getCardMatrix()[i][j].getBackAngles()[a]).isNotCovered()) {
-                                    //if it is not covered we can take this in consideration as indicator
-                                    //of an empty box that may be used to play our card
-                                    System.out.println("Utilizable box! is box " + i + ";" + j);
-                                    System.out.println("place here the card?");
-                                    Scanner scan = new Scanner(System.in);
-                                    String choice = scan.nextLine();
-                                    if (choice == "yes") {
-                                        //we set the place variables to place the card later
-                                        placeX = i;
-                                        placeY = j;
-                                        //we exit the cycle
-                                        break;
-                                    }
-                                }
-                            }
-
-                        }
-                    }
+        Card chosenCard = null;
+        if (String.valueOf(playedCard[0]).equals("R")) {
+            //we look at the position and select that one
+            for (int i = 0; i < p.getPlayerResourceCards().size(); i++) {
+                if (String.valueOf(i + 1).equals(playedCard[1])) {
+                    /*
+                    we found which card he wants to play,
+                    we first save it here,
+                    then we remove it from players hand
+                     */
+                    chosenCard = p.getPlayerResourceCards().get(i);
+                    p.removeResourceCardFromHand((ResourceCard) chosenCard);
+                    break;
                 }
             }
         }
-        //If we reach this point there are 2 possible situations:
-        //no spaces available
-        //None of the spaces have been selected
-        //Considering there will be a sort of graphic
-        //we assume no spaces available
-        //we have to set a flag etc... we don't consider the case cus
-        //it's not likely to happen
+        for (int i = 0; i < p.getPlayerGoldCards().size(); i++) {
+            if (String.valueOf(i + 1).equals(playedCard[1])) {
+                /*
+                we found which card he wants to play,
+                we first save it here,
+                then we remove it from players hand
+                 */
+                chosenCard = p.getPlayerGoldCards().get(i);
+                p.removeGoldCardFromHand((GoldCard) chosenCard);
+                break;
+            }
+        }
+        return chosenCard;
+    }
+
+    //Ask the side of the card player wants to play
+    private void sideChoice(Card c){
+        /*
+        We get the side selection from the view
+        Then we use it to set the attribute of the card accordingly
+         */
+        String sideSelection = view.askForSideSelection();
+        c.setFrontSide(sideSelection.equals("F"));
+    }
+
+    /*
+    Method to place a card
+     */
+
+    public void placeCard(Card c){
+        /*
+        First we discriminate weather is gold or resource
+        because they have different way to be played
+        if resource card
+            Place it
+            Update everything
+        if gold card
+            Check if you have enough resources/items to play it
+            Place it
+            Get points
+            Update everything
+         */
+
+        if(c instanceof ResourceCard){
+            playResourceCard((ResourceCard) c);
+        } else if(c instanceof GoldCard){
+            playGoldCard((GoldCard) c);
+        }
+    }
+
+    public void playResourceCard(ResourceCard card){
+        /*
+        We want the player to select one of the available boxes
+         */
+        int chosenBox = view.getPlayerBoxChoice();
+        /*
+        We send the choice to the manager to check if correct
+        and if so to place the card
+         */
+        boardManager.playCard(card,chosenBox);
+        /*
+        Now we have to update the resources that are available
+         */
+
+    }
+
+    public void playGoldCard(GoldCard card){
+        /*
+        First thing first we have to check if the gold card is playable or not
+        If it's not the case we need to inform the player and make him retry the card selection
+         */
+
+
+        /*
+        We collect the available resources
+         */
+        int[] playerResources = game.getCurrentPlayer().getResourcesAvailable();
+        //We collect the resources need from the card
+        int[] neededResources = card.getNeededSymbols();
+        for (int i = 0; i < neededResources.length; i++){
+            if(neededResources[i] != playerResources[i]){
+                /*
+                If we don't have the needed resources
+                We make the player remake the choice
+                Informing about lack of resources
+                 */
+                playableCard = false;
+                break;
+            }
+        }
+        playableCard = true;
+        /*
+        If the player can actually play that card,
+        we ask him where he wants to play it,
+        then we place it there
+         */
+        int chosenBox = view.getPlayerBoxChoice();
+        boardManager.playCard(card,chosenBox);
+
     }
 
 

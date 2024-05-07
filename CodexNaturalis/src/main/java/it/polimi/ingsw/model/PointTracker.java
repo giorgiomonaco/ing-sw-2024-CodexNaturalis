@@ -36,4 +36,5 @@ public class PointTracker {
     public List<ArrayList<Token>> getPointBoxes(){
         return pointBoxes;
     }
+
 }

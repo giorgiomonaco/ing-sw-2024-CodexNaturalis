@@ -9,7 +9,14 @@ public class GoldCard extends Card {
     private final int condition;
     //number of points the card gives when played
     private final int cardPoints;
-    //Visible symbols needed on the game board to play the card
+    /*
+    Visible symbols needed on the game board to play the card
+    In order:
+    0 = mushroom (res)
+    1 = leaf (res)
+    2 = fox (res)
+    3 = butterfly (res)
+     */
     private final int[] neededSymbols;
 
     //Constructor

@@ -15,5 +15,8 @@ public class ResourceCard extends Card{
         this.cardPoints = points;
     }
 
+    public int getCardPoints(){
+        return cardPoints;
+    }
 
 }

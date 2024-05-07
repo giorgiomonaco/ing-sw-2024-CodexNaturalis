@@ -38,7 +38,7 @@ public class GameSetUpper {
         tokenManager.initializeTokens();
 
         //create a manager for the boards of each player
-        GameBoardManager gameBoardManager = new GameBoardManager(game);
+        GameBoardManager gameBoardManager = new GameBoardManager(game, view);
         //initialize the game boards
         gameBoardManager.initializeBoards();
 

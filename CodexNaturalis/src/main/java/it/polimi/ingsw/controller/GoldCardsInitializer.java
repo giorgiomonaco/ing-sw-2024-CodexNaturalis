@@ -119,7 +119,7 @@ public class GoldCardsInitializer {
                         System.out.println("Error while parsing through cards");
                 }
 
-                //getting the card condition for points
+                /////////////////getting the card condition for points
                 int condition = 0;
                 switch (pointsForEach){
                     case "false":

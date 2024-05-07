@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.PointTracker;
 import it.polimi.ingsw.model.Token;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PointTrackerManager {
     //This class manages the point tracker:
@@ -58,4 +59,23 @@ public class PointTrackerManager {
             game.getCommonBoard().getPointTracker().getTokenBox(0).add(token);
         }
     }
+
+    public void moveToken(Token token, int points){
+
+        for(ArrayList<Token> boxes : game.getCommonBoard().getPointTracker().getPointBoxes()){
+            if(boxes != null){
+                for (Token t : boxes){
+                    if(game.getCurrentPlayer().getPlayerToken().equals(t)){
+                        //We remove the token from the current place
+                        boxes.remove(t);
+                    }
+                }
+            }
+        }
+        //then we use the updated points to move the token to right place
+        int tokenIndex = game.getCurrentPlayer().getPlayerPoints();
+        game.getCommonBoard().getPointTracker().getPointBoxes().get(tokenIndex).add(token);
+
+    }
+
 }

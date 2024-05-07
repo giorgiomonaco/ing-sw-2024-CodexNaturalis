@@ -41,8 +41,16 @@ public class TokenManager {
                 //we remove then the tokens from the list
                 tokens.remove(0);
             } else {
-                //we ask the player which color he wants
-                String choice = view.askForTokenSelection();
+                /*
+                we ask the player which color he wants
+                first we want all the names in one list
+                 */
+                List<String> availableTokenNames = new ArrayList<>();
+                for(Token t : tokens){
+                    availableTokenNames.add(t.getTokenColor());
+                }
+                String choice = view.askForTokenSelection(availableTokenNames);
+                //we remove it from the available ones
             }
         }
     }

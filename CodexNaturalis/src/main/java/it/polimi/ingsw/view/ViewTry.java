@@ -86,6 +86,147 @@ public class ViewTry {
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
+//-------------------------------- Related to play a card  --------------------------------
+    public String[] getPlayedCard(List<String> resCardsInHand, List<String> goldCardsInHand) {
+
+        if (resCardsInHand.isEmpty()) {
+            System.out.println("No resource cards in hand");
+        } else {
+            System.out.println("List of resourceCards in hand:");
+            for(String c : resCardsInHand){
+                System.out.println(c);
+            }
+        }
+
+        if (goldCardsInHand.isEmpty()) {
+            System.out.println("No gold cards in hand");
+        } else {
+            System.out.println("List of goldCards in hand:");
+            for(String c : goldCardsInHand){
+                System.out.println(c);
+            }
+        }
+
+        //Asking about the choice
+        System.out.println("Play a resource or a Gold card?" );
+        Scanner scan = new Scanner(System.in);
+        String choice = scan.nextLine();
+        if((choice.equals("Resource") || choice.equals("resource")) && !(resCardsInHand.isEmpty())){
+            System.out.println("Which one you want to play?");
+            int i = 1;
+            for (String s : resCardsInHand){
+                System.out.println("[" + i + "] " + s);
+                i++;
+            }
+            /*
+            Let's create an array of 2 strings:
+            First one for the card type,
+            Second one for the selection
+             */
+            String[] finalChoice = new String[2];
+            finalChoice[0] = "R";
+            finalChoice[1] = scan.nextLine();
+            return finalChoice;
+
+        } else if ((choice.equals("Gold") || choice.equals("gold")) && !(goldCardsInHand.isEmpty())){
+            System.out.println("Which one you want to play?");
+            int i = 1;
+            for (String s : resCardsInHand){
+                System.out.println("[" + i + "] " + s);
+                i++;
+            }
+            /*
+            Let's create an array of 2 strings:
+            First one for the card type,
+            Second one for the selection
+             */
+            String[] finalChoice = new String[2];
+            finalChoice[0] = "G";
+            finalChoice[1] = scan.nextLine();
+            return finalChoice;
+        }
+        return null;
+    }
+
+    public String askForSideSelection(){
+        Scanner scan = new Scanner(System.in);
+        String selection;
+        boolean correctChoiceMade = false;
+        System.out.println("Which side do you want to play the card?");
+        do {
+            System.out.println("[1] : Front");
+            System.out.println("[2] : Back");
+            selection = scan.nextLine();
+            if (!selection.equals("1") && !selection.equals("2")) {
+                System.out.println("wrong selection, try again: ");
+            } else
+                correctChoiceMade = true;
+        } while (!correctChoiceMade);
+        return selection;
+    }
+
+    /*
+    Method to ask and get the box in which the player wants to play the card
+     */
+    public int getPlayerBoxChoice(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("in which box do you want to play your card?");
+        System.out.println("Insert the number of the box");
+        return scan.nextInt();
+    }
 
 
+//-------------------------------- Related to displace the board  --------------------------------
+    public void printTopOfGrid(int[] x, int[] y){
+        for(int i = x[0]-1; i <= x[1]+1; i++) {
+            //for every column, print space fot the box
+            System.out.print("+---");
+        }
+        //Close the grid
+        System.out.println("+");
+    }
+    public void printNonPlayableBox(){
+        System.out.print("|   ");
+    }
+    public void printPlayableBox(int counter){
+        System.out.print("| " + counter + " ");
+    }
+
+    public void printEndOfRaw(){
+        System.out.println("|");
+    }
+    public void printUsedBox(){
+        System.out.print("| c ");
+    }
+
+    //-------------------------------- Related to inform about points --------------------------------
+    public void informAboutPoints(int points){
+        System.out.println("You reached " + points +"!");
+    }
+
+    //-------------------------------- Related to choice of objective card  --------------------------------
+
+    public String askforObjectiveSelection(String c1, String c2, boolean firstTry){
+        if(!firstTry){
+            System.out.println("incorrect selection, please retry");
+        }
+        System.out.println("These are the Objective between you can choose:");
+        System.out.println("[1] : " + c1);
+        System.out.println("[2] : " + c2);
+        Scanner scan = new Scanner(System.in);
+        String choice = scan.nextLine();
+        if(choice.equals("1")){
+            return "F";
+        } else if(choice.equals("2")){
+            return "S";
+        } else {
+            return "error";
+        }
+    }
+
+    //-------------------------------- Related to choice of objective card  --------------------------------
+
+    public void displaceInitialCard (String cardName){
+        System.out.println("This is your initial card:" + cardName);
+    }
 }

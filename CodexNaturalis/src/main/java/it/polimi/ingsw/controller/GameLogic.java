@@ -4,11 +4,11 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.controller.AvailableResourcesManager;
 import it.polimi.ingsw.controller.DrawManager;
 import it.polimi.ingsw.controller.PlayCardManager;
-import it.polimi.ingsw.model.Card;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.ViewTry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameLogic {
@@ -45,22 +45,22 @@ public class GameLogic {
     //Start the game and let players play
     public void playGame(){
         //---------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!---------------------
-        //I don't really like this
-        //we have to create (another) draw manager to manage the drawing without rewriting all
-        //don't like cus there is already another one
+        //don't like cus there is already another one. We have to create (another) draw manager to manage the draw
         //very, very ugly to create it in the main tho so better like this
         //I think the previous will be garbage collected after exiting setup
         DrawManager drawManager = new DrawManager(game, view);
 
         //We also need an object that manages the play of the cards
         //to make this class not 10k lines and so complex
-        PlayCardManager playCardManager = new PlayCardManager(game);
+        PlayCardManager playCardManager = new PlayCardManager(game, view);
 
         //we also need a manager for the resource available for each player to
         //play the cards and give points based on visible symbols
         AvailableResourcesManager availableResourcesManager = new AvailableResourcesManager(game);
         //we can decide if create a specific method to initialize the resource of the first card
         //instead of doing a cycle on the whole grid (very, very not efficient)
+        PointTrackerManager pointTrackerManager = new PointTrackerManager(game);
+
 
 
 
@@ -73,58 +73,21 @@ public class GameLogic {
             for(Player p : game.getPlayerList()){
                 //first we set the current player the one that is actually playing
                 game.setCurrentPlayer(p);
-                //play phase is the first phase
-                //we use console messages for simplicity
-                System.out.println("turn of " + p.getPlayerName());
-                System.out.println("Which card would you like to play?");
-                System.out.println("card 1, card 2, card 3 ?");
-                //we create a scanner to get the answer of the player
-                //will be useless with graphics
-                Scanner scan = new Scanner(System.in);
-                String choice = scan.nextLine();
-                if (!(choice.equals("card 1")) || !(choice.equals("card 2")) || !(choice.equals("card 3")) ) {
-                    while (true ){
-                        System.out.println("input errato, correggi");
-                        scan = new Scanner(System.in);
-                        choice = scan.nextLine();
-                        if(choice.equals("card 1") || choice.equals("card 2") || choice.equals("card 3")) {
-                            break;
-                        }
-                    }
-                //we prepare a variable to contain the card selected by player to be played
-                Card chosenCard;
+                /*
+                We call the method of the play card manager
+                that starts the play phase
+                It may update the game state to "play phase"?
+                 */
+                playCardManager.startPlayPhase(p);
+                //moving the player token
+                pointTrackerManager.moveToken(game.getCurrentPlayer().getPlayerToken(), game.getCurrentPlayer().getPlayerPoints());
+                /*
+                Then we have the draw phase of the player
+                 */
 
-
-                    //create a switch case to use the choice made
-                    //--------------don't remember how to use default by now!!!--------------
-                    switch (choice) {
-                        case "card 1":
-                            //we get that specific card
-                            chosenCard = game.getCurrentPlayer().getPlayerResourceCards().get(0);
-                            //we ask to play that card
-                            playCardManager.playCard(chosenCard);
-                        case "card 2":
-                            //we get that specific card
-                            //System.out.println("funziona 1");
-                            chosenCard = game.getCurrentPlayer().getPlayerResourceCards().get(1);
-                            //System.out.println("funziona 2");
-                            //we ask to play that card
-                            playCardManager.playCard(chosenCard);
-                            //System.out.println("funziona 3");
-                        case "card 3":
-                            //we get that specific card
-                            chosenCard = game.getCurrentPlayer().getPlayerGoldCards().get(0);
-                            //we ask to play that card
-                            playCardManager.playCard(chosenCard);
-                    }
-
-                    //draw phase of the players:
-                    //by calling the draw manager
                 }
 
-            }
-        }
-        while(gameState == STATE_PLAY);
+            } while(gameState == STATE_PLAY);
 
     }
 

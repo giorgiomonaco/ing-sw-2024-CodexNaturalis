@@ -20,116 +20,93 @@ public class DrawManager {
     public void initializePlayersHand(){
         //for every player playing the game
         for(Player p : game.getPlayerList()) {
+            game.setCurrentPlayer(p);
             //We call the initialization of every type of card present in the game
             //we need 2 initial resource cards
-            drawResourceCards(p);
-            drawResourceCards(p);
+            drawResourceCards();
+            drawResourceCards();
             //then one gold
-            drawGoldCards(p);
+            drawGoldCards();
             //then one objective (chosen between 2
-            initializeObjectiveCards(p);
+            initializeObjectiveCards();
             //we distribute the initial card to every one
             //placing it into the right place (center) on the player board game
-            distributeInitialCards(p);
+            distributeInitialCards();
         }
     }
 
     //Distribute the initial card to every player
     //placing it in the middle of the player board game
-    public void distributeInitialCards(Player p){
+    public void distributeInitialCards(){
         //We take the first card (aka draw) from the Initial cards deck
         InitialCard card = game.drawInitialCard();
-        //The player has o decide weather to play the card upfront or downside
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Do you want to play the front or the back of the card?");
-        String choice = scan.nextLine();
-        if (choice.equals("front")){
+        //we inform about which card he draws
+        view.displaceInitialCard(card.getCardName());
+        //Now we ask about side selection
+        if(view.askForSideSelection() == "1"){
             card.setFrontSide(true);
+        } else{
+            card.setFrontSide(false);
         }
         //then we place that card in the middle of the player board
-        p.getGameBoard().placeInitialCard(card);
+        game.getCurrentPlayer().getGameBoard().placeInitialCard(card);
     }
 
     //initialize resource cards
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Same name than in the cards initializers - modify this thing
-    public void drawResourceCards(Player p){
+    public void drawResourceCards(){
         //Draw a resource card from the resource deck of the game
         ResourceCard card = game.drawResourceCard();
         //add the card to the player hand
-        p.addResourceCard(card);
+        game.getCurrentPlayer().addResourceCard(card);
         //Remove that card from the resource deck
         game.removeFormResourceDeck(card);
     }
 
     //Initialize gold cards
-    public void drawGoldCards(Player p){
+    public void drawGoldCards(){
         //Draw a gold card from the common deck
         GoldCard card = game.drawGoldCard();
         //Add it to the hand of the player
-        p.addGoldCard(card);
+        game.getCurrentPlayer().addGoldCard(card);
         //remove it from the gold deck
         game.removeFormGoldDeck(card);
     }
 
 
     //initialize objective cards
-    public void initializeObjectiveCards(Player p){
+    public void initializeObjectiveCards(){
         //Here we have a more difficult task
         //draw 2 cards and make player choose between them which one to keep
         //Start by drawing 2 cards
+        ObjectiveCard[] choices = new ObjectiveCard[2];
         for(int i = 0; i < 2; i++){
-            ObjectiveCard card = game.drawObjectiveCard();
+            choices[i] = game.drawObjectiveCard();
             //delete it from the deck
-            game.removeFormObjectiveDeck(card);
-            //add to player hand
-            p.addObjectiveCard(card);
+            game.removeFormObjectiveDeck(choices[i]);
         }
         //Then we want to have the player make the choice
-        playerObjectiveCardChoice(p);
-    }
-
-    //choice of the player on which objective card to keep
-    public void playerObjectiveCardChoice(Player p){
-        //Get the cards from the hand
-        ObjectiveCard playerObjHand = p.getPlayerObjectiveCard();
-        //get the names of the cards he got (I don't like do it like that but still...)
-        //We collect the names of the cards to choose from in a list
-        List<String> choiceCardList = new ArrayList<>();
-        choiceCardList.add(playerObjHand.get(0).getCardName());
-        choiceCardList.add(playerObjHand.get(1).getCardName());
-        //Get the name of the player to be clear on who is choosing the card to keep
-        String playerName = p.getPlayerName();
-        //we collect the choice on which card to keep by the view
-        String choice = view.playerObjectiveCardChoice(playerName, choiceCardList);
-
-        //we create a var choice to loop on until a choice is actually made
-        boolean choiceMade = false;
-
-        //loop on the choice until choice made
+        boolean choiceOk = true;
+        String choiceMade = view.askforObjectiveSelection(choices[0].getCardName(), choices[1].getCardName(), choiceOk);
         do {
-            if (choice.equals("first")) {
-                //before removing the card from the hand
-                //we place it at the bottom of the obj card deck
-                game.addObjectiveCardToDeck(p.getObjectiveCardFromHand(1));
-                //then we remove it from the hand
-                p.removeObjectiveCardFromHand(playerObjHand.get(1));
-                //the player made a valid choice seo we can exit the loop
-                choiceMade = true;
+            switch (choiceMade){
+                case "F":
+                    //If he chose the first card we assign it to him
+                    game.getCurrentPlayer().setObjectiveCard(choices[0]);
+                    choiceOk = true;
 
-            } else if (choice.equals("second")) {
-                //before removing the card from the hand
-                //we place it at the bottom of the obj card deck
-                game.addObjectiveCardToDeck(p.getObjectiveCardFromHand(0));
-                //then we remove it from the hand
-                p.removeObjectiveCardFromHand(playerObjHand.get(0));
-                //the player made a valid choice seo we can exit the loop
-                choiceMade = true;
-            } else {
-                choice = view.askAgainObjectiveCards();
+                case "S":
+                    //If he chose the second card we assign it to him
+                    game.getCurrentPlayer().setObjectiveCard(choices[1]);
+                    choiceOk = true;
+
+                case"error":
+                    //We make him redo the choice
+                    choiceOk = false;
+                    view.askforObjectiveSelection(choices[0].getCardName(), choices[1].getCardName(), choiceOk);
             }
-        } while(!choiceMade);
-
-
+        } while (!choiceOk);
     }
+
 }

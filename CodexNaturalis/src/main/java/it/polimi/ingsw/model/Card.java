@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
 
-import javax.imageio.plugins.tiff.TIFFField;
-
 public abstract class Card {
+
+    //ID of the card, may be removed later
+    private static int cardID = 0;
 
     //If the angles array is null => not visible!!!!
 
@@ -32,6 +33,7 @@ public abstract class Card {
         for (int i = 0; i < 4; i++ ){
             this.frontAngles[i] = frontAngles[i];
             this.backAngles[i] = backAngles[i];
+            this.cardID++;
         }
         this.backSymbol = backSymbol;
     }
@@ -61,6 +63,13 @@ public abstract class Card {
         return backSymbol;
     }
 
+    /*
+    Method to cover and angle
+    May look to move it from here
+     */
+    public void coverAngle(int angle){
+        frontAngles[angle] = null;
+    }
 
 
     public VisibleAngle getFrontVisibleAngle(int position){
@@ -81,6 +90,11 @@ public abstract class Card {
         {
             return null;
         }
+    }
+
+    //getter of the ID of the card
+    public int getCardID(){
+        return cardID;
     }
 
 
