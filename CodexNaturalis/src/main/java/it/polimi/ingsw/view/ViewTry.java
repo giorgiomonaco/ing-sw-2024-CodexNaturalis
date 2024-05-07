@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.ResourceCard;
+import it.polimi.ingsw.model.VisibleAngle;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -176,6 +179,71 @@ public class ViewTry {
         System.out.println("Insert the number of the box");
         return scan.nextInt();
     }
+public void printResourceCard(ResourceCard r) {
+    System.out.println("play front or back?\n [1] = front, [2] = back");
+    Scanner t= new Scanner(System.in);
+    int o = t.nextInt();
+    VisibleAngle[] array;
+    if (o == 2) { array = r.getBackAngles();}
+    else { array = r.getFrontAngles();}
+    for (int i = 0; i < 4; i++) {
+        if (i == 2) {
+            String q = r.getBackSymbol().getSymbolName();
+            switch (q) {
+                case "leaf":
+                    q = "GRE";
+                    break;
+                case "mushroom":
+                    q = "ORA";
+                    break;
+                case "butterfly":
+                    q = "PUR";
+                    break;
+                case "fox":
+                    q = "BLU";
+                    break;
+            }
+            System.out.println("\n||  " + q + "  ||");
+        }
+        if (array[i] == null) {
+            System.out.print("X");
+
+        } else if (array[i].getSymbol() == null) {
+
+            System.out.print("E");
+        } else {
+            String s = array[i].getSymbol().getSymbolName();
+            switch (s) {
+                case "mushroom":
+                    System.out.print("M");
+                    break;
+                case "leaf":
+                    System.out.print("L");
+                    break;
+                case "fox":
+                    System.out.print("F");
+                    break;
+                case "butterfly":
+                    System.out.print("B");
+                    break;
+                case "bottle":
+                    System.out.print("b");
+                    break;
+                case "scroll":
+                    System.out.print("s");
+                    break;
+                case "feather":
+                    System.out.print("f");
+                    break;
+            }
+
+        }
+        int k = r.getCardPoints();
+        if (i == 0) System.out.print(" == " + k + " == ");
+        if (i == 2) System.out.print(" == = == ");
+    }
+
+}
 
 
 //-------------------------------- Related to displace the board  --------------------------------
