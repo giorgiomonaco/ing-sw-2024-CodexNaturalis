@@ -37,7 +37,7 @@ public class ClientConfigurationBase {
         System.out.println("Insert the name of the RMI registry: ");
         registryName = scan.nextLine().trim();
 
-        System.out.println("Insert the number of the TCP port: ");
+        System.out.println("Insert the number of the RMI port: ");
         String rmiPort = scan.nextLine().trim();
         portRMI = Integer.parseInt(rmiPort);
 
@@ -46,6 +46,8 @@ public class ClientConfigurationBase {
         System.out.println("-TCP port: " + portTCP);
         System.out.println("-RMI port: " + portRMI);
         System.out.println("-Registry name: " + registryName);
+        System.out.println("-------------");
+
 
         // Salvataggio dati su file da fare
 
