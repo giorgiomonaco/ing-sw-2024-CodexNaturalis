@@ -174,4 +174,8 @@ public class Game {
     public int getResourceDeckSize() {
         return this.resourceDeck.size();
     }
+
+    public int getGoldDeckSize() {
+        return this.goldDeck.size();
+    }
 }
