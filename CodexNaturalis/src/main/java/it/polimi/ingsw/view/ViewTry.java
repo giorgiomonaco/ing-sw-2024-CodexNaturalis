@@ -66,7 +66,7 @@ public class ViewTry {
 
     //ask again for color selection
     public void askAgainColor(){
-        System.out.println("invalid selction, please retry");
+        System.out.println("invalid selection, please retry");
     }
 
 //-------------------------------- Choice on initial card  --------------------------------

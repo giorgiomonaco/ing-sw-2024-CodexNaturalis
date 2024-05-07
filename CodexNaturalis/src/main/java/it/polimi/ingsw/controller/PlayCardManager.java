@@ -224,5 +224,12 @@ public class PlayCardManager {
 
     }
 
+    
+
+  /*  public int[] GetResources(Player P){
+
+
+
+    }*/
 
 }

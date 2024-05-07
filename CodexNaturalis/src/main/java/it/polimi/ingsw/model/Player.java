@@ -28,8 +28,6 @@ public class Player {
     //The personal game board of the player
     private GameBoard gameBoard;
 
-    private int playerPoints = 0;
-
     //List of resources available in this particular moment for this player
     //We may use an enum to rename the indexes, may be way better, will see
     //By now the list is the same of the "CardManager" class
@@ -137,18 +135,4 @@ public class Player {
         resourcesAvailable[index] = quantity;
     }
 
-    //adder, reset and getter of player points
-
-
-    public void setPlayerPoints(int playerPoints) {
-        this.playerPoints = playerPoints;
-    }
-
-    public int getPlayerPoints(){
-        return playerPoints;
-    }
-
-    public void addPoints(int p){
-        playerPoints += p;
-    }
 }
