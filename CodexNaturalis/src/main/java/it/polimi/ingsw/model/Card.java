@@ -29,11 +29,11 @@ public abstract class Card {
     private boolean frontSide;
 
     //Constructor
-    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
-        for (int i = 0; i < 4; i++ ){
+    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol) {
+        for (int i = 0; i < 4; i++) {
             this.frontAngles[i] = frontAngles[i];
             this.backAngles[i] = backAngles[i];
-            this.cardID++;
+            cardID++;
         }
         this.backSymbol = backSymbol;
     }
@@ -67,35 +67,40 @@ public abstract class Card {
     Method to cover and angle
     May look to move it from here
      */
-    public void coverAngle(int angle){
+    public Symbol coverAngle(int angle) {
+        Symbol sym = frontAngles[angle].getSymbol();
         frontAngles[angle] = null;
+        return sym;
     }
 
 
-    public VisibleAngle getFrontVisibleAngle(int position){
-        if (frontAngles[position] != null){
+    public VisibleAngle getFrontVisibleAngle(int position) {
+        if (frontAngles[position] != null) {
             return frontAngles[position];
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
-    public VisibleAngle getBackVisibleAngle(int position){
-        if (backAngles[position] != null){
+    public VisibleAngle getBackVisibleAngle(int position) {
+        if (backAngles[position] != null) {
             return backAngles[position];
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
+
+    public void addResources(Player p) {
+        for (int i = 0; i < 4; i++) {
+            p.resourceAdding(frontAngles[i].getSymbol());
+        }
+
+    }
+
 
     //getter of the ID of the card
-    public int getCardID(){
+    public int getCardID() {
         return cardID;
     }
-
-
 }
+

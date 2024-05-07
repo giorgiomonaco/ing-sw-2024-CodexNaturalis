@@ -68,14 +68,17 @@ public class PlayCardManager {
         do {
             selectedCard = askForCard(p);
             sideChoice(selectedCard);
-            placeCard(selectedCard);
+            placeCard(selectedCard, p);
         } while(!playableCard);
          /*
         We now have to:
         . Assign points
+        . Assign resources
          */
         pointManager  = new PointManager(game, view);
         pointManager.givePoints(selectedCard);
+
+
 
     }
 
@@ -152,7 +155,7 @@ public class PlayCardManager {
     Method to place a card
      */
 
-    public void placeCard(Card c){
+    public void placeCard(Card c, Player p){
         /*
         First we discriminate weather is gold or resource
         because they have different way to be played
@@ -182,11 +185,14 @@ public class PlayCardManager {
         We send the choice to the manager to check if correct
         and if so to place the card
          */
-        boardManager.playCard(card,chosenBox);
+        List<Symbol> sym = boardManager.playCard(card,chosenBox);
         /*
         Now we have to update the resources that are available
          */
-
+        for (Symbol s: sym){
+            game.getCurrentPlayer().resourceLowering(s);
+        }
+        card.addResources(game.getCurrentPlayer());
     }
 
     public void playGoldCard(GoldCard card){
@@ -220,8 +226,11 @@ public class PlayCardManager {
         then we place it there
          */
         int chosenBox = view.getPlayerBoxChoice();
-        boardManager.playCard(card,chosenBox);
-
+        List<Symbol> sym = boardManager.playCard(card,chosenBox);
+        for (Symbol s: sym){
+            game.getCurrentPlayer().resourceLowering(s);
+        }
+        card.addResources(game.getCurrentPlayer());
     }
 
 
