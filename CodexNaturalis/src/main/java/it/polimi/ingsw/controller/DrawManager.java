@@ -109,4 +109,61 @@ public class DrawManager {
         } while (!choiceOk);
     }
 
+    /*
+    Method to draw a card
+     */
+    public void startDrawPhase(){
+        /*
+        Draw phase:
+        . asking the deck the player wants to draw from
+        . draw from it
+        . add to player hand
+         */
+        //We ensure that the decks are not empty
+        boolean resDeckEmpty = game.getResourceDeck().isEmpty();
+        boolean goldDeckEmpty = game.getGoldDeck().isEmpty();
+        //We want to retrieve the names of the discovered cards we got
+        List<String> discoveredResCards = new ArrayList<>();
+        for(ResourceCard c : game.getCommonBoard().getDiscoveredResourceCards()){
+            discoveredResCards.add(String.valueOf(c.getCardID()));
+        }
+        List<String> discoveredGoldCards = new ArrayList<>();
+        for(GoldCard c : game.getCommonBoard().getDiscoveredGoldCards()){
+            discoveredGoldCards.add(String.valueOf(c.getCardID()));
+        }
+        //we ask the player which card he wants to draw
+        String selectedCard = view.drawSelection(resDeckEmpty, goldDeckEmpty,discoveredResCards, discoveredGoldCards);
+        //now we act accordingly
+        switch (selectedCard) {
+            case "R1" -> drawDiscoveredCard("R", 0);
+            case "R2" -> drawDiscoveredCard("R", 1);
+            case "G1" -> drawDiscoveredCard("G", 0);
+            case "G2" -> drawDiscoveredCard("G", 1);
+            case "RD" -> drawResourceCards();
+            case "GD" -> drawGoldCards();
+        }
+    }
+
+    /*
+    Manage draw from discovered cards pools
+     */
+    public void drawDiscoveredCard(String type, int position){
+        Card drawnCard = null;
+        if(type.equals("R")){
+            drawnCard = game.getCommonBoard().getDiscoveredResourceCards().get(position);
+            //we remove it from the discovered list
+            game.getCommonBoard().getDiscoveredResourceCards().remove(position);
+            //We add to players hand
+            game.getCurrentPlayer().addResourceCard((ResourceCard) drawnCard);
+            //Now we want to discover another card
+
+        } else {
+            drawnCard = game.getCommonBoard().getDiscoveredGoldCards().get(position);
+            //we remove it from the discovered list
+            game.getCommonBoard().getDiscoveredGoldCards().remove(position);
+            //We add to players hand
+            game.getCurrentPlayer().addGoldCard((GoldCard) drawnCard);
+            //Now we want to discover another card
+        }
+    }
 }

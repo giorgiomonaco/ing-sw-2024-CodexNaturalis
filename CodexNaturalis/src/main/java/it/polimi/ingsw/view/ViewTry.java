@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -224,9 +226,61 @@ public class ViewTry {
         }
     }
 
-    //-------------------------------- Related to choice of objective card  --------------------------------
+    //-------------------------------- Related to initial card  --------------------------------
 
     public void displaceInitialCard (String cardName){
         System.out.println("This is your initial card:" + cardName);
     }
+    
+    //-------------------------------- Related to draw selection  --------------------------------
+    public String drawSelection(boolean RDeckEmpty, boolean GDecEmpty, List<String> resCards, List<String> goldCards){
+        Scanner scan = new Scanner(System.in);
+        int choiceCounter = 0;
+        int value = 0;
+        List<String> choices = new ArrayList<>();
+        System.out.println("Draw phase!");
+        System.out.println("Where you want to draw from?");
+
+
+        if(!resCards.isEmpty()){
+            System.out.println("Visible resource cards:");
+            System.out.println("["+ choiceCounter +"] : " + resCards.get(0));
+            choices.add("R1");
+            choiceCounter++;
+            if(resCards.size() == 2){
+                System.out.println("["+ choiceCounter +"] : " + resCards.get(1));
+                choices.add("R2");
+                choiceCounter++;
+            }
+        }
+        if(!goldCards.isEmpty()){
+            System.out.println("Visible gold cards:");
+            System.out.println("["+ choiceCounter +"] : " + goldCards.get(0));
+            choices.add("G1");
+            choiceCounter++;
+            if(goldCards.size() == 2){
+                System.out.println("["+ choiceCounter +"] : " + goldCards.get(1));
+                choices.add("G2");
+                choiceCounter++;
+            }
+        }
+        if (!RDeckEmpty) {
+            System.out.println("[" + choiceCounter + "] : Resource deck");
+            choices.add("RD");
+            choiceCounter++;
+        }
+        if (!GDecEmpty) {
+            System.out.println("[" + choiceCounter + "] : Gold deck");
+            choices.add("GD");
+            choiceCounter++;
+        }
+        try {
+             value = scan.nextInt();
+        } catch (InputMismatchException e){
+            System.out.println("Wrong value");
+        }
+        return choices.get(value);
+    }
+
+    
 }
