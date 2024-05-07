@@ -12,12 +12,12 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 
 public class ResourceCardInitializer {
-    private final Game game;
+    public final Game game;
     // List of all the symbols may be present at card angles
     // See card manager to get the list
-    private final List<Symbol> symbols;
+    public final List<Symbol> symbols;
 
-    private int cardNumber = 0;
+    public int cardNumber = 0;
 
 
     // Constructor
