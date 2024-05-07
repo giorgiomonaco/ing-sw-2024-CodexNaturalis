@@ -1,6 +1,6 @@
-package it.polimi.ingsw.network.client;
+package it.polimi.ingsw.network.client.RMI;
 
-import it.polimi.ingsw.network.server.RMIServerInterface;
+import it.polimi.ingsw.network.server.RMI.RMIServerInterface;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

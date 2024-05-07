@@ -1,5 +1,8 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.network.server.RMI.ServerRMI;
+import it.polimi.ingsw.network.server.TCP.ServerTCP;
+
 import java.rmi.RemoteException;
 
 /**
@@ -13,9 +16,12 @@ public class ServerMain {
 
     public ServerMain() {
         try {
-            this.rmiServer = new ServerRMI();
-            this.tcpServer = new ServerTCP();
             this.configurationBase = new ServerConfigurationBase();
+            handler = new ServerHandler(configurationBase);
+            handler.init();
+            this.rmiServer = new ServerRMI(configurationBase);
+            this.tcpServer = new ServerTCP(configurationBase);
+
         } catch (RemoteException e) {
             System.err.println("Unable to create a new server, maybe one is already running.");
         }
@@ -32,8 +38,7 @@ public class ServerMain {
     }
 
     private void start() {
-        handler = new ServerHandler(configurationBase);
-        handler.init();
+
         rmiServer.start();
         tcpServer.start();
     }
