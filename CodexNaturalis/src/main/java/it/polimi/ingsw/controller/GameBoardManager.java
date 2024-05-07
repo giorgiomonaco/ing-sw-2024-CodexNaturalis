@@ -39,7 +39,7 @@ public class GameBoardManager {
         }
     }
 
-    public void playCard(Card card, int position){
+    public List<Symbol> playCard(Card card, int position){
         /*
         First we want to retrieve the location he chose from index to coordinates
         Then we want to place the card into the board and update the usedX and usedY
@@ -63,7 +63,8 @@ public class GameBoardManager {
         Once we found the card,
         we want to cover the right angle
          */
-        updatedUsedAngle(usedCard.getX(), usedCard.getY(), cardX, cardY);
+        return updatedUsedAngle(usedCard.getX(), usedCard.getY(), cardX, cardY);
+
 
     }
 
@@ -139,26 +140,27 @@ public class GameBoardManager {
     Cover the covered angle by the new placed card
     Subtract the resources of that angle
      */
-    public void updatedUsedAngle(int usedCardX, int usedCardY,int placedCardX, int placedCardY){
+    public List<Symbol> updatedUsedAngle(int usedCardX, int usedCardY,int placedCardX, int placedCardY){
+        List<Symbol> list = new ArrayList<>();
         if(usedCardX - placedCardX == 1 && usedCardY - placedCardY == -1){
             //Cover angle 3 of used card
             if(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).isFrontSide())
-                game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(3);
+                 list.add(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(3));
 
         } else if (usedCardX - placedCardX == -1 && usedCardY - placedCardY == -1){
             //cover angle 0
             if(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).isFrontSide())
-                game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(0);
+                list.add(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(0));
         } else if (usedCardX - placedCardX == -1 && usedCardY - placedCardY == 1){
             //cover angle 1
             if(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).isFrontSide())
-                game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(1);
+                list.add(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(1));
         } else if (usedCardX - placedCardX == 1 && usedCardY - placedCardY == 1){
             //cover angle 2
             if(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).isFrontSide())
-                game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(2);
+                list.add(game.getCurrentPlayer().getGameBoard().getSpecificCard(usedCardX, usedCardY).coverAngle(2));
         }
-
+        return list;
     }
 
 
