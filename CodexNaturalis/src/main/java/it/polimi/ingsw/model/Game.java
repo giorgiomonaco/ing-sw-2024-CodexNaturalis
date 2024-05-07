@@ -170,4 +170,12 @@ public class Game {
     public void forcedGameExit(){
         gameState.setGameState(5);
     }
+
+    public int getResourceDeckSize() {
+        return this.resourceDeck.size();
+    }
+
+    public int getGoldDeckSize() {
+        return this.goldDeck.size();
+    }
 }

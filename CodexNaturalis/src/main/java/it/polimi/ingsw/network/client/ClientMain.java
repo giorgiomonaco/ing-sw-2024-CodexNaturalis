@@ -6,14 +6,13 @@ import java.util.Scanner;
 
 public class ClientMain {
     public static void main(String[] args) {
+
         Scanner scan = new Scanner(System.in);
         String selString;
         int selection = 0;
         ViewMode selectedView;
         ClientManager cliManager = null;
-        String serverIP;
-        int serverPort;
-        String registry;
+        ClientConfigurationBase data = new ClientConfigurationBase().createConfig();
 
         System.out.println("Hello! Please, choose one of the current options to start the game:");
         System.out.println("Press [1] for GUI");
@@ -46,11 +45,16 @@ public class ClientMain {
             }
         } while(selection != 1 && selection != 2);
 
-        // Only for debug
-        if(selection == 1) System.out.println("You selected RMI.");
-        else System.out.println("You selected TCP.");
 
-        selection == 1 ? cliManager = new ClientManager(selectedView, registry, serverIP, serverPort) :
-                cliManager = new ClientManager(selectedView, serverIP, serverPort);
+        if(selection == 1) {
+            System.out.println("You selected RMI.");
+            cliManager = new ClientManager(selectedView, data.getRegistryName(), data.getSocketIP(), data.getPortRMI());
+        }
+        else {
+            System.out.println("You selected TCP.");
+            cliManager = new ClientManager(selectedView, data.getSocketIP(), data.getPortTCP());
+        }
+
+
     }
 }

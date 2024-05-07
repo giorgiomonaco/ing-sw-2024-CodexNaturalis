@@ -1,6 +1,6 @@
-package it.polimi.ingsw.network.server;
+package it.polimi.ingsw.network.server.TCP;
 
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.server.ServerConfigurationBase;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,10 +15,11 @@ import java.util.concurrent.Executors;
  * that manage the accepted connections.
  */
 public class ServerTCP {
-    static int PORT = 1235;
+    static int PORT;
     public List<TCPClientHandler> connectedClients;
 
-    public ServerTCP(){
+    public ServerTCP(ServerConfigurationBase data){
+        PORT = data.getPortTCP();
         connectedClients = new ArrayList<>();
     }
 
