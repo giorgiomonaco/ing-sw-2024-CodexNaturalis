@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="avanzamento &quot;view&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/PointManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Coordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_04_2024_16_32_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_04_2024_16_32__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/DrawManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/DrawManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameBoardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameBoardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameSetUpper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameSetUpper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GoldCardsInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GoldCardsInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/PlayCardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/PlayCardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/PointTrackerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/PointTrackerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/TokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/TokenManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/view/ViewTry.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/view/ViewTry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/PointTracker.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/PointTracker.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,19 +113,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.Main" />
-      <module name="PSP41" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.Main" />
       <module name="PSP41" />

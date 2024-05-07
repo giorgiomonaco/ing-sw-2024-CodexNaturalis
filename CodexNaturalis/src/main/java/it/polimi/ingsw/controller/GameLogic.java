@@ -84,6 +84,7 @@ public class GameLogic {
                 /*
                 Then we have the draw phase of the player
                  */
+                drawManager.startDrawPhase();
 
                 }
 
