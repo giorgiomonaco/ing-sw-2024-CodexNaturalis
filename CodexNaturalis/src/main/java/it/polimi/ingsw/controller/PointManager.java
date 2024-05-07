@@ -40,6 +40,7 @@ public class PointManager {
          */
         view.informAboutPoints(points);
     }
+
     /*
     Method to assign the points
      */

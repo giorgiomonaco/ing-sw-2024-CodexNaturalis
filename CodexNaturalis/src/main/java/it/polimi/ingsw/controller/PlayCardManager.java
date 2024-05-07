@@ -233,5 +233,12 @@ public class PlayCardManager {
         card.addResources(game.getCurrentPlayer());
     }
 
+    
+
+  /*  public int[] GetResources(Player P){
+
+
+
+    }*/
 
 }

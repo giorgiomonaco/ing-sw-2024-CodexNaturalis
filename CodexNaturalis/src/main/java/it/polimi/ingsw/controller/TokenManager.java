@@ -20,6 +20,7 @@ public class TokenManager {
 
     //List of all the tokens available for the game
     private final List<Token> tokens = new ArrayList<>();
+    private Player p;
 
     //Constructor of the class
     public TokenManager(Game game, ViewTry view) {
@@ -81,7 +82,8 @@ public class TokenManager {
     //Method that assign a token to the player at start of game
     //In an automatic way
     public void assignToken(Player p) {
-            //Assign the color of the token for each player
+        this.p = p;
+        //Assign the color of the token for each player
             p.setPlayerToken(tokens.get(tokenCounter));
             //And we communicate the assignment
             view.ackPersonalToken(p.getPlayerName(), tokens.get(tokenCounter).getTokenColor());
