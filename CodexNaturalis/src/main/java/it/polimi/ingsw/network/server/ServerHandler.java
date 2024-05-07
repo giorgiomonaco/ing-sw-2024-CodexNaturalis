@@ -3,9 +3,9 @@ package it.polimi.ingsw.network.server;
 import java.util.Scanner;
 
 public class ServerHandler {
-    ServerConfigurationBase data;
+    ServerConfigNetwork data;
 
-    public ServerHandler(ServerConfigurationBase configurationBase){
+    public ServerHandler(ServerConfigNetwork configurationBase){
         this.data = configurationBase;
     }
 
@@ -17,12 +17,16 @@ public class ServerHandler {
 
         if(!serverIP.isEmpty()) {
             // if(isValid(serverIP)){
-                data.setSocketIP(serverIP);
+                data.setServerIP(serverIP);
             // }
         }
+
+        System.out.println("---Summary---");
+        System.out.println("-Server IP address: " + data.getServerIP());
+        System.out.println("-------------");
     }
 
     public void isValid(String check){
-        // Controlla validità ip
+        // Check if the ip is valid, maybe we can assume that anyway..
     }
 }

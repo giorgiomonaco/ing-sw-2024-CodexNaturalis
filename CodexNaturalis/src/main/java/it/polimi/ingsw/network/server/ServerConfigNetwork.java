@@ -3,17 +3,17 @@ package it.polimi.ingsw.network.server;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
-public class ServerConfigurationBase {
+public class ServerConfigNetwork {
     private int portRMI;
     private int portTCP;
     private String registryName;
-    private String socketIP;
-    public ServerConfigurationBase(){
+    private String serverIP;
+    public ServerConfigNetwork(){
         this.portRMI = 1234;
         this.portTCP = 1235;
         this.registryName = "RMIServerInterface";
         try {
-            this.socketIP = Inet4Address.getLocalHost().getHostAddress();
+            this.serverIP = Inet4Address.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             System.err.println(e.getMessage());
             System.err.println("Couldn't get the LocalHost IP address.");
@@ -32,11 +32,11 @@ public class ServerConfigurationBase {
         return registryName;
     }
 
-    public String getSocketIP() {
-        return socketIP;
+    public String getServerIP() {
+        return serverIP;
     }
 
-    public void setSocketIP(String socketIP) {
-        this.socketIP = socketIP;
+    public void setServerIP(String serverIP) {
+        this.serverIP = serverIP;
     }
 }
