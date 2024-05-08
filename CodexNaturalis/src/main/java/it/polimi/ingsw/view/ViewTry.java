@@ -276,7 +276,7 @@ public void printResourceCard(ResourceCard r) {
 
     //-------------------------------- Related to choice of objective card  --------------------------------
 
-    public String askforObjectiveSelection(String c1, String c2, boolean firstTry){
+    public String askforObjectiveSelection(int c1, int c2, boolean firstTry){
         if(!firstTry){
             System.out.println("incorrect selection, please retry");
         }

@@ -26,4 +26,35 @@ public class ObjectiveCard {
         this.points = points;
         this.cardNumber = num;
     }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public String getCard1() {
+        return card1;
+    }
+
+    public String getCard2() {
+        return card2;
+    }
+
+    public String getCard3() {
+        return card3;
+    }
+
+    public String getDirection1() {
+        return direction1;
+    }
+
+    public String getDirection2() {
+        return direction2;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public int getCardName(){
+        return this.cardNumber;
+    }
 }
