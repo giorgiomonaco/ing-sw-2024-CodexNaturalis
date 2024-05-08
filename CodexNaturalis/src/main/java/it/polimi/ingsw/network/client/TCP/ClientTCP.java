@@ -1,12 +1,14 @@
 package it.polimi.ingsw.network.client.TCP;
 
+import it.polimi.ingsw.network.client.Client;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientTCP {
+public class ClientTCP extends Client {
     private Socket socket;
     private final String serverIP;
     private final int serverPort;

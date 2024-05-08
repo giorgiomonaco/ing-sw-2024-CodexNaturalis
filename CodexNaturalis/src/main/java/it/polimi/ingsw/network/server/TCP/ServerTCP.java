@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.server.TCP;
 
-import it.polimi.ingsw.network.server.ServerConfigurationBase;
+import it.polimi.ingsw.network.server.ServerConfigNetwork;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,7 +18,7 @@ public class ServerTCP {
     static int PORT;
     public List<TCPClientHandler> connectedClients;
 
-    public ServerTCP(ServerConfigurationBase data){
+    public ServerTCP(ServerConfigNetwork data){
         PORT = data.getPortTCP();
         connectedClients = new ArrayList<>();
     }

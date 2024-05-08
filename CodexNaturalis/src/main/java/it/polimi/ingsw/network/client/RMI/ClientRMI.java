@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client.RMI;
 
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.server.RMI.RMIServerInterface;
 
 import java.rmi.NotBoundException;
@@ -7,16 +8,29 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class ClientRMI {
-    static int PORT = 1234;
+public class ClientRMI extends Client implements RMIClientInterface{
+    static int PORT;
+    static String serverIP;
+    static String registry;
 
-    public static void main(String[] args) {
+    public ClientRMI (String RegistryName, String IP, int serverPort) {
+        registry = RegistryName;
+        serverIP = IP;
+        PORT = serverPort;
+    }
+
+    public void start() {
         try {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", PORT);
-            RMIServerInterface stub = (RMIServerInterface) registry.lookup("RMIServerInterface");
+            Registry reg = LocateRegistry.getRegistry(serverIP, PORT);
+            RMIServerInterface stub = (RMIServerInterface) reg.lookup(registry);
             stub.login("Gio");
         } catch (RemoteException | NotBoundException e) {
             System.err.println("ClientMain exception: " + e.toString());
         }
+    }
+
+    @Override
+    public void receive(String message) throws RemoteException {
+
     }
 }

@@ -12,11 +12,11 @@ public class ServerMain {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
     private ServerHandler handler;
-    private ServerConfigurationBase configurationBase;
+    private ServerConfigNetwork configurationBase;
 
     public ServerMain() {
         try {
-            this.configurationBase = new ServerConfigurationBase();
+            this.configurationBase = new ServerConfigNetwork();
             handler = new ServerHandler(configurationBase);
             handler.init();
             this.rmiServer = new ServerRMI(configurationBase);
@@ -35,10 +35,10 @@ public class ServerMain {
         } catch (Exception e) {
             System.err.println("Error on starting the server.");
         }
+
     }
 
     private void start() {
-
         rmiServer.start();
         tcpServer.start();
     }

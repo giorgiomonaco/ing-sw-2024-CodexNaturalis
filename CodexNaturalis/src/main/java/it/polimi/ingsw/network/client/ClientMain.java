@@ -12,7 +12,7 @@ public class ClientMain {
         int selection = 0;
         ViewMode selectedView;
         ClientManager cliManager = null;
-        ClientConfigurationBase data = new ClientConfigurationBase().createConfig();
+        ClientConfigNetwork data = new ClientConfigNetwork().createConfig();
 
         System.out.println("Hello! Please, choose one of the current options to start the game:");
         System.out.println("Press [1] for GUI");
@@ -47,14 +47,17 @@ public class ClientMain {
 
 
         if(selection == 1) {
+            // Only for debug
             System.out.println("You selected RMI.");
-            cliManager = new ClientManager(selectedView, data.getRegistryName(), data.getSocketIP(), data.getPortRMI());
+
+            cliManager = new ClientManager(selectedView, data.getRegistryName(), data.getServerIP(), data.getPortRMI());
         }
         else {
+            // Only for debug
             System.out.println("You selected TCP.");
-            cliManager = new ClientManager(selectedView, data.getSocketIP(), data.getPortTCP());
-        }
 
+            cliManager = new ClientManager(selectedView, data.getServerIP(), data.getPortTCP());
+        }
 
     }
 }
