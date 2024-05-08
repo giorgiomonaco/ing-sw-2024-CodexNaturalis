@@ -4,36 +4,26 @@ package it.polimi.ingsw.model;
 import java.util.List;
 
 //manca check durante piazzamento della carta con risorse necessarie e del player
-public class ObjectiveCard extends Card{
+public class ObjectiveCard {
+    private final int cardNumber;
+    private final int points;
+    private final String type;
+    private final String card1;
+    private final String direction1;
+    private final String card2;
+    private final String direction2;
+    private final String card3;
 
-    //Temporary/for working issues name of the card
-    private final String cardName;
-    //how many points the card gives if we match the conditions
-    private final int cardPoints;
-    //Conditions for the points
-    private final List<Symbol> cardConditions;
 
-    //Constructor
-    public ObjectiveCard(String name, int cardPoints, List<Symbol> cardConditions,
-                         VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
-        super(frontAngles,backAngles, backSymbol);
-        this.cardName = name;
-        this.cardConditions = cardConditions;
-        this.cardPoints = cardPoints;
-    }
 
-    //Getter of the card name
-    public String getCardName() {
-        return cardName;
-    }
-
-    //Get how many points the card gives when played
-    public int getCardPoints() {
-        return cardPoints;
-    }
-
-    //get the conditions to play the card
-    public List<Symbol> getCardConditions() {
-        return cardConditions;
+    public ObjectiveCard(int num, int points, String type, String card1, String direction1, String card2, String direction2, String card3) {
+        this.type = type;
+        this.card1 = card1;
+        this.direction1 = direction1;
+        this.card2 = card2;
+        this.direction2 = direction2;
+        this.card3 = card3;
+        this.points = points;
+        this.cardNumber = num;
     }
 }

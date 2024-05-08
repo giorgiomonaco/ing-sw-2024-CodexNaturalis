@@ -1,16 +1,21 @@
 package it.polimi.ingsw.controller;
 
 
-import it.polimi.ingsw.model.VisibleAngle;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.ObjectiveCard;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.VisibleAngle;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectiveCardInitializer {
+    private int count = 0;
     private final Game game;
     //list of every symbol that can be on the card
     private final List<Symbol> symbols;
@@ -20,43 +25,36 @@ public class ObjectiveCardInitializer {
         this.symbols = symbols;
     }
 
-    //Method to initialize the obj cards, creation and call to add card to game
-    public void initializeObjectiveCards() {
-        //Creation of the cards
-        //we need:
-        //only points and conditions to give those points
+    public void initializeObjectiveCards(){
 
-        //!!angles and back symbol are non existing => null
-        VisibleAngle[] firstObjectiveCardFrontAngles = new VisibleAngle[4];
-        VisibleAngle[] firstObjectiveCardBackAngles = new VisibleAngle[4];
-        //We create the point conditions
-        Symbol firstConditionSymbol = symbols.get(4);
-        Symbol secondConditionSymbol = symbols.get(5);
-        //create the list of all symbols on which assign points
-        List<Symbol> conditionSymbols = new ArrayList<>();
-        //adding the symbols to the list
-        conditionSymbols.add(firstConditionSymbol);
-        conditionSymbols.add(secondConditionSymbol);
-        //Create the points the card gives if conditions matched
-        int firstObjectiveCardPoints = 2;
-        //Create the card
-        ObjectiveCard firstObjectiveCard = new ObjectiveCard("first", firstObjectiveCardPoints, conditionSymbols,
-                firstObjectiveCardFrontAngles, firstObjectiveCardBackAngles, null);
-        //finally add the card to the objective game deck
-        addCardToGame(firstObjectiveCard);
+        try (Reader reader = new FileReader("resources/goldCards.json");
+             JsonReader jsonReader = Json.createReader(reader)) {
 
-        //------------------------------------------------
-        addCardToGame(firstObjectiveCard);
-        addCardToGame(firstObjectiveCard);
-        addCardToGame(firstObjectiveCard);
-        addCardToGame(firstObjectiveCard);
-        addCardToGame(firstObjectiveCard);
-        addCardToGame(firstObjectiveCard);
-        addCardToGame(firstObjectiveCard);
-        //------------------------------------------------
+            JsonArray jsonArray = jsonReader.readArray();
+
+            for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
+                // Store the values of each JSON object
+                String points = jsonObject.getString("points");
+                String type = jsonObject.getString("type");
+                String card1 = jsonObject.getString("card1");
+                String direction1 = jsonObject.getString("direction1");
+                String card2 = jsonObject.getString("card2");
+                String direction2 = jsonObject.getString("direction2");
+                String card3 = jsonObject.getString("card3");
 
 
+                // Getting the points of the card
+                int pointsInt = Integer.parseInt(points);
 
+                ObjectiveCard objectiveCard = new ObjectiveCard(count, pointsInt, type, card1, direction1, card2, direction2, card3);
+                addCardToGame(objectiveCard);
+
+                count++;
+            }
+        }
+        catch (IOException e) {
+            Throwable cause = e.getCause();
+        }
 
     }
 
@@ -64,5 +62,4 @@ public class ObjectiveCardInitializer {
     public void addCardToGame(ObjectiveCard card){
         game.addObjectiveCardToDeck(card);
     }
-
 }

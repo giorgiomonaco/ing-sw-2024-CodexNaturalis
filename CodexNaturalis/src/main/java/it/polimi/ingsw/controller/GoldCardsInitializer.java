@@ -154,8 +154,9 @@ public class GoldCardsInitializer {
 
                 cardNumber++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.getCause()
         }
     }
 
