@@ -19,8 +19,8 @@ public class ServerMain {
             this.configurationBase = new ServerConfigNetwork();
             handler = new ServerHandler(configurationBase);
             handler.init();
-            this.rmiServer = new ServerRMI(configurationBase);
-            this.tcpServer = new ServerTCP(configurationBase);
+            this.rmiServer = new ServerRMI(configurationBase, handler);
+            this.tcpServer = new ServerTCP(configurationBase, handler);
 
         } catch (RemoteException e) {
             System.err.println("Unable to create a new server, maybe one is already running.");

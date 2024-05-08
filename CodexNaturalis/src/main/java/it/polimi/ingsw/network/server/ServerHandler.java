@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.network.message.Message;
+
 import java.util.Scanner;
 
 public class ServerHandler {
@@ -29,5 +31,8 @@ public class ServerHandler {
 
     public void isValid(String check){
         // Check if the ip is valid, maybe we can assume that anyway..
+    }
+    public void manageMessage(Message msg) {
+
     }
 }

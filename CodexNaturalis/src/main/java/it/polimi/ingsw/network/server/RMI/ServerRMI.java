@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server.RMI;
 
 import it.polimi.ingsw.network.server.ServerConfigNetwork;
+import it.polimi.ingsw.network.server.ServerHandler;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -13,10 +14,12 @@ public class ServerRMI implements RMIServerInterface {
     static int PORT;
     Registry registry;
     RMIServerInterface obj;
+    private ServerHandler handlerRMI;
 
-    public ServerRMI(ServerConfigNetwork data) throws RemoteException {
+    public ServerRMI(ServerConfigNetwork data, ServerHandler handler) throws RemoteException {
         super();
         PORT = data.getPortRMI();
+        handlerRMI = handler;
     }
 
     public ServerRMI(){

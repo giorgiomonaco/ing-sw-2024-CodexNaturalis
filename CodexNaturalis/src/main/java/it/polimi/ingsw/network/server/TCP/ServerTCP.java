@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server.TCP;
 
 import it.polimi.ingsw.network.server.ServerConfigNetwork;
+import it.polimi.ingsw.network.server.ServerHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -16,9 +17,11 @@ import java.util.concurrent.Executors;
  */
 public class ServerTCP {
     static int PORT;
+    private ServerHandler handlerTCP;
     public List<TCPClientHandler> connectedClients;
 
-    public ServerTCP(ServerConfigNetwork data){
+    public ServerTCP(ServerConfigNetwork data, ServerHandler handler){
+        handlerTCP = handler;
         PORT = data.getPortTCP();
         connectedClients = new ArrayList<>();
     }
@@ -38,7 +41,7 @@ public class ServerTCP {
             try {
                 Socket socket = serverSocket.accept();
                 TCPClientHandler acceptedClient;
-                acceptedClient = new TCPClientHandler(socket);
+                acceptedClient = new TCPClientHandler(socket, handlerTCP);
 
                 executor.submit(acceptedClient);
                 connectedClients.add(acceptedClient);

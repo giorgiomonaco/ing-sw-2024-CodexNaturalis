@@ -13,11 +13,15 @@ import java.net.Socket;
  */
 public class TCPClientHandler implements Runnable{
     private final Socket socket;
+    private ServerHandler handlerTCP;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    public TCPClientHandler(Socket socket){
+
+    public TCPClientHandler(Socket socket, ServerHandler handler){
+        handlerTCP = handler;
         this.socket = socket;
     }
+
     public void run(){
 
         try {
@@ -30,7 +34,6 @@ public class TCPClientHandler implements Runnable{
         }
 
         // send a msg to the client of the received connection
-
         Message msg;
         try {
             msg = new ConnectionActive(ServerHandler.HOSTNAME);
@@ -41,8 +44,23 @@ public class TCPClientHandler implements Runnable{
             Thread.currentThread().interrupt();
         }
 
-        // wait for the msg of the client (the first is login)
+        // wait for the login message
         // TO DO...
 
+        // wait for the msg of the client (the first is login)
+        while(!Thread.currentThread().isInterrupted()){
+            try {
+                msg = (Message) in.readObject();
+                handlerTCP.manageMessage(msg);
+            } catch (IOException e) {
+                System.err.println("Lost connection with the client: " + socket);
+                // disconnessione
+            } catch (ClassNotFoundException e) {
+                System.err.println("Couldn't cast a message of the client: " + socket);
+                // disconnessione ??
+            }
+        }
+
     }
+
 }
