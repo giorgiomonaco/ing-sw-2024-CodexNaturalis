@@ -3,7 +3,8 @@ package it.polimi.ingsw.network.server;
 import java.util.Scanner;
 
 public class ServerHandler {
-    ServerConfigNetwork data;
+    private ServerConfigNetwork data;
+    public static String HOSTNAME = "Server";
 
     public ServerHandler(ServerConfigNetwork configurationBase){
         this.data = configurationBase;
