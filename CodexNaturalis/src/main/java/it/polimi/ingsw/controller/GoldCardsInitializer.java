@@ -156,7 +156,7 @@ public class GoldCardsInitializer {
             }
         }
         catch (IOException e) {
-            e.getCause()
+            e.getCause();
         }
     }
 
