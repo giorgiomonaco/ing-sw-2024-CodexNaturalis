@@ -26,6 +26,7 @@ public class ServerMain {
             System.err.println("Unable to create a new server, maybe one is already running.");
         }
     }
+
     public static void main(String[] args) {
 
         ServerMain server = new ServerMain();
