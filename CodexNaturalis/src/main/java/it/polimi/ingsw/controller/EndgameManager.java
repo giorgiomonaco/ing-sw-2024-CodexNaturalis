@@ -1,22 +1,25 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.ObjectiveCard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.VisibleAngle;
+import it.polimi.ingsw.model.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Objects;
 
 public class EndgameManager {
+    //this class gets the game and the player, and calculates the points each player gets by completing his objective
+    //every card has a different type of objective, hence the need for this class
     Game game;
     Player player;
+    private final List<Symbol> symbols;
+
 
     //constructor
-    public EndgameManager(Game game, Player player){
+    public EndgameManager(Game game, Player player, List<Symbol> sym){
         this.player = player;
         this.game = game;
+        this.symbols = sym;
     }
 
     public void objectivePointsCounter(){
@@ -40,38 +43,101 @@ public class EndgameManager {
 
 
     }
+
+    // this function analyzes the objective description to find how many occurrences of a same layout happen
     private void objectiveCreator(){
+        // stage one -- finding the first card basing on its color
+        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
+        GameBoard gameBoard = this.player.getGameBoard();
+        Card[][] cardMatrix = gameBoard.getCardMatrix();
+
+
+        for (int row = 0; row< gameBoard.getMAX_Y(); row++){
+            for (int col = 0; col< gameBoard.getMAX_X(); col++){
+                if (Objects.equals(cardMatrix[row][col].getBackSymbol().getSymbolName(), objectiveCard.getCard1())){
+                    findPattern(row, col, cardMatrix);
+                }
+            }
+        }
+
         return;
     }
     private void resourceCounter(String type){
-        if (!Objects.equals(type, "special")){
-            int[] resources = player.getResourcesAvailable();
-            switch (type) {
-                case "mushroom":
-                    player.addPoints(Math.floorDiv(resources[0],3));
-                    break;
-                case "leaf":
-                    player.addPoints(Math.floorDiv(resources[1],3));
-                    break;
-                case "fox":
-                    player.addPoints(Math.floorDiv(resources[2],3));
-                    break;
-                case "butterfly":
-                    player.addPoints(Math.floorDiv(resources[3],3));
-                    break;
-                case "feather":
-                    player.addPoints(Math.floorDiv(resources[4],3));
-                    break;
-                case "bottle":
-                    player.addPoints(Math.floorDiv(resources[5],3));
-                    break;
-                case "scroll":
-                    player.addPoints(Math.floorDiv(resources[6],3));
-                    break;
-            }
+        int[] resources = player.getResourcesAvailable();
+        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
+
+        switch (type) {
+            case "mushroom":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[0],3));
+                break;
+            case "leaf":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[1],3));
+                break;
+            case "fox":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[2],3));
+                break;
+            case "butterfly":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[3],3));
+                break;
+            case "feather":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[4],3));
+                break;
+            case "bottle":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[5],3));
+                break;
+            case "scroll":
+                player.addPoints(objectiveCard.getPoints() * Math.floorDiv(resources[6],3));
+                break;
+            case "special":
+                specialCounter();
+
         }
     }
     private void specialCounter(){
+        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
+        int[] resources = this.player.getResourcesAvailable();
+        int a = Math.floorDiv(resources[4],3);
+        int b = Math.floorDiv(resources[5],3);
+        int c = Math.floorDiv(resources[6],3);
+        this.player.addPoints(findMin(a,b,c));
+    }
+    private int findMin(int a, int b, int c){
+        return Math.min(Math.min(a,b),c);
+    }
+    private void findPattern(int row, int col, Card[][] cardMatrix){
+        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
+        if (checkDirection(objectiveCard, cardMatrix, row, col, objectiveCard.getDirection1(), objectiveCard.getCard2())){
+            switch (objectiveCard.getDirection1()) {
+                case "down":
+                    row--;
+                case "down-right":
+                    row--;
+                    col++;
+                case "down-left":
+                    row--;
+                    col--;
+            }
+            if (checkDirection(objectiveCard, cardMatrix, row, col, objectiveCard.getDirection2(), objectiveCard.getCard3())){
+                player.addPoints(objectiveCard.getPoints());
+            }
+        }
 
     }
+
+    private boolean checkDirection(ObjectiveCard card, Card[][] cardMatrix, int row, int col, String direction, String toCheck){
+
+        GameBoard board = this.player.getGameBoard();
+        if (row == board.getMAX_Y() || col == 0 || col == board.getMAX_X()){
+            return false;
+        }
+        return switch (direction) {
+            case "down" -> Objects.equals(cardMatrix[row--][col].getBackSymbol().getSymbolName(), toCheck);
+            case "down-right" -> Objects.equals(cardMatrix[row--][col++].getBackSymbol().getSymbolName(), toCheck);
+            case "down-left" -> Objects.equals(cardMatrix[row--][col--].getBackSymbol().getSymbolName(), toCheck);
+            default -> false;
+        };
+    }
+
+
+
 }
