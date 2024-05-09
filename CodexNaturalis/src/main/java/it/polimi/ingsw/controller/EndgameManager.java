@@ -104,6 +104,8 @@ public class EndgameManager {
     private int findMin(int a, int b, int c){
         return Math.min(Math.min(a,b),c);
     }
+
+    //this function verifies if the objective pattern is present and assigns points to the player accordingly
     private void findPattern(int row, int col, Card[][] cardMatrix){
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
         if (checkDirection(objectiveCard, cardMatrix, row, col, objectiveCard.getDirection1(), objectiveCard.getCard2())){
@@ -124,6 +126,9 @@ public class EndgameManager {
 
     }
 
+
+    //this function is called every for every direction findPattern() needs to verify.
+    // Starting from the top card, every layout is either going down in a straight line, or on the diagonals
     private boolean checkDirection(ObjectiveCard card, Card[][] cardMatrix, int row, int col, String direction, String toCheck){
 
         GameBoard board = this.player.getGameBoard();
