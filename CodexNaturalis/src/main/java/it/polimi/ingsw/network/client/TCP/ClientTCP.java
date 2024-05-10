@@ -13,7 +13,6 @@ public class ClientTCP extends Client {
     private final int serverPort;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private ObjectInputStream stdIN;
 
 
     public ClientTCP(String IP, int port) {
@@ -23,6 +22,7 @@ public class ClientTCP extends Client {
     }
 
     public void start() {
+
         try {
             socket = new Socket(serverIP, serverPort);
         } catch (IOException e) {
@@ -32,7 +32,6 @@ public class ClientTCP extends Client {
         try {
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
-            stdIN = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             System.err.println("Couldn't get the I/O for the TCP connection to the server " + serverIP);
         }
@@ -40,6 +39,7 @@ public class ClientTCP extends Client {
         Message connectionMessage;
         try {
             connectionMessage = (ConnectionActive) in.readObject();
+            connectionMessage.printMessage();
         } catch (IOException e) {
             System.err.println("Lost connection with the server " + serverIP);
         } catch (ClassNotFoundException e) {

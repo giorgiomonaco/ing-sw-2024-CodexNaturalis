@@ -38,4 +38,9 @@ public abstract class Message implements Serializable {
         description = optDescription;
     }
 
+    public void printMessage() {
+        String string = type.toString();
+        System.out.println(string);
+    }
+
 }

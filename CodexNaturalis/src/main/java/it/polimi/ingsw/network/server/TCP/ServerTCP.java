@@ -40,11 +40,14 @@ public class ServerTCP {
         while(true) {
             try {
                 Socket socket = serverSocket.accept();
+                System.out.println("New TCP connection accepted on socket: " + socket);
                 TCPClientHandler acceptedClient;
                 acceptedClient = new TCPClientHandler(socket, handlerTCP);
 
-                executor.submit(acceptedClient);
                 connectedClients.add(acceptedClient);
+                executor.submit(acceptedClient);
+                //Thread newThread = new Thread(acceptedClient);
+                // newThread.start();
             } catch (IOException e) {
                 break; // You join here if the serverSocket has been closed.
             }

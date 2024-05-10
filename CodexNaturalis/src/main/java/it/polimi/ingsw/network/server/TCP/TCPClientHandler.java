@@ -23,15 +23,16 @@ public class TCPClientHandler implements Runnable{
     }
 
     public void run(){
-
+        System.out.println("prima del lock");
         try {
-            synchronized (socket) {
-                in = new ObjectInputStream(socket.getInputStream());
-                out = new ObjectOutputStream(socket.getOutputStream());
-            }
+             synchronized (socket) {
+                 out = new ObjectOutputStream(socket.getOutputStream());
+                 in = new ObjectInputStream(socket.getInputStream());
+             }
         } catch (IOException e) {
             System.err.println("Couldn't open the I/O for the TCP connection via server");
         }
+        System.out.println("dopo il lock");
 
         // send a msg to the client of the received connection
         Message msg;
@@ -39,6 +40,7 @@ public class TCPClientHandler implements Runnable{
             msg = new ConnectionActive(ServerHandler.HOSTNAME);
             out.writeObject(msg);
             out.flush();
+            System.out.println("New active connection. Starting login phase.");
         } catch (IOException e) {
             System.err.println("Couldn't connect with the client");
             Thread.currentThread().interrupt();
@@ -54,7 +56,7 @@ public class TCPClientHandler implements Runnable{
                 handlerTCP.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection with the client: " + socket);
-                // disconnessione
+                // disconnessione sennò continua a stampare all'infinito
             } catch (ClassNotFoundException e) {
                 System.err.println("Couldn't cast a message of the client: " + socket);
                 // disconnessione ??
