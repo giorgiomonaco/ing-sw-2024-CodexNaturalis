@@ -4,6 +4,6 @@ public class DrawCardView implements TuiView {
 
     @Override
     public void start() {
-
+        System.out.println("CHOOSE A CARD TO DRAW");
     }
 }
