@@ -50,8 +50,9 @@ public class ClientTCP extends Client {
 
         System.out.println("TCP Client ready to receive and send.");
 
-        receiver = new ReceiverTCP();
-        sender = new SenderTCP();
+        receiver = new ReceiverTCP(in);
+        receiver.run();
+        sender = new SenderTCP(out);
     }
 
 }
