@@ -13,6 +13,8 @@ public class ClientTCP extends Client {
     private final int serverPort;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private SenderTCP sender;
+    private RecieverTCP receiver;
 
 
     public ClientTCP(String IP, int port) {
@@ -48,6 +50,8 @@ public class ClientTCP extends Client {
 
         System.out.println("TCP Client ready to receive and send.");
 
+        receiver = new RecieverTCP();
+        sender = new SenderTCP();
     }
 
 }
