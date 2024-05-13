@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientTCP extends Client {
     private Socket socket;
@@ -13,6 +16,7 @@ public class ClientTCP extends Client {
     private final int serverPort;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private ExecutorService execService;
     private SenderTCP sender;
     private ReceiverTCP receiver;
 
@@ -20,6 +24,7 @@ public class ClientTCP extends Client {
     public ClientTCP(String IP, int port) {
         serverIP = IP;
         serverPort = port;
+        execService = Executors.newSingleThreadExecutor();
         start();
     }
 
@@ -51,7 +56,7 @@ public class ClientTCP extends Client {
         System.out.println("TCP Client ready to receive and send.");
 
         receiver = new ReceiverTCP(in);
-        receiver.run();
+        receiver.start();
         sender = new SenderTCP(out);
     }
 

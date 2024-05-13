@@ -23,7 +23,7 @@ public class TCPClientHandler implements Runnable{
     }
 
     public void run(){
-        System.out.println("prima del lock");
+
         try {
              synchronized (socket) {
                  out = new ObjectOutputStream(socket.getOutputStream());
@@ -32,7 +32,6 @@ public class TCPClientHandler implements Runnable{
         } catch (IOException e) {
             System.err.println("Couldn't open the I/O for the TCP connection via server");
         }
-        System.out.println("dopo il lock");
 
         // send a msg to the client of the received connection
         Message msg;

@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.message.Message;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class ReceiverTCP {
+public class ReceiverTCP extends Thread{
     private ObjectInputStream in;
 
     public ReceiverTCP(ObjectInputStream input) {
