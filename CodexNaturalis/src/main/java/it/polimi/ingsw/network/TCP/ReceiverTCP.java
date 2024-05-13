@@ -1,5 +1,5 @@
 package it.polimi.ingsw.network.TCP;
 
-public class RecieverTCP {
+public class ReceiverTCP {
 
 }
