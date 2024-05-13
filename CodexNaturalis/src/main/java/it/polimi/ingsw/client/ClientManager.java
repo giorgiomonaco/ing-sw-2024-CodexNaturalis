@@ -24,6 +24,7 @@ public class ClientManager {
         } else {
             gameView = new Gui();
         }
+        gameView.run();
     }
 
     // Constructor for RMI Client.
@@ -37,5 +38,6 @@ public class ClientManager {
         } else {
             gameView = new Gui();
         }
+        gameView.run();
     }
 }
