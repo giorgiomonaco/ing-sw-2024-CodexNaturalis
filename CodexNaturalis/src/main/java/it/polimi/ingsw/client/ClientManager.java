@@ -17,7 +17,7 @@ public class ClientManager {
     public ClientManager(ViewMode selectedView, String IP, int serverPort) {
 
         client = new ClientTCP(IP, serverPort);
-        client.setCurrentState(stateEnum.SELECT_TOKEN);
+        client.setCurrentState(stateEnum.LOGIN);
 
         if(selectedView == ViewMode.TUI) {
             gameView = new Tui(client);

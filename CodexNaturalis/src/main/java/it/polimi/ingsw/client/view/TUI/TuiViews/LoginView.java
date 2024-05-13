@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class LoginView implements TuiView{
     @Override
     public void start() {
-        System.out.println("CHOOSE USERNAME:");
-
+        System.out.println("---LOGIN PHASE---\nInsert username: ");
     }
 }
