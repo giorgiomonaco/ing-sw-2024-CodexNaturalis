@@ -14,7 +14,7 @@ public class ClientTCP extends Client {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private SenderTCP sender;
-    private RecieverTCP receiver;
+    private ReceiverTCP receiver;
 
 
     public ClientTCP(String IP, int port) {
@@ -50,7 +50,7 @@ public class ClientTCP extends Client {
 
         System.out.println("TCP Client ready to receive and send.");
 
-        receiver = new RecieverTCP();
+        receiver = new ReceiverTCP();
         sender = new SenderTCP();
     }
 
