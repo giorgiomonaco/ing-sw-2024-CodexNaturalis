@@ -1,6 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

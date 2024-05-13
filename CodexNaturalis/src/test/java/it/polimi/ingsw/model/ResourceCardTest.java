@@ -1,17 +1,10 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import it.polimi.ingsw.server.model.ResourceCard;
+import it.polimi.ingsw.server.model.ResourceSymbol;
+import it.polimi.ingsw.server.model.Symbol;
+import it.polimi.ingsw.server.model.VisibleAngle;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.*;
 public class ResourceCardTest {
     private ResourceCard r;
 
