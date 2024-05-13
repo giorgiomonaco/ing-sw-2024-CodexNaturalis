@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 import it.polimi.ingsw.server.model.Symbol;
 import it.polimi.ingsw.server.model.Game;

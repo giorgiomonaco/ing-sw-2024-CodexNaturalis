@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.client.view.ViewTry;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.GameState;
