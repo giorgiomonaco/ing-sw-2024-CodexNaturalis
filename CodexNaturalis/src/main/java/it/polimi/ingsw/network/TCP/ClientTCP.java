@@ -11,7 +11,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ClientTCP extends Client {
+public class ClientTCP extends Client{
     private Socket socket;
     private final String serverIP;
     private final int serverPort;
@@ -69,14 +69,17 @@ public class ClientTCP extends Client {
     public void manageMessage(Message msg) {
         switch (msg.getType()) {
             case LOGIN_RESPONSE:
-                if(msg.getDescription().equals("true")){
-                    msg.printMessage();
+                if(msg.getDescription().equals("first")){
+                    setCurrentState(stateEnum.SELECT_NUM_PLAYERS);
+                    getUI().run();
+                } else if(msg.getDescription().equals("true")){
                     setCurrentState(stateEnum.LOBBY);
                     getUI().run();
                 } else {
                    System.out.println("Username already in use, try to choose another one.");
                    getUI().run();
                 }
+                break;
         }
     }
 

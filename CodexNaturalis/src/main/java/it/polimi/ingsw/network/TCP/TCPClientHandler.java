@@ -54,22 +54,10 @@ public class TCPClientHandler implements Runnable{
         boolean result;
 
         try {
-
             do {
                 request = (LoginRequest) in.readObject();
-                System.out.println("login ricevuto");
-                // Only for debug
-                // request.printMessage();
                 result = manageLogin(request);
-                if(result) {
-                    msg = new LoginResponse(ServerHandler.HOSTNAME, "true");
-                } else {
-                    msg = new LoginResponse(ServerHandler.HOSTNAME, "false");
-                }
-                out.writeObject(msg);
-                out.flush();
             } while(!result);
-
         } catch (IOException e) {
             System.err.println("Lost connection with the client: " + socket);
         } catch (ClassNotFoundException e) {
@@ -94,22 +82,32 @@ public class TCPClientHandler implements Runnable{
 
     public boolean manageLogin(LoginRequest msg) {
         boolean result;
+        LoginResponse response;
 
-        if(isEmpty(handlerTCP.getConnectedClients())){
+        if(handlerTCP.getConnectedClients().isEmpty()){
             handlerTCP.getConnectedClients().add(msg.getUsername());
-            System.out.println("aggiunto user.");
+            System.out.println("aggiunto username: " + msg.getUsername());
             // nuovo gioco
-            // messaggio select num player
+            response = new LoginResponse(ServerHandler.HOSTNAME, "first");
             result = true;
         } else {
             if(handlerTCP.getConnectedClients().contains(msg.getUsername())){
-
+                response = new LoginResponse(ServerHandler.HOSTNAME, "false");
                 result = false;
             }
             else {
                 handlerTCP.getConnectedClients().add(msg.getUsername());
+                System.out.println("aggiunto username: " + msg.getUsername());
+                response = new LoginResponse(ServerHandler.HOSTNAME, "true");
                 result = true;
             }
+        }
+
+        try {
+            out.writeObject(response);
+            out.flush();
+        } catch (IOException e) {
+            System.err.println("Lost connection with the server.");
         }
 
         return result;

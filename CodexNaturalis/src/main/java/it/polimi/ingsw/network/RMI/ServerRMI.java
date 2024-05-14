@@ -36,7 +36,7 @@ public class ServerRMI implements RMIServerInterface {
             System.err.println("Error while starting server: " + e.toString());
             System.exit(0);
         }
-        System.out.println("RMI server is ready on port: " + PORT);
+        System.out.println("--- RMI server is ready on port: " + PORT + " ---");
     }
 
     public void stop() {

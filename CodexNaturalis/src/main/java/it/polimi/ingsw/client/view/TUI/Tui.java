@@ -11,13 +11,13 @@ import java.util.Map;
 
 public class Tui implements UserInterface {
 
-    private stateEnum currentState;
+    private Client tuiCli;
     private Map<stateEnum, TuiView> phaseView;
     private ReadCommand reader;
 
     public Tui(Client client){
 
-        currentState = client.getCurrentState();
+        tuiCli = client;
         client.setUI(this);
         phaseView = new HashMap<>();
         reader = new ReadCommand(this, client);
@@ -39,33 +39,33 @@ public class Tui implements UserInterface {
 
     @Override
     public void run() {
-        switch(currentState){
+        switch(tuiCli.getCurrentState()){
             case LOGIN:
-                phaseView.get(stateEnum.LOGIN).start();
+                phaseView.get(stateEnum.LOGIN).play();
                 break;
             case ALREADY_STARTED:
-                phaseView.get(stateEnum.ALREADY_STARTED).start();
+                phaseView.get(stateEnum.ALREADY_STARTED).play();
                 break;
             case DISCONNECTION:
-                phaseView.get(stateEnum.DISCONNECTION).start();
+                phaseView.get(stateEnum.DISCONNECTION).play();
                 break;
             case DRAW_CARD:
-                phaseView.get(stateEnum.DRAW_CARD).start();
+                phaseView.get(stateEnum.DRAW_CARD).play();
                 break;
             case LOBBY:
-                phaseView.get(stateEnum.LOBBY).start();
+                phaseView.get(stateEnum.LOBBY).play();
                 break;
             case PLAY_CARD:
-                phaseView.get(stateEnum.PLAY_CARD).start();
+                phaseView.get(stateEnum.PLAY_CARD).play();
                 break;
             case SELECT_NUM_PLAYERS:
-                phaseView.get(stateEnum.SELECT_NUM_PLAYERS).start();
+                phaseView.get(stateEnum.SELECT_NUM_PLAYERS).play();
                 break;
             case SELECT_TOKEN:
-                phaseView.get(stateEnum.SELECT_TOKEN).start();
+                phaseView.get(stateEnum.SELECT_TOKEN).play();
                 break;
             case WAITING_TURN:
-                phaseView.get(stateEnum.WAITING_TURN).start();
+                phaseView.get(stateEnum.WAITING_TURN).play();
                 break;
         }
     }
@@ -83,10 +83,6 @@ public class Tui implements UserInterface {
     @Override
     public void showMessage() {
 
-    }
-
-    public stateEnum getCurrentState() {
-        return currentState;
     }
 
 }

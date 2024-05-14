@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class ReadCommand extends Thread{
 
     private Tui tui;
-    private stateEnum currState;
     private String command;
     private Map<String, CommandManager> mapOfCommand;
     private Client client;
@@ -22,7 +21,6 @@ public class ReadCommand extends Thread{
     public ReadCommand(Tui tui, Client tcpClient){
         this.tui = tui;
         client = tcpClient;
-        currState = tui.getCurrentState();
         mapOfCommand = new HashMap<>();
         initializeMap();
     }
