@@ -2,10 +2,14 @@ package it.polimi.ingsw.network.TCP;
 
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
+import it.polimi.ingsw.network.message.allMessages.LoginRequest;
+import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.server.ServerHandler;
 
 import java.io.*;
 import java.net.Socket;
+
+import static sun.util.locale.LocaleUtils.isEmpty;
 
 /**
  * The class manages the communication between server
@@ -46,7 +50,31 @@ public class TCPClientHandler implements Runnable{
         }
 
         // wait for the login message
-        // TO DO...
+        LoginRequest request;
+        boolean result;
+
+        try {
+
+            do {
+                request = (LoginRequest) in.readObject();
+                System.out.println("login ricevuto");
+                // Only for debug
+                // request.printMessage();
+                result = manageLogin(request);
+                if(result) {
+                    msg = new LoginResponse(ServerHandler.HOSTNAME, "true");
+                } else {
+                    msg = new LoginResponse(ServerHandler.HOSTNAME, "false");
+                }
+                out.writeObject(msg);
+                out.flush();
+            } while(!result);
+
+        } catch (IOException e) {
+            System.err.println("Lost connection with the client: " + socket);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Couldn't cast a message of the client: " + socket);
+        }
 
         // wait for the msg of the client (the first is login)
         while(!Thread.currentThread().isInterrupted()){
@@ -62,6 +90,29 @@ public class TCPClientHandler implements Runnable{
             }
         }
 
+    }
+
+    public boolean manageLogin(LoginRequest msg) {
+        boolean result;
+
+        if(isEmpty(handlerTCP.getConnectedClients())){
+            handlerTCP.getConnectedClients().add(msg.getUsername());
+            System.out.println("aggiunto user.");
+            // nuovo gioco
+            // messaggio select num player
+            result = true;
+        } else {
+            if(handlerTCP.getConnectedClients().contains(msg.getUsername())){
+
+                result = false;
+            }
+            else {
+                handlerTCP.getConnectedClients().add(msg.getUsername());
+                result = true;
+            }
+        }
+
+        return result;
     }
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.TCP;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.stateManager.stateEnum;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
 
@@ -55,9 +56,28 @@ public class ClientTCP extends Client {
 
         System.out.println("TCP Client ready to receive and send.");
 
-        receiver = new ReceiverTCP(in);
+        receiver = new ReceiverTCP(in, this);
         receiver.start();
         sender = new SenderTCP(out);
+    }
+
+
+    public void sendMessage(Message msg) {
+        execService.submit(() -> sender.sendMessage(msg));
+    }
+
+    public void manageMessage(Message msg) {
+        switch (msg.getType()) {
+            case LOGIN_RESPONSE:
+                if(msg.getDescription().equals("true")){
+                    msg.printMessage();
+                    setCurrentState(stateEnum.LOBBY);
+                    getUI().run();
+                } else {
+                   System.out.println("Username already in use, try to choose another one.");
+                   getUI().run();
+                }
+        }
     }
 
 }

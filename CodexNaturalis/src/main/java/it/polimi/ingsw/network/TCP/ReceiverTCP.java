@@ -7,9 +7,11 @@ import java.io.ObjectInputStream;
 
 public class ReceiverTCP extends Thread{
     private ObjectInputStream in;
+    private ClientTCP client;
 
-    public ReceiverTCP(ObjectInputStream input) {
+    public ReceiverTCP(ObjectInputStream input, ClientTCP client) {
         in = input;
+        this.client = client;
     }
 
     public void run(){
@@ -18,6 +20,7 @@ public class ReceiverTCP extends Thread{
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 msg = (Message) in.readObject();
+                client.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection to the server.");
                 throw new RuntimeException(e);

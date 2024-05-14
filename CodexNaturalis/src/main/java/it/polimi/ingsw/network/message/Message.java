@@ -43,4 +43,15 @@ public abstract class Message implements Serializable {
         System.out.println(string);
     }
 
+    public messEnum getType() {
+        return type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

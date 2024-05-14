@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.TUI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.commands.ReadCommand;
 import it.polimi.ingsw.client.stateManager.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
@@ -12,11 +13,16 @@ public class Tui implements UserInterface {
 
     private stateEnum currentState;
     private Map<stateEnum, TuiView> phaseView;
+    private ReadCommand reader;
 
     public Tui(Client client){
 
         currentState = client.getCurrentState();
+        client.setUI(this);
         phaseView = new HashMap<>();
+        reader = new ReadCommand(this, client);
+        Thread readerThread = new Thread(reader);
+        readerThread.start();
 
         phaseView.put(stateEnum.LOGIN, new LoginView());
         phaseView.put(stateEnum.ALREADY_STARTED, new AlreadyStartedView());
@@ -78,4 +84,9 @@ public class Tui implements UserInterface {
     public void showMessage() {
 
     }
+
+    public stateEnum getCurrentState() {
+        return currentState;
+    }
+
 }
