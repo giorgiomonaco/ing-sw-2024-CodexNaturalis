@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.network.RMI.ClientRMI;
 import it.polimi.ingsw.network.TCP.ClientTCP;
-import it.polimi.ingsw.client.stateManager.stateEnum;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.GUI.Gui;
 import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.client.view.UserInterface;
@@ -17,7 +17,7 @@ public class ClientManager {
     public ClientManager(ViewMode selectedView, String IP, int serverPort) {
 
         client = new ClientTCP(IP, serverPort);
-        client.setCurrentState(stateEnum.SELECT_TOKEN);
+        client.setCurrentState(stateEnum.LOGIN);
 
         if(selectedView == ViewMode.TUI) {
             gameView = new Tui(client);

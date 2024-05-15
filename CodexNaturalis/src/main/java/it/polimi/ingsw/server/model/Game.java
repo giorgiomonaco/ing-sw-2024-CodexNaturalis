@@ -12,9 +12,12 @@ public class Game {
     public Game(GameState gState){
         this.gameState = gState;
     }
+    public Game(){};
 
     //List of the players
     List<Player> playerList = new ArrayList<>();
+
+    private int numOfPlayers;
 
     //deck of resource cards (common to every player)
     private final List<ResourceCard> resourceDeck = new ArrayList<>();
@@ -177,5 +180,13 @@ public class Game {
 
     public int getGoldDeckSize() {
         return this.goldDeck.size();
+    }
+
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+    public void setNumOfPlayers(int numOfPlayers) {
+        this.numOfPlayers = numOfPlayers;
     }
 }

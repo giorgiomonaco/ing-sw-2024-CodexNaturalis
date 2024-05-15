@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.stateManager;
+package it.polimi.ingsw.client.states;
 
 public enum stateEnum {
     LOGIN,

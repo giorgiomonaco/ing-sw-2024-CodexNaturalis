@@ -35,7 +35,7 @@ public class ServerTCP {
             System.err.println("The port " + PORT + " is not available for the TCP server.");
             return;
         }
-        System.out.println("TCP server is ready on port: " + PORT);
+        System.out.println("--- TCP server is ready on port: " + PORT + " ---");
 
         while(true) {
             try {

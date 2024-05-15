@@ -2,10 +2,13 @@ package it.polimi.ingsw.network.TCP;
 
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
+import it.polimi.ingsw.network.message.allMessages.LoginRequest;
+import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.server.ServerHandler;
 
 import java.io.*;
 import java.net.Socket;
+
 
 /**
  * The class manages the communication between server
@@ -13,7 +16,7 @@ import java.net.Socket;
  */
 public class TCPClientHandler implements Runnable{
     private final Socket socket;
-    private ServerHandler handlerTCP;
+    private final ServerHandler handlerTCP;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
@@ -46,22 +49,67 @@ public class TCPClientHandler implements Runnable{
         }
 
         // wait for the login message
-        // TO DO...
+        LoginRequest request;
+        boolean result;
 
-        // wait for the msg of the client (the first is login)
+        try {
+            do {
+                request = (LoginRequest) in.readObject();
+                result = manageLogin(request);
+            } while(!result);
+        } catch (IOException e) {
+            System.err.println("Lost connection with the client: " + socket);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Couldn't cast a message of the client: " + socket);
+        }
+
+        // wait for the msg of the client (login already managed)
         while(!Thread.currentThread().isInterrupted()){
             try {
                 msg = (Message) in.readObject();
                 handlerTCP.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection with the client: " + socket);
-                // disconnessione sennò continua a stampare all'infinito
+                // have to manage disconnection of the client!!
             } catch (ClassNotFoundException e) {
                 System.err.println("Couldn't cast a message of the client: " + socket);
-                // disconnessione ??
+                // IDK if I have to disconnect the client here, maybe just resend the message.
             }
         }
 
+    }
+
+    public boolean manageLogin(LoginRequest msg) {
+        boolean result;
+        LoginResponse response;
+
+        if(handlerTCP.getConnectedClients().isEmpty()){
+            handlerTCP.getConnectedClients().add(msg.getUsername());
+            System.out.println("New player added, username: " + msg.getUsername());
+            // maybe have to start the game here
+            response = new LoginResponse(ServerHandler.HOSTNAME, 1, msg.getUsername());
+            result = true;
+        } else if(handlerTCP.getConnectedClients().size() == handlerTCP.getGame().getNumOfPlayers()){
+            response = new LoginResponse(ServerHandler.HOSTNAME, 4, msg.getUsername());
+            result = false;
+        } else if(handlerTCP.getConnectedClients().contains(msg.getUsername())){
+                response = new LoginResponse(ServerHandler.HOSTNAME, 3, msg.getUsername());
+                result = false;
+        } else {
+                handlerTCP.getConnectedClients().add(msg.getUsername());
+                System.out.println("New player added, username: " + msg.getUsername());
+                response = new LoginResponse(ServerHandler.HOSTNAME, 2, msg.getUsername());
+                result = true;
+        }
+
+        try {
+            out.writeObject(response);
+            out.flush();
+        } catch (IOException e) {
+            System.err.println("Lost connection with the server.");
+        }
+
+        return result;
     }
 
 }

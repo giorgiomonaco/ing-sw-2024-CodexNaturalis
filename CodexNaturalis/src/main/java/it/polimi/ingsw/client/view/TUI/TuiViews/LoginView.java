@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 public class LoginView implements TuiView{
     @Override
-    public void start() {
-        System.out.println("CHOOSE USERNAME:");
-
+    public void play() {
+        System.out.println("---LOGIN PHASE---\nInsert 'login <usr>' where usr is your username: ");
     }
 }
