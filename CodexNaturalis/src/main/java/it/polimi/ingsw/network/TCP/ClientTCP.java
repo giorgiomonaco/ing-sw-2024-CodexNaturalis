@@ -1,13 +1,13 @@
 package it.polimi.ingsw.network.TCP;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.stateManager.stateEnum;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
+import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -69,16 +69,19 @@ public class ClientTCP extends Client{
     public void manageMessage(Message msg) {
         switch (msg.getType()) {
             case LOGIN_RESPONSE:
-                if(msg.getDescription().equals("first")){
+                LoginResponse login = (LoginResponse) msg;
+                if(login.getResult() == 1){
                     setCurrentState(stateEnum.SELECT_NUM_PLAYERS);
-                    getUI().run();
-                } else if(msg.getDescription().equals("true")){
+                    setUsername(login.getDescription());
+                } else if(login.getResult() == 2){
                     setCurrentState(stateEnum.LOBBY);
-                    getUI().run();
-                } else {
+                    setUsername(login.getDescription());
+                } else if(login.getResult() == 3){
                    System.out.println("Username already in use, try to choose another one.");
-                   getUI().run();
+                } else {
+                    setCurrentState(stateEnum.ALREADY_STARTED);
                 }
+                getUI().run();
                 break;
         }
     }

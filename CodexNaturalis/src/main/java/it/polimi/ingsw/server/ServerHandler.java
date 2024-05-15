@@ -3,15 +3,16 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.ServerConfigNetwork;
 import it.polimi.ingsw.network.message.Message;
+import it.polimi.ingsw.network.message.allMessages.SelectingNumPlayers;
 import it.polimi.ingsw.network.message.messEnum;
+import it.polimi.ingsw.server.model.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static sun.util.locale.LocaleUtils.isEmpty;
-
 public class ServerHandler {
+    private Game game;
     private ServerConfigNetwork data;
     public static String HOSTNAME = "Server";
     private List<String> connectedClients;
@@ -41,10 +42,19 @@ public class ServerHandler {
     public void isValid(String check){
         // Check if the ip is valid, maybe we can assume that anyway..
     }
+
     public void manageMessage(Message msg) {
         switch(msg.getType()) {
-            case messEnum.LOGIN_REQUEST :
-
+            case messEnum.LOGIN_REQUEST:
+                //for the reconnection I think
+                break;
+            case messEnum.SELECTING_NUM_PLAYERS:
+                SelectingNumPlayers selection = (SelectingNumPlayers) msg;
+                // check if it's a valid number
+                if(selection.getNumOfPlayers() > 1 && selection.getNumOfPlayers() < 5){
+                    game = new Game();
+                    game.setNumOfPlayers(selection.getNumOfPlayers());
+                }
         }
     }
 
@@ -52,4 +62,7 @@ public class ServerHandler {
         return connectedClients;
     }
 
+    public Game getGame() {
+        return game;
+    }
 }

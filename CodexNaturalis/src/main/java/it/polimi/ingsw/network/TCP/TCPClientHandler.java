@@ -9,7 +9,6 @@ import it.polimi.ingsw.server.ServerHandler;
 import java.io.*;
 import java.net.Socket;
 
-import static sun.util.locale.LocaleUtils.isEmpty;
 
 /**
  * The class manages the communication between server
@@ -17,7 +16,7 @@ import static sun.util.locale.LocaleUtils.isEmpty;
  */
 public class TCPClientHandler implements Runnable{
     private final Socket socket;
-    private ServerHandler handlerTCP;
+    private final ServerHandler handlerTCP;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
@@ -64,17 +63,17 @@ public class TCPClientHandler implements Runnable{
             System.err.println("Couldn't cast a message of the client: " + socket);
         }
 
-        // wait for the msg of the client (the first is login)
+        // wait for the msg of the client (login already managed)
         while(!Thread.currentThread().isInterrupted()){
             try {
                 msg = (Message) in.readObject();
                 handlerTCP.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection with the client: " + socket);
-                // disconnessione sennò continua a stampare all'infinito
+                // have to manage disconnection of the client!!
             } catch (ClassNotFoundException e) {
                 System.err.println("Couldn't cast a message of the client: " + socket);
-                // disconnessione ??
+                // IDK if I have to disconnect the client here, maybe just resend the message.
             }
         }
 
@@ -86,21 +85,21 @@ public class TCPClientHandler implements Runnable{
 
         if(handlerTCP.getConnectedClients().isEmpty()){
             handlerTCP.getConnectedClients().add(msg.getUsername());
-            System.out.println("aggiunto username: " + msg.getUsername());
-            // nuovo gioco
-            response = new LoginResponse(ServerHandler.HOSTNAME, "first");
+            System.out.println("New player added, username: " + msg.getUsername());
+            // maybe have to start the game here
+            response = new LoginResponse(ServerHandler.HOSTNAME, 1, msg.getUsername());
             result = true;
-        } else {
-            if(handlerTCP.getConnectedClients().contains(msg.getUsername())){
-                response = new LoginResponse(ServerHandler.HOSTNAME, "false");
+        } else if(handlerTCP.getConnectedClients().size() == handlerTCP.getGame().getNumOfPlayers()){
+            response = new LoginResponse(ServerHandler.HOSTNAME, 4, msg.getUsername());
+            result = false;
+        } else if(handlerTCP.getConnectedClients().contains(msg.getUsername())){
+                response = new LoginResponse(ServerHandler.HOSTNAME, 3, msg.getUsername());
                 result = false;
-            }
-            else {
+        } else {
                 handlerTCP.getConnectedClients().add(msg.getUsername());
-                System.out.println("aggiunto username: " + msg.getUsername());
-                response = new LoginResponse(ServerHandler.HOSTNAME, "true");
+                System.out.println("New player added, username: " + msg.getUsername());
+                response = new LoginResponse(ServerHandler.HOSTNAME, 2, msg.getUsername());
                 result = true;
-            }
         }
 
         try {

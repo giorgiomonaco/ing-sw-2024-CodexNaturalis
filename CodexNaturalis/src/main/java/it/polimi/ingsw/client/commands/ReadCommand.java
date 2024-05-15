@@ -1,11 +1,8 @@
 package it.polimi.ingsw.client.commands;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.listOfCommands.LoginCommand;
-import it.polimi.ingsw.client.stateManager.stateEnum;
+import it.polimi.ingsw.client.commands.listOfCommands.*;
 import it.polimi.ingsw.client.view.TUI.Tui;
-import it.polimi.ingsw.client.view.UserInterface;
-import it.polimi.ingsw.network.TCP.ClientTCP;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,5 +45,6 @@ public class ReadCommand extends Thread{
 
     public void initializeMap(){
         mapOfCommand.put("login", new LoginCommand(client));
+        mapOfCommand.put("num", new SelNumPlayersCommand(client));
     }
 }

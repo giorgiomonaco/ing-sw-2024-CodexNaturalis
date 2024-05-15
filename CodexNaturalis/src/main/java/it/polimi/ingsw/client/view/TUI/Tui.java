@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.view.TUI;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commands.ReadCommand;
-import it.polimi.ingsw.client.stateManager.stateEnum;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
