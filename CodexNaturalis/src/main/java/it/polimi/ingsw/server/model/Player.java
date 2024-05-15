@@ -29,6 +29,7 @@ public class Player {
     private GameBoard gameBoard;
 
     private int playerPoints = 0;
+    private InitialCard initialCard;
 
     //List of resources available in this particular moment for this player
     //We may use an enum to rename the indexes, may be way better, will see
@@ -203,5 +204,13 @@ public class Player {
                 this.resourcesAvailable[6]++;
                 break;
         }
+    }
+
+    public InitialCard getInitialCard() {
+        return initialCard;
+    }
+
+    public void setInitialCard(InitialCard initialCard) {
+        this.initialCard = initialCard;
     }
 }
