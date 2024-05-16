@@ -120,8 +120,10 @@ public class Game {
 
 
     //Method to add a player to the game
-    public void addPlayer(Player player){
-        playerList.add(player);
+    public void addPlayer(Player player) {
+        if (playerList.size() < playersNumber) {
+            playerList.add(player);
+        }
     }
 
     //Method to get the list of the players
