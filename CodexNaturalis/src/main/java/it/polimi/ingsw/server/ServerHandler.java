@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.Game;
+import it.polimi.ingsw.server.model.Player;
 
 
 import java.rmi.RemoteException;
@@ -65,13 +66,17 @@ public class ServerHandler {
 
                         if(!waitingLobby.isEmpty()){
                             int waitingSize = waitingLobby.size();
-                            int rejectedClient = waitingSize - sel.getNumOfPlayers() + 1;
+                            int acceptedClients = sel.getNumOfPlayers() - 1;
+                            int rejectedClients = waitingSize - acceptedClients;
                             synchronized (connectedClients) {
-                                for (int i = 0; i < rejectedClient; i++) {
+                                for (int i = 0; i < rejectedClients; i++) {
                                     sendMessageToPlayer(waitingLobby.get(waitingSize - 1 - i),
                                             new RejectedMessage(ServerHandler.HOSTNAME));
                                     connectedClients.get(waitingLobby.get(waitingSize - 1 - i)).setConnected(false);
                                 }
+                            }
+                            for(int i = 0; i < acceptedClients; i++){
+                                mainController.joinPlayer(waitingLobby.get(i));
                             }
                         }
 
