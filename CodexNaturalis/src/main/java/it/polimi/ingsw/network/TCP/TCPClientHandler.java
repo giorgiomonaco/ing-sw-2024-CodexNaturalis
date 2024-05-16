@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.TCP;
 
+import it.polimi.ingsw.network.ClientConnection;
+import it.polimi.ingsw.network.LoginResult;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
@@ -14,7 +16,7 @@ import java.net.Socket;
  * The class manages the communication between server
  * and the client that belongs to the socket assigned.
  */
-public class TCPClientHandler implements Runnable{
+public class TCPClientHandler extends ClientConnection implements Runnable{
     private final Socket socket;
     private final ServerHandler handlerTCP;
     private ObjectInputStream in;
@@ -50,13 +52,13 @@ public class TCPClientHandler implements Runnable{
 
         // wait for the login message
         LoginRequest request;
-        boolean result;
+        LoginResult result;
 
         try {
             do {
                 request = (LoginRequest) in.readObject();
                 result = manageLogin(request);
-            } while(!result);
+            } while(!result.isLogged());
         } catch (IOException e) {
             System.err.println("Lost connection with the client: " + socket);
         } catch (ClassNotFoundException e) {
@@ -78,7 +80,7 @@ public class TCPClientHandler implements Runnable{
         }
 
     }
-
+/*
     public boolean manageLogin(LoginRequest msg) {
         boolean result;
         LoginResponse response;
@@ -110,6 +112,33 @@ public class TCPClientHandler implements Runnable{
         }
 
         return result;
+    }
+*/
+
+    public LoginResult manageLogin(LoginRequest request){
+        setConnected(true);
+        LoginResult result = handlerTCP.manageLoginRequest(request, this);
+
+        if(result.isLogged() && result.isReconnected()){
+            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
+        }
+        else if(result.isLogged() && !result.isReconnected()){
+            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
+            handlerTCP.newLoginRequest(request);
+        } else {
+            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 2, request.getUsername()));
+        }
+
+        return result;
+    }
+
+    public void sendMessage(Message msg){
+        try {
+            out.writeObject(msg);
+            out.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

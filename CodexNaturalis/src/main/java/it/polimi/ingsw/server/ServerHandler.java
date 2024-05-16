@@ -1,42 +1,51 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.network.ClientConnection;
+import it.polimi.ingsw.network.LoginResult;
+import it.polimi.ingsw.network.RMI.ServerRMI;
 import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.TCP.ServerTCP;
 import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.allMessages.SelectingNumPlayers;
+import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
+import it.polimi.ingsw.server.controller.GameSetUpper;
 import it.polimi.ingsw.server.model.Game;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import java.rmi.RemoteException;
+import java.util.*;
 
 public class ServerHandler {
-    private Game game;
-    private ServerConfigNetwork data;
+    private ServerRMI rmiServer;
+    private ServerTCP tcpServer;
+    private ServerConfigNetwork configBase;
     public static String HOSTNAME = "Server";
-    private List<String> connectedClients;
+    public Map<String, ClientConnection> connectedClients;
+    // forse devo mettere il controller non il model
+    private Game game;
+    private List<String> waitingLobby;
+    private boolean creatingLobby;
+    // Mi serve il controller del game per continuare
+    private Game controller;
+    private final Object lobbyLock = new Object();
+    private final Object controllerLock = new Object();
 
-    public ServerHandler(ServerConfigNetwork configurationBase){
-        this.data = configurationBase;
-        connectedClients = new ArrayList<>();
+    public ServerHandler(ServerConfigNetwork data) {
+        configBase = data;
+        connectedClients = new HashMap<>();
+        waitingLobby = new ArrayList<>();
+        creatingLobby = false;
+        try {
+            rmiServer = new ServerRMI(configBase, this);
+            tcpServer = new ServerTCP(configBase, this);
+        } catch (RemoteException e) {
+            System.err.println("Unable to create a new server, maybe one is already running.");
+        }
     }
 
     public void init() {
-        String serverIP;
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Insert the server address IP if you want, instead press only ENTER: ");
-        serverIP = scan.nextLine().trim();
-
-        if(!serverIP.isEmpty()) {
-            // if(isValid(serverIP)){
-                data.setServerIP(serverIP);
-            // }
-        }
-
-        System.out.println("---Summary---");
-        System.out.println("-Server IP address: " + data.getServerIP());
-        System.out.println("-------------");
+        rmiServer.start();
+        tcpServer.start();
     }
 
     public void isValid(String check){
@@ -45,24 +54,89 @@ public class ServerHandler {
 
     public void manageMessage(Message msg) {
         switch(msg.getType()) {
-            case messEnum.LOGIN_REQUEST:
-                //for the reconnection I think
-                break;
-            case messEnum.SELECTING_NUM_PLAYERS:
-                SelectingNumPlayers selection = (SelectingNumPlayers) msg;
-                // check if it's a valid number
-                if(selection.getNumOfPlayers() > 1 && selection.getNumOfPlayers() < 5){
-                    game = new Game();
-                    game.setNumOfPlayers(selection.getNumOfPlayers());
+            case messEnum.SELECTION_NUM_PLAYERS:
+                synchronized (controllerLock){
+
+                    if(controller == null){
+
+                        SelectionNumPlayers sel = (SelectionNumPlayers) msg;
+                        controller = new Game();
+                        // controller.createGame();
+
+                        if(!waitingLobby.isEmpty()){
+                            int waitingSize = waitingLobby.size();
+                            int rejectedClient = waitingSize - sel.getNumOfPlayers() + 1;
+                            synchronized (connectedClients) {
+                                for (int i = 0; i < rejectedClient; i++) {
+                                    sendMessageToPlayer(waitingLobby.get(waitingSize - 1 - i),
+                                            new RejectedMessage(ServerHandler.HOSTNAME));
+                                    connectedClients.get(waitingLobby.get(waitingSize - 1 - i)).setConnected(false);
+                                }
+                            }
+                        }
+
+                    } else {
+
+                        sendMessageToPlayer(msg.getUsername(),
+                                new AlreadyStarted(ServerHandler.HOSTNAME));
+
+                    }
                 }
+                break;
         }
     }
 
-    public List<String> getConnectedClients() {
+    public void sendMessageToPlayer(String username, Message msg){
+        if(connectedClients.containsKey(username)){
+            connectedClients.get(username).sendMessage(msg);
+        }
+    }
+
+    public LoginResult manageLoginRequest(LoginRequest request, ClientConnection connection){
+        boolean logged = false;
+        boolean reconnected = false;
+        String username = request.getUsername();
+
+        if(!connectedClients.containsKey(username)){
+            // New user
+            connectedClients.put(username, connection);
+            System.out.println("New client connected with the username: " + username);
+            logged = true;
+        } else {
+            if(!connectedClients.get(username).isConnected()){
+                connectedClients.get(username).setConnected(true);
+                System.out.println("Reconnection of the player with the username: " + username);
+                logged = true;
+                reconnected = true;
+            }
+            else {
+                System.out.println("The username " + username + "is already taken, try to choose another one.");
+            }
+        }
+
+        return new LoginResult(logged, reconnected);
+    }
+
+    public void newLoginRequest(LoginRequest request){
+        String username = request.getUsername();
+        synchronized (lobbyLock){
+            if(creatingLobby) {
+                waitingLobby.add(username);
+                sendMessageToPlayer(username, new WaitingForLobby(ServerHandler.HOSTNAME));
+            } else {
+                creatingLobby = true;
+                sendMessageToPlayer(username, new SelectNumPlayers(ServerHandler.HOSTNAME));
+            }
+        }
+    }
+
+    public Map<String, ClientConnection> getConnectedClients() {
         return connectedClients;
     }
 
     public Game getGame() {
         return game;
     }
+
+
 }

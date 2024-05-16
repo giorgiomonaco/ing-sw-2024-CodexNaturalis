@@ -66,24 +66,5 @@ public class ClientTCP extends Client{
         execService.submit(() -> sender.sendMessage(msg));
     }
 
-    public void manageMessage(Message msg) {
-        switch (msg.getType()) {
-            case LOGIN_RESPONSE:
-                LoginResponse login = (LoginResponse) msg;
-                if(login.getResult() == 1){
-                    setCurrentState(stateEnum.SELECT_NUM_PLAYERS);
-                    setUsername(login.getDescription());
-                } else if(login.getResult() == 2){
-                    setCurrentState(stateEnum.LOBBY);
-                    setUsername(login.getDescription());
-                } else if(login.getResult() == 3){
-                   System.out.println("Username already in use, try to choose another one.");
-                } else {
-                    setCurrentState(stateEnum.ALREADY_STARTED);
-                }
-                getUI().run();
-                break;
-        }
-    }
 
 }
