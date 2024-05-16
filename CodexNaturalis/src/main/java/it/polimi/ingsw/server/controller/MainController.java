@@ -39,4 +39,7 @@ public class MainController {
     public void playGame(){
 
     }
+    public void joinPlayer(String username){
+
+    }
 }
