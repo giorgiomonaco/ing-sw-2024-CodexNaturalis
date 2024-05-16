@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.TCP.ServerTCP;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
+import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.Game;
 
 
@@ -21,7 +22,7 @@ public class ServerHandler {
     public static String HOSTNAME = "Server";
     public Map<String, ClientConnection> connectedClients;
     // forse devo mettere il controller non il model
-    private Game game;
+    private MainController mainController;
     private List<String> waitingLobby;
     private boolean creatingLobby;
     // Mi serve il controller del game per continuare
@@ -56,11 +57,11 @@ public class ServerHandler {
             case messEnum.SELECTION_NUM_PLAYERS:
                 synchronized (controllerLock){
 
-                    if(controller == null){
+                    if(mainController == null){
 
                         SelectionNumPlayers sel = (SelectionNumPlayers) msg;
-                        controller = new Game();
-                        // controller.createGame();
+                        this.mainController = new MainController(this);
+                        mainController.gameCreation(sel.getUsername(), sel.getNumOfPlayers());
 
                         if(!waitingLobby.isEmpty()){
                             int waitingSize = waitingLobby.size();
@@ -133,9 +134,7 @@ public class ServerHandler {
         return connectedClients;
     }
 
-    public Game getGame() {
-        return game;
-    }
+
 
 
 }

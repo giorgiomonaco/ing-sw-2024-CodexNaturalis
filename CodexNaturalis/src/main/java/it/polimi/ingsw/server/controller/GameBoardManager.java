@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class GameBoardManager {
     //This class create all the boards for the players
     private final Game game;
-    private final ViewTry view;
 
     //Counter used to know how many boxes available
     private int boxCounter;
