@@ -8,8 +8,6 @@ import it.polimi.ingsw.network.TCP.ServerTCP;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
-import it.polimi.ingsw.server.controller.GameSetUpper;
-import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.Game;
 
 
@@ -23,7 +21,7 @@ public class ServerHandler {
     public static String HOSTNAME = "Server";
     public Map<String, ClientConnection> connectedClients;
     // forse devo mettere il controller non il model
-    private MainController mainController;
+    private Game game;
     private List<String> waitingLobby;
     private boolean creatingLobby;
     // Mi serve il controller del game per continuare
@@ -61,9 +59,8 @@ public class ServerHandler {
                     if(controller == null){
 
                         SelectionNumPlayers sel = (SelectionNumPlayers) msg;
-                        String s = sel.getUsername();
-                        this.mainController = new MainController(this);
-                        mainController.gameCreation(s, sel.getNumOfPlayers());
+                        controller = new Game();
+                        // controller.createGame();
 
                         if(!waitingLobby.isEmpty()){
                             int waitingSize = waitingLobby.size();
@@ -136,6 +133,9 @@ public class ServerHandler {
         return connectedClients;
     }
 
+    public Game getGame() {
+        return game;
+    }
 
 
 }

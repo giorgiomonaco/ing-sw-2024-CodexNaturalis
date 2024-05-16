@@ -7,6 +7,8 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
 
+import java.rmi.RemoteException;
+
 public abstract class Client{
     private stateEnum currentState;
     private String username;
@@ -22,7 +24,7 @@ public abstract class Client{
         this.currentState = currentState;
     }
 
-    public void sendMessage(Message msg){
+    public void sendMessage(Message msg) throws RemoteException {
 
     }
 

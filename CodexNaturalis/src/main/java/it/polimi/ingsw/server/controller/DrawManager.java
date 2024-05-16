@@ -77,7 +77,7 @@ public class DrawManager {
     /*
     Method to draw a card
      */
-    public void startDrawPhase(){
+    public void startDrawPhase() {
         /*
         Draw phase:
         . asking the deck the player wants to draw from
@@ -89,13 +89,15 @@ public class DrawManager {
         boolean goldDeckEmpty = game.getGoldDeck().isEmpty();
         //We want to retrieve the names of the discovered cards we got
         List<String> discoveredResCards = new ArrayList<>();
-        for(ResourceCard c : game.getCommonBoard().getDiscoveredResourceCards()){
+        for (ResourceCard c : game.getCommonBoard().getDiscoveredResourceCards()) {
             discoveredResCards.add(String.valueOf(c.getCardID()));
         }
         List<String> discoveredGoldCards = new ArrayList<>();
-        for(GoldCard c : game.getCommonBoard().getDiscoveredGoldCards()){
+        for (GoldCard c : game.getCommonBoard().getDiscoveredGoldCards()) {
             discoveredGoldCards.add(String.valueOf(c.getCardID()));
         }
+
+        /* commento perchè da errore
         //we ask the player which card he wants to draw
         String selectedCard = view.drawSelection(resDeckEmpty, goldDeckEmpty,discoveredResCards, discoveredGoldCards);
         //now we act accordingly
@@ -108,10 +110,11 @@ public class DrawManager {
             case "GD" -> drawGoldCards();
         }
     }
+         */
 
     /*
     Manage draw from discovered cards pools
-     */
+
     public void drawDiscoveredCard(String type, int position){
         Card drawnCard = null;
         if(type.equals("R")){
@@ -131,4 +134,6 @@ public class DrawManager {
             //Now we want to discover another card
         }
     }
-}
+    */
+
+    }}
