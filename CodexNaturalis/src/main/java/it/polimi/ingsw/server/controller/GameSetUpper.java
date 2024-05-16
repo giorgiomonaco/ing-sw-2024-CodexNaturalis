@@ -4,6 +4,7 @@ package it.polimi.ingsw.server.controller;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.client.view.ViewTry;
 import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 public class GameSetUpper {
     //this class manage the creation of the managers of the game and the start of the game
@@ -53,7 +54,7 @@ public class GameSetUpper {
         public void CreateGame(String username){
             //Initialization of the players
             game.addPlayer(new Player(game, username));
-
+            game.setGameState(gameStateEnum.ACCEPT_PLAYER);
             //create the whole card manager
             CardManager cardManager = new CardManager(game);
             //initialize all the cards in the game:

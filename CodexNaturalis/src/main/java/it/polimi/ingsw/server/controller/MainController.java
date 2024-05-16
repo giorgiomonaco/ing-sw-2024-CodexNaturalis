@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.client.view.ViewTry;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.GameState;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 public class MainController {
     //This class is the main source of control over the game
@@ -42,5 +43,13 @@ public class MainController {
 
     public Game getGame() {
         return game;
+    }
+    public void joinPlayer(String username){
+        if (!game.getGameState().equals(gameStateEnum.ACCEPT_PLAYER)) {
+            sendViewMessage("You can't join the game at this moment");
+        }
+        else {
+            game.addPlayer(new Player(game, username));
+        }
     }
 }
