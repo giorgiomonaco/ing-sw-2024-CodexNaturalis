@@ -14,25 +14,6 @@ public class PlayerManager {
     public PlayerManager(Game game){
         this.game = game;
     }
-
-   public void playersInitialization(int numOfPlayers){
-        //we get how many players are playing from the view interaction with the user
-
-        //check if the num of players is valid
-        //if not we repeat the question
-       /* while(numOfPlayers < 1 || numOfPlayers > 4) {
-            numOfPlayers = view.askAgainNumOfPlayer();
-        //}*/
-        //For each we want the name
-        //And which token he/she wants from the available pool
-        for (int a = 0; a < numOfPlayers; a++) {
-            //we collect the name of that player
-         //   String playerName = view.getPlayerName(a + 1);
-            //then we add it to the game
-            addPlayerToGame(playerName);
-        }
-    }
-
     public void addPlayerToGame(String playerName){
         Player p = new Player(game,playerName);
         game.addPlayer(p);
