@@ -85,7 +85,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ObjectiveCard drawObjectiveCard(){
-        return objectiveDeck.get(0);
+        return objectiveDeck.getFirst();
     }
 
     //Get all the list of the resource cards

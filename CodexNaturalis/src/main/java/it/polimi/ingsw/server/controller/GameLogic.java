@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.controller;
 
 
 import it.polimi.ingsw.server.model.*;
-import it.polimi.ingsw.client.view.ViewTry;
+
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.Player;
 
@@ -16,7 +16,7 @@ public class GameLogic {
 
     //First we need the game it is referring to
     private final Game game;
-    private final ViewTry view;
+    //private final ViewTry view;
 
     //then we need the game states
     //play: turns keep going until ending conditions reached
@@ -31,9 +31,8 @@ public class GameLogic {
 
 
     //constructor
-    public GameLogic(Game game, ViewTry view){
+    public GameLogic(Game game){
         this.game = game;
-        this.view = view;
     }
 
 
@@ -43,15 +42,14 @@ public class GameLogic {
         //don't like cus there is already another one. We have to create (another) draw manager to manage the draw
         //very, very ugly to create it in the main tho so better like this
         //I think the previous will be garbage collected after exiting setup
-        DrawManager drawManager = new DrawManager(game, view);
+        DrawManager drawManager = new DrawManager(game);
 
         //We also need an object that manages the play of the cards
         //to make this class not 10k lines and so complex
-        PlayCardManager playCardManager = new PlayCardManager(game, view);
+        PlayCardManager playCardManager = new PlayCardManager(game);
 
         //we also need a manager for the resource available for each player to
         //play the cards and give points based on visible symbols
-        AvailableResourcesManager availableResourcesManager = new AvailableResourcesManager(game);
         //we can decide if create a specific method to initialize the resource of the first card
         //instead of doing a cycle on the whole grid (very, very not efficient)
         PointTrackerManager pointTrackerManager = new PointTrackerManager(game);
