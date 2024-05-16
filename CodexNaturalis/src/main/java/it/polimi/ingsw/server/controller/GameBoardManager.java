@@ -23,9 +23,9 @@ public class GameBoardManager {
     private List<Coordinates> listOfPlayableBoxes = new ArrayList<>();
 
     //Constructor
-    public GameBoardManager(Game game, ViewTry view) {
+    public GameBoardManager(Game game) {
         this.game = game;
-        this.view = view;
+
     }
 
     //initialization of all the game boards needed

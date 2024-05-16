@@ -6,18 +6,17 @@ public class Game {
     //Class with all the elements necessary to the game
 
     //The game-state attribute necessary for every coherent move in the game
-    private static GameState gameState;
+
     //We need to associate a game state to the game asap
     //So we do in the constructor
-    public Game(GameState gState){
-        this.gameState = gState;
-    }
-    public Game(){};
+   // public Game(GameState gState){
+   //     this.gameState = gState;
+   // }
+
 
     //List of the players
     List<Player> playerList = new ArrayList<>();
-
-    private int numOfPlayers;
+    private int playersNumber;
 
     //deck of resource cards (common to every player)
     private final List<ResourceCard> resourceDeck = new ArrayList<>();
@@ -154,25 +153,6 @@ public class Game {
     return playerList.get(index+1);
     }
 
-    //Getter of the current game state
-    public int getGameState(){
-        return gameState.getGameState();
-    }
-
-    //We want to get to next phase of the game
-    public void advanceGameState(){
-        gameState.setGameState(gameState.getGameState() + 1);
-    }
-
-    //Setter of the game state
-    public void setGameState(int state){
-        gameState.setGameState(state);
-    }
-
-    //We had an error, so we want to close everything "stacca stacca"
-    public void forcedGameExit(){
-        gameState.setGameState(5);
-    }
 
     public int getResourceDeckSize() {
         return this.resourceDeck.size();
@@ -182,11 +162,7 @@ public class Game {
         return this.goldDeck.size();
     }
 
-    public int getNumOfPlayers() {
-        return numOfPlayers;
-    }
-
-    public void setNumOfPlayers(int numOfPlayers) {
-        this.numOfPlayers = numOfPlayers;
+    public void setPlayersNumber(int playersNumber) {
+        this.playersNumber = playersNumber;
     }
 }

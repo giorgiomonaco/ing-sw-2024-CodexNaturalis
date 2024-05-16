@@ -4,9 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="view implements with colors">
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/AlreadyStartedView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/AlreadyStartedView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/WaitTurnView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/WaitTurnView.java" afterDir="false" />
+    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="small changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameBoardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameBoardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameLogic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameSetUpper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameSetUpper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/PlayerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/TokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/TokenManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/ObjectSymbol.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/PointTracker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/ResourceSymbol.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/StartingCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/Symbol.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/Token.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,12 +87,12 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/giorgiomonaco/Desktop/ProgIngSw&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -102,7 +116,7 @@
       <recent name="it.polimi.ingsw.controller" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.it.polimi.ingsw.client.ClientMain">
     <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.network.client.ClientMain" />
       <module name="PSP41" />
@@ -116,12 +130,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.Main" />
+    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.network.server.ServerMain" />
       <module name="PSP41" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.network.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -129,12 +143,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.network.server.ServerMain" />
+    <configuration name="it.polimi.ingsw.client.ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.client.ClientMain" />
       <module name="PSP41" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.network.server.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="it.polimi.ingsw.server.ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.server.ServerMain" />
+      <module name="PSP41" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -160,10 +187,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.it.polimi.ingsw.client.ClientMain" />
+        <item itemvalue="Application.it.polimi.ingsw.server.ServerMain" />
         <item itemvalue="JUnit.ResourceCardTest.testSomething" />
         <item itemvalue="Application.ClientMain" />
         <item itemvalue="Application.ServerMain" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -186,6 +214,7 @@
       <workItem from="1712137957213" duration="263000" />
       <workItem from="1712138291064" duration="5412000" />
       <workItem from="1713883133862" duration="4213000" />
+      <workItem from="1715863758530" duration="5122000" />
     </task>
     <task id="LOCAL-00001" summary="prova">
       <option name="closed" value="true" />

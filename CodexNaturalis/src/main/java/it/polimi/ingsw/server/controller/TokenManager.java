@@ -22,7 +22,7 @@ public class TokenManager {
     private Player p;
 
     //Constructor of the class
-    public TokenManager(Game game, ViewTry view) {
+    public TokenManager(Game game) {
         this.game = game;
         this.view = view;
     }

@@ -10,42 +10,24 @@ public class GameSetUpper {
     //distribution of first cards to players
 
     private final Game game;
-    private final ViewTry view;
 
     //Constructor
-    public GameSetUpper(Game game, ViewTry view){
+    public GameSetUpper(Game game){
         this.game = game;
-        this.view = view;
     }
 
     //Initialization of the game
     public void gameSetUp(){
-        //First thing it does is make the game advance to "initializing state"
-        //since game starts in sleep by default = +1 is initialization
-        //may be checkable by an if (getState == 0) ...
-        //gameState = 1 -> initializing of the game
-        game.setGameState(1);
-
-        //creation of player manager
-        PlayerManager playerManager = new PlayerManager(game, view);
-        //Initialization of the players
-        playerManager.playersInitialization();
-
-        //create the token manager
-        TokenManager tokenManager = new TokenManager(game,view);
+       //create the token manager
+        TokenManager tokenManager = new TokenManager(game);
         //we give every player a token
         tokenManager.initializeTokens();
 
         //create a manager for the boards of each player
-        GameBoardManager gameBoardManager = new GameBoardManager(game, view);
+        GameBoardManager gameBoardManager = new GameBoardManager(game);
         //initialize the game boards
         gameBoardManager.initializeBoards();
 
-        //create the whole card manager
-        CardManager cardManager = new CardManager(game);
-        //initialize all the cards in the game:
-        //creating and placing them into the right decks in right places
-        cardManager.initializeAllCards();
 
         //After we have initialized all the cards and tokens we initialize the common board
         //to initialize all common things: Discovered cards and Points tracker
@@ -57,7 +39,7 @@ public class GameSetUpper {
         commonBoardManager.initializeCommonBoard();
 
         //Creation of the draw manager
-        DrawManager drawManager = new DrawManager(game, view);
+        DrawManager drawManager = new DrawManager(game);
         //Initialization of hands:
         //Every player draw the first cards
         //Choice about the secret obj card
@@ -67,6 +49,18 @@ public class GameSetUpper {
 
     }
 
+        public void CreateGame(String username){
+            //creation of player manager
+            PlayerManager playerManager = new PlayerManager(game);
+            //Initialization of the players
+            playerManager.addPlayerToGame(username);
 
+            //create the whole card manager
+            CardManager cardManager = new CardManager(game);
+            //initialize all the cards in the game:
+            //creating and placing them into the right decks in right places
+            cardManager.initializeAllCards();
+
+        }
 
 }

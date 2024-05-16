@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.client.view.ViewTry;
 import it.polimi.ingsw.server.model.Game;
@@ -9,15 +10,14 @@ public class MainController {
     //This class is the main source of control over the game
     //We communicate through this to invoke model methods and update view
 
-    //we need the view
-    private static ViewTry view;
     //it needs to know the game it's referring to and it's state
-    private static Game game;
+    private Game game;
 
-
+    private ServerHandler serverHandler;
     //Constructor, it only needs a game to control
-    public MainController(){
-        this.game = new Game(new GameState());
+    public MainController(ServerHandler serverHandler){
+        this.serverHandler =  serverHandler;
+
     }
 
     //The main controller has to start the view as soon as the game is created
@@ -26,20 +26,17 @@ public class MainController {
 
 
     //Here it plays the game
-    public void playGame(){
+    public void gameCreation(String username, int num){
         //To play the game it first creates the view to interact with the user
-        view = new ViewTry();
-
+        this.game = new Game();
+        this.game.setPlayersNumber(num);
         //Then creates  the game set up
-        GameSetUpper gameSetUpper = new GameSetUpper(game, view);
+        GameSetUpper gameSetUpper = new GameSetUpper(game);
         //Start the setup of the game
-        gameSetUpper.gameSetUp();
+        gameSetUpper.CreateGame(username);
 
-
-        //we create the game logic
-        //the thing that manages all the game played after setup
-        GameLogic gameLogic = new GameLogic(game, view);
-        gameLogic.playGame();
     }
+    public void playGame(){
 
+    }
 }
