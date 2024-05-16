@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.RMI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.network.message.Message;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -11,25 +12,33 @@ public class ClientRMI extends Client implements RMIClientInterface{
     static int PORT;
     static String serverIP;
     static String registry;
+    private RMIServerInterface stub;
 
     public ClientRMI (String RegistryName, String IP, int serverPort) {
         registry = RegistryName;
         serverIP = IP;
         PORT = serverPort;
+        start();
     }
 
     public void start() {
         try {
             Registry reg = LocateRegistry.getRegistry(serverIP, PORT);
-            RMIServerInterface stub = (RMIServerInterface) reg.lookup(registry);
-            stub.login("Gio");
-        } catch (RemoteException | NotBoundException e) {
-            System.err.println("ClientMain exception: " + e.toString());
+            stub = (RMIServerInterface) reg.lookup(registry);
+        } catch (RemoteException e) {
+            System.err.println("Couldn't access the remote object.");
+        } catch (NotBoundException e) {
+            System.err.println("Server is not bound");
         }
     }
 
     @Override
-    public void receive(String message) throws RemoteException {
+    public void receiveFromServer(Message msg) throws RemoteException {
+        manageMessage(msg);
+    }
 
+    @Override
+    public void sendMessage(Message msg) throws RemoteException {
+        stub.receiveMessage(msg, this);
     }
 }

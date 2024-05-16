@@ -6,16 +6,16 @@ import it.polimi.ingsw.network.message.allMessages.SelectionNumPlayers;
 
 public class SelNumPlayersCommand implements CommandManager {
 
-    private final Client tcpClient;
+    private final Client client;
 
     public SelNumPlayersCommand(Client client){
-        tcpClient = client;
+        this.client = client;
     }
 
     @Override
     public void handleMessage(String[] commands) {
         int numOfPlayers = Integer.parseInt(commands[1]);
-        SelectionNumPlayers toSend = new SelectionNumPlayers(tcpClient.getUsername(), numOfPlayers);
-        tcpClient.sendMessage(toSend);
+        SelectionNumPlayers toSend = new SelectionNumPlayers(client.getUsername(), numOfPlayers);
+        client.sendMessage(toSend);
     }
 }

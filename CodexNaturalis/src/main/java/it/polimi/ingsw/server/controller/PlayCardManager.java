@@ -35,7 +35,6 @@ public class PlayCardManager {
     //constructor
     public PlayCardManager(Game game, ViewTry view){
         this.game = game;
-        this.view = view;
     }
 
     /*

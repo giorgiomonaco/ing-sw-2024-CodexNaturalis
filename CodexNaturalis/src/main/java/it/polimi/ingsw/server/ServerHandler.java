@@ -8,7 +8,6 @@ import it.polimi.ingsw.network.TCP.ServerTCP;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
-import it.polimi.ingsw.server.controller.GameSetUpper;
 import it.polimi.ingsw.server.model.Game;
 
 
