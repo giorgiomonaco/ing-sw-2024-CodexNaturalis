@@ -112,7 +112,7 @@ public class Game {
 
 
     //Method to add a player to the game
-    public void addPlayer(Player player) {
+    public void addPlayer(Player player) throws IllegalStateException {
         if (playerList.size() < playersNumber) {
             playerList.add(player);
             if (playerList.size() == playersNumber) {

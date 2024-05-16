@@ -9,8 +9,7 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.MainController;
-import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.server.model.Player;
+
 
 
 import java.rmi.RemoteException;
@@ -22,12 +21,9 @@ public class ServerHandler {
     private ServerConfigNetwork configBase;
     public static String HOSTNAME = "Server";
     public Map<String, ClientConnection> connectedClients;
-    // forse devo mettere il controller non il model
     private MainController mainController;
     private List<String> waitingLobby;
     private boolean creatingLobby;
-    // Mi serve il controller del game per continuare
-    private Game controller;
     private final Object lobbyLock = new Object();
     private final Object controllerLock = new Object();
 
@@ -124,13 +120,19 @@ public class ServerHandler {
 
     public void newLoginRequest(LoginRequest request){
         String username = request.getUsername();
-        synchronized (lobbyLock){
-            if(creatingLobby) {
-                waitingLobby.add(username);
-                sendMessageToPlayer(username, new WaitingForLobby(ServerHandler.HOSTNAME));
+        synchronized (controllerLock) {
+            if (mainController != null){
+                mainController.joinPlayer(username);
             } else {
-                creatingLobby = true;
-                sendMessageToPlayer(username, new SelectNumPlayers(ServerHandler.HOSTNAME));
+                synchronized (lobbyLock) {
+                    if (creatingLobby) {
+                        waitingLobby.add(username);
+                        sendMessageToPlayer(username, new WaitingForLobby(ServerHandler.HOSTNAME));
+                    } else {
+                        creatingLobby = true;
+                        sendMessageToPlayer(username, new SelectNumPlayers(ServerHandler.HOSTNAME));
+                    }
+                }
             }
         }
     }

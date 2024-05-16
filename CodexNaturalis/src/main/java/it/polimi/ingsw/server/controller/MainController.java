@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.network.message.allMessages.AlreadyStarted;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.client.view.ViewTry;
@@ -44,12 +45,24 @@ public class MainController {
     public Game getGame() {
         return game;
     }
+
+
     public void joinPlayer(String username){
         if (!game.getGameState().equals(gameStateEnum.ACCEPT_PLAYER)) {
-            sendViewMessage("You can't join the game at this moment");
+            serverHandler.sendMessageToPlayer(username,
+                    new AlreadyStarted(ServerHandler.HOSTNAME));
+            return;
         }
-        else {
+        try {
             game.addPlayer(new Player(game, username));
+        } catch (IllegalStateException e) {
+            System.err.println("Max number of player already reached.");
+            serverHandler.sendMessageToPlayer(username,
+                    new AlreadyStarted(ServerHandler.HOSTNAME));
+        }
+
+        if(game.getGameState().equals(gameStateEnum.START)){
+
         }
     }
 }
