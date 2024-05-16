@@ -17,22 +17,9 @@ public class ViewTry {
 
 //-------------------------------- Player related --------------------------------
     //Ask the number of players cus we are playing from only one terminal by now
-    public int getNumOfPlayers(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("How many players want to play ?");
-        return scan.nextInt();
-    }
     //Ask again if the number of player is incorrect
-    public int askAgainNumOfPlayer(){
-        System.out.println("Invalid number of players, min = 1; max = 4");
-        return getNumOfPlayers();
-    }
+
     //Ask the name of the current player willing to play
-    public String getPlayerName(int i){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Name of player num " + i);
-        return scan.nextLine();
-    }
 
 
 //-------------------------------- Token related --------------------------------
@@ -92,93 +79,7 @@ public class ViewTry {
         return scan.nextLine();
     }
 //-------------------------------- Related to play a card  --------------------------------
-    public String[] getPlayedCard(List<String> resCardsInHand, List<String> goldCardsInHand) {
 
-        if (resCardsInHand.isEmpty()) {
-            System.out.println("No resource cards in hand");
-        } else {
-            System.out.println("List of resourceCards in hand:");
-            for(String c : resCardsInHand){
-                System.out.println(c);
-            }
-        }
-
-        if (goldCardsInHand.isEmpty()) {
-            System.out.println("No gold cards in hand");
-        } else {
-            System.out.println("List of goldCards in hand:");
-            for(String c : goldCardsInHand){
-                System.out.println(c);
-            }
-        }
-
-        //Asking about the choice
-        System.out.println("Play a resource or a Gold card?" );
-        Scanner scan = new Scanner(System.in);
-        String choice = scan.nextLine();
-        if((choice.equals("Resource") || choice.equals("resource")) && !(resCardsInHand.isEmpty())){
-            System.out.println("Which one you want to play?");
-            int i = 1;
-            for (String s : resCardsInHand){
-                System.out.println("[" + i + "] " + s);
-                i++;
-            }
-            /*
-            Let's create an array of 2 strings:
-            First one for the card type,
-            Second one for the selection
-             */
-            String[] finalChoice = new String[2];
-            finalChoice[0] = "R";
-            finalChoice[1] = scan.nextLine();
-            return finalChoice;
-
-        } else if ((choice.equals("Gold") || choice.equals("gold")) && !(goldCardsInHand.isEmpty())){
-            System.out.println("Which one you want to play?");
-            int i = 1;
-            for (String s : resCardsInHand){
-                System.out.println("[" + i + "] " + s);
-                i++;
-            }
-            /*
-            Let's create an array of 2 strings:
-            First one for the card type,
-            Second one for the selection
-             */
-            String[] finalChoice = new String[2];
-            finalChoice[0] = "G";
-            finalChoice[1] = scan.nextLine();
-            return finalChoice;
-        }
-        return null;
-    }
-
-    public String askForSideSelection(){
-        Scanner scan = new Scanner(System.in);
-        String selection;
-        boolean correctChoiceMade = false;
-        System.out.println("Which side do you want to play the card?");
-        do {
-            System.out.println("[1] : Front");
-            System.out.println("[2] : Back");
-            selection = scan.nextLine();
-            if (!selection.equals("1") && !selection.equals("2")) {
-                System.out.println("wrong selection, try again: ");
-            } else
-                correctChoiceMade = true;
-        } while (!correctChoiceMade);
-        return selection;
-    }
-
-    /*
-    Method to ask and get the box in which the player wants to play the card
-     */
-    public int getPlayerBoxChoice(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("in which box do you want to play your card?");
-        System.out.println("Insert the number of the box");
-        return scan.nextInt();
-    }
 public void printResourceCard(ResourceCard r) {
     System.out.println("play front or back?\n [1] = front, [2] = back");
     Scanner t= new Scanner(System.in);
@@ -247,7 +148,7 @@ public void printResourceCard(ResourceCard r) {
 
 
 //-------------------------------- Related to displace the board  --------------------------------
-    public void printTopOfGrid(int[] x, int[] y){
+    public void pringtTopOfGrid(int[] x, int[] y){
         for(int i = x[0]-1; i <= x[1]+1; i++) {
             //for every column, print space fot the box
             System.out.print("+---");
@@ -271,7 +172,7 @@ public void printResourceCard(ResourceCard r) {
 
     //-------------------------------- Related to inform about points --------------------------------
     public void informAboutPoints(int points){
-        System.out.println("You reached " + points +"!");
+        System.out.println("You reached " + points +"points!");
     }
 
     //-------------------------------- Related to choice of objective card  --------------------------------

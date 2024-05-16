@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PlayCardManager {
     //this class is used to manage the play of a card
@@ -18,7 +19,6 @@ public class PlayCardManager {
     //we need the game we are referring to
     private final Game game;
 
-    private final ViewTry view;
 
     private GameBoardManager boardManager;
 
@@ -59,8 +59,8 @@ public class PlayCardManager {
         Look at the lowest and highest x and y
         So we print a matrix big just enough to see the places to place the cards.
          */
-        boardManager = new GameBoardManager(game, view);
-        boardManager.displaceAvailableBoxes();
+        boardManager = new GameBoardManager(game);
+       // boardManager.displayAvailableBoxes();
         Card selectedCard = null;
 
         do {
@@ -73,7 +73,7 @@ public class PlayCardManager {
         . Assign points
         . Assign resources
          */
-        pointManager  = new PointManager(game, view);
+        pointManager  = new PointManager(game);
         pointManager.givePoints(selectedCard);
 
 
@@ -100,7 +100,7 @@ public class PlayCardManager {
         1. The type of card
         2. which of the ones of that type he wants to play
          */
-        String[] playedCard = view.getPlayedCard(resCardinHand, goldCardinHand);
+        String[] playedCard = getPlayedCard(resCardinHand, goldCardinHand);
 
         /*
         Now we want to pick exactly that card from the players hand,
@@ -145,8 +145,8 @@ public class PlayCardManager {
         We get the side selection from the view
         Then we use it to set the attribute of the card accordingly
          */
-        String sideSelection = view.askForSideSelection();
-        c.setFrontSide(sideSelection.equals("F"));
+        //String sideSelection = view.askForSideSelection();
+        //c.setFrontSide(sideSelection.equals("F"));
     }
 
     /*
@@ -231,12 +231,93 @@ public class PlayCardManager {
         card.addResources(game.getCurrentPlayer());
     }
 
-    
 
-  /*  public int[] GetResources(Player P){
+    public String[] getPlayedCard(List<String> resCardsInHand, List<String> goldCardsInHand) {
 
+        if (resCardsInHand.isEmpty()) {
+            System.out.println("No resource cards in hand");
+        } else {
+            System.out.println("List of resourceCards in hand:");
+            for(String c : resCardsInHand){
+                System.out.println(c);
+            }
+        }
 
+        if (goldCardsInHand.isEmpty()) {
+            System.out.println("No gold cards in hand");
+        } else {
+            System.out.println("List of goldCards in hand:");
+            for(String c : goldCardsInHand){
+                System.out.println(c);
+            }
+        }
 
-    }*/
+        //Asking about the choice
+        System.out.println("Play a resource or a Gold card?" );
+        Scanner scan = new Scanner(System.in);
+        String choice = scan.nextLine();
+        if((choice.equals("Resource") || choice.equals("resource")) && !(resCardsInHand.isEmpty())){
+            System.out.println("Which one you want to play?");
+            int i = 1;
+            for (String s : resCardsInHand){
+                System.out.println("[" + i + "] " + s);
+                i++;
+            }
+            /*
+            Let's create an array of 2 strings:
+            First one for the card type,
+            Second one for the selection
+             */
+            String[] finalChoice = new String[2];
+            finalChoice[0] = "R";
+            finalChoice[1] = scan.nextLine();
+            return finalChoice;
+
+        } else if ((choice.equals("Gold") || choice.equals("gold")) && !(goldCardsInHand.isEmpty())){
+            System.out.println("Which one you want to play?");
+            int i = 1;
+            for (String s : resCardsInHand){
+                System.out.println("[" + i + "] " + s);
+                i++;
+            }
+            /*
+            Let's create an array of 2 strings:
+            First one for the card type,
+            Second one for the selection
+             */
+            String[] finalChoice = new String[2];
+            finalChoice[0] = "G";
+            finalChoice[1] = scan.nextLine();
+            return finalChoice;
+        }
+        return null;
+    }
+
+    public String askForSideSelection(){
+        Scanner scan = new Scanner(System.in);
+        String selection;
+        boolean correctChoiceMade = false;
+        System.out.println("Which side do you want to play the card?");
+        do {
+            System.out.println("[1] : Front");
+            System.out.println("[2] : Back");
+            selection = scan.nextLine();
+            if (!selection.equals("1") && !selection.equals("2")) {
+                System.out.println("wrong selection, try again: ");
+            } else
+                correctChoiceMade = true;
+        } while (!correctChoiceMade);
+        return selection;
+    }
+
+    /*
+    Method to ask and get the box in which the player wants to play the card
+     */
+    public int getPlayerBoxChoice(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("in which box do you want to play your card?");
+        System.out.println("Insert the number of the box");
+        return scan.nextInt();
+    }
 
 }

@@ -62,7 +62,6 @@ public class ServerHandler {
                         SelectionNumPlayers sel = (SelectionNumPlayers) msg;
                         this.mainController = new MainController(this);
                         mainController.gameCreation(sel.getUsername(), sel.getNumOfPlayers());
-
                         if(!waitingLobby.isEmpty()){
                             int waitingSize = waitingLobby.size();
                             int rejectedClient = waitingSize - sel.getNumOfPlayers() + 1;

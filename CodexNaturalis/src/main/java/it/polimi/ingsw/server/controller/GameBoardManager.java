@@ -71,11 +71,11 @@ public class GameBoardManager {
     /*
     Method to displace the partial grid to the player to choose where to place the card
      */
-    public void displaceAvailableBoxes(){
+  /* public void displayAvailableBoxes(){
         /*
         We access to the current player game board
         to find the used x and y to displace not the entire matrix
-         */
+
         int[] usedX = game.getCurrentPlayer().getGameBoard().getUsedX();
         int[] usedY = game.getCurrentPlayer().getGameBoard().getUsedY();
 
@@ -86,7 +86,7 @@ public class GameBoardManager {
         if not playable : value in the matrix = nothing
         if playable : value of a counter in the box
         if a card present : that card (ID maybe by now)
-         */
+
         //Print the top of the grid
         view.printTopOfGrid(usedX, usedY);
         for(int j = usedY[0]-1; j <= usedY[1]+1; j++){
@@ -99,7 +99,7 @@ public class GameBoardManager {
                         view.printPlayableBox(boxCounter);
                         /*
                         Saves the coordinates of the available box
-                         */
+
                         listOfPlayableBoxes.add(new Coordinates(i,j));
                         boxCounter++;
                     case 1:

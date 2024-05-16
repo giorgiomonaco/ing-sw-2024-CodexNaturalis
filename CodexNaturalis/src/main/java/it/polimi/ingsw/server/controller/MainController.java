@@ -39,4 +39,8 @@ public class MainController {
     public void playGame(){
 
     }
+
+    public Game getGame() {
+        return game;
+    }
 }

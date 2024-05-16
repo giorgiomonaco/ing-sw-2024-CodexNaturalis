@@ -8,12 +8,10 @@ import it.polimi.ingsw.client.view.ViewTry;
 
 public class PointManager {
     private final Game game;
-    private final ViewTry view;
 
     //Constructor
-    public PointManager(Game game, ViewTry view){
+    public PointManager(Game game){
         this.game = game;
-        this.view = view;
     }
 
     /*
@@ -38,7 +36,7 @@ public class PointManager {
         Finally we inform the player about the points we gave him
         And current state of his points
          */
-        view.informAboutPoints(points);
+        //view.informAboutPoints(points);
     }
 
     /*
