@@ -6,12 +6,14 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.messEnum;
 
+import java.rmi.RemoteException;
+
 public class LoginCommand implements CommandManager {
     private Client client;
     public LoginCommand(Client client) {
         this.client = client;
     }
-    public void handleMessage(String[] commands){
+    public void handleMessage(String[] commands) throws RemoteException {
         Message toSend = new LoginRequest(messEnum.LOGIN_REQUEST, commands[1]);
         client.sendMessage(toSend);
     }
