@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="small changes">
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/ViewTry.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/ViewTry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameBoardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameBoardManager.java" afterDir="false" />
+    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="COLORS">
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/PlayCardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/PlayCardManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/PointManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/PointManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/ObjectSymbol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/PointTracker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/ResourceSymbol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/StartingCard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/Symbol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/model/Token.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +199,7 @@
       <workItem from="1712137957213" duration="263000" />
       <workItem from="1712138291064" duration="5412000" />
       <workItem from="1713883133862" duration="4213000" />
-      <workItem from="1715863758530" duration="8937000" />
+      <workItem from="1715863758530" duration="5122000" />
     </task>
     <task id="LOCAL-00001" summary="prova">
       <option name="closed" value="true" />
@@ -342,31 +331,23 @@
       <option name="project" value="LOCAL" />
       <updated>1715636036518</updated>
     </task>
-    <task id="LOCAL-00018" summary="small changes">
+    <task id="LOCAL-00018" summary="COLORS">
       <option name="closed" value="true" />
-      <created>1715869007625</created>
+      <created>1715872856700</created>
       <option name="number" value="00018" />
       <option name="presentableId" value="LOCAL-00018" />
       <option name="project" value="LOCAL" />
-      <updated>1715869007625</updated>
+      <updated>1715872856700</updated>
     </task>
-    <task id="LOCAL-00019" summary="small changes">
+    <task id="LOCAL-00019" summary="COLORS">
       <option name="closed" value="true" />
-      <created>1715871218205</created>
+      <created>1715873492983</created>
       <option name="number" value="00019" />
       <option name="presentableId" value="LOCAL-00019" />
       <option name="project" value="LOCAL" />
-      <updated>1715871218205</updated>
+      <updated>1715873492983</updated>
     </task>
-    <task id="LOCAL-00020" summary="small changes">
-      <option name="closed" value="true" />
-      <created>1715871353849</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1715871353849</updated>
-    </task>
-    <option name="localTasksCounter" value="21" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,8 +372,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="view implements" />
     <MESSAGE value="view implements with colors" />
-    <MESSAGE value="small changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="small changes" />
+    <MESSAGE value="COLORS" />
+    <option name="LAST_COMMIT_MESSAGE" value="COLORS" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

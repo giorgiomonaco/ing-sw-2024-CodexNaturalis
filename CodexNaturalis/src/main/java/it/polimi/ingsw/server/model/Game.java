@@ -1,19 +1,11 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
+
 import java.util.*;
 public class Game {
 
-    //Class with all the elements necessary to the game
-
-    //The game-state attribute necessary for every coherent move in the game
-
-    //We need to associate a game state to the game asap
-    //So we do in the constructor
-   // public Game(GameState gState){
-   //     this.gameState = gState;
-   // }
-
-
+    public gameStateEnum gameState;
     //List of the players
     List<Player> playerList = new ArrayList<>();
     private int playersNumber;
@@ -120,8 +112,14 @@ public class Game {
 
 
     //Method to add a player to the game
-    public void addPlayer(Player player){
-        playerList.add(player);
+    public void addPlayer(Player player) throws IllegalStateException {
+        if (playerList.size() < playersNumber) {
+            playerList.add(player);
+            if (playerList.size() == playersNumber) {
+                gameState = gameStateEnum.START;
+            }
+        }
+        else throw new IllegalStateException("The game is full");
     }
 
     //Method to get the list of the players
@@ -164,5 +162,13 @@ public class Game {
 
     public void setPlayersNumber(int playersNumber) {
         this.playersNumber = playersNumber;
+    }
+
+    public void setGameState(gameStateEnum gameState) {
+        this.gameState = gameState;
+    }
+
+    public gameStateEnum getGameState() {
+        return gameState;
     }
 }
