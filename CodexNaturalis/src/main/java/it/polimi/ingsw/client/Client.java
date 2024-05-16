@@ -12,7 +12,6 @@ import java.rmi.RemoteException;
 public abstract class Client{
     private stateEnum currentState;
     private String username;
-    private Player player;
     private UserInterface UI;
 
 
@@ -24,9 +23,7 @@ public abstract class Client{
         this.currentState = currentState;
     }
 
-    public void sendMessage(Message msg) throws RemoteException {
-
-    }
+    public void sendMessage(Message msg) throws RemoteException {}
 
     public void setUI(UserInterface UI) {
         this.UI = UI;
