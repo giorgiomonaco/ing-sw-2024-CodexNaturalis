@@ -9,13 +9,9 @@ import it.polimi.ingsw.server.model.GameState;
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 public class MainController {
-    //This class is the main source of control over the game
-    //We communicate through this to invoke model methods and update view
-
-    //it needs to know the game it's referring to and it's state
     private Game game;
-
-    private ServerHandler serverHandler;
+    private final ServerHandler serverHandler;
+    private GameSetUpper gameSetUpper;
     //Constructor, it only needs a game to control
     public MainController(ServerHandler serverHandler){
         this.serverHandler =  serverHandler;
@@ -33,7 +29,7 @@ public class MainController {
         this.game = new Game();
         this.game.setPlayersNumber(num);
         //Then creates  the game set up
-        GameSetUpper gameSetUpper = new GameSetUpper(game);
+         this.gameSetUpper = new GameSetUpper(game);
         //Start the setup of the game
         gameSetUpper.CreateGame(username);
 
@@ -64,5 +60,8 @@ public class MainController {
         if(game.getGameState().equals(gameStateEnum.START)){
 
         }
+    }
+    public void gameStarting(){
+        gameSetUpper.gameSetUp();
     }
 }
