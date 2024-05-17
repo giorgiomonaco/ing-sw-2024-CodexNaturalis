@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginResponse;
+import it.polimi.ingsw.network.message.allMessages.ShowCards;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
@@ -73,6 +74,9 @@ public abstract class Client implements Serializable {
             case ALREADY_STARTED:
                 setCurrentState(stateEnum.ALREADY_STARTED);
                 break;
+            case SHOW_CARD:
+                ShowCards showMsg = (ShowCards) msg;
+                getUI().viewCards(showMsg.getPlayerHand());
         }
 
         getUI().run();

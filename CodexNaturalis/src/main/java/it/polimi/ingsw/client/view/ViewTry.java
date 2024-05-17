@@ -81,7 +81,7 @@ public class ViewTry {
 //-------------------------------- Related to play a card  --------------------------------
 
 public void printResourceCard(ResourceCard r) {
-    System.out.println("play front or back?\n [1] = front, [2] = back");
+    System.out.println("show front or back?\n [1] = front, [2] = back");
     Scanner t= new Scanner(System.in);
     int o = t.nextInt();
     VisibleAngle[] array;

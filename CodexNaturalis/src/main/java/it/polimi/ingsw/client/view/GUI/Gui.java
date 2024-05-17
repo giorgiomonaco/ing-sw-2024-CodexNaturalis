@@ -1,6 +1,9 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.view.UserInterface;
+import it.polimi.ingsw.server.model.Card;
+
+import java.util.List;
 
 public class Gui implements UserInterface {
     @Override
@@ -20,6 +23,11 @@ public class Gui implements UserInterface {
 
     @Override
     public void showMessage() {
+
+    }
+
+    @Override
+    public void viewCards(List<Card> playerHand) {
 
     }
 }
