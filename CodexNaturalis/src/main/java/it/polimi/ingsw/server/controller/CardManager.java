@@ -91,4 +91,7 @@ public class CardManager {
         symbols.add(scroll);
 
     }
+    public void drawUncoveredCards(){
+        game.drawUncoveredCards();
+    }
 }

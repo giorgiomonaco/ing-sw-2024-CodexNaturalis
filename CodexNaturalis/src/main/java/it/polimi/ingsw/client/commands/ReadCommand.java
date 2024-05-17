@@ -53,5 +53,6 @@ public class ReadCommand implements Serializable, Runnable{
         mapOfCommand.put("login", new LoginCommand(client));
         mapOfCommand.put("num", new SelNumPlayersCommand(client));
         mapOfCommand.put("showCards",new ShowHandCommand((client)));
+        mapOfCommand.put("drawCard",new DrawCardCommand(client));
     }
 }

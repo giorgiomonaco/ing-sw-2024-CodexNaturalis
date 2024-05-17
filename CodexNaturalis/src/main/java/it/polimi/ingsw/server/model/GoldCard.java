@@ -50,4 +50,5 @@ public class GoldCard extends Card {
     public int getCondition() {
         return condition;
     }
+
 }

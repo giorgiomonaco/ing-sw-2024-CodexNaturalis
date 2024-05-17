@@ -11,5 +11,7 @@ public enum messEnum {
     REJECTED,
     ALREADY_STARTED,
     SHOW_CARD,
-    SHOW_HAND
+    SHOW_HAND,
+    DRAW_CARD_REQUEST,
+    DRAW_CARD_RESPONSE,
 }

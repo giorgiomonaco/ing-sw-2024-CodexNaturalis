@@ -74,4 +74,22 @@ public class MainController {
         }
         return null;
     }
+    public void drawCard(String username, String whereToDraw, int cardIndex) {
+        Player p = getPlayerByUsername(username);
+        Card card = cardSelector(whereToDraw, cardIndex);
+        if (card instanceof ResourceCard) {
+            p.addResourceCard((ResourceCard) card);
+        } else if (card instanceof GoldCard) {
+            p.addGoldCard((GoldCard) card);
+        }
+    }
+    public Card cardSelector(String whereToDraw, int cardIndex) {
+        return switch (whereToDraw) {
+            case "CRD" -> game.drawResourceCard();
+            case "VRD" -> game.visibleResourceCards.remove(cardIndex);
+            case "CGD" -> game.drawGoldCard();
+            case "VGD" -> game.visibleGoldCards.remove(cardIndex);
+            default -> null;
+        };
+    }
 }

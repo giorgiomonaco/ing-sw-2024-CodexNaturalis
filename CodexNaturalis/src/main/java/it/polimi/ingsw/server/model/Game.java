@@ -27,6 +27,8 @@ public class Game {
 
     //The player is at that moment playing the game
     private Player currentPlayer;
+    public List<Card> visibleResourceCards = new ArrayList<>();
+    public List<Card> visibleGoldCards = new ArrayList<>();
 
 
     //Add a card to the resource deck
@@ -36,7 +38,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ResourceCard drawResourceCard(){
-        return resourceDeck.get(0);
+        return resourceDeck.removeFirst();
     }
 
     //Get all the list of the resource cards
@@ -44,10 +46,6 @@ public class Game {
         return resourceDeck;
     }
 
-    //remove a card from the resource deck (passing the card to be removed)
-    public void removeFormResourceDeck(ResourceCard card){
-        resourceDeck.remove(card);
-    }
 
     //Add a card to the gold deck
     public void addGoldCardToDeck(GoldCard card){
@@ -56,7 +54,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public GoldCard drawGoldCard(){
-        return goldDeck.get(0);
+        return goldDeck.removeFirst();
     }
 
     //Get all the list of the resource cards
@@ -64,10 +62,7 @@ public class Game {
         return goldDeck;
     }
 
-    //remove a card from the resource deck (passing the card to be removed)
-    public void removeFormGoldDeck(GoldCard card){
-        goldDeck.remove(card);
-    }
+
 
     //Add a card to the gold deck
     public void addObjectiveCardToDeck(ObjectiveCard card){
@@ -76,7 +71,7 @@ public class Game {
 
     //Get of the first card of the resource deck (aka draw)
     public ObjectiveCard drawObjectiveCard(){
-        return objectiveDeck.getFirst();
+        return objectiveDeck.removeFirst();
     }
 
     //Get all the list of the resource cards
@@ -84,10 +79,6 @@ public class Game {
         return objectiveDeck;
     }
 
-    //remove a card from the resource deck (passing the card to be removed)
-    public void removeFormObjectiveDeck(ObjectiveCard card){
-        objectiveDeck.remove(card);
-    }
 
 
     //Add a card to the Initial deck
@@ -97,7 +88,7 @@ public class Game {
 
     //Get of the first card of the Initial deck (aka draw)
     public InitialCard drawInitialCard(){
-        return initialCardsDeck.get(0);
+        return initialCardsDeck.removeFirst();
     }
 
     //Get all the list of the Initial cards
@@ -105,10 +96,6 @@ public class Game {
         return initialCardsDeck;
     }
 
-    //remove a card from the Initial deck (passing the card to be removed)
-    public void removeFormInitialDeck(InitialCard card){
-        initialCardsDeck.remove(card);
-    }
 
 
     //Method to add a player to the game
@@ -170,6 +157,13 @@ public class Game {
 
     public gameStateEnum getGameState() {
         return gameState;
+    }
+
+    public void drawUncoveredCards() {
+        for (int i = 0; i < 3; i++) {
+            visibleGoldCards.add(drawGoldCard());
+            visibleResourceCards.add(drawResourceCard());
+        }
     }
 
 }

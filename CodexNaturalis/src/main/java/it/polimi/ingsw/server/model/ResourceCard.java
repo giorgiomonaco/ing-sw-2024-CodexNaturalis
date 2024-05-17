@@ -19,4 +19,7 @@ public class ResourceCard extends Card{
         return cardPoints;
     }
 
+    public int getCardNumber() {
+        return cardNumber;
+    }
 }
