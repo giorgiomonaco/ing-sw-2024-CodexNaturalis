@@ -9,5 +9,6 @@ public enum messEnum {
     WAITING_FOR_LOBBY,
     PING,
     REJECTED,
-    ALREADY_STARTED
+    ALREADY_STARTED,
+    SHOW_CARD
 }

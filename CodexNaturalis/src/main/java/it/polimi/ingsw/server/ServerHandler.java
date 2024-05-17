@@ -9,7 +9,8 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.MainController;
-
+import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.Player;
 
 
 import java.rmi.RemoteException;
@@ -83,6 +84,17 @@ public class ServerHandler {
                     }
                 }
                 break;
+            case messEnum.SHOW_CARD:
+                synchronized (controllerLock){
+                    ShowHandRequest show = (ShowHandRequest) msg;
+                    Player p = mainController.getPlayerByUsername(show.getUsername());
+                    List<Card> playerHand = new ArrayList<>();
+                    playerHand.addAll(p.getPlayerGoldCards());
+                    playerHand.addAll(p.getPlayerResourceCards());
+                    sendMessageToPlayer(show.getUsername(),
+                            new ShowCards(messEnum.SHOW_CARD, show.getUsername(), playerHand));
+                }
+
         }
     }
 

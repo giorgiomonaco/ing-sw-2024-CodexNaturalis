@@ -5,9 +5,11 @@ import it.polimi.ingsw.client.commands.ReadCommand;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
+import it.polimi.ingsw.server.model.Card;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Tui implements UserInterface, Serializable {
@@ -15,6 +17,8 @@ public class Tui implements UserInterface, Serializable {
     private Client tuiCli;
     private Map<stateEnum, TuiView> phaseView;
     private ReadCommand reader;
+    List<Card> playerHand;
+
 
     public Tui(Client client){
 
@@ -38,6 +42,7 @@ public class Tui implements UserInterface, Serializable {
         phaseView.put(stateEnum.SELECT_TOKEN, new SelTokenView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
+        phaseView.put(stateEnum.SHOW_CARDS, new ShowCardsView());
 
     }
 
@@ -101,5 +106,12 @@ public class Tui implements UserInterface, Serializable {
     public void showMessage() {
 
     }
+
+    @Override
+    public void viewCards(List<Card> playerHand) {
+        ShowCardsView showCardsView = new ShowCardsView();
+        showCardsView.play(playerHand);
+    }
+
 
 }
