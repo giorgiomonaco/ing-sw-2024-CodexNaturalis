@@ -4,9 +4,10 @@ import it.polimi.ingsw.client.view.Colors;
 import java.io.Serializable;
 
 public class SelTokenView implements TuiView, Serializable {
-    Colors color;
+    Colors color = new Colors();
     @Override
     public void play() {
+
         System.out.println("WICH COLOUR DO YOU WANT TO PLAY WITH?\nCHOOSE BETWEEN: ");
         System.out.print(color.redColor + " red " + color.resetColor);
         System.out.print(color.blueColor + " blue " + color.resetColor);

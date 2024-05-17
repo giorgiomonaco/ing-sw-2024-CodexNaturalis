@@ -213,4 +213,8 @@ public class Player {
     public void setInitialCard(InitialCard initialCard) {
         this.initialCard = initialCard;
     }
+
+    public Object getUsername() {
+        return playerName;
+    }
 }

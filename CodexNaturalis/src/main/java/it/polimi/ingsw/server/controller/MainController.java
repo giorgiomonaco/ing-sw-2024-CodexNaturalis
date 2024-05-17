@@ -66,4 +66,12 @@ public class MainController {
     public void gameStarting(){
         gameSetUpper.gameSetUp();
     }
+    public Player getPlayerByUsername(String username) {
+        for (Player player : game.getPlayerList()) {
+            if (player.getUsername().equals(username)) {
+                return player;
+            }
+        }
+        return null;
+    }
 }
