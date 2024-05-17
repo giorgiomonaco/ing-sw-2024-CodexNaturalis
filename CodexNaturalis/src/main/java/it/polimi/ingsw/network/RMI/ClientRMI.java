@@ -14,7 +14,8 @@ public class ClientRMI extends Client implements RMIClientInterface {
     static String registry;
     private RMIServerInterface stub;
 
-    public ClientRMI (String RegistryName, String IP, int serverPort) {
+    public ClientRMI (String RegistryName, String IP, int serverPort) throws RemoteException {
+        super();
         registry = RegistryName;
         serverIP = IP;
         PORT = serverPort;

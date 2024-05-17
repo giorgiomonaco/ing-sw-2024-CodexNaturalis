@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 
 import java.io.*;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,7 +23,8 @@ public class ClientTCP extends Client{
     private ReceiverTCP receiver;
 
 
-    public ClientTCP(String IP, int port) {
+    public ClientTCP(String IP, int port) throws RemoteException {
+        super();
         serverIP = IP;
         serverPort = port;
         execService = Executors.newSingleThreadExecutor();

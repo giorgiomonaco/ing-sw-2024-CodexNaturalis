@@ -3,10 +3,11 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.view.ViewMode;
 import it.polimi.ingsw.network.ClientConfigNetwork;
 
+import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class ClientMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
 
         Scanner scan = new Scanner(System.in);
         String selString;
@@ -20,9 +21,14 @@ public class ClientMain {
         System.out.println("Press [2] for TUI");
         do {
             selString = scan.nextLine().trim();
-            selection = Integer.parseInt(selString);
-            if(selection != 1 && selection != 2) {
-                System.out.println("Invalid selection: please press [1] for GUI or press [2] for TUI.");
+            try {
+                selection = Integer.parseInt(selString);
+                if (selection != 1 && selection != 2) {
+                    System.out.println("Invalid selection: please press [1] for GUI or press [2] for TUI.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection: you inserted a string!" +
+                        "\nPlease press [1] for GUI or press [2] for TUI.");
             }
         } while(selection != 1 && selection != 2);
 
@@ -40,9 +46,14 @@ public class ClientMain {
         System.out.println("Press [2] for TCP");
         do {
             selString = scan.nextLine().trim();
-            selection = Integer.parseInt(selString);
-            if(selection != 1 && selection != 2) {
-                System.out.println("Invalid selection: please press [1] for RMI or press [2] for TCP.");
+            try {
+                selection = Integer.parseInt(selString);
+                if (selection != 1 && selection != 2) {
+                    System.out.println("Invalid selection: please press [1] for RMI or press [2] for TCP.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection: you inserted a string!" +
+                        "\nPlease press [1] for RMI or press [2] for TCP.");
             }
         } while(selection != 1 && selection != 2);
 

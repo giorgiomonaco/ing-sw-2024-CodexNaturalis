@@ -3,15 +3,12 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginResponse;
-import it.polimi.ingsw.network.message.allMessages.ShowCards;
 import it.polimi.ingsw.network.message.messEnum;
-import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.List;
 
 public abstract class Client implements Serializable {
     private stateEnum currentState;
@@ -25,9 +22,6 @@ public abstract class Client implements Serializable {
 
     public void setCurrentState(stateEnum currentState) {
         this.currentState = currentState;
-    }
-    public void viewCards(List<Card> list){
-
     }
 
     public void sendMessage(Message msg) throws RemoteException {}
@@ -79,10 +73,6 @@ public abstract class Client implements Serializable {
             case ALREADY_STARTED:
                 setCurrentState(stateEnum.ALREADY_STARTED);
                 break;
-            case SHOW_CARD:
-                ShowCards showMsg = (ShowCards) msg;
-                getUI().viewCards(showMsg.getPlayerHand());
-
         }
 
         getUI().run();
