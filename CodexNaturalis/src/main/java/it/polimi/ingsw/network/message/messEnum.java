@@ -10,5 +10,6 @@ public enum messEnum {
     PING,
     REJECTED,
     ALREADY_STARTED,
-    SHOW_CARD
+    SHOW_CARD,
+    SHOW_HAND
 }

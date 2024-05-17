@@ -84,7 +84,7 @@ public class ServerHandler {
                     }
                 }
                 break;
-            case messEnum.SHOW_CARD:
+            case messEnum.SHOW_HAND:
                 synchronized (controllerLock){
                     ShowHandRequest show = (ShowHandRequest) msg;
                     Player p = mainController.getPlayerByUsername(show.getUsername());
