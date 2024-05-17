@@ -15,7 +15,6 @@ public class GoldCardsInitializerTest {
         // Creazione del gioco
         GameState gameState = new GameState();
         gameState.setGameState(1);
-        Game game = new Game(gameState);
 
         // Creazione di una lista di simboli di esempio
         List<Symbol> symbols = new ArrayList<>();

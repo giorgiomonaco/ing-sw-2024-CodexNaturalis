@@ -71,8 +71,10 @@ public class ResourceCardTest {
 
             }
             int k = r.getCardPoints();
-            if (i == 0 ) System.out.print(" == "+k+" == ");
-            if ( i == 2) System.out.print(" == = == ");
+            if (i == 0) System.out.print(" == " + k + " == ");
+
+
+            if (i == 2) System.out.print(" == "+ k +" == ");
         }
 
 
