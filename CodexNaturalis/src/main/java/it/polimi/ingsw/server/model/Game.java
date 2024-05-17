@@ -171,4 +171,12 @@ public class Game {
     public gameStateEnum getGameState() {
         return gameState;
     }
+    public Player getPlayerByUsername(String username) {
+        for (Player player : playerList) {
+            if (player.getUsername().equals(username)) {
+                return player;
+            }
+        }
+        return null;
+    }
 }
