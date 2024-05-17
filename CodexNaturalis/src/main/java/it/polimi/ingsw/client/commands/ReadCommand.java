@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commands.listOfCommands.*;
 import it.polimi.ingsw.client.view.TUI.Tui;
 
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -28,11 +29,15 @@ public class ReadCommand extends Thread{
         while(!Thread.currentThread().isInterrupted()) {
             command = scan.nextLine().trim();
 
-            mapCommand(command);
+            try {
+                mapCommand(command);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    public void mapCommand(String command) {
+    public void mapCommand(String command) throws RemoteException {
         String[] commands = command.split(" ");
 
         if(!mapOfCommand.containsKey(commands[0])) {

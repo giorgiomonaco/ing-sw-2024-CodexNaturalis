@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="COLORS">
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" afterDir="false" />
+    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="start game">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/ReadCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/ReadCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -347,7 +348,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715873492983</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="start game">
+      <option name="closed" value="true" />
+      <created>1715874039163</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1715874039163</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,7 +382,8 @@
     <MESSAGE value="view implements" />
     <MESSAGE value="view implements with colors" />
     <MESSAGE value="COLORS" />
-    <option name="LAST_COMMIT_MESSAGE" value="COLORS" />
+    <MESSAGE value="start game" />
+    <option name="LAST_COMMIT_MESSAGE" value="start game" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
