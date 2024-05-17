@@ -9,11 +9,15 @@ import it.polimi.ingsw.client.states.stateEnum;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public abstract class Client implements Serializable {
+public abstract class Client extends UnicastRemoteObject implements Serializable {
     private stateEnum currentState;
     private String username;
     private UserInterface UI;
+
+    protected Client() throws RemoteException {
+    }
 
 
     public stateEnum getCurrentState() {

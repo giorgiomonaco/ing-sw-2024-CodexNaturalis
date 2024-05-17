@@ -8,13 +8,15 @@ import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.client.view.ViewMode;
 
+import java.rmi.RemoteException;
+
 public class ClientManager {
 
     Client client;
     UserInterface gameView;
 
     // Constructor for TCP Client.
-    public ClientManager(ViewMode selectedView, String IP, int serverPort) {
+    public ClientManager(ViewMode selectedView, String IP, int serverPort) throws RemoteException {
 
         client = new ClientTCP(IP, serverPort);
         client.setCurrentState(stateEnum.LOGIN);
@@ -28,7 +30,7 @@ public class ClientManager {
     }
 
     // Constructor for RMI Client.
-    public ClientManager(ViewMode selectedView, String Registry, String IP, int serverPort) {
+    public ClientManager(ViewMode selectedView, String Registry, String IP, int serverPort) throws RemoteException {
 
         client = new ClientRMI(Registry, IP, serverPort);
         client.setCurrentState(stateEnum.LOGIN);
