@@ -7,9 +7,10 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public abstract class Client{
+public abstract class Client implements Serializable {
     private stateEnum currentState;
     private String username;
     private UserInterface UI;

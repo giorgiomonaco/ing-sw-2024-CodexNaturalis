@@ -6,10 +6,11 @@ import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tui implements UserInterface {
+public class Tui implements UserInterface, Serializable {
 
     private Client tuiCli;
     private Map<stateEnum, TuiView> phaseView;

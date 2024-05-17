@@ -7,8 +7,6 @@ import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.ServerHandler;
-
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,7 +16,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface {
     private static int PORT;
     private Registry registry;
-    private RMIServerInterface obj;
+    // private RMIServerInterface obj;
     private ServerHandler handlerRMI;
 
     public ServerRMI(ServerConfigNetwork data, ServerHandler handler) throws RemoteException {
@@ -33,11 +31,11 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
 
     public void start(){
         try {
-            obj = new ServerRMI();
-            RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(obj, 0);
+            // obj = new ServerRMI();
+            // RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(this, 0);
             registry = LocateRegistry.createRegistry(PORT);
-            registry.bind("RMIServerInterface", stub);
-        } catch (RemoteException | AlreadyBoundException e) {
+            registry.rebind("RMIServerInterface", this);
+        } catch (RemoteException e) {
             System.err.println("Error while starting server: " + e.toString());
         }
         System.out.println("--- RMI server is ready on port: " + PORT + " ---");
@@ -46,7 +44,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
     public void stop() {
         try {
             registry.unbind("RMIServerInterface");
-            UnicastRemoteObject.unexportObject(obj, true);
+            // UnicastRemoteObject.unexportObject(obj, true);
             UnicastRemoteObject.unexportObject(registry, true);
             System.err.println("Server stopped.");
         } catch (Exception e) {

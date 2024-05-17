@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class ClientRMI extends Client implements RMIClientInterface{
+public class ClientRMI extends Client implements RMIClientInterface {
     static int PORT;
     static String serverIP;
     static String registry;

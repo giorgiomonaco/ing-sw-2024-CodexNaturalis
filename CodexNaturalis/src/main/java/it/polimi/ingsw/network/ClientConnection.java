@@ -2,7 +2,9 @@ package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.network.message.Message;
 
-public abstract class ClientConnection {
+import java.io.Serializable;
+
+public abstract class ClientConnection implements Serializable {
     private boolean connected;
     private String username;
     public void sendMessage(Message msg){};

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
 
-public class WaitTurnView implements TuiView{
+import java.io.Serializable;
+
+public class WaitTurnView implements TuiView, Serializable {
     @Override
     public void play() {
         System.out.println("WAIT FOR YOUR TURN");

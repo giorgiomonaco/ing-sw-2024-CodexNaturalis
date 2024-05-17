@@ -1,7 +1,9 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
 import it.polimi.ingsw.client.view.Colors;
 
-public class SelTokenView implements TuiView {
+import java.io.Serializable;
+
+public class SelTokenView implements TuiView, Serializable {
     Colors color;
     @Override
     public void play() {
