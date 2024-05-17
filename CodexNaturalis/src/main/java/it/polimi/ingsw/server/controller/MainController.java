@@ -74,14 +74,17 @@ public class MainController {
         }
         return null;
     }
-    public void drawCard(String username, String whereToDraw, int cardIndex) {
+    public Card drawCard(String username, String whereToDraw, int cardIndex) {
         Player p = getPlayerByUsername(username);
         Card card = cardSelector(whereToDraw, cardIndex);
         if (card instanceof ResourceCard) {
             p.addResourceCard((ResourceCard) card);
+            return card;
         } else if (card instanceof GoldCard) {
             p.addGoldCard((GoldCard) card);
+            return card;
         }
+        return null;
     }
     public Card cardSelector(String whereToDraw, int cardIndex) {
         return switch (whereToDraw) {

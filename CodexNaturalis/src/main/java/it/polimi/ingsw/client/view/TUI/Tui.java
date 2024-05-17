@@ -113,5 +113,11 @@ public class Tui implements UserInterface, Serializable {
         showCardsView.play(playerHand);
     }
 
+    @Override
+    public void viewCard(Card card) {
+        DrawCardView drawCardView = new DrawCardView();
+        drawCardView.response(card);
+    }
+
 
 }

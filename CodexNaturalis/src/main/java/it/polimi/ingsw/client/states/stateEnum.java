@@ -14,5 +14,6 @@ public enum stateEnum {
     DISCONNECTION,
     ALREADY_STARTED,
     REJECTED,
-    SHOW_CARDS
+    SHOW_CARDS,
+    DRAW_CARD_RESPONSE
 }

@@ -98,7 +98,11 @@ public class ServerHandler {
             case messEnum.DRAW_CARD_REQUEST:
                 synchronized (controllerLock){
                     DrawCardRequest draw = (DrawCardRequest) msg;
-                    mainController.drawCard(draw.getUsername(), draw.getWhereToDraw(), draw.getCardIndex());
+                    Card card = mainController.drawCard(draw.getUsername(), draw.getWhereToDraw(), draw.getCardIndex());
+                    if (card != null) {
+                        sendMessageToPlayer(draw.getUsername(),
+                                new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
+                    }
                 }
 
         }

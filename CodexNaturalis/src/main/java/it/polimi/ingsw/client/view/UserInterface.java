@@ -11,5 +11,6 @@ public interface UserInterface {
     void showMessage();
 
     void viewCards(List<Card> playerHand);
+    void viewCard(Card card);
 
 }
