@@ -13,7 +13,7 @@ public class TokenManager {
     //This class manages the assignment of the tokens to the players at start of the game
     private final Game game;
 
-    private final ViewTry view;
+  //  private final ViewTry view;
 
     private int tokenCounter = 0;
 
@@ -24,7 +24,7 @@ public class TokenManager {
     //Constructor of the class
     public TokenManager(Game game) {
         this.game = game;
-        this.view = view;
+        // this.view = view;
     }
 
     //Initialize tokens, aka assign all tokens to all players
@@ -32,7 +32,7 @@ public class TokenManager {
         //As first thing we create all the tokens and populate the list of tokens
         createTokens();
         //start communicating the token assignment
-        view.startInformingOfTokens();
+        // view.startInformingOfTokens();
         //for each player in the players game list
         for (Player p : game.getPlayerList()) {
             if(p == game.getCurrentPlayer()){
@@ -49,7 +49,7 @@ public class TokenManager {
                 for(Token t : tokens){
                     availableTokenNames.add(t.getTokenColor());
                 }
-                String choice = view.askForTokenSelection(availableTokenNames);
+                // String choice = view.askForTokenSelection(availableTokenNames);
                 //we remove it from the available ones
             }
         }
@@ -85,7 +85,7 @@ public class TokenManager {
         //Assign the color of the token for each player
             p.setPlayerToken(tokens.get(tokenCounter));
             //And we communicate the assignment
-            view.ackPersonalToken(p.getPlayerName(), tokens.get(tokenCounter).getTokenColor());
+            // view.ackPersonalToken(p.getPlayerName(), tokens.get(tokenCounter).getTokenColor());
             tokenCounter++;
         }
 

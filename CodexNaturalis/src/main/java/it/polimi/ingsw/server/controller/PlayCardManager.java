@@ -1,3 +1,4 @@
+
 package it.polimi.ingsw.server.controller;
 
 
@@ -178,22 +179,25 @@ public class PlayCardManager {
         /*
         We want the player to select one of the available boxes
          */
-        int chosenBox = view.getPlayerBoxChoice();
+        // int chosenBox = view.getPlayerBoxChoice();
         /*
         We send the choice to the manager to check if correct
         and if so to place the card
          */
-        List<Symbol> sym = boardManager.playCard(card,chosenBox);
+        // List<Symbol> sym = boardManager.playCard(card,chosenBox);
         /*
         Now we have to update the resources that are available
          */
-        for (Symbol s: sym){
+        /*for (Symbol s: sym){
             game.getCurrentPlayer().resourceLowering(s);
         }
         card.addResources(game.getCurrentPlayer());
+
+         */
     }
 
     public void playGoldCard(GoldCard card){
+
         /*
         First thing first we have to check if the gold card is playable or not
         If it's not the case we need to inform the player and make him retry the card selection
@@ -223,12 +227,14 @@ public class PlayCardManager {
         we ask him where he wants to play it,
         then we place it there
          */
+        /*
         int chosenBox = view.getPlayerBoxChoice();
         List<Symbol> sym = boardManager.playCard(card,chosenBox);
         for (Symbol s: sym){
             game.getCurrentPlayer().resourceLowering(s);
         }
         card.addResources(game.getCurrentPlayer());
+        */
     }
 
 

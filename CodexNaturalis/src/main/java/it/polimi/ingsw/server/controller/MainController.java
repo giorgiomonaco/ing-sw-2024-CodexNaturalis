@@ -61,6 +61,8 @@ public class MainController {
 
         }
     }
+
+
     public void gameStarting(){
         gameSetUpper.gameSetUp();
     }

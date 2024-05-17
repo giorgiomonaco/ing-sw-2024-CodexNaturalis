@@ -4,12 +4,13 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commands.listOfCommands.*;
 import it.polimi.ingsw.client.view.TUI.Tui;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ReadCommand extends Thread{
+public class ReadCommand implements Serializable, Runnable{
 
     private Tui tui;
     private String command;

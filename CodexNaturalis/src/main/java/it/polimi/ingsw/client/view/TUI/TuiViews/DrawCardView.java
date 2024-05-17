@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
 
-public class DrawCardView implements TuiView {
+import java.io.Serializable;
+
+public class DrawCardView implements TuiView, Serializable {
 
     @Override
     public void play() {
