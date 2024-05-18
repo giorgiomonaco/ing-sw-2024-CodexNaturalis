@@ -10,7 +10,7 @@ public class ShowUncoveredCardsView implements TuiView, Serializable {
     public void play() {
         System.out.println("Here are the uncovered cards:");
     }
-    @Override
+
     public void viewUncoveredCards(List<Card> cardList) {
         //todo
     }

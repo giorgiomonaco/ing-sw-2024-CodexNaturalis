@@ -10,8 +10,8 @@ public interface UserInterface {
     void error();
     void showMessage();
 
-    void viewCards(List<Card> playerHand);
-    void viewCard(Card card);
+    // void viewCards(List<Card> playerHand);
+    // void viewCard(Card card);
 
-    void viewUncoveredCards(List<Card> cardList);
+   //  void viewUncoveredCards(List<Card> cardList);
 }
