@@ -8,6 +8,9 @@ import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.GameState;
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainController {
     private Game game;
     private final ServerHandler serverHandler;
@@ -94,5 +97,11 @@ public class MainController {
             case "VGD" -> game.visibleGoldCards.remove(cardIndex);
             default -> null;
         };
+    }
+    public List<Card> getUncoveredCards(){
+        List<Card> uncoveredCards = new ArrayList<>();
+        uncoveredCards.addAll(game.getVisibleGoldCards());
+        uncoveredCards.addAll(game.getVisibleResourceCards());
+        return uncoveredCards;
     }
 }

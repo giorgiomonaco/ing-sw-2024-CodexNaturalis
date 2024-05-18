@@ -104,6 +104,15 @@ public class ServerHandler {
                                 new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
                     }
                 }
+                break;
+
+
+            case messEnum.SHOW_UNCOVERED_CARDS:
+                ShowUncoveredCardsRequest showUncovered = (ShowUncoveredCardsRequest) msg;
+                Player p = mainController.getPlayerByUsername(showUncovered.getUsername());
+                sendMessageToPlayer(showUncovered.getUsername(),
+                        new ShowUncoveredCardsResponse(messEnum.SHOW_UNCOVERED_CARDS, showUncovered.getUsername(), mainController.getUncoveredCards()));
+                break;
 
         }
     }

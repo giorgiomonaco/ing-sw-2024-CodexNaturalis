@@ -13,4 +13,5 @@ public interface UserInterface {
     void viewCards(List<Card> playerHand);
     void viewCard(Card card);
 
+    void viewUncoveredCards(List<Card> cardList);
 }

@@ -166,4 +166,11 @@ public class Game {
         }
     }
 
+    public List<Card> getVisibleResourceCards() {
+        return visibleResourceCards;
+    }
+
+    public List<Card> getVisibleGoldCards() {
+        return visibleGoldCards;
+    }
 }

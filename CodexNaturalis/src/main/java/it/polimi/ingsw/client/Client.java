@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.DrawCardResponse;
 import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.network.message.allMessages.ShowCards;
+import it.polimi.ingsw.network.message.allMessages.ShowUncoveredCardsResponse;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
@@ -82,6 +83,11 @@ public abstract class Client implements Serializable {
                 case DRAW_CARD_RESPONSE:
                     DrawCardResponse drawMsg = (DrawCardResponse) msg;
                     getUI().viewCard(drawMsg.getCard());
+                    break;
+                    case SHOW_UNCOVERED_CARDS_RESPONSE:
+                        ShowUncoveredCardsResponse uncoveredMsg = (ShowUncoveredCardsResponse) msg;
+                        getUI().viewUncoveredCards(uncoveredMsg.getCardList());
+                        break;
 
         }
 
