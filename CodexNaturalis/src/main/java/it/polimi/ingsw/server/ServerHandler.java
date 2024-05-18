@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.GameBoard;
 import it.polimi.ingsw.server.model.Player;
 
 
@@ -104,9 +105,29 @@ public class ServerHandler {
                                 new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
                     }
                 }
+                break;
+            case messEnum.SHOW_PLAYER_RESOURCES:
+                synchronized (controllerLock){
+                    ShowPlayerResources show = (ShowPlayerResources) msg;
+                    Player p = mainController.getPlayerByUsername(show.getUsername());
+                    int[] R = p.getResourcesAvailable();
+                    new ShowPlayerResources(messEnum.SHOW_PLAYER_RESOURCES, show.getUsername(), R);
+                }
+                break;
+
+            case messEnum.SHOW_PLAYER_BOARD:
+                synchronized (controllerLock){
+                    ShowPlayerBoard show = (ShowPlayerBoard) msg;
+                    Player p = mainController.getPlayerByUsername(show.getUsername());
+                    GameBoard g = p.getGameBoard();
+                    new ShowPlayerBoard(messEnum.SHOW_PLAYER_RESOURCES, show.getUsername(), g);
+                }
+                break;
 
         }
-    }
+
+        }
+
 
     public void sendMessageToPlayer(String username, Message msg){
         if(connectedClients.containsKey(username)){

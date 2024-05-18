@@ -7,14 +7,19 @@
     <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="start game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/GUI/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/GUI/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowCardsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowCardsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/ReadCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/ReadCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/listOfCommands/ShowBoardCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/listOfCommands/ShowBoardCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/listOfCommands/ShowResourcesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/commands/listOfCommands/ShowResourcesCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/states/stateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/states/stateEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/Tui.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/Tui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowPlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowPlayerResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowPlayerResources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/UserInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/ViewTry.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/ViewTry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/GoldCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/GoldCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/controller/GoldCardsInitializerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/controller/GoldCardsInitializerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/controller/ResourceCardInitializerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/model/ResourceCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/model/ResourceCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/states/stateEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/states/stateEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/message/allMessages/ShowPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/message/allMessages/ShowPlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/message/messEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/message/messEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameSetUpper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/GameSetUpper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -87,7 +92,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -98,6 +103,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="it.polimi.ingsw.client.commands" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\francesca.malagoli\IdeaProjects\ing-sw-2024-Monaco-Montuschi-Neri-Croce\CodexNaturalis\src\main\java\it\polimi\ingsw\model" />
     </key>
@@ -425,7 +433,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715957541488</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="start game">
+      <option name="closed" value="true" />
+      <created>1715961237172</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1715961237172</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -43,7 +43,8 @@ public class Tui implements UserInterface, Serializable {
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
         phaseView.put(stateEnum.SHOW_CARDS, new ShowCardsView());
-
+        phaseView.put(stateEnum.SHOW_PLAYER_RESOURCES, new ShowPlayerResources());
+        phaseView.put(stateEnum.SHOW_PLAYER_BOARD, new ShowPlayerBoard());
     }
 
 

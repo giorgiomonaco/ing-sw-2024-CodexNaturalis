@@ -80,6 +80,7 @@ public class ViewTry {
     }
 //-------------------------------- Related to play a card  --------------------------------
 
+    /* si può cancellare
 public void printResourceCard(ResourceCard r) {
     System.out.println("show front or back?\n [1] = front, [2] = back");
     Scanner t= new Scanner(System.in);
@@ -145,12 +146,12 @@ public void printResourceCard(ResourceCard r) {
     }
 
 }
-
+*/
 
 //-------------------------------- Related to displace the board  --------------------------------
     public void pringtTopOfGrid(int[] x, int[] y){
         for(int i = x[0]-1; i <= x[1]+1; i++) {
-            //for every column, print space fot the box
+            //for every column, print space for the box
             System.out.print("+---");
         }
         //Close the grid
