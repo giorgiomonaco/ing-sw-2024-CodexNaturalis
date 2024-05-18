@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="start game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/Tui.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/Tui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowUncoveredCardsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowUncoveredCardsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/TuiView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/TuiView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/message/messEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/network/message/messEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/client/view/TUI/TuiViews/ShowPlayerBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +213,9 @@
       <workItem from="1713883133862" duration="4213000" />
       <workItem from="1715863758530" duration="5122000" />
       <workItem from="1715962104743" duration="1411000" />
-      <workItem from="1716035229831" duration="2452000" />
+      <workItem from="1716035229831" duration="2872000" />
+      <workItem from="1716049594308" duration="1592000" />
+      <workItem from="1716051263300" duration="66000" />
     </task>
     <task id="LOCAL-00001" summary="prova">
       <option name="closed" value="true" />
@@ -449,7 +443,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716033927643</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="start game">
+      <option name="closed" value="true" />
+      <created>1716043688642</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1716043688642</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
