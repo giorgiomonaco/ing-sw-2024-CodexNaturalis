@@ -1,9 +1,0 @@
-it\polimi\ingsw\network\server\ServerMain.class
-it\polimi\ingsw\network\client\ClientTCP.class
-it\polimi\ingsw\network\client\ClientMain.class
-it\polimi\ingsw\network\client\ClientRMI.class
-it\polimi\ingsw\network\server\ServerHandler.class
-it\polimi\ingsw\view\ViewMode.class
-it\polimi\ingsw\network\client\ClientManager.class
-it\polimi\ingsw\network\server\ServerTCP.class
-it\polimi\ingsw\network\server\ServerConfigurationBase.class
