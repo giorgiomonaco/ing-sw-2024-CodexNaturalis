@@ -10,6 +10,8 @@ import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.Game;
+import it.polimi.ingsw.server.model.GameBoard;
 import it.polimi.ingsw.server.model.Player;
 
 
@@ -104,12 +106,25 @@ public class ServerHandler {
                                 new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
                     }
                 }
+            case messEnum.SHOW_PLAYER_BOARD:
+                synchronized (controllerLock){
+                    ShowPlayerBoard showBoard = (ShowPlayerBoard) msg;
+                    Player p = mainController.getPlayerByUsername(showBoard.getUsername());
+                    GameBoard G = p.getGameBoard();
+                    sendMessageToPlayer(showBoard.getUsername(),
+                            new ShowPlayerBoard(messEnum.SHOW_PLAYER_BOARD, showBoard.getUsername(), G));
+
+                }
                 break;
-            case messEnum.SHOW_UNCOVERED_CARDS:
-                ShowUncoveredCardsRequest showUncovered = (ShowUncoveredCardsRequest) msg;
-                Player p = mainController.getPlayerByUsername(showUncovered.getUsername());
-                sendMessageToPlayer(showUncovered.getUsername(),
-                        new ShowUncoveredCardsResponse(messEnum.SHOW_UNCOVERED_CARDS, showUncovered.getUsername(), mainController.getUncoveredCards()));
+            case messEnum.SHOW_PLAYER_RESOURCES:
+                synchronized (controllerLock){
+                    ShowPlayerResources ShowRes = (ShowPlayerResources) msg;
+                    Player p = mainController.getPlayerByUsername(ShowRes.getUsername());
+                    int[] R = p.getResourcesAvailable();
+                    sendMessageToPlayer(ShowRes.getUsername(),
+                            new ShowPlayerResources(messEnum.SHOW_PLAYER_RESOURCES, ShowRes.getUsername(), R));
+
+                }
                 break;
 
         }

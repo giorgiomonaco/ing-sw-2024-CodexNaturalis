@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.GameBoard;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -43,7 +44,8 @@ public class Tui implements UserInterface, Serializable {
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
         phaseView.put(stateEnum.SHOW_CARDS, new ShowCardsView());
-
+        phaseView.put(stateEnum.SHOW_PLAYER_RESOURCES, new ShowPlayerResources());
+        phaseView.put(stateEnum.SHOW_PLAYER_BOARD, new ShowPlayerBoard());
     }
 
 
@@ -89,6 +91,12 @@ public class Tui implements UserInterface, Serializable {
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play();
                 break;
+            case SHOW_CARDS:
+                phaseView.get(stateEnum.SHOW_CARDS).play();
+            case SHOW_PLAYER_BOARD:
+                phaseView.get(stateEnum.SHOW_PLAYER_BOARD).play();
+            case SHOW_PLAYER_RESOURCES:
+                phaseView.get(stateEnum.SHOW_PLAYER_RESOURCES).play();
         }
     }
 
@@ -118,6 +126,7 @@ public class Tui implements UserInterface, Serializable {
         DrawCardView drawCardView = new DrawCardView();
         drawCardView.response(card);
     }
+
 
 
     public void viewUncoveredCards(List<Card> cardList) {
