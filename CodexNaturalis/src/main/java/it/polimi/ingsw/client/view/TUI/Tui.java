@@ -91,6 +91,12 @@ public class Tui implements UserInterface, Serializable {
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play();
                 break;
+            case SHOW_CARDS:
+                phaseView.get(stateEnum.SHOW_CARDS).play();
+            case SHOW_PLAYER_BOARD:
+                phaseView.get(stateEnum.SHOW_PLAYER_BOARD).play();
+            case SHOW_PLAYER_RESOURCES:
+                phaseView.get(stateEnum.SHOW_PLAYER_RESOURCES).play();
         }
     }
 
@@ -121,15 +127,6 @@ public class Tui implements UserInterface, Serializable {
         drawCardView.response(card);
     }
 
-    @Override
-    public void viewResources(int[] resources) {
-
-    }
-
-    @Override
-    public void viewBoard(GameBoard gameBoard) {
-
-    }
 
 
     public void viewUncoveredCards(List<Card> cardList) {
