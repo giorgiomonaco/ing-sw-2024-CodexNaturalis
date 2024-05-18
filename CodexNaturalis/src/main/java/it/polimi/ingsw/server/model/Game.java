@@ -30,6 +30,11 @@ public class Game {
     public List<Card> visibleResourceCards = new ArrayList<>();
     public List<Card> visibleGoldCards = new ArrayList<>();
 
+    // Constructor to create the game
+    public Game(int playersNumber){
+        this.playersNumber = playersNumber;
+    }
+
 
     //Add a card to the resource deck
     public void addResourceCardToDeck(ResourceCard card){

@@ -27,16 +27,16 @@ public class MainController {
 
 
     //Here it plays the game
-    public void gameCreation(String username, int num){
-        //To play the game it first creates the view to interact with the user
-        this.game = new Game();
-        this.game.setPlayersNumber(num);
+    public void gameCreation(String username, int numOfPlayers){
+
+        game = new Game(numOfPlayers);
         //Then creates  the game set up
-         this.gameSetUpper = new GameSetUpper(game);
+        gameSetUpper = new GameSetUpper(game);
         //Start the setup of the game
         gameSetUpper.CreateGame(username);
 
     }
+
     public void playGame(){
 
     }
