@@ -26,8 +26,4 @@ public class Gui implements UserInterface {
 
     }
 
-    @Override
-    public void viewCards(List<Card> playerHand) {
-
-    }
 }

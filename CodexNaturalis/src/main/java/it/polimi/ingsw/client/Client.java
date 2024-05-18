@@ -2,7 +2,9 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.allMessages.*;
+import it.polimi.ingsw.network.message.allMessages.DrawCardResponse;
+import it.polimi.ingsw.network.message.allMessages.LoginResponse;
+import it.polimi.ingsw.network.message.allMessages.ShowCards;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
@@ -77,21 +79,9 @@ public abstract class Client implements Serializable {
                 ShowCards showMsg = (ShowCards) msg;
                 getUI().viewCards(showMsg.getPlayerHand());
                 break;
-
-            case DRAW_CARD_RESPONSE:
+                case DRAW_CARD_RESPONSE:
                     DrawCardResponse drawMsg = (DrawCardResponse) msg;
                     getUI().viewCard(drawMsg.getCard());
-                break;
-
-            case SHOW_PLAYER_RESOURCES:
-                     ShowPlayerResources showResources = (ShowPlayerResources) msg;
-                     getUI().viewResources(showResources.getResources());
-                 break;
-
-            case SHOW_PLAYER_BOARD:
-                ShowPlayerBoard showBoard = (ShowPlayerBoard) msg;
-                getUI().viewBoard(showBoard.getGameBoard());
-                break;
 
         }
 
