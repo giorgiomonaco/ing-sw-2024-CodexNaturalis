@@ -45,7 +45,7 @@ public class ReadCommand implements Serializable, Runnable{
             System.err.println("Command not found. Try another command.");
         }
         else {
-            mapOfCommand.get(commands[0]).handleMessage(commands);
+            mapOfCommand.get(commands[0]).handleMessage(commands, client.getCurrentState());
         }
     }
 

@@ -49,7 +49,7 @@ public class CommonBoardManager {
         //First we draw from the resource deck
         ResourceCard card = game.drawResourceCard();
         //Then we remove it from the deck
-        game.removeFormResourceDeck(card);
+        // game.removeFormResourceDeck(card);
         //we put it on the common board
         game.getCommonBoard().addDiscoveredSourceCard(card);
     }
@@ -59,7 +59,7 @@ public class CommonBoardManager {
         //first draw from the gold deck
         GoldCard card = game.drawGoldCard();
         //then we remove it from the deck
-        game.removeFormGoldDeck(card);
+        // game.removeFormGoldDeck(card);
         //then we put it into the common game board
         game.getCommonBoard().addDiscoveredGoldCard(card);
     }
@@ -69,7 +69,7 @@ public class CommonBoardManager {
         //We first draw a card from the deck
         ObjectiveCard card = game.drawObjectiveCard();
         //Then we remove it from the deck
-        game.removeFormObjectiveDeck(card);
+        // game.removeFormObjectiveDeck(card);
         //Finally we put it into the common board
         game.getCommonBoard().addCommonObjectiveDiscoveredCard(card);
     }

@@ -47,7 +47,7 @@ public class DrawManager {
         //add the card to the player hand
         game.getCurrentPlayer().addResourceCard(card);
         //Remove that card from the resource deck
-        game.removeFormResourceDeck(card);
+        // game.removeFormResourceDeck(card);
     }
 
     //Initialize gold cards
@@ -57,7 +57,7 @@ public class DrawManager {
         //Add it to the hand of the player
         game.getCurrentPlayer().addGoldCard(card);
         //remove it from the gold deck
-        game.removeFormGoldDeck(card);
+        // game.removeFormGoldDeck(card);
     }
 
 
