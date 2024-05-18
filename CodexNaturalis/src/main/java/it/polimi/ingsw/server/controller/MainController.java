@@ -33,6 +33,8 @@ public class MainController {
         //Start the setup of the game
         gameSetUpper.CreateGame(username);
 
+        // serverHandler.sendMessageToPlayer(username, new messaggio ingresso in lobby);
+
     }
     public void playGame(){
 
@@ -51,6 +53,7 @@ public class MainController {
         }
         try {
             game.addPlayer(new Player(game, username));
+            // serverHandler.sendMessageToPlayer(username, new messaggio ingresso in lobby);
         } catch (IllegalStateException e) {
             System.err.println("Max number of player already reached.");
             serverHandler.sendMessageToPlayer(username,
