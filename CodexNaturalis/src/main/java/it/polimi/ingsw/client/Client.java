@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.commands.listOfCommands.ShowBoardCommand;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.DrawCardResponse;
@@ -79,10 +80,10 @@ public abstract class Client implements Serializable {
                 ShowCards showMsg = (ShowCards) msg;
                 getUI().viewCards(showMsg.getPlayerHand());
                 break;
-                case DRAW_CARD_RESPONSE:
+            case DRAW_CARD_RESPONSE:
                     DrawCardResponse drawMsg = (DrawCardResponse) msg;
                     getUI().viewCard(drawMsg.getCard());
-
+                break;
         }
 
         getUI().run();

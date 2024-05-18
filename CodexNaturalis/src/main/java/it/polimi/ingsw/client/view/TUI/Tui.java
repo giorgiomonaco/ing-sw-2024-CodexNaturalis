@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.GameBoard;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -118,6 +119,16 @@ public class Tui implements UserInterface, Serializable {
     public void viewCard(Card card) {
         DrawCardView drawCardView = new DrawCardView();
         drawCardView.response(card);
+    }
+
+    @Override
+    public void viewResources(int[] resources) {
+
+    }
+
+    @Override
+    public void viewBoard(GameBoard gameBoard) {
+
     }
 
 
