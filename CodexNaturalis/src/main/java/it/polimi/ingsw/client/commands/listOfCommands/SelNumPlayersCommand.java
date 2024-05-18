@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.commands.listOfCommands;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commands.CommandManager;
+import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionNumPlayers;
 
@@ -16,7 +17,10 @@ public class SelNumPlayersCommand implements CommandManager {
     }
 
     @Override
-    public void handleMessage(String[] commands, stateEnum currState) throws RemoteException {
+    public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException {
+        if(!client.getCurrentState().equals(stateEnum.SELECT_NUM_PLAYERS)){
+            throw new CommandNotAvailableException();
+        }
         int numOfPlayers = Integer.parseInt(commands[1]);
         SelectionNumPlayers toSend = new SelectionNumPlayers(client.getUsername(), numOfPlayers);
         client.sendMessage(toSend);

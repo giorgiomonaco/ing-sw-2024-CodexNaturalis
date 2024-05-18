@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.commands.listOfCommands;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commands.CommandManager;
+import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
@@ -14,7 +15,10 @@ public class LoginCommand implements CommandManager {
     public LoginCommand(Client client) {
         this.client = client;
     }
-    public void handleMessage(String[] commands, stateEnum currState) throws RemoteException {
+    public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException {
+        if(!client.getCurrentState().equals(stateEnum.LOGIN)){
+            throw new CommandNotAvailableException();
+        }
         Message toSend = new LoginRequest(messEnum.LOGIN_REQUEST, commands[1]);
         client.sendMessage(toSend);
     }

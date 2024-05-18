@@ -7,7 +7,6 @@ import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.network.message.allMessages.ShowCards;
 import it.polimi.ingsw.network.message.allMessages.ShowUncoveredCardsResponse;
 import it.polimi.ingsw.network.message.messEnum;
-import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.client.states.stateEnum;
 
 import java.io.Serializable;
@@ -49,21 +48,20 @@ public abstract class Client implements Serializable {
         if(msg.getType().equals(messEnum.PING)){
 
         } else {
-            updateState(msg);
+            manageState(msg);
         }
     }
 
-    public void updateState(Message msg){
+    public void manageState(Message msg){
 
         switch(msg.getType()){
             case LOGIN_RESPONSE:
                 LoginResponse response = (LoginResponse) msg;
                 if(response.getResult() == 1){
-                    setCurrentState(stateEnum.LOGIN_SUCCESSFUL);
+                    System.out.println("Login successful!");
                 } else {
-                    setCurrentState(stateEnum.LOGIN_FAILED);
+                    System.out.println("The chosen username is already taken, try to choose another one.");
                 }
-                getUI().run();
                 break;
             case WAITING_FOR_LOBBY:
                 setCurrentState(stateEnum.WAITING_LOBBY);

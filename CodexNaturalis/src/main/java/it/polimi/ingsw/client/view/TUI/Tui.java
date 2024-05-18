@@ -31,8 +31,6 @@ public class Tui implements UserInterface, Serializable {
         readerThread.start();
 
         phaseView.put(stateEnum.LOGIN, new LoginView());
-        phaseView.put(stateEnum.LOGIN_SUCCESSFUL, new LoginSucView());
-        phaseView.put(stateEnum.LOGIN_FAILED, new LoginFailView());
         phaseView.put(stateEnum.WAITING_LOBBY, new WaitingLobbyView());
         phaseView.put(stateEnum.ALREADY_STARTED, new AlreadyStartedView());
         phaseView.put(stateEnum.DISCONNECTION, new DisconnectionView());
@@ -54,12 +52,6 @@ public class Tui implements UserInterface, Serializable {
         switch(tuiCli.getCurrentState()){
             case LOGIN:
                 phaseView.get(stateEnum.LOGIN).play();
-                break;
-            case LOGIN_FAILED:
-                phaseView.get(stateEnum.LOGIN_FAILED).play();
-                break;
-            case LOGIN_SUCCESSFUL:
-                phaseView.get(stateEnum.LOGIN_SUCCESSFUL).play();
                 break;
             case WAITING_LOBBY:
                 phaseView.get(stateEnum.WAITING_LOBBY).play();

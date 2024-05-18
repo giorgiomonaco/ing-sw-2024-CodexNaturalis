@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.commands;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.commands.listOfCommands.*;
 import it.polimi.ingsw.client.view.TUI.Tui;
 
@@ -45,7 +46,12 @@ public class ReadCommand implements Serializable, Runnable{
             System.err.println("Command not found. Try another command.");
         }
         else {
-            mapOfCommand.get(commands[0]).handleMessage(commands, client.getCurrentState());
+            try {
+                mapOfCommand.get(commands[0]).handleMessage(commands, client.getCurrentState());
+            } catch (CommandNotAvailableException e) {
+                System.err.println("PERMISSION DENIED!");
+                System.err.println("You are not allowed to do this command now.");
+            }
         }
     }
 
