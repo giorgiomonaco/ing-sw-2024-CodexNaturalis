@@ -15,7 +15,7 @@ public class ShowUncoveredCardsCommand implements CommandManager {
         this.client = client;
     }
     public void handleMessage(String[] commands, stateEnum currState) throws RemoteException {
-        // Message toSend = new ShowUncoveredCardsRequest(messEnum.SHOW_UNCOVERED_CARDS, client.getUsername());
-        client.sendMessage(toSend);
+        //Message toSend = new ShowUncoveredCardsRequest(messEnum.SHOW_UNCOVERED_CARDS, client.getUsername());
+        //client.sendMessage(toSend);
     }
 }

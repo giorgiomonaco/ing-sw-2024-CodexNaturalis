@@ -87,10 +87,10 @@ public abstract class Client implements Serializable {
                 DrawCardResponse drawMsg = (DrawCardResponse) msg;
                 getUI().viewCard(drawMsg.getCard());
                 break;
-            case SHOW_UNCOVERED_CARDS_RESPONSE:
-                ShowUncoveredCardsResponse uncoveredMsg = (ShowUncoveredCardsResponse) msg;
-                getUI().viewUncoveredCards(uncoveredMsg.getCardList());
-                break;
+            // case SHOW_UNCOVERED_CARDS_RESPONSE:
+            //    ShowUncoveredCardsResponse uncoveredMsg = (ShowUncoveredCardsResponse) msg;
+            //    getUI().viewUncoveredCards(uncoveredMsg.getCardList());
+            //    break;
 
         }
     }
