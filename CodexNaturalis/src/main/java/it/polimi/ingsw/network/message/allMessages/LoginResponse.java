@@ -1,10 +1,13 @@
 package it.polimi.ingsw.network.message.allMessages;
 
+import it.polimi.ingsw.client.messageHandling.LoginHandler;
+import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
 
 public class LoginResponse extends Message {
     private int result;
+    private boolean successful;
     public LoginResponse(String senderUsername) {
         super(messEnum.LOGIN_RESPONSE, senderUsername);
     }
@@ -22,4 +25,12 @@ public class LoginResponse extends Message {
         return result;
     }
 
+    @Override
+    public MessageHandler createHandler() {
+        return new LoginHandler();
+    }
+
+    public boolean isSuccessful() {
+        return successful;
+    }
 }

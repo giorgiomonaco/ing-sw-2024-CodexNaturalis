@@ -1,8 +1,8 @@
-package it.polimi.ingsw.client.commands.listOfCommands;
+package it.polimi.ingsw.client.commandsHandling.listOfCommands;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.CommandManager;
-import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
+import it.polimi.ingsw.client.commandsHandling.CommandManager;
+import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ShowHandRequest;
@@ -10,11 +10,10 @@ import it.polimi.ingsw.network.message.messEnum;
 
 import java.rmi.RemoteException;
 
-public class ShowBoardCommand implements CommandManager {
+public class ShowResourcesCommand implements CommandManager {
     private Client client;
-    public ShowBoardCommand(Client client) { this.client = client;
+    public ShowResourcesCommand(Client client) { this.client = client;
     }
-
     public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException {
 
         if(client.getCurrentState().equals(stateEnum.LOGIN) ||
@@ -26,7 +25,7 @@ public class ShowBoardCommand implements CommandManager {
             throw new CommandNotAvailableException();
         }
 
-        Message toSend = new ShowHandRequest(messEnum.SHOW_PLAYER_BOARD, client.getUsername());
+        Message toSend = new ShowHandRequest(messEnum.SHOW_PLAYER_RESOURCES, client.getUsername());
         client.sendMessage(toSend);
 
     }

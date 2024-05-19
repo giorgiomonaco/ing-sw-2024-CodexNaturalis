@@ -1,11 +1,8 @@
-package it.polimi.ingsw.client.commands.listOfCommands;
+package it.polimi.ingsw.client.commandsHandling.listOfCommands;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.CommandManager;
+import it.polimi.ingsw.client.commandsHandling.CommandManager;
 import it.polimi.ingsw.client.states.stateEnum;
-import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.allMessages.ShowUncoveredCardsRequest;
-import it.polimi.ingsw.network.message.messEnum;
 
 import java.rmi.RemoteException;
 

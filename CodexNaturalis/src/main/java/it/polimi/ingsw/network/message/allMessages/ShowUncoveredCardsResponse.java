@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.message.allMessages;
 
+import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Card;
@@ -15,5 +16,10 @@ public class ShowUncoveredCardsResponse extends Message {
     }
     public List<Card> getCardList() {
         return cardList;
+    }
+
+    @Override
+    public MessageHandler createHandler() {
+        return null;
     }
 }

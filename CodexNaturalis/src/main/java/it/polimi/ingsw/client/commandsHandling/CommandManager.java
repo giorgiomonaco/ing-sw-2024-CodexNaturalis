@@ -1,7 +1,6 @@
-package it.polimi.ingsw.client.commands;
+package it.polimi.ingsw.client.commandsHandling;
 
-import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
+import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.states.stateEnum;
 
 import java.rmi.RemoteException;

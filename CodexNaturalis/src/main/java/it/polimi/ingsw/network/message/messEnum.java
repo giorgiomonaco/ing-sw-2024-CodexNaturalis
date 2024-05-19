@@ -18,5 +18,6 @@ public enum messEnum {
     SHOW_PLAYER_RESOURCES,
     SHOW_PLAYER_BOARD,
     COMMON,
-    NEW_PLAYER_JOIN
+    NEW_PLAYER_JOIN,
+    GAME_STARTING
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.message.allMessages;
 
+import it.polimi.ingsw.client.messageHandling.LobbyHandler;
+import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
 
@@ -24,5 +26,10 @@ public class LobbyCreation extends Message {
 
     public List<String> getPlayersInLobby() {
         return playersInLobby;
+    }
+
+    @Override
+    public MessageHandler createHandler() {
+        return new LobbyHandler();
     }
 }

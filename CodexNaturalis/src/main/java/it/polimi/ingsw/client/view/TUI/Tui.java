@@ -1,14 +1,13 @@
 package it.polimi.ingsw.client.view.TUI;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.ReadCommand;
+import it.polimi.ingsw.client.commandsHandling.ReadCommand;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.Card;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

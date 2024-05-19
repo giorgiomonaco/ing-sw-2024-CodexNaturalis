@@ -1,11 +1,10 @@
-package it.polimi.ingsw.client.commands;
+package it.polimi.ingsw.client.commandsHandling;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
-import it.polimi.ingsw.client.commands.listOfCommands.*;
+import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
+import it.polimi.ingsw.client.commandsHandling.listOfCommands.*;
 import it.polimi.ingsw.client.view.TUI.Tui;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;

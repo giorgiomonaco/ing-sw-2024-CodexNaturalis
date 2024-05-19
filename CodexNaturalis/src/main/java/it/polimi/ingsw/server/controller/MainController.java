@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.network.message.allMessages.AlreadyStarted;
+import it.polimi.ingsw.network.message.allMessages.GameStarting;
 import it.polimi.ingsw.network.message.allMessages.LobbyCreation;
 import it.polimi.ingsw.network.message.allMessages.NewPlayerJoin;
 import it.polimi.ingsw.server.ServerHandler;
@@ -65,8 +66,10 @@ public class MainController {
             List <String> userList = game.getUserList();
             serverHandler.sendMessageToAllExcept(username,
                     new NewPlayerJoin(ServerHandler.HOSTNAME,
-                            "New player logged!: " + username,
-                            userList));
+                            "\nNew player logged!: " + username + "\nWaiting for the other " +
+                                    (game.getPlayersNumber()-game.getPlayerList().size()) +
+                                    " player/s to join...",
+                            username));
             serverHandler.sendMessageToPlayer(username,
                     new LobbyCreation(ServerHandler.HOSTNAME,
                             "You joined the lobby!\nWaiting for the other " +
@@ -81,7 +84,7 @@ public class MainController {
         }
 
         if(game.getGameState().equals(gameStateEnum.START)){
-
+            serverHandler.sendMessageToAll(new GameStarting(ServerHandler.HOSTNAME));
         }
     }
 

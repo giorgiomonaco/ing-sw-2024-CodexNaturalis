@@ -1,8 +1,8 @@
-package it.polimi.ingsw.client.commands.listOfCommands;
+package it.polimi.ingsw.client.commandsHandling.listOfCommands;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commands.CommandManager;
-import it.polimi.ingsw.client.commands.commandsException.CommandNotAvailableException;
+import it.polimi.ingsw.client.commandsHandling.CommandManager;
+import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionNumPlayers;
 

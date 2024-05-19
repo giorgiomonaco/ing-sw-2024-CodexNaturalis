@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.message;
 
+import it.polimi.ingsw.client.messageHandling.MessageHandler;
+
 import java.io.Serializable;
 
 public abstract class Message implements Serializable {
@@ -54,4 +56,6 @@ public abstract class Message implements Serializable {
     public String getDescription() {
         return description;
     }
+
+    public abstract MessageHandler createHandler();
 }

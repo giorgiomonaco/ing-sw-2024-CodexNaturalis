@@ -9,11 +9,16 @@ import it.polimi.ingsw.client.states.stateEnum;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Client extends UnicastRemoteObject implements Serializable {
-    private stateEnum currentState;
+
     private String username;
     private UserInterface UI;
+    private stateEnum currentState;
+    private List<String> playerList = new ArrayList<>();
+
 
     protected Client() throws RemoteException {
     }
@@ -49,7 +54,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         if(msg.getType().equals(messEnum.PING)){
 
         } else {
-            manageState(msg);
+            callHandler(msg);
         }
     }
 
@@ -119,5 +124,17 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
             //    break;
 
         }
+    }
+
+    public void callHandler(Message msg){
+        msg.createHandler().handle(msg,this);
+    }
+
+    public List<String> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<String> playerList) {
+        this.playerList = playerList;
     }
 }
