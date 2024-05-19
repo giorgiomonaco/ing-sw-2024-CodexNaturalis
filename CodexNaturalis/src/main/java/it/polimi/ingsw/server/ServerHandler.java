@@ -23,7 +23,7 @@ public class ServerHandler {
     private ServerTCP tcpServer;
     private ServerConfigNetwork configBase;
     public static String HOSTNAME = "Server";
-    public Map<String, ClientConnection> connectedClients;
+    public final Map<String, ClientConnection> connectedClients;
     private MainController mainController;
     private List<String> waitingLobby;
     private boolean creatingLobby;
@@ -131,8 +131,50 @@ public class ServerHandler {
     }
 
     public void sendMessageToPlayer(String username, Message msg){
-        if(connectedClients.containsKey(username)){
-            connectedClients.get(username).sendMessage(msg);
+
+        Map<String, ClientConnection> connCliCopy;
+        synchronized (connectedClients) {
+            connCliCopy = new HashMap<>(connectedClients);
+        }
+
+        if(connCliCopy.containsKey(username) &&
+        connCliCopy.get(username).isConnected()) {
+            synchronized (connCliCopy.get(username)) {
+                connCliCopy.get(username).sendMessage(msg);
+            }
+        }
+    }
+
+    public void sendMessageToAll(Message msg){
+
+        Set<Map.Entry<String, ClientConnection>> entrySet;
+        synchronized (connectedClients) {
+            entrySet = connectedClients.entrySet();
+        }
+
+        for (Map.Entry<String, ClientConnection> entry : entrySet) {
+            synchronized (entry.getValue()) {
+                if (entry.getValue().isConnected()) {
+                    entry.getValue().sendMessage(msg);
+                }
+            }
+        }
+    }
+
+    public void sendMessageToAllExcept(String username, Message msg){
+
+        Map<String, ClientConnection> connCliCopy;
+        synchronized (connectedClients) {
+            connCliCopy = new HashMap<>(connectedClients);
+        }
+
+        for (String user : connCliCopy.keySet()) {
+            synchronized (connCliCopy.get(user)) {
+                if (connCliCopy.get(user).isConnected() &&
+                        !connCliCopy.get(user).getUsername().equals(username)) {
+                    connCliCopy.get(user).sendMessage(msg);
+                }
+            }
         }
     }
 
@@ -141,20 +183,23 @@ public class ServerHandler {
         boolean reconnected = false;
         String username = request.getUsername();
 
-        if(!connectedClients.containsKey(username)){
-            // New user
-            connectedClients.put(username, connection);
-            System.out.println("New client connected with the username: " + username);
-            logged = true;
-        } else {
-            if(!connectedClients.get(username).isConnected()){
-                connectedClients.get(username).setConnected(true);
-                System.out.println("Reconnection of the player with the username: " + username);
+        synchronized (connectedClients) {
+            if (!connectedClients.containsKey(username)) {
+                // New user
+                connectedClients.put(username, connection);
+                connection.setUsername(username);
+                System.out.println("New client connected with the username: " + username);
                 logged = true;
-                reconnected = true;
-            }
-            else {
-                System.out.println("The username " + username + "is already taken, try to choose another one.");
+            } else {
+                // Reconnection of a known player
+                if (!connectedClients.get(username).isConnected()) {
+                    connectedClients.get(username).setConnected(true);
+                    System.out.println("Reconnection of the player with the username: " + username);
+                    logged = true;
+                    reconnected = true;
+                } else {
+                    System.out.println("The username " + username + "is already taken, try to choose another one.");
+                }
             }
         }
 
@@ -181,7 +226,9 @@ public class ServerHandler {
     }
 
     public Map<String, ClientConnection> getConnectedClients() {
-        return connectedClients;
+        synchronized (connectedClients) {
+            return connectedClients;
+        }
     }
 
 

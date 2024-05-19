@@ -17,5 +17,6 @@ public enum messEnum {
     DRAW_CARD_RESPONSE,
     SHOW_PLAYER_RESOURCES,
     SHOW_PLAYER_BOARD,
-    COMMON
+    COMMON,
+    NEW_PLAYER_JOIN
 }

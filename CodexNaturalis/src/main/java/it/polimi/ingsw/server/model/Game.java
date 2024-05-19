@@ -8,6 +8,7 @@ public class Game {
     public gameStateEnum gameState;
     //List of the players
     List<Player> playerList = new ArrayList<>();
+    List<String> userList = new ArrayList<>();
     private int playersNumber;
 
     //deck of resource cards (common to every player)
@@ -107,6 +108,7 @@ public class Game {
     public void addPlayer(Player player) throws IllegalStateException {
         if (playerList.size() < playersNumber) {
             playerList.add(player);
+            userList.add(player.getPlayerName());
             if (playerList.size() == playersNumber) {
                 gameState = gameStateEnum.START;
             }
@@ -181,5 +183,9 @@ public class Game {
 
     public int getPlayersNumber() {
         return playersNumber;
+    }
+
+    public List<String> getUserList() {
+        return userList;
     }
 }

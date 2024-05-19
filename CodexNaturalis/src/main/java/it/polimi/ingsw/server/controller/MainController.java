@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.network.message.allMessages.AlreadyStarted;
 import it.polimi.ingsw.network.message.allMessages.LobbyCreation;
+import it.polimi.ingsw.network.message.allMessages.NewPlayerJoin;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.client.view.ViewTry;
@@ -37,7 +38,9 @@ public class MainController {
         gameSetUpper.CreateGame(username);
 
         serverHandler.sendMessageToPlayer(username,
-                new LobbyCreation(ServerHandler.HOSTNAME, "--Lobby created!--\nWaiting for the other " + (numOfPlayers-1) + " player/s to join..."));
+                new LobbyCreation(ServerHandler.HOSTNAME,
+                        "--Lobby created!--\nWaiting for the other " + (numOfPlayers-1) + " player/s to join...",
+                        game.getUserList()));
 
     }
 
@@ -57,12 +60,20 @@ public class MainController {
             return;
         }
         try {
-            game.addPlayer(new Player(game, username));
+
+            game.addPlayer(new Player(username));
+            List <String> userList = game.getUserList();
+            serverHandler.sendMessageToAllExcept(username,
+                    new NewPlayerJoin(ServerHandler.HOSTNAME,
+                            "New player logged!: " + username,
+                            userList));
             serverHandler.sendMessageToPlayer(username,
                     new LobbyCreation(ServerHandler.HOSTNAME,
                             "You joined the lobby!\nWaiting for the other " +
                                     (game.getPlayersNumber()-game.getPlayerList().size()) +
-                                    " player/s to join..."));
+                                    " player/s to join...",
+                            userList));
+
         } catch (IllegalStateException e) {
             System.err.println("Max number of player already reached.");
             serverHandler.sendMessageToPlayer(username,

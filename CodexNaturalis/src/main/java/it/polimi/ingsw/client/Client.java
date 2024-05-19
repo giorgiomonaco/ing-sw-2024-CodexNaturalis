@@ -73,10 +73,25 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
                 setCurrentState(stateEnum.WAITING_LOBBY);
                 getUI().run();
                 break;
+            case NEW_PLAYER_JOIN:
+                NewPlayerJoin newPlayer = (NewPlayerJoin) msg;
+                getUI().printMessage(newPlayer);
+               // for(String s : newPlayer.getPlayersInLobby()){
+               //     getUI().printMessage(new CommonMessage("",
+               //             s + " "));
+               // }
+                break;
             case LOBBY:
+                LobbyCreation lobby = (LobbyCreation) msg;
                 setCurrentState(stateEnum.LOBBY);
                 getUI().run();
                 getUI().printMessage(msg);
+                getUI().printMessage(new CommonMessage("",
+                        "ACTUAL LOBBY: "));
+                for(String p : lobby.getPlayersInLobby()){
+                    getUI().printMessage(new CommonMessage("",
+                            p + " "));
+                }
                 break;
             case SELECT_NUM_PLAYERS:
                 setCurrentState(stateEnum.SELECT_NUM_PLAYERS);

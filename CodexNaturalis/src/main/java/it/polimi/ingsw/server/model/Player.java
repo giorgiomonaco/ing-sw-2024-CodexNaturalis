@@ -1,14 +1,12 @@
 package it.polimi.ingsw.server.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player{
     //Class representing the player
-
-    //The game the player is participating to
-    private final Game game;
 
     //Name of the player
     private final String playerName;
@@ -40,8 +38,7 @@ public class Player {
 
 
     //Constructor
-    public Player(Game game, String name) {
-        this.game = game;
+    public Player(String name) {
         this.playerName = name;
     }
 
