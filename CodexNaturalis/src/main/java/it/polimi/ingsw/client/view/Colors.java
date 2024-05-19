@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view;
 
+import java.io.Serializable;
+
 public class Colors {
     public String redColor = "\u001B[31m";
     public String greenColor = "\u001B[32m";

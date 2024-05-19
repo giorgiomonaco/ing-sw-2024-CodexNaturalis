@@ -178,4 +178,8 @@ public class Game {
     public List<Card> getVisibleGoldCards() {
         return visibleGoldCards;
     }
+
+    public int getPlayersNumber() {
+        return playersNumber;
+    }
 }

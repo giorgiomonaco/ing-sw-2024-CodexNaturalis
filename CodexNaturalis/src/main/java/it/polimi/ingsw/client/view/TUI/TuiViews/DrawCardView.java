@@ -8,7 +8,7 @@ import it.polimi.ingsw.server.model.VisibleAngle;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class DrawCardView implements TuiView, Serializable {
+public class DrawCardView implements TuiView{
 
     @Override
     public void play() {

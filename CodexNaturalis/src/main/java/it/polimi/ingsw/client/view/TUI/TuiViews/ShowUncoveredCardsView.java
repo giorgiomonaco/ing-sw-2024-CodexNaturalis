@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
-public class ShowUncoveredCardsView implements TuiView, Serializable {
+public class ShowUncoveredCardsView implements TuiView{
     @Override
     public void play() {
         System.out.println("Here are the uncovered cards:");

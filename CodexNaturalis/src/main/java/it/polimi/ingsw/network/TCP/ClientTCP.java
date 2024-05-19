@@ -1,10 +1,8 @@
 package it.polimi.ingsw.network.TCP;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.ConnectionActive;
-import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 
 import java.io.*;
 import java.net.Socket;
@@ -49,7 +47,6 @@ public class ClientTCP extends Client{
         Message connectionMessage;
         try {
             connectionMessage = (ConnectionActive) in.readObject();
-            connectionMessage.printMessage();
         } catch (IOException e) {
             System.err.println("Lost connection with the server " + serverIP);
         } catch (ClassNotFoundException e) {

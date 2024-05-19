@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
-public class ShowCardsView implements TuiView, Serializable {
+public class ShowCardsView implements TuiView{
     List<Card> playerHand;
 
     public void play(List<Card> list) {

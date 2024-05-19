@@ -5,15 +5,15 @@ import it.polimi.ingsw.client.commands.ReadCommand;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
+import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.GameBoard;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Tui implements UserInterface, Serializable {
+public class Tui implements UserInterface{
 
     private Client tuiCli;
     private Map<stateEnum, TuiView> phaseView;
@@ -98,13 +98,15 @@ public class Tui implements UserInterface, Serializable {
     }
 
     @Override
-    public void error() {
-
+    public void printErrorMessage(Message msg) {
+        String toPrint = msg.getDescription();
+        System.err.println(toPrint);
     }
 
     @Override
-    public void showMessage() {
-
+    public void printMessage(Message msg) {
+        String toPrint = msg.getDescription();
+        System.out.println(toPrint);
     }
 
 

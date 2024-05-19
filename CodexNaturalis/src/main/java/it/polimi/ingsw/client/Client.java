@@ -2,20 +2,21 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.allMessages.DrawCardResponse;
-import it.polimi.ingsw.network.message.allMessages.LoginResponse;
-import it.polimi.ingsw.network.message.allMessages.ShowCards;
-import it.polimi.ingsw.network.message.allMessages.ShowUncoveredCardsResponse;
+import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.client.states.stateEnum;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public abstract class Client implements Serializable {
+public abstract class Client extends UnicastRemoteObject implements Serializable {
     private stateEnum currentState;
     private String username;
     private UserInterface UI;
+
+    protected Client() throws RemoteException {
+    }
 
 
     public stateEnum getCurrentState() {
@@ -58,14 +59,24 @@ public abstract class Client implements Serializable {
             case LOGIN_RESPONSE:
                 LoginResponse response = (LoginResponse) msg;
                 if(response.getResult() == 1){
-                    System.out.println("Login successful!");
+                    getUI().printMessage(
+                            new CommonMessage("",
+                                    "Login successful!"));
+                    setUsername(msg.getDescription());
                 } else {
-                    System.out.println("The chosen username is already taken, try to choose another one.");
+                    getUI().printErrorMessage(
+                            new CommonMessage("",
+                                    "The chosen username is already taken, try to choose another one."));
                 }
                 break;
             case WAITING_FOR_LOBBY:
                 setCurrentState(stateEnum.WAITING_LOBBY);
                 getUI().run();
+                break;
+            case LOBBY:
+                setCurrentState(stateEnum.LOBBY);
+                getUI().run();
+                getUI().printMessage(msg);
                 break;
             case SELECT_NUM_PLAYERS:
                 setCurrentState(stateEnum.SELECT_NUM_PLAYERS);

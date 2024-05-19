@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ReadCommand implements Serializable, Runnable{
+public class ReadCommand implements Runnable{
 
     private Tui tui;
     private String command;

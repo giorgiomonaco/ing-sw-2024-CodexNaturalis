@@ -7,7 +7,7 @@ import it.polimi.ingsw.server.model.ResourceCard;
 import java.io.Serializable;
 import java.util.List;
 
-public class ShowPlayerResources implements TuiView, Serializable {
+public class ShowPlayerResources implements TuiView{
     private int[] resources;
     public void play(int[] resources){
         this.resources = resources;

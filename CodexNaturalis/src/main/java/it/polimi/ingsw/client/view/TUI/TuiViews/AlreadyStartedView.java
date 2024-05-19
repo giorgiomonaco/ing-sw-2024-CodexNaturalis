@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.view.TUI.TuiViews;
 
 import java.io.Serializable;
 
-public class AlreadyStartedView implements TuiView, Serializable {
+public class AlreadyStartedView implements TuiView{
     @Override
     public void play() {
         System.out.println("GAME ALREADY STARTED");

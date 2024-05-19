@@ -26,6 +26,7 @@ public class ClientRMI extends Client implements RMIClientInterface {
         try {
             Registry reg = LocateRegistry.getRegistry(serverIP, PORT);
             stub = (RMIServerInterface) reg.lookup(registry);
+            System.out.println("RMI Client ready to receive and send.");
         } catch (RemoteException e) {
             System.err.println("Couldn't access the remote object.");
         } catch (NotBoundException e) {
@@ -39,7 +40,12 @@ public class ClientRMI extends Client implements RMIClientInterface {
     }
 
     @Override
-    public void sendMessage(Message msg) throws RemoteException {
-        stub.receiveMessage(msg, this);
+    public void sendMessage(Message msg) {
+        try {
+            stub.receiveMessage(msg, this);
+        } catch (RemoteException e) {
+            // Lost connection with the server
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.model.*;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class ShowPlayerBoard implements TuiView, Serializable {
+public class ShowPlayerBoard implements TuiView{
     private GameBoard gameboard;
     private Card[][] cardsMatrix;
     public void play(GameBoard gameBoard){
