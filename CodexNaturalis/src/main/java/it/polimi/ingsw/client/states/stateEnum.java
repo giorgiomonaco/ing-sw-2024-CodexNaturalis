@@ -55,5 +55,5 @@ public enum stateEnum {
      */
     REJECTED,
     DISCONNECTION,
-
+    YOUR_TURN
 }

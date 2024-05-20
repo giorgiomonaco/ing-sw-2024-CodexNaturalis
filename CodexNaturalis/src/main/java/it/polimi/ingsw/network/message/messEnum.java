@@ -24,5 +24,7 @@ public enum messEnum {
     FIRST_TURN_RESPONSE,
     PLAY_CARD,
     SHOW_FIRST_CARD,
-    SELECTION_TOKEN
+    SELECTION_TOKEN,
+    YOUR_TURN,
+    END_GAME
 }
