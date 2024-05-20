@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.network.message.allMessages.AlreadyStarted;
-import it.polimi.ingsw.network.message.allMessages.GameStarting;
-import it.polimi.ingsw.network.message.allMessages.LobbyCreation;
-import it.polimi.ingsw.network.message.allMessages.NewPlayerJoin;
+import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.client.view.ViewTry;
@@ -18,10 +15,19 @@ public class MainController {
     private Game game;
     private final ServerHandler serverHandler;
     private GameSetUpper gameSetUpper;
+
+    // Index of the current player
+    private int currPlayerIndex;
+
+    // Index of the first player to reach 21 points
+    private int finalPlayerIndex;
+
+    // If it's the first turn the players have to choose the token and the personal objective cards.
+    private boolean firstTurn;
+
     //Constructor, it only needs a game to control
     public MainController(ServerHandler serverHandler){
         this.serverHandler =  serverHandler;
-
     }
 
     //The main controller has to start the view as soon as the game is created
@@ -84,19 +90,57 @@ public class MainController {
         }
 
         if(game.getGameState().equals(gameStateEnum.START)){
-            gameStarting();
+            //gameStarting();
             for(int i = 0; i < game.getUserList().size(); i++) {
                 serverHandler.sendMessageToPlayer(game.getUserList().get(i),
                         new GameStarting(
                                 ServerHandler.HOSTNAME,
                                 game.getPlayerList().get(i).getPlayerHand()));
             }
+            beginFirstTurn();
         }
     }
 
+    public void beginTurn(){
+        currPlayerIndex = (currPlayerIndex+1)%(game.getUserList().size());
+
+        if(getGame().getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
+            endGame();
+        }
+        else {
+
+        }
+    }
+
+    public void beginFirstTurn(){
+
+        for(int i = 0; i < game.getUserList().size(); i++) {
+            serverHandler.sendMessageToPlayer(game.getUserList().get(i),
+                    new FirstTurn(
+                            ServerHandler.HOSTNAME,
+                            ));
+        }
+
+        do{
+            if(isFirstTurn()){
+
+            }
+        } while (isFirstTurn());
+
+    }
+
+    public void endGame(){
+
+    }
 
     public void gameStarting(){
         gameSetUpper.gameSetUp();
+
+        // Initial and final player index is set at -1
+        currPlayerIndex = -1;
+        finalPlayerIndex = -1;
+
+
     }
 
 
@@ -108,6 +152,8 @@ public class MainController {
         }
         return null;
     }
+
+
     public Card drawCard(String username, String whereToDraw, int cardIndex) {
         Player p = getPlayerByUsername(username);
         Card card = cardSelector(whereToDraw, cardIndex);
@@ -134,5 +180,13 @@ public class MainController {
         uncoveredCards.addAll(game.getVisibleGoldCards());
         uncoveredCards.addAll(game.getVisibleResourceCards());
         return uncoveredCards;
+    }
+
+    public boolean isFirstTurn() {
+        return firstTurn;
+    }
+
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
     }
 }
