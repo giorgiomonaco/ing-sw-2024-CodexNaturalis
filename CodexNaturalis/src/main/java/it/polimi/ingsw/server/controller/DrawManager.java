@@ -25,6 +25,9 @@ public class DrawManager {
             drawResourceCards();
             //then one gold
             drawGoldCards();
+            //then we need to add the 2 objective cards
+            drawObjectiveCards();
+            drawObjectiveCards();
             //we distribute the initial card to every one
             //placing it into the right place (center) on the player board game
             distributeInitialCards();
@@ -38,8 +41,6 @@ public class DrawManager {
     }
 
     //initialize resource cards
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // Same name than in the cards initializers - modify this thing
     public void drawResourceCards(){
         //Draw a resource card from the resource deck of the game
         ResourceCard card = game.drawResourceCard();
@@ -49,12 +50,22 @@ public class DrawManager {
         // game.removeFormResourceDeck(card);
     }
 
-    //Initialize gold cards
+    //initialize gold cards
     public void drawGoldCards(){
         //Draw a gold card from the common deck
         GoldCard card = game.drawGoldCard();
         //Add it to the hand of the player
         game.getCurrentPlayer().addGoldCard(card);
+        //remove it from the gold deck
+        // game.removeFormGoldDeck(card);
+    }
+
+    //initialize obj cards
+    public void drawObjectiveCards(){
+        //Draw a gold card from the common deck
+        ObjectiveCard card = game.drawObjectiveCard();
+        //Add it to the hand of the player
+        game.getCurrentPlayer().addSelObjectiveCard(card);
         //remove it from the gold deck
         // game.removeFormGoldDeck(card);
     }

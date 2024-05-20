@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.model;
 
 
-import java.util.List;
+import java.io.Serializable;
 
 //manca check durante piazzamento della carta con risorse necessarie e del player
-public class ObjectiveCard {
+public class ObjectiveCard implements Serializable {
     private final int cardNumber;
     private final int points;
     private final String type;

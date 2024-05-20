@@ -24,7 +24,7 @@ public class Player {
     private ObjectiveCard playerObjectiveCard;
 
     //List of the two objective cards from which the player can choose
-    private List<ObjectiveCard> selObjectiveCard;
+    private List<ObjectiveCard> selObjectiveCard = new ArrayList<>();
 
     //Every player has a counter/token
     private Token playerToken;
@@ -40,7 +40,7 @@ public class Player {
     //By now the list is the same of the "CardManager" class
     //Index = type of resource
     //value = how many available
-    private int[] resourcesAvailable = new int[7];
+    private final int[] resourcesAvailable = new int[7];
 
 
     //Constructor

@@ -11,11 +11,13 @@ import java.util.List;
 
 public class FirstTurn extends Message {
 
-    List<String> listOfTokens;
-    List<ObjectiveCard> listOfPersonalObjCards;
+    private List<String> listOfTokens;
+    private List<ObjectiveCard> listOfPersonalObjCards;
 
-    public FirstTurn(String senderUsername) {
+    public FirstTurn(String senderUsername, List<String> tokens, List<ObjectiveCard> cards) {
         super(messEnum.FIRST_TURN, senderUsername);
+        this.listOfTokens = tokens;
+        this.listOfPersonalObjCards = cards;
     }
 
     public FirstTurn(String senderUsername, String optDescription) {
@@ -25,5 +27,13 @@ public class FirstTurn extends Message {
     @Override
     public MessageHandler createHandler() {
         return new FirstTurnHandler();
+    }
+
+    public List<ObjectiveCard> getListOfPersonalObjCards() {
+        return listOfPersonalObjCards;
+    }
+
+    public List<String> getListOfTokens() {
+        return listOfTokens;
     }
 }

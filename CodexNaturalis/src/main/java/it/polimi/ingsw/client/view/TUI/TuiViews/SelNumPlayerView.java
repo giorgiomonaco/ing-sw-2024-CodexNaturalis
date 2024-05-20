@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
-
 import it.polimi.ingsw.client.Client;
 
-import java.io.Serializable;
 
 public class SelNumPlayerView implements TuiView{
     @Override

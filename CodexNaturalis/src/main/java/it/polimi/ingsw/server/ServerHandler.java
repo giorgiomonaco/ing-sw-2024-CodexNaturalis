@@ -126,7 +126,10 @@ public class ServerHandler {
 
                 }
                 break;
+            case messEnum.FIRST_TURN_RESPONSE:
+                synchronized (controllerLock){
 
+                }
         }
     }
 
