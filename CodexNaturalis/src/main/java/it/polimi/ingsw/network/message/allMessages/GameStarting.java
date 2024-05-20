@@ -7,11 +7,12 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.ResourceCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameStarting extends Message {
 
-    private List<Card> playerHand;
+    private List<Card> playerHand = new ArrayList<>();
 
     public GameStarting(String senderUsername, List<Card> playerHand) {
         super(messEnum.GAME_STARTING, senderUsername);

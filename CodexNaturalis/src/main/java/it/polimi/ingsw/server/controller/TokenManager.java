@@ -37,9 +37,7 @@ public class TokenManager {
         for (Player p : game.getPlayerList()) {
             if(p == game.getCurrentPlayer()){
                 //first player get the black token
-                p.setPlayerToken(tokens.get(0));
-                //we remove then the tokens from the list
-                tokens.remove(0);
+                p.setPlayerToken(tokens.removeFirst());
             } else {
                 /*
                 we ask the player which color he wants
@@ -49,8 +47,6 @@ public class TokenManager {
                 for(Token t : tokens){
                     availableTokenNames.add(t.getTokenColor());
                 }
-                // String choice = view.askForTokenSelection(availableTokenNames);
-                //we remove it from the available ones
             }
         }
     }

@@ -9,6 +9,7 @@ import it.polimi.ingsw.server.model.VisibleAngle;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -100,20 +101,20 @@ public class ResourceCardInitializer {
                 int pointsInt = Integer.parseInt(points);
 
 
-                Symbol backSymbol = null;
+                List<Symbol> backSymbol =new ArrayList<>();
 
                 switch (type){
                     case "orange":
-                        backSymbol = symbols.get(0);
+                        backSymbol.add(symbols.getFirst());
                         break;
                     case "green":
-                        backSymbol = symbols.get(1);
+                        backSymbol.add(symbols.get(1));
                         break;
                     case "blue":
-                        backSymbol = symbols.get(2);
+                        backSymbol.add(symbols.get(2));
                         break;
                     case "purple":
-                        backSymbol = symbols.get(3);
+                        backSymbol.add(symbols.get(3));
                         break;
                     default:
                         System.out.println("Error while parsing through cards");

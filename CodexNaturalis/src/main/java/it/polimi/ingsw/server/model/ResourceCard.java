@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model;
 
 
+import java.util.List;
+
 public class ResourceCard extends Card{
     //class representing the resource cards by now onl with a name
     private final int cardNumber;
@@ -9,7 +11,7 @@ public class ResourceCard extends Card{
     private final int cardPoints;
 
     //Constructor
-    public ResourceCard(int number, int points, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol){
+    public ResourceCard(int number, int points, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol){
         super(frontAngles, backAngles, backSymbol);
         this.cardNumber = number;
         this.cardPoints = points;

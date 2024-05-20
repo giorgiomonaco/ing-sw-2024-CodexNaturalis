@@ -5,6 +5,9 @@ import it.polimi.ingsw.server.model.ResourceSymbol;
 import it.polimi.ingsw.server.model.Symbol;
 import it.polimi.ingsw.server.model.VisibleAngle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ResourceCardTest {
     private ResourceCard r;
 
@@ -22,7 +25,11 @@ public class ResourceCardTest {
         resCardFrontAngles[2] = new VisibleAngle(null);
         resCardFrontAngles[3] = new VisibleAngle(null);
 
-        r = new ResourceCard(10, 3, resCardFrontAngles, resCardBackAngles, s1);
+
+        List<Symbol> back = new ArrayList<>();
+        back.add(s1);
+
+        r = new ResourceCard(10, 3, resCardFrontAngles, resCardBackAngles,back);
 
 
         r.setFrontSide(false);

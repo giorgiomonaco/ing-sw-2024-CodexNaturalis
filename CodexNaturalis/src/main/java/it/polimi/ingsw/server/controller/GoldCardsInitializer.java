@@ -14,6 +14,7 @@ import javax.json.JsonReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoldCardsInitializer {
@@ -105,19 +106,19 @@ public class GoldCardsInitializer {
                 int pointsInt = Integer.parseInt(points);
 
                 //getting the symbol of the card
-                Symbol backSymbol = null;
+                List<Symbol> backSymbol = new ArrayList<>();
                 switch (type){
                     case "orange":
-                        backSymbol = symbols.get(0);
+                        backSymbol.add(symbols.getFirst());
                         break;
                     case "green":
-                        backSymbol = symbols.get(1);
+                        backSymbol.add(symbols.get(1));
                         break;
                     case "blue":
-                        backSymbol = symbols.get(2);
+                        backSymbol.add(symbols.get(2));
                         break;
                     case "purple":
-                        backSymbol = symbols.get(3);
+                        backSymbol.add(symbols.get(3));
                         break;
                     default:
                         System.out.println("Error while parsing through cards");
