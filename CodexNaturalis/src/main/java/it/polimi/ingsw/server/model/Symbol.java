@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server.model;
 
 
-public abstract class Symbol {
+import java.io.Serializable;
+
+public abstract class Symbol implements Serializable {
     //the Symbol has its name, representing the symbol
     private final String symbolName;
     //The Symbol has a type Object or Resource

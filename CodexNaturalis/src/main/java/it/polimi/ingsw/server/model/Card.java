@@ -1,9 +1,10 @@
 package it.polimi.ingsw.server.model;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Card {
+public abstract class Card implements Serializable {
 
     //ID of the card, may be removed later
     private static int cardID = 0;

@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server.model;
 
 
-public class VisibleAngle {
+import java.io.Serializable;
+
+public class VisibleAngle implements Serializable {
     //every visible VisibleAngle has a symbol in it,
     //It may be null, so the VisibleAngle is empty
     //!!!!!!!!!!!!!!!!!!Don't like this class cus only subclass of VisibleAngle,
