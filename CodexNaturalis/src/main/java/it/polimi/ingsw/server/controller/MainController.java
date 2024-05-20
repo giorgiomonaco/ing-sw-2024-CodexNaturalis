@@ -90,14 +90,14 @@ public class MainController {
         }
 
         if(game.getGameState().equals(gameStateEnum.START)){
-            //gameStarting();
+            gameStarting();
             for(int i = 0; i < game.getUserList().size(); i++) {
                 serverHandler.sendMessageToPlayer(game.getUserList().get(i),
                         new GameStarting(
                                 ServerHandler.HOSTNAME,
                                 game.getPlayerList().get(i).getPlayerHand()));
             }
-            beginFirstTurn();
+            //beginFirstTurn();
         }
     }
 
@@ -112,7 +112,7 @@ public class MainController {
         }
     }
 
-    public void beginFirstTurn(){
+    /*public void beginFirstTurn(){
 
         for(int i = 0; i < game.getUserList().size(); i++) {
             serverHandler.sendMessageToPlayer(game.getUserList().get(i),
@@ -127,7 +127,7 @@ public class MainController {
             }
         } while (isFirstTurn());
 
-    }
+    }*/
 
     public void endGame(){
 

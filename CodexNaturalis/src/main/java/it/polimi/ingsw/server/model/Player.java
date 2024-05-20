@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player{
+public class Player {
     //Class representing the player
 
     //Name of the player
