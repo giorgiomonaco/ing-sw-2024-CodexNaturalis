@@ -116,9 +116,9 @@ public class MainController {
 
         for(int i = 0; i < game.getUserList().size(); i++) {
             serverHandler.sendMessageToPlayer(game.getUserList().get(i),
-                    new FirstTurn(
-                            ServerHandler.HOSTNAME,
-                            ));
+                   new FirstTurn(
+                           ServerHandler.HOSTNAME,
+                           ));
         }
 
         do{
