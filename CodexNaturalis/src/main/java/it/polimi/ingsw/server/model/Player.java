@@ -20,8 +20,11 @@ public class Player {
     //List of the cards the player got in hand
     private final List<Card> playerHand = new ArrayList<>();
 
-    //List of the Objective cards the player have
+    //Personal objective card of the player
     private ObjectiveCard playerObjectiveCard;
+
+    //List of the two objective cards from which the player can choose
+    private List<ObjectiveCard> selObjectiveCard = new ArrayList<>();
 
     //Every player has a counter/token
     private Token playerToken;
@@ -37,7 +40,7 @@ public class Player {
     //By now the list is the same of the "CardManager" class
     //Index = type of resource
     //value = how many available
-    private int[] resourcesAvailable = new int[7];
+    private final int[] resourcesAvailable = new int[7];
 
 
     //Constructor
@@ -222,6 +225,14 @@ public class Player {
 
     public List<Card> getPlayerHand() {
         return playerHand;
+    }
+
+    public List<ObjectiveCard> getSelObjectiveCard() {
+        return selObjectiveCard;
+    }
+
+    public void addSelObjectiveCard(ObjectiveCard selObjectiveCard) {
+        this.selObjectiveCard.add(selObjectiveCard);
     }
 
     public Boards getGameboard() {

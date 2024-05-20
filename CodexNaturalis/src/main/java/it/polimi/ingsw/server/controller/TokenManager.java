@@ -24,34 +24,26 @@ public class TokenManager {
     //Constructor of the class
     public TokenManager(Game game) {
         this.game = game;
-        // this.view = view;
     }
 
     //Initialize tokens, aka assign all tokens to all players
     public void initializeTokens() {
         //As first thing we create all the tokens and populate the list of tokens
         createTokens();
-        //start communicating the token assignment
-        // view.startInformingOfTokens();
-        //for each player in the players game list
-        for (Player p : game.getPlayerList()) {
-            if(p == game.getCurrentPlayer()){
-                //first player get the black token
-                p.setPlayerToken(tokens.removeFirst());
-            } else {
-                /*
-                we ask the player which color he wants
-                first we want all the names in one list
-                 */
-                List<String> availableTokenNames = new ArrayList<>();
-                for(Token t : tokens){
-                    availableTokenNames.add(t.getTokenColor());
-                }
-            }
-        }
+
+        List<String> availableTokens = new ArrayList<>();
+
+        availableTokens.add("black");
+        availableTokens.add("red");
+        availableTokens.add("blue");
+        availableTokens.add("green");
+        availableTokens.add("yellow");
+
+        game.setAvailableTokens(availableTokens);
     }
 
     public void createTokens() {
+
         Token blackToken = new Token("black");
         Token redToken1 = new Token("red1");
         Token blueToken1 = new Token("blue1");
@@ -72,6 +64,7 @@ public class TokenManager {
         tokens.add(blueToken2);
         tokens.add(greenToken2);
         tokens.add(yellowToken2);
+
     }
 
     //Method that assign a token to the player at start of game

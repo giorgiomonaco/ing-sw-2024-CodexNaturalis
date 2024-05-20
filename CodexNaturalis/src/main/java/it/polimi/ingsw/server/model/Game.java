@@ -26,6 +26,8 @@ public class Game {
     //The place where discovered cards are stored = common game boards
     private CommonBoard commonBoard;
 
+    private List<String> availableTokens;
+
     //The player is at that moment playing the game
     private Player currentPlayer;
     public List<Card> visibleResourceCards = new ArrayList<>();
@@ -187,5 +189,13 @@ public class Game {
 
     public List<String> getUserList() {
         return userList;
+    }
+
+    public List<String> getAvailableTokens() {
+        return availableTokens;
+    }
+
+    public void setAvailableTokens(List<String> availableTokens) {
+        this.availableTokens = availableTokens;
     }
 }

@@ -51,16 +51,16 @@ public class GameSetUpper {
 
     }
 
-        public void CreateGame(String username){
-            //Initialization of the players
-            game.addPlayer(new Player(username));
-            game.setGameState(gameStateEnum.ACCEPT_PLAYER);
-            //create the whole card manager
-            CardManager cardManager = new CardManager(game);
-            //initialize all the cards in the game:
-            //creating and placing them into the right decks in right places
-            cardManager.initializeAllCards();
+    public void CreateGame(String username){
+        //Initialization of the players
+        game.addPlayer(new Player(username));
+        game.setGameState(gameStateEnum.ACCEPT_PLAYER);
+        //create the whole card manager
+        CardManager cardManager = new CardManager(game);
+        //initialize all the cards in the game:
+        //creating and placing them into the right decks in right places
+        cardManager.initializeAllCards();
 
-        }
+    }
 
 }

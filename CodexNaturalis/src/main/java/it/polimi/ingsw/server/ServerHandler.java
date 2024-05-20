@@ -123,7 +123,11 @@ public class ServerHandler {
 
                 }
                 break;
-            //da continuare
+            case messEnum.FIRST_TURN_RESPONSE:
+                synchronized (controllerLock){
+
+                }
+                //da continuare
             case messEnum.PLAY_CARD:
                 synchronized (controllerLock){
                     PlayCardMessage play = (PlayCardMessage) msg;

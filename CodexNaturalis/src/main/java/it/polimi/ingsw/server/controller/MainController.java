@@ -23,7 +23,7 @@ public class MainController {
     private int finalPlayerIndex;
 
     // If it's the first turn the players have to choose the token and the personal objective cards.
-    private boolean firstTurn;
+    private int firstTurn;
 
     //Constructor, it only needs a game to control
     public MainController(ServerHandler serverHandler){
@@ -97,7 +97,7 @@ public class MainController {
                                 ServerHandler.HOSTNAME,
                                 game.getPlayerList().get(i).getPlayerHand()));
             }
-            //beginFirstTurn();
+            beginFirstTurn();
         }
     }
 
@@ -112,22 +112,22 @@ public class MainController {
         }
     }
 
-    /*public void beginFirstTurn(){
+    public void beginFirstTurn(){
 
+        List<String> availableToken = game.getAvailableTokens();
         for(int i = 0; i < game.getUserList().size(); i++) {
+
             serverHandler.sendMessageToPlayer(game.getUserList().get(i),
                    new FirstTurn(
                            ServerHandler.HOSTNAME,
-                           ));
-        }
+                           availableToken,
+                           getPlayerByUsername(game.getUserList().get(i)).getSelObjectiveCard()));
 
-        do{
-            if(isFirstTurn()){
-
+            while(i == firstTurn){
             }
-        } while (isFirstTurn());
 
-    }*/
+        }
+    }
 
     public void endGame(){
 
@@ -182,11 +182,5 @@ public class MainController {
         return uncoveredCards;
     }
 
-    public boolean isFirstTurn() {
-        return firstTurn;
-    }
 
-    public void setFirstTurn(boolean firstTurn) {
-        this.firstTurn = firstTurn;
-    }
 }

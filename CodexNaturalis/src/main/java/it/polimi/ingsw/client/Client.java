@@ -6,6 +6,7 @@ import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.ObjectiveCard;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -20,6 +21,8 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private stateEnum currentState;
     private List<String> playerList = new ArrayList<>();
     private List<Card> playerHand = new ArrayList<>();
+    private List<ObjectiveCard> playerObjective = new ArrayList<>();
+    private List<String> availableTokens = new ArrayList<>();
 
 
     protected Client() throws RemoteException {
@@ -97,5 +100,21 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setPlayerHand(List<Card> playerHand) {
         this.playerHand = playerHand;
+    }
+
+    public List<ObjectiveCard> getPlayerObjective() {
+        return playerObjective;
+    }
+
+    public void setPlayerObjective(List<ObjectiveCard> playerObjective) {
+        this.playerObjective = playerObjective;
+    }
+
+    public List<String> getAvailableTokens() {
+        return availableTokens;
+    }
+
+    public void setAvailableTokens(List<String> availableTokens) {
+        this.availableTokens = availableTokens;
     }
 }

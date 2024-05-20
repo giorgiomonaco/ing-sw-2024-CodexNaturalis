@@ -20,7 +20,8 @@ public enum messEnum {
     COMMON,
     NEW_PLAYER_JOIN,
     GAME_STARTING,
-    PLAY_CARD,
     FIRST_TURN,
+    FIRST_TURN_RESPONSE,
+    PLAY_CARD,
     SHOW_FIRST_CARD
 }
