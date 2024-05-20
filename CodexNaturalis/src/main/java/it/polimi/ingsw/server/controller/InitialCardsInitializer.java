@@ -160,16 +160,16 @@ public class InitialCardsInitializer {
                 String[] type = {BackSymbol1, BackSymbol2, BackSymbol3};
                 for (String symbol : type) {
                     switch (symbol){
-                        case "orange":
+                        case "mushroom":
                             backSymbol.add(symbols.getFirst());
                             break;
-                        case "green":
+                        case "leaf":
                             backSymbol.add(symbols.get(1));
                             break;
-                        case "blue":
+                        case "fox":
                             backSymbol.add(symbols.get(2));
                             break;
-                        case "purple":
+                        case "butterfly":
                             backSymbol.add(symbols.get(3));
                             break;
                         default:
