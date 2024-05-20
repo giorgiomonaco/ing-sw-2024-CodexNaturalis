@@ -53,7 +53,7 @@ public class EndgameManager {
 
         for (int row = 0; row< gameBoard.getMAX_Y(); row++){
             for (int col = 0; col< gameBoard.getMAX_X(); col++){
-                if (Objects.equals(cardMatrix[row][col].getBackSymbol().getSymbolName(), objectiveCard.getCard1())){
+                if (Objects.equals(cardMatrix[row][col].getBackSymbol().getFirst().getSymbolName(), objectiveCard.getCard1())){
                     findPattern(row, col, cardMatrix);
                 }
             }
@@ -135,9 +135,9 @@ public class EndgameManager {
             return false;
         }
         return switch (direction) {
-            case "down" -> Objects.equals(cardMatrix[row--][col].getBackSymbol().getSymbolName(), toCheck);
-            case "down-right" -> Objects.equals(cardMatrix[row--][col++].getBackSymbol().getSymbolName(), toCheck);
-            case "down-left" -> Objects.equals(cardMatrix[row--][col--].getBackSymbol().getSymbolName(), toCheck);
+            case "down" -> Objects.equals(cardMatrix[row--][col].getBackSymbol().getFirst().getSymbolName(), toCheck);
+            case "down-right" -> Objects.equals(cardMatrix[row--][col++].getBackSymbol().getFirst().getSymbolName(), toCheck);
+            case "down-left" -> Objects.equals(cardMatrix[row--][col--].getBackSymbol().getFirst().getSymbolName(), toCheck);
             default -> false;
         };
     }

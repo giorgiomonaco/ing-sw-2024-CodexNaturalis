@@ -6,10 +6,7 @@ import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.GoldCard;
-import it.polimi.ingsw.server.model.ResourceCard;
-import it.polimi.ingsw.server.model.VisibleAngle;
+import it.polimi.ingsw.server.model.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -137,22 +134,22 @@ public class Tui implements UserInterface{
     }
     private void printGoldCard(GoldCard g) {
         VisibleAngle[] array;
-        for(int p=0;p<3;p++) {
-            if (p == 0) {array = g.getBackAngles();
-                System.out.println("front:\n");}
-            else { array = g.getFrontAngles();
-                System.out.println("back: \n");}
+        for(int p=0;p<2;p++) {
+            if (p == 0) {array = g.getFrontAngles();
+                System.out.println("\nfront:");}
+            else { array = g.getBackAngles();
+                System.out.println("\nback: ");}
             for (int i = 0; i < 4; i++) {
                 if (i == 2) {
-                    String q = g.getBackSymbol().getSymbolName();
+                    String q = g.getBackSymbol().getFirst().getSymbolName();
                     q = switch (q) {
-                        case "leaf" -> "GRE";
-                        case "mushroom" -> "ORA";
-                        case "butterfly" -> "PUR";
-                        case "fox" -> "BLU";
+                        case "leaf" -> "GRE ";
+                        case "mushroom" -> "ORA ";
+                        case "butterfly" -> "PUR ";
+                        case "fox" -> "BLU ";
                         default -> q;
                     };
-                    System.out.println("\n||  " + q + "  ||");
+                    System.out.println("\n"+"||  " + q + "  ||");
                 }
 
                 if ( array[i] == null) {
@@ -189,36 +186,44 @@ public class Tui implements UserInterface{
 
                 }
                 int k = g.getCardPoints();
-                if (i == 0) System.out.print(" == " + k + " == ");
-
-                if (i == 2) System.out.print(" == ");
-
-                int[] y = g.getNeededSymbols();
-                for (int m = 0; m < 4; m++) {
-                    if (y[m] > 0 && m == 0) System.out.println(y[m] + "M-");
-                    if (y[m] > 0 && m == 1) System.out.println(y[m] + "L-");
-                    if (y[m] > 0 && m == 2) System.out.println(y[m] + "F-");
-                    if (y[m] > 0 && m == 3) System.out.println(y[m] + "B-");
-
+                if (i == 0){ System.out.print(" == ");
+                    if(p==0) System.out.print(k);
+                    else System.out.print("=");
+                    System.out.print(" == ");
                 }
-                if (i == 2) System.out.print(" == ");
+
+                if (i == 2){
+                    System.out.print(" ==");
+
+                    int[] y = g.getNeededSymbols();
+                    for (int m = 0; m < 4; m++) {
+                        if (y[m] > 0 && m == 0) System.out.print(y[m] + "M");
+                        if (y[m] > 0 && m == 1) System.out.print(y[m] + "L");
+                        if (y[m] > 0 && m == 2) System.out.print(y[m] + "F");
+                        if (y[m] > 0 && m == 3) System.out.print(y[m] + "B");
+
+                    }
+                    System.out.print("== ");
+                }
+                if(i==3) System.out.println();
             }
+
         }
     }
 
     private void printResourceCard(ResourceCard r) {
         VisibleAngle[] array;
-        for (int p = 0; p < 3; p++) {
+        for (int p = 0; p < 2; p++) {
             if (p == 0) {
-                array = r.getBackAngles();
-                System.out.println("front:\n");
-            } else {
                 array = r.getFrontAngles();
-                System.out.println("back: \n");
+                System.out.println("\nfront:");
+            } else {
+                array = r.getBackAngles();
+                System.out.println("\nback:");
             }
             for (int i = 0; i < 4; i++) {
                 if (i == 2) {
-                    String q = r.getBackSymbol().getSymbolName();
+                    String q = r.getBackSymbol().getFirst().getSymbolName();
                     switch (q) {
                         case "leaf":
                             q = "GRE";
@@ -233,7 +238,7 @@ public class Tui implements UserInterface{
                             q = "BLU";
                             break;
                     }
-                    System.out.println("\n||  " + q + "  ||");
+                    System.out.println("\n"+"||  " + q + "  ||");
                 }
                 if (array[i] == null) {
                     System.out.print("X");
@@ -269,8 +274,81 @@ public class Tui implements UserInterface{
 
                 }
                 int k = r.getCardPoints();
-                if (i == 0) System.out.print(" == " + k + " == ");
+                if (i == 0){ System.out.print(" == ");
+                    if(p==0) System.out.print(k);
+                    else System.out.print("=");
+                    System.out.print(" == ");
+                }
                 if (i == 2) System.out.print(" == = == ");
+                if(i==3) System.out.println();
+            }
+
+        }
+    }
+
+    private void printInitialCard(InitialCard r) {
+        VisibleAngle[] array;
+        for (int p = 0; p < 2; p++) {
+            if (p == 0) {
+                array = r.getFrontAngles();
+                System.out.println("\nfront:");
+            } else {
+                array = r.getBackAngles();
+                System.out.println("\nback:");
+            }
+            for (int i = 0; i < 4; i++) {
+                if (i == 2) {
+                    for (Symbol d : r.getBackSymbol()) {
+                        String q = d.getSymbolName();
+                        q = switch (q) {
+                            case "leaf" -> "GRE";
+                            case "mushroom" -> "ORA";
+                            case "butterfly" -> "PUR";
+                            case "fox" -> "BLU";
+                            default -> q;
+                        };
+
+                    System.out.println("\n"+"||  " + q + "  ||");
+                    }
+                }
+                if (array[i] == null) {
+                    System.out.print("X");
+
+                } else if (array[i].getSymbol() == null) {
+
+                    System.out.print("E");
+                } else {
+
+                    String s = array[i].getSymbol().getSymbolName();
+                    switch (s) {
+                        case "mushroom":
+                            System.out.print("M");
+                            break;
+                        case "leaf":
+                            System.out.print("L");
+                            break;
+                        case "fox":
+                            System.out.print("F");
+                            break;
+                        case "butterfly":
+                            System.out.print("B");
+                            break;
+                        case "bottle":
+                            System.out.print("b");
+                            break;
+                        case "scroll":
+                            System.out.print("s");
+                            break;
+                        case "feather":
+                            System.out.print("f");
+                            break;
+                    }
+
+                }
+                if (i == 0){ System.out.print(" == = == ");
+                }
+                if (i == 2) System.out.print(" == = == ");
+                if(i==3) System.out.println();
             }
 
         }

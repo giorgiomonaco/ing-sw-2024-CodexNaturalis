@@ -61,7 +61,7 @@ public class AvailableResourcesManager {
                     //If it's back side we check the back symbol
                     else {
                         //get the symbol
-                        String currentBackSymbol = currentBoard.getCardMatrix()[i][j].getBackSymbol().getSymbolName();
+                        String currentBackSymbol = currentBoard.getCardMatrix()[i][j].getBackSymbol().getFirst().getSymbolName();
                         //call the adder
                         symbolAdder(currentBackSymbol);
                     }

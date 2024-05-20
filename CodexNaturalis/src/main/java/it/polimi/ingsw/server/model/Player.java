@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Player {
     //Class representing the player
-
+    private Boards Gameboard;
     //Name of the player
     private final String playerName;
 
@@ -222,5 +222,13 @@ public class Player {
 
     public List<Card> getPlayerHand() {
         return playerHand;
+    }
+
+    public Boards getGameboard() {
+        return Gameboard;
+    }
+
+    public void setBoards(Boards gameboard) {
+        this.Gameboard = gameboard;
     }
 }
