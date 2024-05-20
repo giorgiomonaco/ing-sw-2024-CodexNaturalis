@@ -94,15 +94,6 @@ public class InitialCardsInitializer {
                         case "butterfly":
                             initialCardFrontAngles[i] = new VisibleAngle(symbols.get(3));
                             break;
-                        case "feather":
-                            initialCardFrontAngles[i] = new VisibleAngle(symbols.get(4));
-                            break;
-                        case "bottle":
-                            initialCardFrontAngles[i] = new VisibleAngle(symbols.get(5));
-                            break;
-                        case "scroll":
-                            initialCardFrontAngles[i] = new VisibleAngle(symbols.get(6));
-                            break;
                         case "empty":
                             initialCardFrontAngles[i] = new VisibleAngle(null);
                             break;
@@ -123,34 +114,25 @@ public class InitialCardsInitializer {
                 for (String corner : backCorners) {
                     switch (corner) {
                         case "mushroom":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(0));
+                            initialCardBackAngles[j] = new VisibleAngle(symbols.get(0));
                             break;
                         case "leaf":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(1));
+                            initialCardBackAngles[j] = new VisibleAngle(symbols.get(1));
                             break;
                         case "fox":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(2));
+                            initialCardBackAngles[j] = new VisibleAngle(symbols.get(2));
                             break;
                         case "butterfly":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(3));
-                            break;
-                        case "feather":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(4));
-                            break;
-                        case "bottle":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(5));
-                            break;
-                        case "scroll":
-                            initialCardBackAngles[i] = new VisibleAngle(symbols.get(6));
+                            initialCardBackAngles[j] = new VisibleAngle(symbols.get(3));
                             break;
                         case "empty":
-                            initialCardBackAngles[i] = new VisibleAngle(null);
+                            initialCardBackAngles[j] = new VisibleAngle(null);
                             break;
                         case "null":
-                            initialCardBackAngles[i] = null;
+                            initialCardBackAngles[j] = null;
                             break;
                         default:
-                            System.out.println("Error while parsing through cards");
+                            System.out.println("Error while parsing through cards 2");
                     }
                     j++;
                 }
@@ -172,8 +154,12 @@ public class InitialCardsInitializer {
                         case "butterfly":
                             backSymbol.add(symbols.get(3));
                             break;
+
+                        case "null":
+
+                            break;
                         default:
-                            System.out.println("Error while parsing through cards");
+                            System.out.println("Error while parsing through cards 3");
                     }
                 }
 
