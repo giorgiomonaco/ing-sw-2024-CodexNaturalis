@@ -7,18 +7,28 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirstTurn extends Message {
 
-    private List<String> listOfTokens;
+    private List<String> listOfTokens = new ArrayList<>();
     private List<ObjectiveCard> listOfPersonalObjCards;
+    private boolean admin = false;
 
     public FirstTurn(String senderUsername, List<String> tokens, List<ObjectiveCard> cards) {
         super(messEnum.FIRST_TURN, senderUsername);
         this.listOfTokens = tokens;
         this.listOfPersonalObjCards = cards;
     }
+
+    public FirstTurn(String senderUsername, String token, List<ObjectiveCard> cards) {
+        super(messEnum.FIRST_TURN, senderUsername);
+        this.listOfTokens.add(token);
+        this.listOfPersonalObjCards = cards;
+        this.admin = true;
+    }
+
 
     public FirstTurn(String senderUsername, String optDescription) {
         super(messEnum.FIRST_TURN, senderUsername, optDescription);
@@ -35,5 +45,9 @@ public class FirstTurn extends Message {
 
     public List<String> getListOfTokens() {
         return listOfTokens;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 }

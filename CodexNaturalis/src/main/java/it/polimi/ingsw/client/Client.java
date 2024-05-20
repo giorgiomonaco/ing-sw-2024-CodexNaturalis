@@ -23,6 +23,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<Card> playerHand = new ArrayList<>();
     private List<ObjectiveCard> playerObjective = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
+    private boolean admin = false;
 
 
     protected Client() throws RemoteException {
@@ -116,5 +117,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setAvailableTokens(List<String> availableTokens) {
         this.availableTokens = availableTokens;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

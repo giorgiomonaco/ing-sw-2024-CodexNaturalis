@@ -23,5 +23,6 @@ public enum messEnum {
     FIRST_TURN,
     FIRST_TURN_RESPONSE,
     PLAY_CARD,
-    SHOW_FIRST_CARD
+    SHOW_FIRST_CARD,
+    SELECTION_TOKEN
 }

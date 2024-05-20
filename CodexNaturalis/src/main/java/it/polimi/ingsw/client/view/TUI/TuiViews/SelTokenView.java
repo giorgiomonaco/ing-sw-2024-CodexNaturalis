@@ -11,15 +11,25 @@ public class SelTokenView implements TuiView{
     @Override
     public void play(Client client) {
 
-        System.out.println("\n+----------------------+\n" +
-                "|      GAME SET UP     |\n" +
-                "+----------------------+\n\nSelect your token from the available ones:\n");
-        availableTokens = client.getAvailableTokens();
+        if(!client.isAdmin()) {
 
-        for (String s: availableTokens) {
-            System.out.print(color.getColor(s) + s + color.resetColor + " ");
+            System.out.println("\n+----------------------+\n" +
+                    "|      GAME SET UP     |\n" +
+                    "+----------------------+\n\nSelect your token from the available ones:\n");
+            availableTokens = client.getAvailableTokens();
+
+            for (String s : availableTokens) {
+                System.out.print(color.getColor(s) + s + color.resetColor + " ");
+            }
+
+            System.out.println("\n\nInsert color <sel> where sel is the selected color.");
+
+        }
+        else {
+            System.out.println("\n+----------------------+\n" +
+                    "|      GAME SET UP     |\n" +
+                    "+----------------------+\n\nYou are the first player!\n\nYour token is " + color.lightGrayColor + "black" + color.resetColor);
         }
 
-        System.out.println("\n\nInsert color <sel> where sel is the selected color.");
     }
 }

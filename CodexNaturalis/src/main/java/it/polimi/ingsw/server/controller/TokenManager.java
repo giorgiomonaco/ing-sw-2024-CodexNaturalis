@@ -33,7 +33,6 @@ public class TokenManager {
 
         List<String> availableTokens = new ArrayList<>();
 
-        availableTokens.add("black");
         availableTokens.add("red");
         availableTokens.add("blue");
         availableTokens.add("green");

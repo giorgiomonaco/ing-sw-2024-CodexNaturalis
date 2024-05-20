@@ -198,4 +198,8 @@ public class Game {
     public void setAvailableTokens(List<String> availableTokens) {
         this.availableTokens = availableTokens;
     }
+
+    public void removeAvailableTokens(String toRemove){
+        this.availableTokens.remove(toRemove);
+    }
 }

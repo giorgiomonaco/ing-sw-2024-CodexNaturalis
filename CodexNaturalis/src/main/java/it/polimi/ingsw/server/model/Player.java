@@ -29,6 +29,8 @@ public class Player {
     //Every player has a counter/token
     private Token playerToken;
 
+    private String playerTokenS;
+
     //The personal game board of the player
     private GameBoard gameBoard;
 
@@ -110,6 +112,11 @@ public class Player {
     //Method to assign the token to the player
     public void setPlayerToken(Token token) {
         this.playerToken = token;
+        //notify the view
+    }
+
+    public void setPlayerTokenS(String token) {
+        this.playerTokenS = token;
         //notify the view
     }
 

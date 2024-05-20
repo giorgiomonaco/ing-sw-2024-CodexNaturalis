@@ -139,7 +139,6 @@ public class ServerHandler {
 
                 }
                 break;
-
             case messEnum.SHOW_FIRST_CARD:
                 synchronized (controllerLock){
                     ShowFirst showFirst = (ShowFirst) msg;
@@ -150,7 +149,13 @@ public class ServerHandler {
 
                 }
                 break;
-
+            case SELECTION_TOKEN:
+                synchronized (controllerLock){
+                    SelectionToken selToken = (SelectionToken) msg;
+                    mainController.getPlayerByUsername(selToken.getUsername()).setPlayerTokenS(selToken.getDescription());
+                    mainController.getGame().removeAvailableTokens(selToken.getDescription());
+                    //manda nuovo mess
+                }
         }
     }
 
