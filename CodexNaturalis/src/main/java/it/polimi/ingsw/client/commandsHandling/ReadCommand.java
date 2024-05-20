@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.commandsHandling;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
+import it.polimi.ingsw.client.commandsHandling.commandsException.WrongInsertionException;
 import it.polimi.ingsw.client.commandsHandling.listOfCommands.*;
 import it.polimi.ingsw.client.view.TUI.Tui;
 
@@ -50,6 +51,8 @@ public class ReadCommand implements Runnable{
             } catch (CommandNotAvailableException e) {
                 System.err.println("PERMISSION DENIED!");
                 System.err.println("You are not allowed to do this command now.");
+            } catch (WrongInsertionException e) {
+                System.err.println(e.getException());
             }
         }
     }
