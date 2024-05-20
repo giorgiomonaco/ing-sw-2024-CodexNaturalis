@@ -64,8 +64,8 @@ public abstract class Card implements Serializable {
     }
 
     //getter of the symbol in the back of the card
-    public Symbol getBackSymbol() {
-        return backSymbol.getFirst();
+    public List<Symbol> getBackSymbol() {
+        return backSymbol;
     }
 
     /*

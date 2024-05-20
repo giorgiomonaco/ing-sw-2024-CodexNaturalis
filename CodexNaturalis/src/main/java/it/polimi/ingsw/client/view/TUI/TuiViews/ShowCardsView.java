@@ -33,7 +33,7 @@ public class ShowCardsView implements TuiView{
         else { array = r.getFrontAngles();}
         for (int i = 0; i < 4; i++) {
             if (i == 2) {
-                String q = r.getBackSymbol().getSymbolName();
+                String q = r.getBackSymbol().getFirst().getSymbolName();
                 switch (q) {
                     case "leaf":
                         q = "GRE";
@@ -98,7 +98,7 @@ public class ShowCardsView implements TuiView{
         else { array = g.getFrontAngles();}
         for (int i = 0; i < 4; i++) {
             if (i == 2) {
-                String q = g.getBackSymbol().getSymbolName();
+                String q = g.getBackSymbol().getFirst().getSymbolName();
                 switch (q) {
                     case "leaf":
                         q = "GRE";

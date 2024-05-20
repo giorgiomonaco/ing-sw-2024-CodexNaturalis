@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Player {
     //Class representing the player
-
+    private Boards Gameboard;
     //Name of the player
     private final String playerName;
 
@@ -233,5 +233,13 @@ public class Player {
 
     public void addSelObjectiveCard(ObjectiveCard selObjectiveCard) {
         this.selObjectiveCard.add(selObjectiveCard);
+    }
+
+    public Boards getGameboard() {
+        return Gameboard;
+    }
+
+    public void setBoards(Boards gameboard) {
+        this.Gameboard = gameboard;
     }
 }

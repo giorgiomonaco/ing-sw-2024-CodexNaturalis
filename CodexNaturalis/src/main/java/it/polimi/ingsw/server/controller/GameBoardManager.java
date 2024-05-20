@@ -24,7 +24,6 @@ public class GameBoardManager {
     //Constructor
     public GameBoardManager(Game game) {
         this.game = game;
-
     }
 
     //initialization of all the game boards needed
