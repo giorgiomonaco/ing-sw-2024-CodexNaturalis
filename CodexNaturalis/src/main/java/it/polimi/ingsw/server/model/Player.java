@@ -18,7 +18,7 @@ public class Player{
     private final List<GoldCard> playerGoldCards = new ArrayList<>();
 
     //List of the cards the player got in hand
-    private List<Card> playerHand;
+    private final List<Card> playerHand = new ArrayList<>();
 
     //List of the Objective cards the player have
     private ObjectiveCard playerObjectiveCard;
@@ -53,6 +53,7 @@ public class Player{
     //Method to add a card to the list of resource cards
     public void addResourceCard(ResourceCard card) {
         playerResourceCards.add(card);
+        playerHand.add(card);
     }
 
     //method to get a card from the list by index
@@ -74,6 +75,7 @@ public class Player{
     //Method to add a card to the list of gold cards
     public void addGoldCard(GoldCard card) {
         playerGoldCards.add(card);
+        playerHand.add(card);
     }
 
     //method to get a card from the list by index

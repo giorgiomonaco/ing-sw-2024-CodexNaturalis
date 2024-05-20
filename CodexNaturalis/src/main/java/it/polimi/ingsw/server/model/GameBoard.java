@@ -52,7 +52,7 @@ public class GameBoard {
 
     //insertion of the initial card in the middle of the board
     public void placeInitialCard(InitialCard card) {
-        cardMatrix[(MAX_X / 2)][MAX_Y / 2] = card;
+        cardMatrix[(MAX_X / 2)][MAX_Y / 2] = (Card) card;
         updateBoxes(card,MAX_X / 2, MAX_Y / 2);
     }
 

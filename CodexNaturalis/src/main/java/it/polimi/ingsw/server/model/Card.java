@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model;
 
 
+import java.util.List;
+
 public abstract class Card {
 
     //ID of the card, may be removed later
@@ -20,7 +22,8 @@ public abstract class Card {
     private final VisibleAngle[] backAngles = new VisibleAngle[4];
 
     //central symbol on the back of the card
-    private final Symbol backSymbol;
+    private final List<Symbol> backSymbol;
+
 
     //Attribute that defines if we are playing/considering
     //the front or the back of the card
@@ -29,7 +32,7 @@ public abstract class Card {
     private boolean frontSide;
 
     //Constructor
-    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, Symbol backSymbol) {
+    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol) {
         for (int i = 0; i < 4; i++) {
             this.frontAngles[i] = frontAngles[i];
             this.backAngles[i] = backAngles[i];
@@ -37,6 +40,7 @@ public abstract class Card {
         }
         this.backSymbol = backSymbol;
     }
+
 
     //get of the front angles
     public VisibleAngle[] getFrontAngles() {
@@ -60,7 +64,7 @@ public abstract class Card {
 
     //getter of the symbol in the back of the card
     public Symbol getBackSymbol() {
-        return backSymbol;
+        return backSymbol.getFirst();
     }
 
     /*

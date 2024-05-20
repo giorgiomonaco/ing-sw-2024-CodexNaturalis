@@ -25,8 +25,6 @@ public class DrawManager {
             drawResourceCards();
             //then one gold
             drawGoldCards();
-            //then one objective (chosen between 2
-            sendChoice();
             //we distribute the initial card to every one
             //placing it into the right place (center) on the player board game
             distributeInitialCards();
