@@ -3,11 +3,13 @@ package it.polimi.ingsw.client.view.TUI;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.commandsHandling.ReadCommand;
 import it.polimi.ingsw.client.states.stateEnum;
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.*;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,7 +145,7 @@ public class Tui implements UserInterface{
                 if (i == 2) {
                     String q = g.getBackSymbol().getFirst().getSymbolName();
                     q = switch (q) {
-                        case "leaf" -> "GRE ";
+                        case "leaf" -> color.greenColor + "GRE " + color.resetColor;
                         case "mushroom" -> "ORA ";
                         case "butterfly" -> "PUR ";
                         case "fox" -> "BLU ";
@@ -353,6 +355,8 @@ public class Tui implements UserInterface{
 
         }
     }
+
+    Colors color = new Colors();
 
 }
 

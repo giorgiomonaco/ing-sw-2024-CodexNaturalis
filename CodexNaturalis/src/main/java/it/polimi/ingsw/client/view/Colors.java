@@ -25,4 +25,8 @@ public class Colors {
     public String resetColor = "\u001B[0m";
     public String blueColor = "\u001B[34m";
     public String blackColor = "\u001B[30m";
+    public String purpleColor = "\u001B[35m";
+    public String orangeColor = "\u001B[36m";
+    public String lightGrayColor = "\u001B[37m";
+
 }
