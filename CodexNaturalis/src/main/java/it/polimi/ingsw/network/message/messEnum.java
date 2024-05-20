@@ -20,5 +20,6 @@ public enum messEnum {
     COMMON,
     NEW_PLAYER_JOIN,
     GAME_STARTING,
-    FIRST_TURN
+    FIRST_TURN,
+    FIRST_TURN_RESPONSE
 }

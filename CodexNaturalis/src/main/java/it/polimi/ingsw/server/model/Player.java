@@ -20,8 +20,11 @@ public class Player {
     //List of the cards the player got in hand
     private final List<Card> playerHand = new ArrayList<>();
 
-    //List of the Objective cards the player have
+    //Personal objective card of the player
     private ObjectiveCard playerObjectiveCard;
+
+    //List of the two objective cards from which the player can choose
+    private List<ObjectiveCard> selObjectiveCard;
 
     //Every player has a counter/token
     private Token playerToken;
@@ -222,5 +225,13 @@ public class Player {
 
     public List<Card> getPlayerHand() {
         return playerHand;
+    }
+
+    public List<ObjectiveCard> getSelObjectiveCard() {
+        return selObjectiveCard;
+    }
+
+    public void addSelObjectiveCard(ObjectiveCard selObjectiveCard) {
+        this.selObjectiveCard.add(selObjectiveCard);
     }
 }
