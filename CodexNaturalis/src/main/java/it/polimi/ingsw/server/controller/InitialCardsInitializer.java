@@ -46,7 +46,7 @@ public class InitialCardsInitializer {
     public void initialCardInitializer() {
 
         String osName = System.getProperty("os.name").toLowerCase();
-        String basePath = "src/main/resources/initCards.json";
+        String basePath = "src/main/resources/initCard.json";
         String addPath = "CodexNaturalis/";
         String finalPath;
 
