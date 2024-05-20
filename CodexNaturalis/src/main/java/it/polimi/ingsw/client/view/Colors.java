@@ -11,5 +11,6 @@ public class Colors {
     public String blackColor = "\u001B[30m";
     public String purpleColor = "\u001B[35m";
     public String orangeColor = "\u001B[36m";
+    public String lightGrayColor = "\u001B[37m";
 
 }
