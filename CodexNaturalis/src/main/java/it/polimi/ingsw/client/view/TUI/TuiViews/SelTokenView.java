@@ -1,4 +1,5 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.Colors;
 
 import java.io.Serializable;
@@ -6,7 +7,7 @@ import java.io.Serializable;
 public class SelTokenView implements TuiView{
     Colors color = new Colors();
     @Override
-    public void play() {
+    public void play(Client client) {
 
         System.out.println("WICH COLOUR DO YOU WANT TO PLAY WITH?\nCHOOSE BETWEEN: ");
         System.out.print(color.redColor + " red " + color.resetColor);

@@ -84,7 +84,13 @@ public class MainController {
         }
 
         if(game.getGameState().equals(gameStateEnum.START)){
-            serverHandler.sendMessageToAll(new GameStarting(ServerHandler.HOSTNAME));
+            gameStarting();
+            for(int i = 0; i < game.getUserList().size(); i++) {
+                serverHandler.sendMessageToPlayer(game.getUserList().get(i),
+                        new GameStarting(
+                                ServerHandler.HOSTNAME,
+                                game.getPlayerList().get(i).getPlayerHand()));
+            }
         }
     }
 
@@ -92,6 +98,8 @@ public class MainController {
     public void gameStarting(){
         gameSetUpper.gameSetUp();
     }
+
+
     public Player getPlayerByUsername(String username) {
         for (Player player : game.getPlayerList()) {
             if (player.getUsername().equals(username)) {

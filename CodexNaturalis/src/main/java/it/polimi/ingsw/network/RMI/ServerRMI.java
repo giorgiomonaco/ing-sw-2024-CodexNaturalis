@@ -72,7 +72,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
             rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
             handlerRMI.newLoginRequest(request);
         } else {
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 2, request.getUsername()));
+            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 2, "Username already in use, try to insert another one."));
         }
     }
 

@@ -147,19 +147,20 @@ public class ServerHandler {
 
     public void sendMessageToAll(Message msg){
 
-        Set<Map.Entry<String, ClientConnection>> entrySet;
+        Map<String, ClientConnection> connCliCopy;
         synchronized (connectedClients) {
-            entrySet = connectedClients.entrySet();
+            connCliCopy = new HashMap<>(connectedClients);
         }
 
-        for (Map.Entry<String, ClientConnection> entry : entrySet) {
-            synchronized (entry.getValue()) {
-                if (entry.getValue().isConnected()) {
-                    entry.getValue().sendMessage(msg);
+        for (String user : connCliCopy.keySet()) {
+            synchronized (connCliCopy.get(user)) {
+                if (connCliCopy.get(user).isConnected()) {
+                    connCliCopy.get(user).sendMessage(msg);
                 }
             }
         }
     }
+
 
     public void sendMessageToAllExcept(String username, Message msg){
 

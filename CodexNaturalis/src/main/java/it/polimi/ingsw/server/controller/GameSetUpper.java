@@ -60,7 +60,6 @@ public class GameSetUpper {
             //initialize all the cards in the game:
             //creating and placing them into the right decks in right places
             // cardManager.initializeAllCards(); QUESTO COMANDO FA BLOCCARE IL SERVER, DA CONTROLLARE!!
-            // cardManager.
 
         }
 

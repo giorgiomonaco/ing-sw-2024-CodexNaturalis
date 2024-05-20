@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
 
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.server.model.*;
 
 import java.io.Serializable;
@@ -37,10 +38,6 @@ public class ShowPlayerBoard implements TuiView{
 
 
 
-    @Override
-    public void play() {
-
-    }
     private void printGoldCard(GoldCard g) {
         System.out.println("Show front or back?\n [1] = front, [2] = back");
         Scanner t= new Scanner(System.in);
@@ -176,4 +173,8 @@ public class ShowPlayerBoard implements TuiView{
 
     }
 
+    @Override
+    public void play(Client client) {
+
+    }
 }
