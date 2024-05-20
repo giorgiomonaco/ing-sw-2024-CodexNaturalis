@@ -35,7 +35,7 @@ public class GoldCardsInitializer {
 
         //String path = this.getClass().getResourceAsStream("/");
 
-        try (Reader reader = new FileReader("CodexNaturalis/src/main/resources/goldCards.json");
+        try (Reader reader = new FileReader("src/main/resources/goldCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();

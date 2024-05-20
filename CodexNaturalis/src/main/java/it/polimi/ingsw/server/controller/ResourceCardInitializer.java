@@ -33,7 +33,7 @@ public class ResourceCardInitializer {
 
     // Initialize cards, creation and call to adder to deck
     public void initializeResourceCards() {
-        try (Reader reader = new FileReader("CodexNaturalis/src/main/resources/resCards.json");
+        try (Reader reader = new FileReader("src/main/resources/resCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
