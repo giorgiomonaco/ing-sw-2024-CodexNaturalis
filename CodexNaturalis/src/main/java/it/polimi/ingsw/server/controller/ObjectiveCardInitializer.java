@@ -28,7 +28,7 @@ public class ObjectiveCardInitializer {
 
     public void initializeObjectiveCards(){
 
-        try (Reader reader = new FileReader("resources/goldCards.json");
+        try (Reader reader = new FileReader("CodexNaturalis/src/main/resources/objectiveCards.json");
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
