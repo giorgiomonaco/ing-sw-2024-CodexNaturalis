@@ -109,7 +109,7 @@ public class MainController {
         }
         else {
 
-        }
+            serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex), );}
     }
 
     public void beginFirstTurn(){
