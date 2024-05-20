@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.ObjectSymbol;
 import it.polimi.ingsw.server.model.ResourceSymbol;
 import it.polimi.ingsw.server.model.Symbol;
+import java.util.Collections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class CardManager {
         //initialize the resource cards
         resourceCardInitializer.initializeResourceCards();
 
+
         //create initializer/creator and adder of gold cards
         GoldCardsInitializer goldCardsInitializer = new GoldCardsInitializer(game, symbols);
         //Initialize gold cards
@@ -57,8 +59,17 @@ public class CardManager {
         //Create the initializer for the initial cards
         InitialCardsInitializer initialCardsInitializer = new InitialCardsInitializer(game, symbols);
         //create the cards and add them to the corresponding deck in the game
-        initialCardsInitializer.initializeInitialCards();
+        initialCardsInitializer.initialCardInitializer();
+        shuffleDecks();
     }
+    // Shuffle all the decks
+    private void shuffleDecks() {
+        Collections.shuffle(game.getResourceDeck());
+        Collections.shuffle(game.getGoldDeck());
+        Collections.shuffle(game.getObjectiveDeck());
+        Collections.shuffle(game.getInitialDeck());
+    }
+
 
     //getter of the symbol list
     public List<Symbol> getSymbols() {
