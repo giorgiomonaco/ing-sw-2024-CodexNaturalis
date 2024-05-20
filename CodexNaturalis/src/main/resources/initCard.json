@@ -1,0 +1,67 @@
+[
+  {
+	"FrontTopLeft": "leaf",
+	"FrontTopRight": "butterfly",
+	"FrontBottomLeft": "fox",
+	"FrontBottomRight": "mushroom",
+	"BackTopLeft": "empty",
+	"BackTopRight": "empty",
+	"BackBottomLeft": "empty",
+	"BackBottomRight": "empty",
+	"BackSymbol1": "fox",
+	"BackSymbol2": "butterfly",
+	"BackSymbol3": "null"
+  },
+  {
+	"FrontTopLeft": "leaf",
+	"FrontTopRight": "fox",
+	"FrontBottomLeft": "mushroom",
+	"FrontBottomRight": "butterfly",
+	"BackTopLeft": "fox",
+	"BackTopRight": "empty",
+	"BackBottomLeft": "empty",
+	"BackBottomRight": "mushroom",
+	"BackSymbol1": "mushroom",
+	"BackSymbol2": "null",
+	"BackSymbol3": "null"
+  },
+  {
+	"FrontTopLeft": "mushroom",
+	"FrontTopRight": "leaf",
+	"FrontBottomLeft": "butterfly",
+	"FrontBottomRight": "fox",
+	"BackTopLeft": "empty",
+	"BackTopRight": "leaf",
+	"BackBottomLeft": "butterfly",
+	"BackBottomRight": "empty",
+	"BackSymbol1": "butterfly",
+	"BackSymbol2": "null",
+	"BackSymbol3": "null"
+  },
+  {
+	"FrontTopLeft": "mushroom",
+	"FrontTopRight": "fox",
+	"FrontBottomLeft": "leaf",
+	"FrontBottomRight": "butterfly",
+	"BackTopLeft": "empty",
+	"BackTopRight": "empty",
+	"BackBottomLeft": "null",
+	"BackBottomRight": "null",
+	"BackSymbol1": "leaf",
+	"BackSymbol2": "fox",
+	"BackSymbol3": "mushroom"
+  },
+  {
+	"FrontTopLeft": "butterfly",
+	"FrontTopRight": "fox",
+	"FrontBottomLeft": "mushroom",
+	"FrontBottomRight": "leaf",
+	"BackTopLeft": "empty",
+	"BackTopRight": "empty",
+	"BackBottomLeft": "empty",
+	"BackBottomRight": "empty",
+	"BackSymbol1": "leaf",
+	"BackSymbol2": "mushroom",
+	"BackSymbol3": "null"
+  }
+]
