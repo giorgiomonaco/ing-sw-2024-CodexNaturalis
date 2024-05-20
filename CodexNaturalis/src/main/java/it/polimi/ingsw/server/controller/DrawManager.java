@@ -36,6 +36,7 @@ public class DrawManager {
     public void distributeInitialCards(){
         game.getPlayerList().forEach(p -> p.setInitialCard(game.drawInitialCard()));
     }
+
     //initialize resource cards
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Same name than in the cards initializers - modify this thing

@@ -19,5 +19,6 @@ public enum messEnum {
     SHOW_PLAYER_BOARD,
     COMMON,
     NEW_PLAYER_JOIN,
-    GAME_STARTING
+    GAME_STARTING,
+    FIRST_TURN
 }
