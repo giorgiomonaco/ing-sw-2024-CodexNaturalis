@@ -17,6 +17,9 @@ public class Player{
     //List of the gold cards the player got in hand
     private final List<GoldCard> playerGoldCards = new ArrayList<>();
 
+    //List of the cards the player got in hand
+    private List<Card> playerHand;
+
     //List of the Objective cards the player have
     private ObjectiveCard playerObjectiveCard;
 
@@ -213,5 +216,9 @@ public class Player{
 
     public Object getUsername() {
         return playerName;
+    }
+
+    public List<Card> getPlayerHand() {
+        return playerHand;
     }
 }

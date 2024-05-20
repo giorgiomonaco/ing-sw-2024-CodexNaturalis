@@ -22,7 +22,13 @@ public enum stateEnum {
      */
     LOBBY,
     /**
-     * When the game start, for the setup of the board, it's asked to select the token.
+     * The number of players in the lobby is reached and the server starts
+     * the setup phase for the game. It's not the client's turn yet.
+     */
+    GAME_STARTED,
+    /**
+     * When the game start, for the setup of the board, it's asked to select the token
+     * and the objective card.
      */
     SELECT_TOKEN,
     /**
@@ -50,10 +56,4 @@ public enum stateEnum {
     REJECTED,
     DISCONNECTION,
 
-    SHOW_CARDS,
-    SHOW_PLAYER_RESOURCES,
-    SHOW_PLAYER_BOARD,
-    DRAW_CARD_RESPONSE,
-    LOGIN_SUCCESSFUL,
-    LOGIN_FAILED
 }

@@ -126,7 +126,7 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
             sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
             handlerTCP.newLoginRequest(request);
         } else {
-            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 2, request.getUsername()));
+            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 2, "Username already in use, try to insert another one."));
         }
 
         return result;
