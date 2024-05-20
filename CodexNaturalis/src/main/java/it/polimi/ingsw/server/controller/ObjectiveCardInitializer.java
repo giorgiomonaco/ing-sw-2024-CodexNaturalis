@@ -28,7 +28,18 @@ public class ObjectiveCardInitializer {
 
     public void initializeObjectiveCards(){
 
-        try (Reader reader = new FileReader("src/main/resources/objectiveCards.json");
+        String osName = System.getProperty("os.name").toLowerCase();
+        String basePath = "src/main/resources/objectiveCards.json";
+        String addPath = "CodexNaturalis/";
+        String finalPath;
+
+        if(osName.contains("mac")){
+            finalPath = basePath;
+        } else {
+            finalPath = addPath + basePath;
+        }
+
+        try (Reader reader = new FileReader(finalPath);
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();

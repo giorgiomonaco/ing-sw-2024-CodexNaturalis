@@ -33,7 +33,19 @@ public class ResourceCardInitializer {
 
     // Initialize cards, creation and call to adder to deck
     public void initializeResourceCards() {
-        try (Reader reader = new FileReader("src/main/resources/resCards.json");
+
+        String osName = System.getProperty("os.name").toLowerCase();
+        String basePath = "src/main/resources/resCards.json";
+        String addPath = "CodexNaturalis/";
+        String finalPath;
+
+        if(osName.contains("mac")){
+            finalPath = basePath;
+        } else {
+            finalPath = addPath + basePath;
+        }
+
+        try (Reader reader = new FileReader(finalPath);
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();

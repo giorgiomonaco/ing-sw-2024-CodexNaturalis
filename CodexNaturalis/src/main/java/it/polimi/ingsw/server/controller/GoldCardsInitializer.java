@@ -33,9 +33,18 @@ public class GoldCardsInitializer {
     //Method to initialize the gold cards, creation and call to add card to game
     public void initializeGoldCards() {
 
-        //String path = this.getClass().getResourceAsStream("/");
+        String osName = System.getProperty("os.name").toLowerCase();
+        String basePath = "src/main/resources/goldCards.json";
+        String addPath = "CodexNaturalis/";
+        String finalPath;
 
-        try (Reader reader = new FileReader("src/main/resources/goldCards.json");
+        if(osName.contains("mac")){
+            finalPath = basePath;
+        } else {
+            finalPath = addPath + basePath;
+        }
+
+        try (Reader reader = new FileReader(finalPath);
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
