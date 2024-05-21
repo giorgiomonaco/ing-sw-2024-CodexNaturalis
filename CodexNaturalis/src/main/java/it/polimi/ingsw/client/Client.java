@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.client.states.stateEnum;
+import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 
@@ -24,6 +25,8 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<ObjectiveCard> playerObjective = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
     private boolean admin = false;
+    private Boards boards;
+    private int[] resources;
 
 
     protected Client() throws RemoteException {
@@ -125,5 +128,21 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public Boards getBoards() {
+        return boards;
+    }
+
+    public void setBoards(Boards boards) {
+        this.boards = boards;
+    }
+
+    public int[] getResources() {
+        return resources;
+    }
+
+    public void setResources(int[] resources) {
+        this.resources = resources;
     }
 }

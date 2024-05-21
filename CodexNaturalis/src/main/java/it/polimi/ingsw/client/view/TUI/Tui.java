@@ -75,8 +75,8 @@ public class Tui implements UserInterface{
             case GAME_STARTED:
                 phaseView.get(stateEnum.GAME_STARTED).play(tuiCli);
                 break;
-            case PLAY_CARD:
-                phaseView.get(stateEnum.PLAY_CARD).play(tuiCli);
+            case PLAY_CARD_RESPONSE:
+                phaseView.get(stateEnum.PLAY_CARD_RESPONSE).play(tuiCli);
                 break;
             case SELECT_NUM_PLAYERS:
                 phaseView.get(stateEnum.SELECT_NUM_PLAYERS).play(tuiCli);
@@ -86,9 +86,6 @@ public class Tui implements UserInterface{
                 break;
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
-                break;
-                case YOUR_TURN:
-                phaseView.get(stateEnum.YOUR_TURN).play(tuiCli);
                 break;
         }
 
