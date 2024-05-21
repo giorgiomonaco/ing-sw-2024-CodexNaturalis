@@ -70,29 +70,6 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         msg.createHandler().handle(msg,this);
     }
 
-    public void manageState(Message msg){
-
-        switch(msg.getType()){
-            case SHOW_CARD:
-                ShowCards showMsg = (ShowCards) msg;
-                getUI().viewCards(showMsg.getPlayerHand());
-                break;
-            case DRAW_CARD_RESPONSE:
-                DrawCardResponse drawMsg = (DrawCardResponse) msg;
-                getUI().viewCard(drawMsg.getCard());
-                break;
-            case SHOW_FIRST_CARD:
-                ShowFirst showFirst = (ShowFirst) msg;
-                getUI().viewFirst(showFirst.getCard());
-                break;
-            // case SHOW_UNCOVERED_CARDS_RESPONSE:
-            //    ShowUncoveredCardsResponse uncoveredMsg = (ShowUncoveredCardsResponse) msg;
-            //    getUI().viewUncoveredCards(uncoveredMsg.getCardList());
-            //    break;
-
-        }
-    }
-
     public List<String> getPlayerList() {
         return playerList;
     }

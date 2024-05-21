@@ -5,7 +5,6 @@ import it.polimi.ingsw.client.commandsHandling.CommandManager;
 import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.allMessages.ShowFirstRequest;
 import it.polimi.ingsw.network.message.messEnum;
 
 import java.rmi.RemoteException;

@@ -18,17 +18,17 @@ import java.util.*;
 public class ServerHandler {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
-    private ServerConfigNetwork configBase;
+    private final ServerConfigNetwork configBase;
     public static String HOSTNAME = "Server";
     public final Map<String, ClientConnection> connectedClients;
     private MainController mainController;
-    private List<String> waitingLobby;
+    private final List<String> waitingLobby;
     private boolean creatingLobby;
     private final Object lobbyLock = new Object();
     private final Object controllerLock = new Object();
 
     public ServerHandler(ServerConfigNetwork data) {
-        configBase = data;
+        this.configBase = data;
         connectedClients = new HashMap<>();
         waitingLobby = new ArrayList<>();
         creatingLobby = false;
@@ -46,7 +46,7 @@ public class ServerHandler {
     }
 
     public void isValid(String check){
-        // Check if the ip is valid, maybe we can assume that anyway..
+        // Check if the ip is valid, maybe we can assume that anyway...
     }
 
     public void manageMessage(Message msg) {
@@ -83,17 +83,6 @@ public class ServerHandler {
                     }
                 }
                 break;
-            case messEnum.SHOW_HAND:
-                synchronized (controllerLock){
-                    ShowHandRequest show = (ShowHandRequest) msg;
-                    Player p = mainController.getPlayerByUsername(show.getUsername());
-                    List<Card> playerHand = new ArrayList<>();
-                    playerHand.addAll(p.getPlayerGoldCards());
-                    playerHand.addAll(p.getPlayerResourceCards());
-                    sendMessageToPlayer(show.getUsername(),
-                            new ShowCards(messEnum.SHOW_CARD, show.getUsername(), playerHand));
-                }
-                break;
             case messEnum.DRAW_CARD_REQUEST:
                 synchronized (controllerLock){
                     DrawCardRequest draw = (DrawCardRequest) msg;
@@ -103,26 +92,6 @@ public class ServerHandler {
                                 new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
                     }
                 }
-            case messEnum.SHOW_PLAYER_BOARD:
-                synchronized (controllerLock){
-                    ShowPlayerBoard showBoard = (ShowPlayerBoard) msg;
-                    Player p = mainController.getPlayerByUsername(showBoard.getUsername());
-                    GameBoard G = p.getGameBoard();
-                    sendMessageToPlayer(showBoard.getUsername(),
-                            new ShowPlayerBoard(messEnum.SHOW_PLAYER_BOARD, showBoard.getUsername(), G));
-
-                }
-                break;
-            case messEnum.SHOW_PLAYER_RESOURCES:
-                synchronized (controllerLock){
-                    ShowPlayerResources ShowRes = (ShowPlayerResources) msg;
-                    Player p = mainController.getPlayerByUsername(ShowRes.getUsername());
-                    int[] R = p.getResourcesAvailable();
-                    sendMessageToPlayer(ShowRes.getUsername(),
-                            new ShowPlayerResources(messEnum.SHOW_PLAYER_RESOURCES, ShowRes.getUsername(), R));
-
-                }
-                break;
             case messEnum.PLAY_CARD:
                 synchronized (controllerLock){
                     PlayCardMessage play = (PlayCardMessage) msg;
@@ -134,17 +103,6 @@ public class ServerHandler {
 
                 }
                 break;
-            case messEnum.SHOW_FIRST_CARD:
-                synchronized (controllerLock){
-                    ShowFirstRequest showFirst = (ShowFirstRequest) msg;
-                    Player p = mainController.getPlayerByUsername(showFirst.getUsername());
-                    InitialCard card = p.getInitialCard();
-                    sendMessageToPlayer(showFirst.getUsername(),
-                            new ShowFirst(messEnum.SHOW_FIRST_CARD, showFirst.getUsername(), card));
-
-                }
-                break;
-
             case SELECTION_TOKEN:
                 synchronized (controllerLock) {
                     SelectionToken selToken = (SelectionToken) msg;
@@ -167,6 +125,7 @@ public class ServerHandler {
                        // mainController.beginTurn();
                     }
                 }
+                break;
         }
     }
 
@@ -265,14 +224,4 @@ public class ServerHandler {
             }
         }
     }
-
-    public Map<String, ClientConnection> getConnectedClients() {
-        synchronized (connectedClients) {
-            return connectedClients;
-        }
-    }
-
-
-
-
 }
