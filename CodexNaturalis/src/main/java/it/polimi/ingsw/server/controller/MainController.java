@@ -199,4 +199,7 @@ public class MainController {
     public boolean isFirstTurn() {
         return firstTurn;
     }
+
+    public void playCard(Card card, int x, int y){
+    }
 }
