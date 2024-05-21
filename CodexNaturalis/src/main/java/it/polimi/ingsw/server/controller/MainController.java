@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.network.message.allMessages.*;
-import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.Game;
@@ -112,7 +111,7 @@ public class MainController {
         else {
             game.setCurrentPlayer(p);
             serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex),
-                    new PlayCardResponse(messEnum.PLAY_CARD_RESPONSE, ServerHandler.HOSTNAME, p.getPlayerHand(),p.getGameboard(), p.getResourcesAvailable()));
+                    new PlayCardReq(ServerHandler.HOSTNAME, p.getPlayerHand(),p.getGameboard(), p.getResourcesAvailable()));
         }
     }
 
