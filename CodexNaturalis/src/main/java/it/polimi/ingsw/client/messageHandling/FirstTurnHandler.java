@@ -10,6 +10,7 @@ public class FirstTurnHandler implements MessageHandler{
     public void handle(Message msg, Client client) {
         FirstTurn firstTurn = (FirstTurn) msg;
         client.setPlayerObjective(firstTurn.getListOfPersonalObjCards());
+        client.setInit(firstTurn.getInitialCard());
         client.setAvailableTokens(firstTurn.getListOfTokens());
         client.setAdmin(firstTurn.isAdmin());
         client.setCurrentState(stateEnum.SELECT_TOKEN);
