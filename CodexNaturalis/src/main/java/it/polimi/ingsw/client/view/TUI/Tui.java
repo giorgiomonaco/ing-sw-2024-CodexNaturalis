@@ -110,13 +110,10 @@ public class Tui implements UserInterface{
         System.out.println(toPrint);
     }
 
-
+    @Override
     public void viewCards(List<Card> playerHand) {
-        ShowCardsView showCardsView = new ShowCardsView();
-        showCardsView.play(playerHand);
 
     }
-
 
     public void viewCard(Card card) {
         DrawCardView drawCardView = new DrawCardView();
@@ -124,17 +121,9 @@ public class Tui implements UserInterface{
     }
 
     public void viewFirst(InitialCard card){
-        ShowFirstView showFirstView = new ShowFirstView();
 
-        printInitialCard(card);
     }
 
-
-
-    public void viewUncoveredCards(List<Card> cardList) {
-        ShowUncoveredCardsView showUncoveredCardsView = new ShowUncoveredCardsView();
-        showUncoveredCardsView.viewUncoveredCards(cardList);
-    }
 
     public void printCard(Card card) {
         if (card instanceof ResourceCard) {
