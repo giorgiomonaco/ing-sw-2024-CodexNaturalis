@@ -23,11 +23,11 @@ public class PlayCardView implements TuiView{
         boards = client.getBoards();
         printBoard();
         printHand();
-        Card card = askCardToPlay();
+        askCardToPlay();
 
     }
 
-    private Card askCardToPlay() {
+    private void askCardToPlay() {
         System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command card <num> <x><y>, where num is the number of the card you want to play, and x and y are the coordinates on the board");
 
     }
