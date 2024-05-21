@@ -14,6 +14,10 @@ import java.rmi.RemoteException;
 public class PlayCardCommand implements CommandManager {
     private Client client;
 
+    public PlayCardCommand(Client client){
+        this.client = client;
+    }
+
     @Override
     public void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException, WrongInsertionException {
         int index = Integer.parseInt(commands[1]);

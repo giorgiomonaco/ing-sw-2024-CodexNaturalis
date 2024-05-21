@@ -28,7 +28,7 @@ public class PlayCardView implements TuiView{
     }
 
     private void askCardToPlay() {
-        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command card <num> <x><y>, where num is the number of the card you want to play, and x and y are the coordinates on the board");
+        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command card <num> <x> <y>, where num is the number of the card you want to play, and x and y are the coordinates on the board");
 
     }
 
