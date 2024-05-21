@@ -205,7 +205,7 @@ public class Tui implements UserInterface{
                     System.out.print(" == ");
                 }
 
-                if (i == 2){
+                if (i == 2 && p==0){
                     System.out.print(" ==");
 
                     int[] y = g.getNeededSymbols();
@@ -217,7 +217,10 @@ public class Tui implements UserInterface{
 
                     }
                     System.out.print("== ");
+                } if (i == 2 && p==1){
+                    System.out.print(" == = == ");
                 }
+
                 if(i==3) System.out.println();
             }
 
@@ -300,7 +303,7 @@ public class Tui implements UserInterface{
     }
 
     private void printInitialCard(InitialCard r) {
-        System.out.println("pesce in mano");
+        System.out.println("\nCARTA INIZIALE:\n");
         //VisibleAngle[] array;
        /* for (int p = 0; p < 2; p++) {
             if (p == 0) {
@@ -372,11 +375,12 @@ public class Tui implements UserInterface{
     Colors color = new Colors();
 
     public void printObjectiveCard(ObjectiveCard o){
-       if( o.getType() != "position"){
-           System.out.println(" == = = = == ");
+       if(!Objects.equals(o.getType(), "position")){
+           System.out.println(" ========== ");
            System.out.println(" ||   "+o.getPoints()+"   ||");
+           System.out.println(" ||         ||");
            String q=o.getType();
-           if (Objects.equals(o.getType(), "fox") || Objects.equals(o.getType(), "butterfly") || Objects.equals(o.getType(), "mushroom") || Objects.equals(o.getType(), "leaf") || Objects.equals(o.getType(), "special"))
+           if (Objects.equals(o.getType(), "fox") || Objects.equals(o.getType(), "butterfly") || Objects.equals(o.getType(), "mushroom") || Objects.equals(o.getType(), "leaf") || Objects.equals(o.getType(), "special")|| Objects.equals(o.getType(), "feather") || Objects.equals(o.getType(), "scroll") || Objects.equals(o.getType(), "bottle"))
                switch (o.getType()){
                    case "fox":
                        System.out.println(" || F F F ||");
@@ -391,28 +395,90 @@ public class Tui implements UserInterface{
                        System.out.println(" || M M M ||");
                        break;
                    case "special":
-                       System.out.println(" || f b s  ||");
+                       System.out.println(" || f b s ||");
                        break;
-               }
-           else if (Objects.equals(o.getType(), "feather") || Objects.equals(o.getType(), "scroll") || Objects.equals(o.getType(), "bottle")){
-               switch (o.getType()){
-                   case "feather":
-                       System.out.println(" ||  f  f  ||");
-                       break;
-                   case "bottle":
-                       System.out.println(" ||  b  b  ||");
-                       break;
-                   case "scroll":
-                       System.out.println(" ||  s  s  ||");
-                       break;
+
+                       case "feather":
+                           System.out.println(" ||  f  f ||");
+                           break;
+                       case "bottle":
+                           System.out.println(" ||  b  b ||");
+                           break;
+                       case "scroll":
+                           System.out.println(" ||  s  s ||");
+                           break;
                }
 
-           }System.out.println(" == = = = == ");
+
+           System.out.println(" ========== ");
+           }
+                if(Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "blue")){
+                    System.out.print("=============\n" +
+                                     "||    ORA  ||\n"+
+                                     "||BLU      ||\n"+
+                                     "||BLU    3 ||\n"+
+                                     "=============");
+                }else if  (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "orange")) {
+                    System.out.print("=============\n" +
+                        "||      ORA||\n"+
+                        "||   ORA   ||\n"+
+                        "||ORA    2 ||\n"+
+                        "=============");}
+                    else if (Objects.equals(o.getCard1(), "blue") && Objects.equals(o.getCard2(), "blue") && Objects.equals(o.getCard3(), "blue")) {
+                        System.out.print("=============\n" +
+                                "||      ORA||\n"+
+                                "||   ORA   ||\n"+
+                                "||ORA    2 ||\n"+
+                                "=============");
+
+                }
+                else if (Objects.equals(o.getCard1(), "green") && Objects.equals(o.getCard2(), "green") && Objects.equals(o.getCard3(), "green")) {
+                    System.out.print("=============\n" +
+                            "||GRE      ||\n"+
+                            "||   GRE   ||\n"+
+                            "||2     GRE||\n"+
+                            "=============");
+
+                } else if (Objects.equals(o.getCard1(), "purple") && Objects.equals(o.getCard2(), "purple") && Objects.equals(o.getCard3(), "purple")) {
+                    System.out.print("=============\n" +
+                            "||PUR      ||\n"+
+                            "||   PUR   ||\n"+
+                            "||2     PUR||\n"+
+                            "=============");
 
 
-    }else if(Objects.equals(o.getType(), "position")) System.out.println("position");
+                } else if (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "green")) {
+        System.out.print("=============\n" +
+                "||ORA    3 ||\n"+
+                "||ORA      ||\n"+
+                "||   GRE   ||\n"+
+                "=============");
+
+
+        }else if (Objects.equals(o.getCard1(), "green") && Objects.equals(o.getCard2(), "green") && Objects.equals(o.getCard3(), "purple")) {
+                    System.out.print("=============\n" +
+                            "||   GRE   ||\n"+
+                            "||   GRE   ||\n"+
+                            "||PUR    3 ||\n"+
+                            "=============");
+
+
+                }
+                else if (Objects.equals(o.getCard1(), "blue") && Objects.equals(o.getCard2(), "purple") && Objects.equals(o.getCard3(), "purple")) {
+                    System.out.print("=============\n" +
+                            "||BLU    " +
+                            "3 ||\n"+
+                            "||   PUR   ||\n"+
+                            "||   PUR   ||\n"+
+                            "=============");
+
+
+                }
+       }
+
+
 }
 
-}
+
 
 

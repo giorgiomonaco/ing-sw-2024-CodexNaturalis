@@ -11,6 +11,7 @@ public class GameStartedView implements TuiView{
                 "+----------------------+\n\nHere are your playable cards:\n");
         for(int i = 0; i < 3; i++) {
             Tui view = (Tui) client.getUI();
+            System.out.println("\nCARTA "+(i+1)+":");
             view.printCard(client.getPlayerHand().get(i));
         }
 
