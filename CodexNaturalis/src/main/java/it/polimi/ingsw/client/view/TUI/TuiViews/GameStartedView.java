@@ -13,5 +13,8 @@ public class GameStartedView implements TuiView{
             Tui view = (Tui) client.getUI();
             view.printCard(client.getPlayerHand().get(i));
         }
+
+        Tui view2 = (Tui) client.getUI();
+        view2.viewFirst(client.getInit());
     }
 }

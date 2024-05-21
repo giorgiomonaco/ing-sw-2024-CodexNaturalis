@@ -15,15 +15,15 @@ public class ShowCardsView implements TuiView{
 
     public void play(List<Card> list) {
         this.playerHand = list;
-        for (Card c : list){
+       /* for (Card c : list){
             if(c instanceof ResourceCard){
                 printResourceCard((ResourceCard) c);
             }
             else if (c instanceof GoldCard)
                 printGoldCard((GoldCard) c);
-        }
+        }*/
     }
-
+/*
     private void printResourceCard(ResourceCard r) {
         System.out.println("show front or back?\n [1] = front, [2] = back");
         Scanner t= new Scanner(System.in);
@@ -164,8 +164,7 @@ public class ShowCardsView implements TuiView{
             if (i == 2) System.out.print(" == ");
         }
 
-    }
-
+    }*/
 
     @Override
     public void play(Client client) {

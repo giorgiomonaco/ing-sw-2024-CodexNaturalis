@@ -20,7 +20,7 @@ public class SelObjView implements TuiView{
         for(ObjectiveCard c: availableObj){
             System.out.println("\nCARD " + i + " :\n");
             Tui view = (Tui) client.getUI();
-            // view.printObjCard(c);
+            view.printObjectiveCard(c);
             i++;
         }
 

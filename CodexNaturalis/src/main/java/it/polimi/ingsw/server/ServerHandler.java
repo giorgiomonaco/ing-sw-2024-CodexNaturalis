@@ -136,14 +136,15 @@ public class ServerHandler {
                 break;
             case messEnum.SHOW_FIRST_CARD:
                 synchronized (controllerLock){
-                    ShowFirst showFirst = (ShowFirst) msg;
+                    ShowFirstRequest showFirst = (ShowFirstRequest) msg;
                     Player p = mainController.getPlayerByUsername(showFirst.getUsername());
                     InitialCard card = p.getInitialCard();
                     sendMessageToPlayer(showFirst.getUsername(),
-                            new ShowFirst(messEnum.PLAY_CARD, showFirst.getUsername(), card));
+                            new ShowFirst(messEnum.SHOW_FIRST_CARD, showFirst.getUsername(), card));
 
                 }
                 break;
+
             case SELECTION_TOKEN:
                 synchronized (controllerLock) {
                     SelectionToken selToken = (SelectionToken) msg;
@@ -163,7 +164,7 @@ public class ServerHandler {
                     if(mainController.isFirstTurn()){
                         mainController.beginFirstTurn();
                     } else {
-                        mainController.beginTurn();
+                       // mainController.beginTurn();
                     }
                 }
         }

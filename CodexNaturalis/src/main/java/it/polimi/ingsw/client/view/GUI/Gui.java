@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.InitialCard;
 
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class Gui implements UserInterface {
 
     @Override
     public void viewCard(Card card) {
+
+    }
+
+    @Override
+    public void viewFirst(InitialCard init) {
 
     }
 
