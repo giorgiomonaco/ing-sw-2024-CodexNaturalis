@@ -28,10 +28,11 @@ public class DrawManager {
             //then we need to add the 2 objective cards
             drawObjectiveCards();
             drawObjectiveCards();
-            //we distribute the initial card to every one
-            //placing it into the right place (center) on the player board game
-            distributeInitialCards();
         }
+
+        //we distribute the initial card to every one
+        //placing it into the right place (center) on the player board game
+        distributeInitialCards();
     }
 
     //Distribute the initial card to every player

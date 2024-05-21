@@ -56,8 +56,7 @@ public class InitialCardsInitializer {
             finalPath = addPath + basePath;
         }
 
-        try (Reader reader = new FileReader(finalPath);
-             JsonReader jsonReader = Json.createReader(reader)) {
+        try (Reader reader = new FileReader(finalPath); JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
 
