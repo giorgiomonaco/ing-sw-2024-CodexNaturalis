@@ -121,7 +121,7 @@ public class Tui implements UserInterface{
     }
 
     public void viewFirst(InitialCard card){
-
+        printInitialCard(card);
     }
 
 
@@ -293,72 +293,9 @@ public class Tui implements UserInterface{
 
     private void printInitialCard(InitialCard r) {
         System.out.println("\nCARTA INIZIALE:\n");
-        //VisibleAngle[] array;
-       /* for (int p = 0; p < 2; p++) {
-            if (p == 0) {
-                array = r.getFrontAngles();
-                System.out.println("\nfront:");
-            } else {
-                array = r.getBackAngles();
-                System.out.println("\nback:");
-            }
-            for (int i = 0; i < 4; i++) {
-                if (i == 2) {
-                    for (Symbol d : r.getBackSymbol()) {
-                        String q = d.getSymbolName();
-                        System.out.print("\n|| " );
-                        q = switch (q) {
-                            case "leaf" -> "GRE";
-                            case "mushroom" -> "ORA";
-                            case "butterfly" -> "PUR";
-                            case "fox" -> "BLU";
-                            default -> q;
-                        };
-
-                    System.out.println(q +" ");
-                    } System.out.println("  ||");
-                }
-                if (array[i] == null) {
-                    System.out.print("X");
-
-                } else if (array[i].getSymbol() == null) {
-
-                    System.out.print("E");
-                } else {
-
-                    String s = array[i].getSymbol().getSymbolName();
-                    switch (s) {
-                        case "mushroom":
-                            System.out.print("M");
-                            break;
-                        case "leaf":
-                            System.out.print("L");
-                            break;
-                        case "fox":
-                            System.out.print("F");
-                            break;
-                        case "butterfly":
-                            System.out.print("B");
-                            break;
-                        case "bottle":
-                            System.out.print("b");
-                            break;
-                        case "scroll":
-                            System.out.print("s");
-                            break;
-                        case "feather":
-                            System.out.print("f");
-                            break;
-                    }
-
-                }
-                if (i == 0){ System.out.print(" == = == ");
-                }
-                if (i == 2) System.out.print(" == = == ");
-                if(i==3) System.out.println();
-            }
-
-        }*/
+        for(Symbol o: r.getBackSymbol()){
+            System.out.println(o);
+        }
     }
 
     Colors color = new Colors();
@@ -367,7 +304,7 @@ public class Tui implements UserInterface{
        if(!Objects.equals(o.getType(), "position")){
            System.out.println(" ========== ");
            System.out.println(" ||   "+o.getPoints()+"   ||");
-           System.out.println(" ||         ||");
+           System.out.println(" ||       ||");
            String q=o.getType();
            if (Objects.equals(o.getType(), "fox") || Objects.equals(o.getType(), "butterfly") || Objects.equals(o.getType(), "mushroom") || Objects.equals(o.getType(), "leaf") || Objects.equals(o.getType(), "special")|| Objects.equals(o.getType(), "feather") || Objects.equals(o.getType(), "scroll") || Objects.equals(o.getType(), "bottle"))
                switch (o.getType()){
