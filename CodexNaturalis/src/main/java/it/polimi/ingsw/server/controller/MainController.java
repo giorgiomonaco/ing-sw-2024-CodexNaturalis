@@ -1,11 +1,10 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.network.message.allMessages.*;
+import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
-import it.polimi.ingsw.client.view.ViewTry;
 import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.server.model.GameState;
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 import java.util.ArrayList;
@@ -103,17 +102,19 @@ public class MainController {
         }
     }
 
-  /*  public void beginTurn(){
+    public void beginTurn(){
         currPlayerIndex = (currPlayerIndex+1)%(game.getUserList().size());
+        Player p = game.getPlayerList().get(currPlayerIndex);
 
         if(getGame().getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
             endGame();
         }
         else {
-
-            // serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex), );
+            game.setCurrentPlayer(p);
+            serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex),
+                    new PlayCardResponse(messEnum.PLAY_CARD_RESPONSE, ServerHandler.HOSTNAME, p.getPlayerHand(),p.getGameboard(), p.getResourcesAvailable()));
         }
-    }*/
+    }
 
     public void beginFirstTurn(){
 
@@ -136,6 +137,7 @@ public class MainController {
         } else {
             firstTurn = false;
         }
+
 
     }
 

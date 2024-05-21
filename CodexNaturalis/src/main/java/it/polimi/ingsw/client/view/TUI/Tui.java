@@ -89,9 +89,6 @@ public class Tui implements UserInterface{
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
                 break;
-            case YOUR_TURN:
-                phaseView.get(stateEnum.YOUR_TURN).play(tuiCli);
-                break;
         }
 
     }

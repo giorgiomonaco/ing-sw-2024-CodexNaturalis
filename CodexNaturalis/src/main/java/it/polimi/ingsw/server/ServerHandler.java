@@ -94,12 +94,12 @@ public class ServerHandler {
                 }
             case messEnum.PLAY_CARD:
                 synchronized (controllerLock){
-                    PlayCardMessage play = (PlayCardMessage) msg;
+                    PlayCardResponse play = (PlayCardResponse) msg;
                     Player p = mainController.getPlayerByUsername(play.getUsername());
                     List<Card> cards = p.getPlayerHand();
-                    GameBoard g = p.getGameBoard();
+                    Boards g = p.getGameboard();
                     sendMessageToPlayer(play.getUsername(),
-                            new PlayCardMessage(messEnum.PLAY_CARD, play.getUsername(), cards));
+                            new PlayCardResponse(messEnum.PLAY_CARD_RESPONSE, play.getUsername(), cards, g, play.getResources()));
 
                 }
                 break;
@@ -124,6 +124,14 @@ public class ServerHandler {
                     } else {
                        // mainController.beginTurn();
                     }
+                }
+                break;
+            case messEnum.SELECTION_CARD:
+                synchronized (controllerLock){
+                    SelectionCard selCard = (SelectionCard) msg;
+                    mainController.getPlayerByUsername(selCard.getUsername()).;
+                    mainController.playCard(selCard.getCard(), selCard.getX(), selCard.getY());
+                    //manda nuovo mess
                 }
                 break;
         }
