@@ -11,6 +11,7 @@ public class GoldCard extends Card {
     private final int condition;
     //number of points the card gives when played
     private final int cardPoints;
+
     /*
     Visible symbols needed on the game board to play the card
     In order:

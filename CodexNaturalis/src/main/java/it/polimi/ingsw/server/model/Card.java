@@ -103,6 +103,9 @@ public abstract class Card implements Serializable {
         }
 
     }
+    public boolean getSide() {
+        return frontSide;
+    }
 
 
     //getter of the ID of the card

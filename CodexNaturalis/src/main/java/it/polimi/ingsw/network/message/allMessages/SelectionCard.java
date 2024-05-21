@@ -9,12 +9,14 @@ public class SelectionCard extends Message {
     Card card;
     int x;
     int y;
+    boolean side;
 
-    public SelectionCard(String senderUsername, Card card, int x, int y) {
+    public SelectionCard(String senderUsername, Card card, int x, int y, boolean side) {
         super(messEnum.SELECTION_CARD, senderUsername);
         this.card = card;
         this.x = x;
         this.y = y;
+        this.side = side;
     }
 
     @Override
@@ -32,6 +34,9 @@ public class SelectionCard extends Message {
 
     public int getY() {
         return y;
+    }
+    public boolean getSide() {
+        return side;
     }
 }
 

@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.GoldCard;
 
 import java.rmi.RemoteException;
+import java.util.Objects;
 
 public class PlayCardCommand implements CommandManager {
     private Client client;
@@ -23,6 +24,7 @@ public class PlayCardCommand implements CommandManager {
         int index = Integer.parseInt(commands[1]);
         int x = Integer.parseInt(commands[2]);
         int y = Integer.parseInt(commands[3]);
+        boolean side = Boolean.parseBoolean(commands[4]);
         Card card = client.getPlayerHand().get(index-1);
 
         if(!client.getCurrentState().equals(stateEnum.PLAY_CARD) ){
@@ -40,6 +42,10 @@ public class PlayCardCommand implements CommandManager {
         else if (client.getBoards().getCheckboard()[x][y] == -1 && client.getBoards().getCheckboard()[x][y] == 1){
             throw new WrongInsertionException("The selected position is not available. Please choose above the available ones");
         }
+        else if(!Objects.equals(commands[4], "true") || !Objects.equals(commands[4], "false")){
+            throw new WrongInsertionException("The selected side is not available. Please choose above the available ones");
+        }
+
         else if(card instanceof GoldCard){
             for (int i = 0; i < 7; i++) {
                 if(!(((GoldCard) card).getNeededSymbols()[i] <= client.getResources()[i])){
@@ -47,7 +53,7 @@ public class PlayCardCommand implements CommandManager {
                 }
 
             }
-            SelectionCard toSend = new SelectionCard(client.getUsername(), card, x, y);
+            SelectionCard toSend = new SelectionCard(client.getUsername(), card, x, y, side);
             client.sendMessage(toSend);
         }
 

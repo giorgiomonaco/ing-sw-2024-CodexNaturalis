@@ -199,6 +199,18 @@ public class MainController {
         return firstTurn;
     }
 
-    public void playCard(Card card, int x, int y){
+    public void playCard(Player p, Card card, int x, int y, boolean side){
+        PlayCardManager playCardManager = new PlayCardManager(game, game.getCurrentPlayer());
+
+        if (card instanceof ResourceCard) {
+            p.removeResourceCardFromHand((ResourceCard) card);
+            playCardManager.playCard(card, x, y, side);
+            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
+
+        } else if (card instanceof GoldCard goldCard) {
+            p.removeGoldCardFromHand(goldCard);
+            playCardManager.playCard(card, x, y, side);
+            game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
+        }
     }
 }
