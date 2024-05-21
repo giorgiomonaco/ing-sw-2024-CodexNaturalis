@@ -125,6 +125,7 @@ public class Tui implements UserInterface{
 
     }
 
+    Colors color = new Colors();
 
     public void printCard(Card card) {
         if (card instanceof ResourceCard) {
@@ -147,9 +148,9 @@ public class Tui implements UserInterface{
                     String q = g.getBackSymbol().getFirst().getSymbolName();
                     q = switch (q) {
                         case "leaf" -> color.greenColor + "GRE " + color.resetColor;
-                        case "mushroom" -> "ORA ";
-                        case "butterfly" -> "PUR ";
-                        case "fox" -> "BLU ";
+                        case "mushroom" -> color.orangeColor + "ORA " + color.resetColor;
+                        case "butterfly" -> color.purpleColor + "PUR " + color.resetColor;
+                        case "fox" -> color.blueColor + "BLU " + color.resetColor;
                         default -> q;
                     };
                     System.out.println("\n"+"||  " + q + "  ||");
@@ -232,16 +233,16 @@ public class Tui implements UserInterface{
                     String q = r.getBackSymbol().getFirst().getSymbolName();
                     switch (q) {
                         case "leaf":
-                            q = "GRE";
+                            q = color.greenColor + "GRE " + color.resetColor;;
                             break;
                         case "mushroom":
-                            q = "ORA";
+                            q = color.orangeColor + "ORA " + color.resetColor;;
                             break;
                         case "butterfly":
-                            q = "PUR";
+                            q = color.purpleColor + "PUR " + color.resetColor;;
                             break;
                         case "fox":
-                            q = "BLU";
+                            q = color.blueColor + "BLU " + color.resetColor;;
                             break;
                     }
                     System.out.println("\n"+"||  " + q + "  ||");
@@ -294,12 +295,106 @@ public class Tui implements UserInterface{
 
     public void printInitialCard(InitialCard r) {
         System.out.println("\nCARTA INIZIALE:\n");
-        for(Symbol o: r.getBackSymbol()){
-            System.out.println(o);
+        String a;
+        for (int p=0;p<2;p++){
+            if(p==0) System.out.println("FRONTE:");
+            if(p==1) System.out.println("\nRETRO:");
+            if(p==0){
+                for(int i=0;i<4;i++){
+                    a=r.getFrontVisibleAngle(i).getSymbol().getSymbolName();
+
+                    switch (a) {
+                        case "mushroom":
+                            System.out.print("M");
+                            break;
+                        case "leaf":
+                            System.out.print("L");
+                            break;
+                        case "fox":
+                            System.out.print("F");
+                            break;
+                        case "butterfly":
+                            System.out.print("B");
+                            break;
+                        case "bottle":
+                            System.out.print("b");
+                            break;
+                        case "scroll":
+                            System.out.print("s");
+                            break;
+                        case "feather":
+                            System.out.print("f");
+                            break;
+                    }
+                    if(i==0) System.out.print("=============");
+                    if (i == 1) System.out.println("\n||           ||");
+                    if(i==2) System.out.print("=============");
+
+                }
+            }
+            if(p==1){
+                for(int i=0;i<4;i++) {
+                    a = r.getFrontVisibleAngle(i).getSymbol().getSymbolName();
+
+                    switch (a) {
+                        case "mushroom":
+                            System.out.print("M");
+                            break;
+                        case "leaf":
+                            System.out.print("L");
+                            break;
+                        case "fox":
+                            System.out.print("F");
+                            break;
+                        case "butterfly":
+                            System.out.print("B");
+                            break;
+                        case "bottle":
+                            System.out.print("b");
+                            break;
+                        case "scroll":
+                            System.out.print("s");
+                            break;
+                        case "feather":
+                            System.out.print("f");
+                            break;
+                    }
+                    if (i == 0) System.out.print("=============");
+                    if (i == 1) {
+                        System.out.print("\n||    ");
+                        for(Symbol u : r.getBackSymbol()){
+                            switch(u.getSymbolName()) {case "mushroom":
+                                System.out.print("M");
+                                break;
+                                case "leaf":
+                                    System.out.print("L");
+                                    break;
+                                case "fox":
+                                    System.out.print("F");
+                                    break;
+                                case "butterfly":
+                                    System.out.print("B");
+                                    break;
+                                case "bottle":
+                                    System.out.print("b");
+                                    break;
+                                case "scroll":
+                                    System.out.print("s");
+                                    break;
+                                case "feather":
+                                    System.out.print("f");
+                                    break;
+
+                            }
+                        }
+                        System.out.println("     ||");
+                    }
+                    if (i == 2) System.out.print("=============");
+                }
+            }
         }
     }
 
-    Colors color = new Colors();
 
     public void printObjectiveCard(ObjectiveCard o){
        if(!Objects.equals(o.getType(), "position")){
@@ -341,62 +436,61 @@ public class Tui implements UserInterface{
            }
                 if(Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "blue")){
                     System.out.print("=============\n" +
-                                     "||    ORA  ||\n"+
-                                     "||BLU      ||\n"+
-                                     "||BLU    3 ||\n"+
+                                     "||    "+color.orangeColor+"ORA"+color.resetColor+"  ||\n"+
+                                     "||"+color.blueColor+"BLU"+color.resetColor+"      ||\n"+
+                                     "||"+color.blueColor+"BLU"+color.resetColor+"+    3 ||\n"+
                                      "=============");
                 }else if  (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "orange")) {
                     System.out.print("=============\n" +
-                        "||      ORA||\n"+
-                        "||   ORA   ||\n"+
-                        "||ORA    2 ||\n"+
+                        "||      "+color.orangeColor+"ORA"+color.resetColor+"||\n"+
+                        "||   "+color.orangeColor+"ORA"+color.resetColor+"   ||\n"+
+                        "||"+color.orangeColor+"ORA"+color.resetColor+"    2 ||\n"+
                         "=============");}
                     else if (Objects.equals(o.getCard1(), "blue") && Objects.equals(o.getCard2(), "blue") && Objects.equals(o.getCard3(), "blue")) {
                         System.out.print("=============\n" +
-                                "||      ORA||\n"+
-                                "||   ORA   ||\n"+
-                                "||ORA    2 ||\n"+
+                                "||      "+color.blueColor+"BLU"+color.resetColor+"||\n"+
+                                "||   "+color.blueColor+"BLU"+color.resetColor+"   ||\n"+
+                                "||"+color.blueColor+"BLU"+color.resetColor+"    2 ||\n"+
                                 "=============");
 
                 }
                 else if (Objects.equals(o.getCard1(), "green") && Objects.equals(o.getCard2(), "green") && Objects.equals(o.getCard3(), "green")) {
                     System.out.print("=============\n" +
-                            "||GRE      ||\n"+
-                            "||   GRE   ||\n"+
-                            "||2     GRE||\n"+
+                            "||"+color.greenColor+"GRE"+color.resetColor+"      ||\n"+
+                            "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
+                            "||2     "+color.greenColor+"GRE"+color.resetColor+"||\n"+
                             "=============");
 
                 } else if (Objects.equals(o.getCard1(), "purple") && Objects.equals(o.getCard2(), "purple") && Objects.equals(o.getCard3(), "purple")) {
                     System.out.print("=============\n" +
-                            "||PUR      ||\n"+
-                            "||   PUR   ||\n"+
-                            "||2     PUR||\n"+
+                            "||"+color.purpleColor+"PUR"+color.resetColor+"      ||\n"+
+                            "||   "+color.purpleColor+"PUR"+color.resetColor+"   ||\n"+
+                            "||2     "+color.purpleColor+"PUR"+color.resetColor+"||\n"+
                             "=============");
 
 
                 } else if (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "green")) {
         System.out.print("=============\n" +
-                "||ORA    3 ||\n"+
-                "||ORA      ||\n"+
-                "||   GRE   ||\n"+
+                "||"+color.orangeColor+"ORA"+color.resetColor+"    3 ||\n"+
+                "||"+color.orangeColor+"ORA"+color.resetColor+"      ||\n"+
+                "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
                 "=============");
 
 
         }else if (Objects.equals(o.getCard1(), "green") && Objects.equals(o.getCard2(), "green") && Objects.equals(o.getCard3(), "purple")) {
                     System.out.print("=============\n" +
-                            "||   GRE   ||\n"+
-                            "||   GRE   ||\n"+
-                            "||PUR    3 ||\n"+
+                            "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
+                            "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
+                            "||"+color.purpleColor+"PUR"+color.resetColor+"    3 ||\n"+
                             "=============");
 
 
                 }
                 else if (Objects.equals(o.getCard1(), "blue") && Objects.equals(o.getCard2(), "purple") && Objects.equals(o.getCard3(), "purple")) {
                     System.out.print("=============\n" +
-                            "||BLU    " +
-                            "3 ||\n"+
-                            "||   PUR   ||\n"+
-                            "||   PUR   ||\n"+
+                            "||"+color.blueColor+"BLU"+color.resetColor+"    3 ||\n"+
+                            "||   "+color.purpleColor+"PUR"+color.resetColor+"   ||\n"+
+                            "||   "+color.purpleColor+"PUR"+color.resetColor+"   ||\n"+
                             "=============");
 
 

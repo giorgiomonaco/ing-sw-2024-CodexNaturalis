@@ -69,6 +69,7 @@ public abstract class Card implements Serializable {
         return backSymbol;
     }
 
+
     /*
     Method to cover and angle
     May look to move it from here
