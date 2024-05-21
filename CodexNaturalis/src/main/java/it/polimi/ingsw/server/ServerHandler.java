@@ -106,7 +106,7 @@ public class ServerHandler {
                     SelectionObjCard selObj = (SelectionObjCard) msg;
                     String username = selObj.getUsername();
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
-                    mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection()));
+                    mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
 
                     if(mainController.isFirstTurn()){
                         mainController.beginFirstTurn();
