@@ -120,8 +120,9 @@ public class Tui implements UserInterface{
         printCard(card);
     }
 
-    public void viewFirst(InitialCard card){
-        printInitialCard(card);
+    @Override
+    public void viewFirst(InitialCard init) {
+
     }
 
 
@@ -291,7 +292,7 @@ public class Tui implements UserInterface{
         }
     }
 
-    private void printInitialCard(InitialCard r) {
+    public void printInitialCard(InitialCard r) {
         System.out.println("\nCARTA INIZIALE:\n");
         for(Symbol o: r.getBackSymbol()){
             System.out.println(o);

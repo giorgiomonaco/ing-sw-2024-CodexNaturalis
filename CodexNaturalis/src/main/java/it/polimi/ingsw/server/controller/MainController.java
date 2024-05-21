@@ -125,16 +125,14 @@ public class MainController {
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
                             "black",
-                            getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard(),
-                            getPlayerByUsername(game.getUserList().getFirst()).getInitialCard()));
+                            getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
             firstTurn = true;
         } else if (firstTurnIndex != 0){
             serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
                             availableToken,
-                            getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard(),
-                            getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getInitialCard()));
+                            getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
         } else {
             firstTurn = false;
         }

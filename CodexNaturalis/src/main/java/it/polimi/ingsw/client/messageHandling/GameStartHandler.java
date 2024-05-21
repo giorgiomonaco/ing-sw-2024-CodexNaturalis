@@ -12,6 +12,7 @@ public class GameStartHandler implements MessageHandler {
 
         GameStarting game = (GameStarting) msg;
         client.setPlayerHand(game.getPlayerHand());
+        client.setInit(game.getCard());
 
         client.getUI().run();
     }
