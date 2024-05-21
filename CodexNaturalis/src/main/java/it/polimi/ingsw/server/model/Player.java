@@ -31,9 +31,6 @@ public class Player {
 
     private String playerTokenS;
 
-    //The personal game board of the player
-    private GameBoard gameBoard;
-
     private int playerPoints = 0;
     private InitialCard initialCard;
 
@@ -128,16 +125,6 @@ public class Player {
     //Get the player name
     public String getPlayerName() {
         return playerName;
-    }
-
-    //associate a game board to the player
-    public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-    }
-
-    //get the game board
-    public GameBoard getGameBoard() {
-        return gameBoard;
     }
 
     //get the list of resources available

@@ -20,7 +20,8 @@ public class GameSetUpper {
 
     //Initialization of the game
     public void gameSetUp(){
-       //create the token manager
+
+        //create the token manager
         TokenManager tokenManager = new TokenManager(game);
         //we give every player a token
         tokenManager.initializeTokens();
@@ -52,6 +53,7 @@ public class GameSetUpper {
     }
 
     public void CreateGame(String username){
+
         //Initialization of the players
         game.addPlayer(new Player(username));
         game.setGameState(gameStateEnum.ACCEPT_PLAYER);

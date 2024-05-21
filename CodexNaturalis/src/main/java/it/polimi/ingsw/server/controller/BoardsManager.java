@@ -13,6 +13,7 @@ public class BoardsManager {
     public BoardsManager(Game game) {
         this.game = game;
     }
+
     public void initializeBoards() {
         //fore every player in the game
         for (Player p : game.getPlayerList()) {
@@ -93,6 +94,7 @@ public class BoardsManager {
 
     // set tutte le caselle a -1
    private void cleanCheckBoard(){
+
        for(int i=0;i<board.getMAX_X();i++){
            for(int j=0;j< board.getMAX_Y();j++){
                board.getCheckboard()[i][j] = -1;
