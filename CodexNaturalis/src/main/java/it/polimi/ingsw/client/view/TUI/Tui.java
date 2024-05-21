@@ -42,9 +42,10 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.PLAY_CARD, new PlayCardView());
         phaseView.put(stateEnum.SELECT_NUM_PLAYERS, new SelNumPlayerView());
         phaseView.put(stateEnum.SELECT_TOKEN, new SelTokenView());
+        phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
-        phaseView.put(stateEnum.YOUR_TURN, new YourTurnView());
+        // phaseView.put(stateEnum.YOUR_TURN, new YourTurnView());
     }
 
 
@@ -84,10 +85,13 @@ public class Tui implements UserInterface{
             case SELECT_TOKEN:
                 phaseView.get(stateEnum.SELECT_TOKEN).play(tuiCli);
                 break;
+            case SELECT_OBJECTIVE:
+                phaseView.get(stateEnum.SELECT_OBJECTIVE).play(tuiCli);
+                break;
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
                 break;
-                case YOUR_TURN:
+            case YOUR_TURN:
                 phaseView.get(stateEnum.YOUR_TURN).play(tuiCli);
                 break;
         }

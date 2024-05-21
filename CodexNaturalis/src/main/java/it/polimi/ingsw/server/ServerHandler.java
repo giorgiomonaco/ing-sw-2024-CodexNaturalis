@@ -123,11 +123,6 @@ public class ServerHandler {
 
                 }
                 break;
-            case messEnum.FIRST_TURN_RESPONSE:
-                synchronized (controllerLock){
-
-                }
-                //da continuare
             case messEnum.PLAY_CARD:
                 synchronized (controllerLock){
                     PlayCardMessage play = (PlayCardMessage) msg;
@@ -150,11 +145,26 @@ public class ServerHandler {
                 }
                 break;
             case SELECTION_TOKEN:
-                synchronized (controllerLock){
+                synchronized (controllerLock) {
                     SelectionToken selToken = (SelectionToken) msg;
                     mainController.getPlayerByUsername(selToken.getUsername()).setPlayerTokenS(selToken.getDescription());
                     mainController.getGame().removeAvailableTokens(selToken.getDescription());
-                    //manda nuovo mess
+                    sendMessageToPlayer(selToken.getUsername(),
+                            new SelectObjCard(ServerHandler.HOSTNAME));
+                }
+                break;
+            case SELECTION_OBJECTIVE:
+                synchronized (controllerLock) {
+                    SelectionObjCard selObj = (SelectionObjCard) msg;
+                    String username = selObj.getUsername();
+                    List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
+                    mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection()));
+
+                    if(mainController.isFirstTurn()){
+                        mainController.beginFirstTurn();
+                    } else {
+                        mainController.beginTurn();
+                    }
                 }
         }
     }

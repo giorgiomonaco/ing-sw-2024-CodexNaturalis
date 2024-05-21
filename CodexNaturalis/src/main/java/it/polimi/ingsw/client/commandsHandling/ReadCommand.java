@@ -61,6 +61,7 @@ public class ReadCommand implements Runnable{
         mapOfCommand.put("login", new LoginCommand(client));
         mapOfCommand.put("num", new SelNumPlayersCommand(client));
         mapOfCommand.put("color", new SelTokenCommand(client));
+        mapOfCommand.put("obj", new SelObjCardCommand(client));
         mapOfCommand.put("showCards",new ShowHandCommand((client)));
         mapOfCommand.put("drawCard",new DrawCardCommand(client));
         mapOfCommand.put("showResources",new ShowResourcesCommand(client));

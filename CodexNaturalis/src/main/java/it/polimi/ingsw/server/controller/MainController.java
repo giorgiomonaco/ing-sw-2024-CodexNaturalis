@@ -23,7 +23,8 @@ public class MainController {
     private int finalPlayerIndex;
 
     // If it's the first turn the players have to choose the token and the personal objective cards.
-    private int firstTurn = 0;
+    private int firstTurnIndex;
+    private boolean firstTurn;
 
     //Constructor, it only needs a game to control
     public MainController(ServerHandler serverHandler){
@@ -109,33 +110,32 @@ public class MainController {
         }
         else {
 
-            serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex), );}
+            // serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex), );
+        }
     }
 
     public void beginFirstTurn(){
 
         List<String> availableToken = game.getAvailableTokens();
+        firstTurnIndex = (firstTurnIndex+1)%(game.getUserList().size());
 
-        for(int i = 0; i < game.getUserList().size(); i++) {
-
-            if(i == 0){
-                serverHandler.sendMessageToPlayer(game.getUserList().getFirst(),
-                        new FirstTurn(
-                                ServerHandler.HOSTNAME,
-                                "black",
-                                getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
-            } else {
-                serverHandler.sendMessageToPlayer(game.getUserList().get(i),
-                        new FirstTurn(
-                                ServerHandler.HOSTNAME,
-                                availableToken,
-                                getPlayerByUsername(game.getUserList().get(i)).getSelObjectiveCard()));
-            }
-
-            while(i == firstTurn){
-            }
-
+        if(firstTurnIndex == 0 && !firstTurn){
+            serverHandler.sendMessageToPlayer(game.getUserList().getFirst(),
+                    new FirstTurn(
+                            ServerHandler.HOSTNAME,
+                            "black",
+                            getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
+            firstTurn = true;
+        } else if (firstTurnIndex != 0){
+            serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
+                    new FirstTurn(
+                            ServerHandler.HOSTNAME,
+                            availableToken,
+                            getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
+        } else {
+            firstTurn = false;
         }
+
     }
 
     public void endGame(){
@@ -148,7 +148,8 @@ public class MainController {
         // Initial and final player index is set at -1
         currPlayerIndex = -1;
         finalPlayerIndex = -1;
-
+        firstTurnIndex = -1;
+        firstTurn = false;
 
     }
 
@@ -192,4 +193,7 @@ public class MainController {
     }
 
 
+    public boolean isFirstTurn() {
+        return firstTurn;
+    }
 }
