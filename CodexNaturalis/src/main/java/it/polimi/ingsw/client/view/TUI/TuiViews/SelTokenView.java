@@ -29,6 +29,8 @@ public class SelTokenView implements TuiView{
             System.out.println("\n+----------------------+\n" +
                     "|      GAME SET UP     |\n" +
                     "+----------------------+\n\nYou are the first player!\n\nYour token is " + color.lightGrayColor + "black" + color.resetColor);
+
+            System.out.println("\nInsert 'color black' to continue.");
         }
 
     }

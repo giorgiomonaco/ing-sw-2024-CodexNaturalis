@@ -27,10 +27,13 @@ public enum stateEnum {
      */
     GAME_STARTED,
     /**
-     * When the game start, for the setup of the board, it's asked to select the token
-     * and the objective card.
+     * When the game start, for the setup of the board, it's asked to select the token.
      */
     SELECT_TOKEN,
+    /**
+     * When the game start, for the setup of the board, it's asked to select the objective card.
+     */
+    SELECT_OBJECTIVE,
     /**
      * The game is started, but it's not the client turn.
      */

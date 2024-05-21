@@ -10,10 +10,8 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.*;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 public class Tui implements UserInterface{
 
@@ -42,9 +40,10 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.PLAY_CARD, new PlayCardView());
         phaseView.put(stateEnum.SELECT_NUM_PLAYERS, new SelNumPlayerView());
         phaseView.put(stateEnum.SELECT_TOKEN, new SelTokenView());
+        phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
-        phaseView.put(stateEnum.YOUR_TURN, new YourTurnView());
+        // phaseView.put(stateEnum.YOUR_TURN, new YourTurnView());
     }
 
 
@@ -84,6 +83,9 @@ public class Tui implements UserInterface{
             case SELECT_TOKEN:
                 phaseView.get(stateEnum.SELECT_TOKEN).play(tuiCli);
                 break;
+            case SELECT_OBJECTIVE:
+                phaseView.get(stateEnum.SELECT_OBJECTIVE).play(tuiCli);
+                break;
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
                 break;
@@ -112,12 +114,19 @@ public class Tui implements UserInterface{
     public void viewCards(List<Card> playerHand) {
         ShowCardsView showCardsView = new ShowCardsView();
         showCardsView.play(playerHand);
+
     }
 
 
     public void viewCard(Card card) {
         DrawCardView drawCardView = new DrawCardView();
         printCard(card);
+    }
+
+    public void viewFirst(InitialCard card){
+        ShowFirstView showFirstView = new ShowFirstView();
+
+        printInitialCard(card);
     }
 
 
@@ -291,8 +300,9 @@ public class Tui implements UserInterface{
     }
 
     private void printInitialCard(InitialCard r) {
-        VisibleAngle[] array;
-        for (int p = 0; p < 2; p++) {
+        System.out.println("pesce in mano");
+        //VisibleAngle[] array;
+       /* for (int p = 0; p < 2; p++) {
             if (p == 0) {
                 array = r.getFrontAngles();
                 System.out.println("\nfront:");
@@ -304,6 +314,7 @@ public class Tui implements UserInterface{
                 if (i == 2) {
                     for (Symbol d : r.getBackSymbol()) {
                         String q = d.getSymbolName();
+                        System.out.print("\n|| " );
                         q = switch (q) {
                             case "leaf" -> "GRE";
                             case "mushroom" -> "ORA";
@@ -312,8 +323,8 @@ public class Tui implements UserInterface{
                             default -> q;
                         };
 
-                    System.out.println("\n"+"||  " + q + "  ||");
-                    }
+                    System.out.println(q +" ");
+                    } System.out.println("  ||");
                 }
                 if (array[i] == null) {
                     System.out.print("X");
@@ -355,10 +366,52 @@ public class Tui implements UserInterface{
                 if(i==3) System.out.println();
             }
 
-        }
+        }*/
     }
 
     Colors color = new Colors();
+
+    public void printObjectiveCard(ObjectiveCard o){
+       if( o.getType() != "position"){
+           System.out.println(" == = = = == ");
+           System.out.println(" ||   "+o.getPoints()+"   ||");
+           String q=o.getType();
+           if (Objects.equals(o.getType(), "fox") || Objects.equals(o.getType(), "butterfly") || Objects.equals(o.getType(), "mushroom") || Objects.equals(o.getType(), "leaf") || Objects.equals(o.getType(), "special"))
+               switch (o.getType()){
+                   case "fox":
+                       System.out.println(" || F F F ||");
+                       break;
+                   case "butterfly":
+                       System.out.println(" || B B B ||");
+                       break;
+                   case "leaf":
+                       System.out.println(" || L L L ||");
+                       break;
+                   case "mushroom":
+                       System.out.println(" || M M M ||");
+                       break;
+                   case "special":
+                       System.out.println(" || f b s  ||");
+                       break;
+               }
+           else if (Objects.equals(o.getType(), "feather") || Objects.equals(o.getType(), "scroll") || Objects.equals(o.getType(), "bottle")){
+               switch (o.getType()){
+                   case "feather":
+                       System.out.println(" ||  f  f  ||");
+                       break;
+                   case "bottle":
+                       System.out.println(" ||  b  b  ||");
+                       break;
+                   case "scroll":
+                       System.out.println(" ||  s  s  ||");
+                       break;
+               }
+
+           }System.out.println(" == = = = == ");
+
+
+    }else if(Objects.equals(o.getType(), "position")) System.out.println("position");
+}
 
 }
 

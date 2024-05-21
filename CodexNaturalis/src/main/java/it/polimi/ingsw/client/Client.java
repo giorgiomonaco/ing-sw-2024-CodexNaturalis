@@ -7,6 +7,7 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.InitialCard;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public abstract class Client extends UnicastRemoteObject implements Serializable {
 
+    public InitialCard Init;
     private String username;
     private UserInterface UI;
     private stateEnum currentState;
@@ -128,6 +130,14 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public InitialCard getInit() {
+        return Init;
+    }
+
+    public void setInit(InitialCard init) {
+        Init = init;
     }
 
     public Boards getBoards() {
