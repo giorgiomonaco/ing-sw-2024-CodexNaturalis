@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.messageHandling.FirstTurnHandler;
 import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
+import it.polimi.ingsw.server.model.InitialCard;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 
 
@@ -50,4 +51,5 @@ public class FirstTurn extends Message {
     public boolean isAdmin() {
         return admin;
     }
+
 }

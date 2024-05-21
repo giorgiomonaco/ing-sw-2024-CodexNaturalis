@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Card implements Serializable {
@@ -23,7 +24,7 @@ public abstract class Card implements Serializable {
     private final VisibleAngle[] backAngles = new VisibleAngle[4];
 
     //central symbol on the back of the card
-    private final List<Symbol> backSymbol;
+    private List<Symbol> backSymbol = new ArrayList<>();
 
 
     //Attribute that defines if we are playing/considering

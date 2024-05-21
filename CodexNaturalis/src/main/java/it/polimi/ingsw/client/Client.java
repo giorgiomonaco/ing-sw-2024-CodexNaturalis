@@ -18,7 +18,7 @@ import java.util.List;
 
 public abstract class Client extends UnicastRemoteObject implements Serializable {
 
-    public InitialCard Init;
+    private InitialCard Init;
     private String username;
     private UserInterface UI;
     private stateEnum currentState;
