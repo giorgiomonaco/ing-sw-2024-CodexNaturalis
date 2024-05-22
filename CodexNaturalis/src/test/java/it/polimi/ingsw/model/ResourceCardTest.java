@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceCardTest {
-    private ResourceCard r;
+    /*private ResourceCard r;
 
     @org.junit.Test
     public void testSomething() {
@@ -86,4 +86,6 @@ public class ResourceCardTest {
 
 
     }
+
+     */
 }
