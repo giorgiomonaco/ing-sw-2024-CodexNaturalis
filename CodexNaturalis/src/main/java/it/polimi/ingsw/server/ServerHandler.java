@@ -111,7 +111,7 @@ public class ServerHandler {
                     if(mainController.isFirstTurn()){
                         mainController.beginFirstTurn();
                     } else {
-                       // mainController.beginTurn();
+                       mainController.beginTurn();
                     }
                 }
                 break;

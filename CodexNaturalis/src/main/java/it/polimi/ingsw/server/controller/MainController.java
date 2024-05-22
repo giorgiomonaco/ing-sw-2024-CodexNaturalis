@@ -133,10 +133,11 @@ public class MainController {
                             ServerHandler.HOSTNAME,
                             availableToken,
                             getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
-        } else {
-            firstTurn = false;
-        }
 
+            if(firstTurnIndex == game.getPlayersNumber()-1){
+                firstTurn = false;
+            }
+        }
 
     }
 
