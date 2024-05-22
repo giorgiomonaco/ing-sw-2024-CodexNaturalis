@@ -96,11 +96,13 @@ public class BoardsManager {
     // set tutte le caselle a -1
    private Boards cleanCheckBoard(Boards board){
     this.board= board;
+
        for(int i=0;i<board.getMAX_X();i++){
            for(int j=0;j< board.getMAX_Y();j++){
                board.getCheckboard()[i][j] = -1;
            }
        }
+
        return board;
    }
 

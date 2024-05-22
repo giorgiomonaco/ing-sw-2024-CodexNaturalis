@@ -36,7 +36,7 @@ public class ResourceCardTest {
         VisibleAngle[] array = r.getBackAngles();
         for (int i = 0; i < 4; i++) {
             if (i == 2) {
-                String q = r.getBackSymbol().getSymbolName();
+                String q = r.getBackSymbol().getFirst().getSymbolName();
                 switch (q){
                     case "leaf": q = "GRE"; break;
                     case "mushroom": q = "ORA"; break;

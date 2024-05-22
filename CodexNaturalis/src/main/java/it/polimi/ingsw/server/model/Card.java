@@ -112,5 +112,9 @@ public abstract class Card implements Serializable {
     public int getCardID() {
         return cardID;
     }
+
+    public String getSymbolName(){
+        return null;
+    };
 }
 
