@@ -49,8 +49,7 @@ public class EndgameManager {
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
         Boards gameBoard = this.player.getGameboard();
 
-        /* da sistemare perchè è cambiato da gameboard a boards
-        Card[][] cardMatrix = gameBoard.getCardMatrix();
+        Card[][] cardMatrix = gameBoard.getGameboard();
 
 
         for (int row = 0; row< gameBoard.getMAX_Y(); row++){
@@ -60,7 +59,7 @@ public class EndgameManager {
                 }
             }
         }
-        */
+
 
         return;
     }
