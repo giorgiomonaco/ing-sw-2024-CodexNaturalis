@@ -19,7 +19,8 @@ public class BoardsManager {
         for (Player p : game.getPlayerList()) {
             //create a new game board
             Boards gameBoard = new Boards();
-            cleanCheckBoard();
+            this.board = gameBoard;
+            cleanCheckBoard(gameBoard);
             //Associate the game board to every player
             p.setBoards(gameBoard);
         }
@@ -93,13 +94,16 @@ public class BoardsManager {
 
 
     // set tutte le caselle a -1
-   private void cleanCheckBoard(){
+   private Boards cleanCheckBoard(Boards board){
+    this.board= board;
 
        for(int i=0;i<board.getMAX_X();i++){
            for(int j=0;j< board.getMAX_Y();j++){
                board.getCheckboard()[i][j] = -1;
            }
        }
+
+       return board;
    }
 
     public void updateBoxes(Card card, int x, int y){
