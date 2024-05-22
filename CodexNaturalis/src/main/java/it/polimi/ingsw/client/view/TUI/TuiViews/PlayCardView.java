@@ -41,10 +41,10 @@ public class PlayCardView implements TuiView{
 
     private void printBoard(){
         //todo
-        for (int y = 0; y < boards.getMAX_Y() + 1; y++){
+        for (int y = 0; y < boards.getMAX_Y() ; y++){
 
             System.out.println();
-            for (int x = 0; x < boards.getMAX_X() + 1 ; x++){
+            for (int x = 0; x < boards.getMAX_X() ; x++){
                 System.out.println(" "+boards.checkboard[x][y]+" ");
             }
         }

@@ -42,7 +42,7 @@ public class PlayCardCommand implements CommandManager {
         else if (client.getBoards().getCheckboard()[x][y] == -1 && client.getBoards().getCheckboard()[x][y] == 1){
             throw new WrongInsertionException("The selected position is not available. Please choose above the available ones");
         }
-        else if(!Objects.equals(commands[4], "true") || !Objects.equals(commands[4], "false")){
+        else if(!Objects.equals(commands[4], "true") && !Objects.equals(commands[4], "false")){
             throw new WrongInsertionException("The selected side is not available. Please choose above the available ones");
         }
 

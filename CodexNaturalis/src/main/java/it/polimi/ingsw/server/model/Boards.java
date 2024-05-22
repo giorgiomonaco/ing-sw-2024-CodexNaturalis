@@ -1,8 +1,9 @@
 package it.polimi.ingsw.server.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Boards {
+public class Boards implements Serializable {
     public Card[][] gameboard;
     public int[][] checkboard;
     private final int MAX_X = 100;
