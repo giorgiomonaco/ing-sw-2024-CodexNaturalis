@@ -50,9 +50,6 @@ public class MainController {
 
     }
 
-    public void playGame(){
-
-    }
 
     public Game getGame() {
         return game;
@@ -116,7 +113,7 @@ public class MainController {
         currPlayerIndex = (currPlayerIndex+1)%(game.getUserList().size());
         Player p = game.getPlayerList().get(currPlayerIndex);
 
-        if(getGame().getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
+        if(game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
             endGame();
         }
         else {
@@ -158,11 +155,19 @@ public class MainController {
     public void endTurn(){
         Player currPlayer = game.getPlayerList().get(currPlayerIndex);
 
-        // calcolare punti
+        // calcolare punti e vedere se deve iniziare l'ultimo turno
+        if(game.getGameState().equals(gameStateEnum.START) &&
+                (currPlayer.getPlayerPoints() >= 20 ||
+                        game.getResourceDeck().isEmpty() ||
+                        game.getGoldDeck().isEmpty())) {
+            finalPlayerIndex = currPlayerIndex;
+            game.setGameState(gameStateEnum.FINAL_TURN);
+        }
 
         // salvare il gioco
 
         // inviare messaggio fine turno
+
 
         beginTurn();
     }
