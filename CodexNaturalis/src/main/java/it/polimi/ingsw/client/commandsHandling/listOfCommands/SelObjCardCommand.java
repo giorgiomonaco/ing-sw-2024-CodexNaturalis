@@ -26,10 +26,13 @@ public class SelObjCardCommand implements CommandManager {
 
         int selection = Integer.parseInt(commands[1]);
         if(selection != 1 && selection != 2){
-            throw new WrongInsertionException("WRONG SELECTION!\nYou have to select a card form the available ones.");
+            throw new WrongInsertionException("WRONG SELECTION!\nYou have to select a card from the available ones.");
         }
 
         SelectionObjCard toSend = new SelectionObjCard(client.getUsername(), selection);
         client.sendMessage(toSend);
+
+        client.setCurrentState(stateEnum.WAITING_TURN);
+        client.getUI().run();
     }
 }

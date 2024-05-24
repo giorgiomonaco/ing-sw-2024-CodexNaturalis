@@ -15,19 +15,13 @@ public class FirstTurn extends Message {
 
     private List<String> listOfTokens = new ArrayList<>();
     private List<ObjectiveCard> listOfPersonalObjCards;
-    private boolean admin = false;
+    private boolean admin;
 
-    public FirstTurn(String senderUsername, List<String> tokens, List<ObjectiveCard> cards) {
+    public FirstTurn(String senderUsername, boolean admin, List<String> tokens, List<ObjectiveCard> cards) {
         super(messEnum.FIRST_TURN, senderUsername);
         this.listOfTokens = tokens;
         this.listOfPersonalObjCards = cards;
-    }
-
-    public FirstTurn(String senderUsername, String token, List<ObjectiveCard> cards) {
-        super(messEnum.FIRST_TURN, senderUsername);
-        this.listOfTokens.add(token);
-        this.listOfPersonalObjCards = cards;
-        this.admin = true;
+        this.admin = admin;
     }
 
 

@@ -43,7 +43,7 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
-        // phaseView.put(stateEnum.YOUR_TURN, new YourTurnView());
+
     }
 
 

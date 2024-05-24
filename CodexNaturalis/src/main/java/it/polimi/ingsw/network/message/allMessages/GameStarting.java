@@ -15,10 +15,13 @@ public class GameStarting extends Message {
 
     private List<Card> playerHand = new ArrayList<>();
     private InitialCard card;
-    public GameStarting(String senderUsername, List<Card> playerHand, InitialCard card) {
+    private boolean admin;
+
+    public GameStarting(String senderUsername, boolean admin, List<Card> playerHand, InitialCard card) {
         super(messEnum.GAME_STARTING, senderUsername);
         this.playerHand = playerHand;
         this.card = card;
+        this.admin = admin;
     }
 
     public GameStarting(String senderUsername, String optDescription) {
@@ -36,5 +39,9 @@ public class GameStarting extends Message {
 
     public InitialCard getCard() {
         return card;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 }

@@ -90,13 +90,24 @@ public class MainController {
 
         if(game.getGameState().equals(gameStateEnum.START)){
             gameStarting();
+            boolean admin;
+
             for(int i = 0; i < game.getUserList().size(); i++) {
+
+                if(i == 0) {
+                    admin = true;
+                } else {
+                    admin = false;
+                }
                 serverHandler.sendMessageToPlayer(game.getUserList().get(i),
                         new GameStarting(
                                 ServerHandler.HOSTNAME,
+                                admin,
                                 game.getPlayerList().get(i).getPlayerHand(),
                                 game.getCurrentPlayer().getInitialCard()));
+
             }
+
             beginFirstTurn();
         }
     }
@@ -124,13 +135,16 @@ public class MainController {
             serverHandler.sendMessageToPlayer(game.getUserList().getFirst(),
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
-                            "black",
+                            true,
+                            availableToken,
                             getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
+
             firstTurn = true;
         } else if (firstTurnIndex != 0){
             serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
+                            false,
                             availableToken,
                             getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
 
