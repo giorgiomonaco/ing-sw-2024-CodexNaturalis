@@ -155,6 +155,18 @@ public class MainController {
 
     }
 
+    public void endTurn(){
+        Player currPlayer = game.getPlayerList().get(currPlayerIndex);
+
+        // calcolare punti
+
+        // salvare il gioco
+
+        // inviare messaggio fine turno
+
+        beginTurn();
+    }
+
     public void endGame(){
 
     }

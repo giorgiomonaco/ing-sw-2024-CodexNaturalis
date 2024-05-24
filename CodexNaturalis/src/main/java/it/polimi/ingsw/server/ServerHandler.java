@@ -83,15 +83,6 @@ public class ServerHandler {
                     }
                 }
                 break;
-            case messEnum.DRAW_CARD_REQUEST:
-                synchronized (controllerLock){
-                    DrawCardRequest draw = (DrawCardRequest) msg;
-                    Card card = mainController.drawCard(draw.getUsername(), draw.getWhereToDraw(), draw.getCardIndex());
-                    if (card != null) {
-                        sendMessageToPlayer(draw.getUsername(),
-                                new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
-                    }
-                }
             case SELECTION_TOKEN:
                 synchronized (controllerLock) {
                     SelectionToken selToken = (SelectionToken) msg;
@@ -122,6 +113,20 @@ public class ServerHandler {
                     mainController.playCard(player, selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     //manda nuovo mess
                 }
+                break;
+            case messEnum.DRAW_CARD_REQUEST:
+                synchronized (controllerLock){
+                    DrawCardRequest draw = (DrawCardRequest) msg;
+                    Card card = mainController.drawCard(draw.getUsername(), draw.getWhereToDraw(), draw.getCardIndex());
+                    if (card != null) {
+                        sendMessageToPlayer(draw.getUsername(),
+                                new DrawCardResponse(messEnum.DRAW_CARD_RESPONSE, draw.getUsername(), card));
+                    }
+
+                    // implemento il "fine turno" non ho fatto la parte di pescare la carta che penso sia sbagliato
+                    mainController.endTurn();
+                }
+
                 break;
         }
     }
