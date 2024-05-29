@@ -103,6 +103,7 @@ public class MainController {
                                 game.getPlayerList().get(i).getPlayerHand(),
                                 game.getCurrentPlayer().getInitialCard()));
 
+
             }
 
             beginFirstTurn();

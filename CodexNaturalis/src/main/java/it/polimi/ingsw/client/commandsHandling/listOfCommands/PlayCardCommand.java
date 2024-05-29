@@ -39,7 +39,7 @@ public class PlayCardCommand implements CommandManager {
         else if (y < 0 || y > client.getBoards().getMAX_Y()){
             throw new WrongInsertionException("The selected y coordinate is not available. Please choose above the available ones");
         }
-        else if (client.getBoards().getCheckboard()[x][y] == -1 && client.getBoards().getCheckboard()[x][y] == 1){
+        else if (client.getBoards().getCheckboard()[x][y] == -1 || client.getBoards().getCheckboard()[x][y] == 1){
             throw new WrongInsertionException("The selected position is not available. Please choose above the available ones");
         }
         else if(!Objects.equals(commands[4], "true") && !Objects.equals(commands[4], "false")){
@@ -56,6 +56,7 @@ public class PlayCardCommand implements CommandManager {
             SelectionCard toSend = new SelectionCard(client.getUsername(), card, x, y, side);
             client.sendMessage(toSend);
         }
+
 
 
 

@@ -38,7 +38,15 @@ public class DrawManager {
     //Distribute the initial card to every player
     //placing it in the middle of the player board game
     public void distributeInitialCards(){
-        game.getPlayerList().forEach(p -> p.setInitialCard(game.drawInitialCard()));
+        game.getPlayerList().forEach(player ->
+                {
+                    InitialCard initialCard = game.drawInitialCard();
+                    player.setInitialCard(initialCard);
+                    Boards gameBoard = player.getGameboard();
+                    gameBoard.getCheckboard()[50][50] = 1;
+                    gameBoard.getGameboard()[50][50] = initialCard;
+                }
+        );
     }
 
     //initialize resource cards
