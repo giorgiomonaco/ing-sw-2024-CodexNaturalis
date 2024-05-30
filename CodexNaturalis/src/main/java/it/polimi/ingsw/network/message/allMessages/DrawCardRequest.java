@@ -1,32 +1,42 @@
 package it.polimi.ingsw.network.message.allMessages;
 
+import it.polimi.ingsw.client.messageHandling.DrawCardHandler;
 import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
+import it.polimi.ingsw.server.model.Card;
+
+import java.util.List;
 
 public class DrawCardRequest extends Message {
-    String whereToDraw;
-    int cardIndex;
-    public DrawCardRequest(messEnum messType, String senderUsername) {
-        super(messType, senderUsername);
-    }
+
+    List<Card> goldCards;
+    List<Card> resourceCards;
 
     @Override
     public MessageHandler createHandler() {
-        return null;
+        return new DrawCardHandler();
     }
 
-    public DrawCardRequest(messEnum messType, String senderUsername, String whereToDraw, int cardIndex) {
-        super(messType, senderUsername);
-        this.cardIndex = cardIndex;
-        this.whereToDraw = whereToDraw;
+    public DrawCardRequest(String senderUsername, List<Card> list, List<Card> list2) {
+        super(messEnum.DRAW_CARD_REQUEST, senderUsername);
+        goldCards = list;
+        resourceCards = list2;
     }
 
-    public int getCardIndex() {
-        return cardIndex;
+    public List<Card> getGoldCards() {
+        return goldCards;
     }
 
-    public String getWhereToDraw() {
-        return whereToDraw;
+    public List<Card> getResourceCards() {
+        return resourceCards;
+    }
+
+    public void setGoldCards(List<Card> goldCards) {
+        this.goldCards = goldCards;
+    }
+
+    public void setResourceCards(List<Card> resourceCards) {
+        this.resourceCards = resourceCards;
     }
 }

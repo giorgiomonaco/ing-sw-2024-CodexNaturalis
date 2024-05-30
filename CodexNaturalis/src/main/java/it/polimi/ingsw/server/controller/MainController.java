@@ -113,6 +113,7 @@ public class MainController {
     public void beginTurn(){
         currPlayerIndex = (currPlayerIndex+1)%(game.getUserList().size());
         Player p = game.getPlayerList().get(currPlayerIndex);
+        game.setCurrentPlayer(p);
 
         if(game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
             endGame();
@@ -199,24 +200,23 @@ public class MainController {
     }
 
 
-    public Card drawCard(String username, String whereToDraw, int cardIndex) {
-        Player p = getPlayerByUsername(username);
-        Card card = cardSelector(whereToDraw, cardIndex);
+    public void drawCard(int cardIndex) {
+        Player p = game.getCurrentPlayer();
+        Card card = cardSelector(cardIndex);
         if (card instanceof ResourceCard) {
             p.addResourceCard((ResourceCard) card);
-            return card;
         } else if (card instanceof GoldCard) {
             p.addGoldCard((GoldCard) card);
-            return card;
         }
-        return null;
     }
-    public Card cardSelector(String whereToDraw, int cardIndex) {
-        return switch (whereToDraw) {
-            case "CRD" -> game.drawResourceCard();
-            case "VRD" -> game.visibleResourceCards.remove(cardIndex);
-            case "CGD" -> game.drawGoldCard();
-            case "VGD" -> game.visibleGoldCards.remove(cardIndex);
+    public Card cardSelector(int cardIndex) {
+        return switch (cardIndex -1) {
+            case 0 -> game.drawVisibleGoldCard(0);
+            case 1 -> game.drawVisibleGoldCard(1);
+            case 2 -> game.drawVisibleResourceCard(0);
+            case 3 -> game.drawVisibleResourceCard(1);
+            case 4 -> game.drawGoldCard();
+            case 5 -> game.drawResourceCard();
             default -> null;
         };
     }
@@ -245,5 +245,11 @@ public class MainController {
             playCardManager.playCard(card, x, y, side);
             game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
         }
+    }
+
+    public void middleTurn() {
+        Player p = game.getCurrentPlayer();
+        serverHandler.sendMessageToPlayer(p.getPlayerName(),
+                new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
     }
 }

@@ -29,6 +29,10 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private boolean admin = false;
     private Boards boards;
     private int[] resources;
+    private List<Card> visibleGoldCards = new ArrayList<>();
+    private List<Card> visibleResourceCards = new ArrayList<>();
+
+
 
 
     protected Client() throws RemoteException {
@@ -135,5 +139,17 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setResources(int[] resources) {
         this.resources = resources;
+    }
+    public void setVisibleGoldCards(List<Card> visibleGoldCards) {
+        this.visibleGoldCards = visibleGoldCards;
+    }
+    public List<Card> getVisibleGoldCards() {
+        return visibleGoldCards;
+    }
+    public void setVisibleResourceCards(List<Card> visibleResourceCards) {
+        this.visibleResourceCards = visibleResourceCards;
+    }
+    public List<Card> getVisibleResourceCards() {
+        return visibleResourceCards;
     }
 }
