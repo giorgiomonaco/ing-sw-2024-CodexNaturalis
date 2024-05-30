@@ -42,9 +42,45 @@ public class DrawManager {
                 {
                     InitialCard initialCard = game.drawInitialCard();
                     player.setInitialCard(initialCard);
+
+
                     Boards gameBoard = player.getGameboard();
-                    gameBoard.getCheckboard()[50][50] = 1;
+                    int[][] checkboard = gameBoard.getCheckboard();
+
+                    checkboard[50][50] = 1;
+
                     gameBoard.getGameboard()[50][50] = initialCard;
+
+                    if (initialCard.isFrontSide()){
+                        List<VisibleAngle> angles = Arrays.asList(initialCard.getFrontAngles());
+                        if (angles.getFirst() != null){
+                            checkboard[49][49] = 0;
+                        }
+                        if(angles.get(2) != null){
+                            checkboard[51][49] = 0;
+                        }
+                        if(angles.get(3) != null){
+                            checkboard[49][51] = 0;
+                        }
+                        if(angles.get(4) != null){
+                            checkboard[51][51] = 0;
+                        }
+                    }
+                    if (!initialCard.isFrontSide()){
+                        List<VisibleAngle> angle = Arrays.asList(initialCard.getBackAngles());
+                        if (angle.getFirst() != null){
+                            checkboard[49][49] = 0;
+                        }
+                        if(angle.get(2) != null){
+                            checkboard[51][49] = 0;
+                        }
+                        if(angle.get(3) != null){
+                            checkboard[49][51] = 0;
+                        }
+                        if(angle.get(4) != null){
+                            checkboard[51][51] = 0;
+                        }
+                    }
                 }
         );
     }

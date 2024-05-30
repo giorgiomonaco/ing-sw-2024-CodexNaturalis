@@ -44,7 +44,18 @@ public class PlayCardView implements TuiView{
 
             System.out.println();
             for (int x = 0; x < boards.getMAX_X() ; x++){
-                System.out.print(" "+boards.checkboard[x][y]+" ");
+                switch (boards.checkboard[x][y]){
+                    case -1:
+                        System.out.print(" "+boards.checkboard[x][y]+" ");
+                        break;
+                    case 0:
+                        System.out.print("  "+boards.checkboard[x][y]+" ");
+                        break;
+                    case 1:
+                        System.out.print("  "+boards.checkboard[x][y]+" ");
+                        break;
+
+                }
             }
         }
     }
