@@ -91,11 +91,7 @@ public class MainController {
 
             for(int i = 0; i < game.getUserList().size(); i++) {
 
-                if(i == 0) {
-                    admin = true;
-                } else {
-                    admin = false;
-                }
+                admin = i == 0;
                 serverHandler.sendMessageToPlayer(game.getUserList().get(i),
                         new GameStarting(
                                 ServerHandler.HOSTNAME,

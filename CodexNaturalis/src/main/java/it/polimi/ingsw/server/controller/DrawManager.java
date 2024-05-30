@@ -10,14 +10,14 @@ public class DrawManager {
     boolean frontSide;
 
     //Constructor
-    public DrawManager(Game game){
+    public DrawManager(Game game) {
         this.game = game;
     }
 
     //initialize players hand
-    public void initializePlayersHand(){
+    public void initializePlayersHand() {
         //for every player playing the game
-        for(Player p : game.getPlayerList()) {
+        for (Player p : game.getPlayerList()) {
             game.setCurrentPlayer(p);
             //We call the initialization of every type of card present in the game
             //we need 2 initial resource cards
@@ -35,58 +35,63 @@ public class DrawManager {
         distributeInitialCards();
     }
 
-    //Distribute the initial card to every player
-    //placing it in the middle of the player board game
-    public void distributeInitialCards(){
-        game.getPlayerList().forEach(player ->
-                {
-                    InitialCard initialCard = game.drawInitialCard();
-                    player.setInitialCard(initialCard);
-
-
-                    Boards gameBoard = player.getGameboard();
-                    int[][] checkboard = gameBoard.getCheckboard();
-
-                    checkboard[50][50] = 1;
-
-                    gameBoard.getGameboard()[50][50] = initialCard;
-
-                    if (initialCard.isFrontSide()){
-                        List<VisibleAngle> angles = Arrays.asList(initialCard.getFrontAngles());
-                        if (angles.getFirst() != null){
-                            checkboard[49][49] = 0;
-                        }
-                        if(angles.get(2) != null){
-                            checkboard[51][49] = 0;
-                        }
-                        if(angles.get(3) != null){
-                            checkboard[49][51] = 0;
-                        }
-                        if(angles.get(4) != null){
-                            checkboard[51][51] = 0;
-                        }
-                    }
-                    if (!initialCard.isFrontSide()){
-                        List<VisibleAngle> angle = Arrays.asList(initialCard.getBackAngles());
-                        if (angle.getFirst() != null){
-                            checkboard[49][49] = 0;
-                        }
-                        if(angle.get(2) != null){
-                            checkboard[51][49] = 0;
-                        }
-                        if(angle.get(3) != null){
-                            checkboard[49][51] = 0;
-                        }
-                        if(angle.get(4) != null){
-                            checkboard[51][51] = 0;
-                        }
-                    }
-                }
-        );
+    // Distribute the initial card to every player
+// Placing it in the middle of the player board game
+    public void distributeInitialCards() {
+        List<Player> playerList = game.getPlayerList();
+        for (Player player : playerList) {
+            InitialCard initialCard = game.drawInitialCard();
+            if (initialCard != null) {
+                player.setInitialCard(initialCard);
+                initialCard.setFrontSide(true);
+                updateCheckboard(player, initialCard);
+            }
+        }
     }
 
+    private void updateCheckboard(Player player, InitialCard initialCard) {
+        Boards gameBoard = player.getGameboard();
+        if (gameBoard != null) {
+            int[][] checkboard = gameBoard.getCheckboard();
+            if (checkboard != null) {
+                checkboard[50][50] = 1;
+                gameBoard.getGameboard()[50][50] = initialCard;
+                updateCheckboardBasedOnCard(checkboard, initialCard);
+            }
+        }
+    }
+
+    private void updateCheckboardBasedOnCard(int[][] checkboard, InitialCard initialCard) {
+        if (initialCard.isFrontSide()) {
+            updateCheckboardForAngles(checkboard, initialCard.getFrontAngles());
+        } else {
+            updateCheckboardForAngles(checkboard, initialCard.getBackAngles());
+        }
+    }
+
+    private void updateCheckboardForAngles(int[][] checkboard, VisibleAngle[] angles) {
+        if (angles != null) {
+            if (angles[0] != null) {
+                checkboard[49][49] = 0;
+            }
+            if (angles[1] != null) {
+                checkboard[51][49] = 0;
+            }
+            if (angles[2] != null) {
+                checkboard[49][51] = 0;
+            }
+            if (angles[3] != null) {
+                checkboard[51][51] = 0;
+            }
+        }
+    }
+
+    //Distribute the initial card to every player
+    //placing it in the middle of the player board game
+
+
     //initialize resource cards
-    public void drawResourceCards(){
+    public void drawResourceCards() {
         //Draw a resource card from the resource deck of the game
         ResourceCard card = game.drawResourceCard();
         //add the card to the player hand
@@ -96,7 +101,7 @@ public class DrawManager {
     }
 
     //initialize gold cards
-    public void drawGoldCards(){
+    public void drawGoldCards() {
         //Draw a gold card from the common deck
         GoldCard card = game.drawGoldCard();
         //Add it to the hand of the player
@@ -106,7 +111,7 @@ public class DrawManager {
     }
 
     //initialize obj cards
-    public void drawObjectiveCards(){
+    public void drawObjectiveCards() {
         //Draw a gold card from the common deck
         ObjectiveCard card = game.drawObjectiveCard();
         //Add it to the hand of the player
@@ -117,14 +122,15 @@ public class DrawManager {
 
 
     //initialize objective cards
-    public ObjectiveCard[] sendChoice(){
+    public ObjectiveCard[] sendChoice() {
         ObjectiveCard[] choice = new ObjectiveCard[2];
         for (int i = 0; i < 2; i++) {
             choice[i] = game.drawObjectiveCard();
         }
         return choice;
     }
-    public void setObjectiveCards(ObjectiveCard choice){
+
+    public void setObjectiveCards(ObjectiveCard choice) {
         game.getCurrentPlayer().setObjectiveCard(choice);
         game.getObjectiveDeck().remove(choice);
     }
@@ -152,43 +158,5 @@ public class DrawManager {
             discoveredGoldCards.add(String.valueOf(c.getCardID()));
         }
 
-        /* commento perchè da errore
-        //we ask the player which card he wants to draw
-        String selectedCard = view.drawSelection(resDeckEmpty, goldDeckEmpty,discoveredResCards, discoveredGoldCards);
-        //now we act accordingly
-        switch (selectedCard) {
-            case "R1" -> drawDiscoveredCard("R", 0);
-            case "R2" -> drawDiscoveredCard("R", 1);
-            case "G1" -> drawDiscoveredCard("G", 0);
-            case "G2" -> drawDiscoveredCard("G", 1);
-            case "RD" -> drawResourceCards();
-            case "GD" -> drawGoldCards();
-        }
     }
-         */
-
-    /*
-    Manage draw from discovered cards pools
-
-    public void drawDiscoveredCard(String type, int position){
-        Card drawnCard = null;
-        if(type.equals("R")){
-            drawnCard = game.getCommonBoard().getDiscoveredResourceCards().get(position);
-            //we remove it from the discovered list
-            game.getCommonBoard().getDiscoveredResourceCards().remove(position);
-            //We add to players hand
-            game.getCurrentPlayer().addResourceCard((ResourceCard) drawnCard);
-            //Now we want to discover another card
-
-        } else {
-            drawnCard = game.getCommonBoard().getDiscoveredGoldCards().get(position);
-            //we remove it from the discovered list
-            game.getCommonBoard().getDiscoveredGoldCards().remove(position);
-            //We add to players hand
-            game.getCurrentPlayer().addGoldCard((GoldCard) drawnCard);
-            //Now we want to discover another card
-        }
-    }
-    */
-
-    }}
+}
