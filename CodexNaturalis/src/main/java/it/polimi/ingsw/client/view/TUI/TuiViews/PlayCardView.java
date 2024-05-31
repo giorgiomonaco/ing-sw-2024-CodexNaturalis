@@ -43,10 +43,10 @@ public class PlayCardView implements TuiView{
     }
 
     private void printBoard(){
-        for (int y = 0; y < boards.getMAX_Y() ; y++){
+        for (int y = 40; y < 60 ; y++){
 
             System.out.println();
-            for (int x = 0; x < boards.getMAX_X() ; x++){
+            for (int x = 40; x < 60 ; x++){
                 switch (boards.checkboard[x][y]){
                     case -1:
                         System.out.print(" "+ colors.redColor+ boards.checkboard[x][y]+ colors.resetColor +" ");
