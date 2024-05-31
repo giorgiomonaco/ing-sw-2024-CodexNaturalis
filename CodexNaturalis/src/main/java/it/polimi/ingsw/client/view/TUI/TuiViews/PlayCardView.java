@@ -1,9 +1,11 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,8 +13,9 @@ import java.util.Scanner;
 
 public class PlayCardView implements TuiView{
     private Boards boards;
-    List<Card> playerHand;
-    Client client;
+    private List<Card> playerHand;
+    private Client client;
+    private Colors colors = new Colors();
 
 
     @Override
@@ -46,13 +49,13 @@ public class PlayCardView implements TuiView{
             for (int x = 0; x < boards.getMAX_X() ; x++){
                 switch (boards.checkboard[x][y]){
                     case -1:
-                        System.out.print(" "+boards.checkboard[x][y]+" ");
+                        System.out.print(" "+ colors.redColor+ boards.checkboard[x][y]+ colors.resetColor +" ");
                         break;
                     case 0:
-                        System.out.print("  "+boards.checkboard[x][y]+" ");
+                        System.out.print("  "+ colors.greenColor + boards.checkboard[x][y]+ colors.resetColor +" ");
                         break;
                     case 1:
-                        System.out.print("  "+boards.checkboard[x][y]+" ");
+                        System.out.print("  "+ colors.blueColor + boards.checkboard[x][y]+ colors.resetColor + " ");
                         break;
 
                 }
