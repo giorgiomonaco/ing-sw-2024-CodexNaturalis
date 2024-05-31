@@ -19,6 +19,8 @@ public class Tui implements UserInterface{
     private Map<stateEnum, TuiView> phaseView;
     private ReadCommand reader;
     List<Card> playerHand;
+    Colors color = new Colors();
+
 
 
     public Tui(Client client){
@@ -125,7 +127,6 @@ public class Tui implements UserInterface{
 
     }
 
-    Colors color = new Colors();
 
     public void printCard(Card card) {
         if (card instanceof ResourceCard) {

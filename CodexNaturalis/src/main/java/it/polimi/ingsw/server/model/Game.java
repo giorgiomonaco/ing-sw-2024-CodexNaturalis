@@ -169,7 +169,7 @@ public class Game {
     }
 
     public void drawUncoveredCards() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             visibleGoldCards.add(drawGoldCard());
             visibleResourceCards.add(drawResourceCard());
         }
@@ -201,5 +201,17 @@ public class Game {
 
     public void removeAvailableTokens(String toRemove){
         this.availableTokens.remove(toRemove);
+    }
+
+    public Card drawVisibleResourceCard(int index){
+        Card card = visibleResourceCards.remove(index);
+        visibleResourceCards.add(drawResourceCard());
+        return card;
+    }
+
+    public Card drawVisibleGoldCard(int index){
+        Card card = visibleGoldCards.remove(index);
+        visibleGoldCards.add(drawGoldCard());
+        return card;
     }
 }

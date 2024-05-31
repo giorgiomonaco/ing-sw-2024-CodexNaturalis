@@ -97,12 +97,18 @@ public abstract class Card implements Serializable {
         }
     }
 
+    //  we add every symbol on the front of the card to the player available resources.
     public void addResources(Player p) {
-        for (int i = 0; i < 4; i++) {
-            p.resourceAdding(frontAngles[i].getSymbol());
+        for (VisibleAngle angle : frontAngles) {
+            if (angle != null) {
+                Symbol symbol = angle.getSymbol();
+                if (symbol != null) {
+                    p.resourceAdding(symbol);
+                }
+            }
         }
-
     }
+
     public boolean getSide() {
         return frontSide;
     }

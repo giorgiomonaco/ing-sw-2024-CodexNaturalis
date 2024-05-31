@@ -61,6 +61,7 @@ public class CardManager {
         //create the cards and add them to the corresponding deck in the game
         initialCardsInitializer.initialCardInitializer();
         shuffleDecks();
+        drawUncoveredCards();
     }
     // Shuffle all the decks
     private void shuffleDecks() {

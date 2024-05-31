@@ -6,15 +6,16 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Card;
 
 public class DrawCardResponse extends Message {
-    private final Card card;
+    private final int choice;
 
-    public DrawCardResponse(messEnum messType, String senderUsername, Card card) {
-        super(messType, senderUsername);
-        this.card = card;
+    public DrawCardResponse(String senderUsername, int choice) {
+        super(messEnum.DRAW_CARD_RESPONSE, senderUsername);
+        this.choice = choice;
     }
 
-    public Card getCard() {
-        return card;
+    public int getChoice() {
+        return choice;
+
     }
 
     @Override

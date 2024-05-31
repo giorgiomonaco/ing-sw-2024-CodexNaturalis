@@ -1,9 +1,11 @@
 package it.polimi.ingsw.client.view.TUI.TuiViews;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,14 +13,15 @@ import java.util.Scanner;
 
 public class PlayCardView implements TuiView{
     private Boards boards;
-    List<Card> playerHand;
-    Client client;
+    private List<Card> playerHand;
+    private Client client;
+    private Colors colors = new Colors();
 
 
     @Override
     public void play(Client client) {
         this.client = client;
-        System.out.println("CHOOSE A CARD TO PLAY FROM YOUR HAND \n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n");
+        System.out.println("CHOOSE A CARD TO PLAY FROM YOUR HAND \n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n-Red: Position not available   -Green: Position available    -Blue: Cards played");
         playerHand = client.getPlayerHand();
         boards = client.getBoards();
         printBoard();
@@ -40,12 +43,22 @@ public class PlayCardView implements TuiView{
     }
 
     private void printBoard(){
-        //todo
         for (int y = 0; y < boards.getMAX_Y() ; y++){
 
             System.out.println();
             for (int x = 0; x < boards.getMAX_X() ; x++){
-                System.out.println(" "+boards.checkboard[x][y]+" ");
+                switch (boards.checkboard[x][y]){
+                    case -1:
+                        System.out.print(" "+ colors.redColor+ boards.checkboard[x][y]+ colors.resetColor +" ");
+                        break;
+                    case 0:
+                        System.out.print("  "+ colors.greenColor + boards.checkboard[x][y]+ colors.resetColor +" ");
+                        break;
+                    case 1:
+                        System.out.print("  "+ colors.blueColor + boards.checkboard[x][y]+ colors.resetColor + " ");
+                        break;
+
+                }
             }
         }
     }
