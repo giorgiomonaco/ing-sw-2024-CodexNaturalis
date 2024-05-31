@@ -19,21 +19,23 @@ public class DrawCardCommand implements CommandManager {
 
     public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException {
 
+
+        if (commands == null || commands.length < 2) {
+            throw new IllegalArgumentException("Invalid command format");
+        }
+
         int choice = Integer.parseInt(commands[1]);
-
-        if(!client.getCurrentState().equals(stateEnum.DRAW_CARD)){
+        if (choice < 1 || choice > 6) {
+            System.out.println("Invalid choice. Please choose between 1 and 6");
             throw new CommandNotAvailableException();
         }
 
-        else if (choice < 1 || choice > 6){
-            System.out.println("The selected index is not available. Please choose above the available ones");
+        if (!currState.equals(stateEnum.DRAW_CARD)) {
+            System.out.println("Invalid state. Expected DRAW_CARD state");
             throw new CommandNotAvailableException();
         }
-        else {
-            Message toSend = new DrawCardResponse(client.getUsername(), choice);
-            client.sendMessage(toSend);
-        }
 
+        Message toSend = new DrawCardResponse(client.getUsername(), choice);
+        client.sendMessage(toSend);
     }
-
 }

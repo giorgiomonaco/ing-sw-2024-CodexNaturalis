@@ -14,5 +14,6 @@ public class DrawCardHandler implements MessageHandler {
         client.setVisibleGoldCards(drawCardRequest.getGoldCards());
         client.setVisibleResourceCards(drawCardRequest.getResourceCards());
         client.getUI().run();
+
     }
 }
