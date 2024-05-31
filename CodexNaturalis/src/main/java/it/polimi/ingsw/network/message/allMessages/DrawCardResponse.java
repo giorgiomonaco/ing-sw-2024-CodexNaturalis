@@ -9,12 +9,13 @@ public class DrawCardResponse extends Message {
     private final int choice;
 
     public DrawCardResponse(String senderUsername, int choice) {
-        super(messEnum.PLAY_CARD_RESPONSE, senderUsername);
+        super(messEnum.DRAW_CARD_RESPONSE, senderUsername);
         this.choice = choice;
     }
 
     public int getChoice() {
         return choice;
+
     }
 
     @Override
