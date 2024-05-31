@@ -165,6 +165,7 @@ public class MainController {
         // salvare il gioco
 
         // inviare messaggio fine turno
+        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(), new WaitTurnMsg(ServerHandler.HOSTNAME));
 
 
         beginTurn();

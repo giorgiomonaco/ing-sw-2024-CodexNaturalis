@@ -6,6 +6,7 @@ public class PlayCardManager {
 
     private final Game game;
     private final Player player;
+    private Boards board;
 
     public PlayCardManager(Game game, Player player) {
         this.game = game;
@@ -13,9 +14,10 @@ public class PlayCardManager {
     }
 
     public void playCard(Card card, int x, int y, boolean side) {
-        Boards board = player.getGameboard();
+        this.board = player.getGameboard();
         Card[][] cardBoard = board.getGameboard();
         int[][] checkBoard = board.getCheckboard();
+
         card.setFrontSide(side);
 
         cardBoard[x][y] = card;
@@ -27,38 +29,39 @@ public class PlayCardManager {
     }
 
     private void updateBoxes(Card card, int x, int y, int[][] checkBoard, boolean side) {
-        if (side) {
-            if (checkBoard[x+1][y+1] != 1 && card.getFrontVisibleAngle(3) != null) {
-                checkBoard[x+1][y+1] = 0;
+        if (card == null) {
+            throw new IllegalArgumentException("Card cannot be null");
+        }
+        try {
+            if (side) {
+                if (checkBoard[x + 1][y + 1] != 1 && card.getFrontVisibleAngle(3) != null) {
+                    checkBoard[x + 1][y + 1] = 0;
+                }
+                if (checkBoard[x + 1][y - 1] != 1 && card.getFrontVisibleAngle(1) != null) {
+                    checkBoard[x + 1][y - 1] = 0;
+                }
+                if (checkBoard[x - 1][y + 1] != 1 && card.getFrontVisibleAngle(0) != null) {
+                    checkBoard[x - 1][y + 1] = 0;
+                }
+                if (checkBoard[x - 1][y - 1] != 1 && card.getFrontVisibleAngle(2) != null) {
+                    checkBoard[x - 1][y - 1] = 0;
+                }
+            } else {
+                if (checkBoard[x + 1][y + 1] != 1) {
+                    checkBoard[x + 1][y + 1] = 0;
+                }
+                if (checkBoard[x + 1][y - 1] != 1) {
+                    checkBoard[x + 1][y - 1] = 0;
+                }
+                if (checkBoard[x - 1][y + 1] != 1) {
+                    checkBoard[x - 1][y + 1] = 0;
+                }
+                if (checkBoard[x - 1][y - 1] != 1) {
+                    checkBoard[x - 1][y - 1] = 0;
+                }
             }
-
-            if (checkBoard[x+1][y-1] != 1 && card.getFrontVisibleAngle(1) != null) {
-                checkBoard[x+1][y-1] = 0;
-            }
-
-            if (checkBoard[x-1][y+1] != 1 && card.getFrontVisibleAngle(0) != null) {
-                checkBoard[x-1][y+1] = 0;
-            }
-
-            if (checkBoard[x-1][y-1] != 1 && card.getFrontVisibleAngle(2) != null) {
-                checkBoard[x-1][y-1] = 0;
-            }
-        } else {
-            if (checkBoard[x+1][y+1] !=1){
-                checkBoard[x+1][y+1] = 0;
-            }
-
-            if (checkBoard[x+1][y-1] !=1){
-                checkBoard[x+1][y-1] = 0;
-            }
-
-            if (checkBoard[x-1][y+1] !=1){
-                checkBoard[x-1][y+1] = 0;
-            }
-
-            if (checkBoard[x-1][y-1] !=1){
-                checkBoard[x-1][y-1] = 0;
-            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Invalid coordinates", e);
         }
     }
 
