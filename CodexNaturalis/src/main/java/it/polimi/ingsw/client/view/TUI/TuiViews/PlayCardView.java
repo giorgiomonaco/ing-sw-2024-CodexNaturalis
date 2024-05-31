@@ -21,7 +21,7 @@ public class PlayCardView implements TuiView{
     @Override
     public void play(Client client) {
         this.client = client;
-        System.out.println("CHOOSE A CARD TO PLAY FROM YOUR HAND \n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n");
+        System.out.println("CHOOSE A CARD TO PLAY FROM YOUR HAND \n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n-Red: Position not available   -Green: Position available    -Blue: Cards played");
         playerHand = client.getPlayerHand();
         boards = client.getBoards();
         printBoard();
