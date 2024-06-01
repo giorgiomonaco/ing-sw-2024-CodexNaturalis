@@ -8,9 +8,9 @@ public class PlayCardManager {
     private final Player player;
     private Boards board;
 
-    public PlayCardManager(Game game, Player player) {
+    public PlayCardManager(Game game) {
         this.game = game;
-        this.player = player;
+        player = game.getCurrentPlayer();
     }
 
     public void playCard(Card card, int x, int y, boolean side) {

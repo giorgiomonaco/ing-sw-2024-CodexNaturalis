@@ -205,12 +205,12 @@ public class MainController {
 
 
     public void drawCard(int cardIndex) {
-        Player p = game.getCurrentPlayer();
+
         Card card = cardSelector(cardIndex);
         if (card instanceof ResourceCard) {
-            p.addResourceCard((ResourceCard) card);
+            game.getCurrentPlayer().addResourceCard((ResourceCard) card);
         } else if (card instanceof GoldCard) {
-            p.addGoldCard((GoldCard) card);
+            game.getCurrentPlayer().addGoldCard((GoldCard) card);
         }
     }
     public Card cardSelector(int cardIndex) {
@@ -237,7 +237,7 @@ public class MainController {
     }
 
     public void playCard(Card card, int x, int y, boolean side){
-        PlayCardManager playCardManager = new PlayCardManager(game, game.getCurrentPlayer());
+        PlayCardManager playCardManager = new PlayCardManager(game);
 
         try {
             if (card instanceof ResourceCard) {
