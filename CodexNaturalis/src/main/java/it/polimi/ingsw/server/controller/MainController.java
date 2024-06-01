@@ -112,8 +112,7 @@ public class MainController {
         }
 
         currPlayerIndex = (currPlayerIndex + 1) % game.getUserList().size();
-        Player p = game.getPlayerList().get(currPlayerIndex);
-        game.setCurrentPlayer(p);
+        game.setCurrentPlayer(game.getPlayerList().get(currPlayerIndex));
 
 
         if (game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex) {
@@ -121,7 +120,10 @@ public class MainController {
         } else {
             serverHandler.sendMessageToPlayer(
                     game.getUserList().get(currPlayerIndex),
-                    new PlayCardReq(ServerHandler.HOSTNAME, p.getPlayerHand(), p.getGameboard(), p.getResourcesAvailable())
+                    new PlayCardReq(ServerHandler.HOSTNAME,
+                            game.getCurrentPlayer().getPlayerHand(),
+                            game.getCurrentPlayer().getGameboard(),
+                            game.getCurrentPlayer().getResourcesAvailable())
             );
         }
     }
@@ -234,18 +236,18 @@ public class MainController {
         return firstTurn;
     }
 
-    public void playCard(Player p, Card card, int x, int y, boolean side){
+    public void playCard(Card card, int x, int y, boolean side){
         PlayCardManager playCardManager = new PlayCardManager(game, game.getCurrentPlayer());
 
         try {
             if (card instanceof ResourceCard) {
-                p.removeResourceCardFromHand((ResourceCard) card);
+                game.getCurrentPlayer().removeResourceCardFromHand((ResourceCard) card);
 
                 playCardManager.playCard(card, x, y, side);
                 game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
 
             } else if (card instanceof GoldCard goldCard) {
-                p.removeGoldCardFromHand(goldCard);
+                game.getCurrentPlayer().removeGoldCardFromHand(goldCard);
                 playCardManager.playCard(card, x, y, side);
                 game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
             }
@@ -254,8 +256,8 @@ public class MainController {
         }
     }
     public void middleTurn() {
-        Player p = game.getCurrentPlayer();
-        serverHandler.sendMessageToPlayer(p.getPlayerName(),
+
+        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
                 new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
     }
 }
