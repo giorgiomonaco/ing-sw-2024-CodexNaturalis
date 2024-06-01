@@ -261,6 +261,10 @@ public class MainController {
                 new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
     }
 
+
+
+
+    //utilities
     public void playCard(Card card, int x, int y, boolean side) {
         //assigns a value to the direction the card is facing
         card.setFrontSide(side);
