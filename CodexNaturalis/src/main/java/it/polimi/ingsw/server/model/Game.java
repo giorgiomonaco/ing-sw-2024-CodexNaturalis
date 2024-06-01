@@ -143,6 +143,7 @@ public class Game {
         return currentPlayer;
     }
 
+
     public Player getNextPlayer(){int index = playerList.indexOf(getCurrentPlayer());
     return playerList.get(index+1);
     }

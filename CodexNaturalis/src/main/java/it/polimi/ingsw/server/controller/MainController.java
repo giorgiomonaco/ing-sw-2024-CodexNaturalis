@@ -269,20 +269,18 @@ public class MainController {
         //assigns a value to the direction the card is facing
         card.setFrontSide(side);
 
-        game.getCurrentPlayer().getGameboard().getGameboard()[x][y] = card;
-        game.getCurrentPlayer().getGameboard().getCheckboard()[x][y] = 1;
+        game.getCurrentPlayer().getGameboard().setGameboardXY(x, y, card);
+        game.getCurrentPlayer().getGameboard().setCheckboardXY(x, y, 1);
         card.addResources(game.getCurrentPlayer());
 
         updateBoxes(card, x, y, side);
         updatePlayerResources(x, y, game.getCurrentPlayer().getGameboard().getGameboard());
     }
 
-    public void setCheckBoard(int[][] checkBoard) {
-        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);
-    }
+
 
     private void updateBoxes(Card card, int x, int y, boolean side) {
-        int[][] checkBoard = game.getCurrentPlayer().getGameboard().getCheckboard();
+        int[][] checkBoard = game.getCurrentPlayer().getGameboard().getCheckboard().clone();
 
         updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
         updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
