@@ -55,7 +55,7 @@ public class PlayCardCommand implements CommandManager {
             }
 
         }
-        SelectionCard toSend = new SelectionCard(client.getUsername(), card, x, y, side);
+        SelectionCard toSend = new SelectionCard(client.getUsername(), client.getPlayerHand().get(index-1), x, y, side);
         client.sendMessage(toSend);
 
 

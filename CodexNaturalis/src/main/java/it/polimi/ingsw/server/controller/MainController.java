@@ -106,18 +106,23 @@ public class MainController {
         }
     }
 
-    public void beginTurn(){
-        currPlayerIndex = (currPlayerIndex+1)%(game.getUserList().size());
+    public void beginTurn() {
+        if (game.getUserList().isEmpty()) {
+            throw new IllegalStateException("User list is empty. Cannot begin turn.");
+        }
+
+        currPlayerIndex = (currPlayerIndex + 1) % game.getUserList().size();
         Player p = game.getPlayerList().get(currPlayerIndex);
         game.setCurrentPlayer(p);
 
-        if(game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
+
+        if (game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex) {
             endGame();
-        }
-        else {
-            game.setCurrentPlayer(p);
-            serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex),
-                    new PlayCardReq(ServerHandler.HOSTNAME, p.getPlayerHand(),p.getGameboard(), p.getResourcesAvailable()));
+        } else {
+            serverHandler.sendMessageToPlayer(
+                    game.getUserList().get(currPlayerIndex),
+                    new PlayCardReq(ServerHandler.HOSTNAME, p.getPlayerHand(), p.getGameboard(), p.getResourcesAvailable())
+            );
         }
     }
 
@@ -232,18 +237,22 @@ public class MainController {
     public void playCard(Player p, Card card, int x, int y, boolean side){
         PlayCardManager playCardManager = new PlayCardManager(game, game.getCurrentPlayer());
 
-        if (card instanceof ResourceCard) {
-            p.removeResourceCardFromHand((ResourceCard) card);
-            playCardManager.playCard(card, x, y, side);
-            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
+        try {
+            if (card instanceof ResourceCard) {
+                p.removeResourceCardFromHand((ResourceCard) card);
 
-        } else if (card instanceof GoldCard goldCard) {
-            p.removeGoldCardFromHand(goldCard);
-            playCardManager.playCard(card, x, y, side);
-            game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
+                playCardManager.playCard(card, x, y, side);
+                game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
+
+            } else if (card instanceof GoldCard goldCard) {
+                p.removeGoldCardFromHand(goldCard);
+                playCardManager.playCard(card, x, y, side);
+                game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
+            }
+        } finally {
+            playCardManager = null;
         }
     }
-
     public void middleTurn() {
         Player p = game.getCurrentPlayer();
         serverHandler.sendMessageToPlayer(p.getPlayerName(),
