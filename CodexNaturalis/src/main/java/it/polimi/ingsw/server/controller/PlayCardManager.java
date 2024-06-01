@@ -44,7 +44,8 @@ public class PlayCardManager {
         if (checkBoard[x][y] != 1 && angle != null) {
             checkBoard[x][y] = 0;
         }
-    }    private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
+    }
+    private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
 
         int[] resources = game.getCurrentPlayer().getResourcesAvailable();
         VisibleAngle coveredAngle = null;
