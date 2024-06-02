@@ -63,10 +63,7 @@ public class Player {
         return playerResourceCards.get(index);
     }
 
-    //method to remove a card from the player hand passing the object
-    public void removeResourceCardFromHand(ResourceCard card) {
-        playerResourceCards.remove(card);
-    }
+
 
     //Getter of the list of the gold cards now in hand
     public List<GoldCard> getPlayerGoldCards() {
@@ -86,8 +83,20 @@ public class Player {
     }
 
     //method to remove a card from the player hand passing the object
-    public void removeGoldCardFromHand(GoldCard card) {
-        playerGoldCards.remove(card);
+    public void removeCardFromHand(Card card) {
+        for (Card c : playerHand) {
+            if (c.equals(card) && c instanceof GoldCard) {
+                playerGoldCards.remove((GoldCard) c);
+                playerHand.remove(c);
+                break;
+            }
+            if (c.equals(card) && c instanceof ResourceCard) {
+                playerResourceCards.remove((ResourceCard) c);
+                playerHand.remove(c);
+                break;
+            }
+        }
+
     }
 
 
@@ -236,4 +245,6 @@ public class Player {
     public void setBoards(Boards gameboard) {
         this.Gameboard = gameboard;
     }
+
+
 }

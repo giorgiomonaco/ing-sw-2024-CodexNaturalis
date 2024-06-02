@@ -214,16 +214,17 @@ public class MainController {
         }
     }
     public Card cardSelector(int cardIndex) {
-        return switch (cardIndex -1) {
-            case 0 -> game.drawVisibleGoldCard(0);
-            case 1 -> game.drawVisibleGoldCard(1);
-            case 2 -> game.drawVisibleResourceCard(0);
-            case 3 -> game.drawVisibleResourceCard(1);
+        return switch (cardIndex - 1) {
+            case 0 -> game.drawFromVisible(0, "gold");
+            case 1 -> game.drawFromVisible(1, "gold");
+            case 2 -> game.drawFromVisible(0, "resource");
+            case 3 -> game.drawFromVisible(1, "resource");
             case 4 -> game.drawGoldCard();
             case 5 -> game.drawResourceCard();
             default -> null;
         };
     }
+
     public List<Card> getUncoveredCards(){
         List<Card> uncoveredCards = new ArrayList<>();
         uncoveredCards.addAll(game.getVisibleGoldCards());
@@ -239,15 +240,12 @@ public class MainController {
     public void selectionCard(Card card, int x, int y, boolean side){
 
         try {
+            game.getCurrentPlayer().removeCardFromHand(card);
+            playCard(card, x, y, side);
             if (card instanceof ResourceCard) {
-                game.getCurrentPlayer().removeResourceCardFromHand((ResourceCard) card);
-
-                playCard(card, x, y, side);
                 game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
-
-            } else if (card instanceof GoldCard goldCard) {
-                game.getCurrentPlayer().removeGoldCardFromHand(goldCard);
-                playCard(card, x, y, side);
+            }
+            else if (card instanceof GoldCard goldCard) {
                 game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
             }
         }
