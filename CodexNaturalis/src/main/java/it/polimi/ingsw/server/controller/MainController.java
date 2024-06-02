@@ -6,10 +6,11 @@ import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainController {
+public class MainController implements Serializable {
     private Game game;
     private final ServerHandler serverHandler;
     private GameSetUpper gameSetUpper;
@@ -254,7 +255,6 @@ public class MainController {
         }
     }
     public void middleTurn() {
-
         serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
                 new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
     }

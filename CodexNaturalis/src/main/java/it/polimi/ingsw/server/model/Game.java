@@ -204,8 +204,6 @@ public class Game {
         this.availableTokens.remove(toRemove);
     }
 
-
-
     public Card drawFromVisible(int i, String card){
         if (Objects.equals(card, "gold")) {
             visibleGoldCards.addLast(drawGoldCard());

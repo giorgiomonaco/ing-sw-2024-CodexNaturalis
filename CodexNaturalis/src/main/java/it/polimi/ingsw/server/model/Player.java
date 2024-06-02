@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
     //Class representing the player
     private Boards Gameboard;
     //Name of the player
@@ -84,21 +84,25 @@ public class Player {
 
     //method to remove a card from the player hand passing the object
     public void removeCardFromHand(Card card) {
-        for (Card c : playerHand) {
-            if (c.equals(card) && c instanceof GoldCard) {
-                playerGoldCards.remove((GoldCard) c);
-                playerHand.remove(c);
-                break;
+
+        try {
+            for (Card c : playerHand) {
+                if (c != null && c.equals(card, c)) {
+                    if (c instanceof GoldCard) {
+                        playerGoldCards.remove((GoldCard) c);
+                    } else if (c instanceof ResourceCard) {
+                        playerResourceCards.remove((ResourceCard) c);
+                    }
+                    playerHand.remove(c);
+                    break;
+                }
+                System.out.println("Card not found");
             }
-            if (c.equals(card) && c instanceof ResourceCard) {
-                playerResourceCards.remove((ResourceCard) c);
-                playerHand.remove(c);
-                break;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
-
 
     //Getter of the list of the obj cards now in hand
     public ObjectiveCard getPlayerObjectiveCard() {
