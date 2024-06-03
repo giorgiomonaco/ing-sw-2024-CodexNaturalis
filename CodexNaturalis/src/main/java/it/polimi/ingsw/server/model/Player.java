@@ -250,5 +250,7 @@ public class Player implements Serializable {
         this.Gameboard = gameboard;
     }
 
+    public int getPoints() {return playerPoints;}
+
 
 }

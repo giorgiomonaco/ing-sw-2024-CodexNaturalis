@@ -180,6 +180,23 @@ public class MainController implements Serializable {
     }
 
     public void endGame(){
+        Player player = null;
+        int maxPoints = 0;
+        for (int i = 0; i < game.getUserList().size(); i++) {
+            EndgameManager endgameManager = new EndgameManager(game, game.getPlayerList().get(i));
+            game.getPlayerList().get(i).addPoints(endgameManager.objectivePointsCounter());
+
+            if (game.getPlayerList().get(i).getPoints() > maxPoints) {
+                maxPoints = game.getPlayerList().get(i).getPoints();
+                player = game.getPlayerList().get(i);
+            }
+        }
+        if (player != null) {
+            serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true));
+            serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false));
+
+        }
+
 
     }
 

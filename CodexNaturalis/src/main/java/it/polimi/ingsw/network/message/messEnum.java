@@ -30,5 +30,5 @@ public enum messEnum {
     PLAY_CARD_REQUEST,
     END_GAME,
     SELECTION_CARD,
-    WAIT_TURN
+    SHOW_WINNER, WAIT_TURN
 }

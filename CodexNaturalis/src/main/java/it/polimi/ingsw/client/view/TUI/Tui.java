@@ -45,6 +45,7 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
+        phaseView.put(stateEnum.SHOW_WINNER, new ShowWinnerView());
 
     }
 
@@ -90,6 +91,9 @@ public class Tui implements UserInterface{
                 break;
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
+                break;
+            case SHOW_WINNER:
+                phaseView.get(stateEnum.SHOW_WINNER).play(tuiCli);
                 break;
         }
 
