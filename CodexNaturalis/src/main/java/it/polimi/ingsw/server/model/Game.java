@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
+import it.polimi.ingsw.server.saveHandlig.SaveData;
 
 import java.util.*;
 public class Game {
@@ -32,6 +33,14 @@ public class Game {
     private Player currentPlayer;
     public List<Card> visibleResourceCards = new ArrayList<>();
     public List<Card> visibleGoldCards = new ArrayList<>();
+
+    /*
+    private void loadGame(SaveData existingGame){
+        gameState = existingGame.getState();
+        playersNumber = existingGame.getPlayersNum();
+        userList = existingGame.getUserList();
+    }
+     */
 
     // Constructor to create the game
     public Game(int playersNumber){
