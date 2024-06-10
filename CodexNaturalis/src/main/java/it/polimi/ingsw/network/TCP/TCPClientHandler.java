@@ -136,6 +136,7 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
         try {
             out.writeObject(msg);
             out.flush();
+            out.reset();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

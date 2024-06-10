@@ -108,6 +108,7 @@ public class MainController implements Serializable {
     }
 
     public void beginTurn() {
+
         if (game.getUserList().isEmpty()) {
             throw new IllegalStateException("User list is empty. Cannot begin turn.");
         }
@@ -271,12 +272,12 @@ public class MainController implements Serializable {
             e.printStackTrace();
         }
     }
+
+
     public void middleTurn() {
         serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
                 new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
     }
-
-
 
 
     //utilities

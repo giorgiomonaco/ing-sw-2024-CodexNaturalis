@@ -15,11 +15,9 @@ public class ReceiverTCP extends Thread{
     }
 
     public void run(){
-        Message msg;
-
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                msg = (Message) in.readObject();
+                Message msg = (Message) in.readObject();
                 client.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection to the server.");

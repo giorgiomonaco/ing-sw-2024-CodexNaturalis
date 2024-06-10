@@ -22,7 +22,7 @@ public class DrawCardView implements TuiView {
         printGoldCards();
         System.out.println("UNCOVERED RESOURCE CARDS:");
         printResourceCards();
-        System.out.println("CHOOSE A CARD TO DRAW\n\nWrite drawCard <choice>\n where choice is: \n-The number of the card you want to draw or\n-Write either 5 for goldDeck, or  6 for resourceDeck, to draw a covered card");
+        System.out.println("CHOOSE A CARD TO DRAW\n\nWrite draw <choice>\n where choice is: \n-The number of the card you want to draw or\n-Write either 5 for goldDeck, or  6 for resourceDeck, to draw a covered card");
     }
 
     private void printResourceCards() {
