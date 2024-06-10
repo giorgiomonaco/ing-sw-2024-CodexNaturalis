@@ -109,8 +109,7 @@ public class ServerHandler {
             case messEnum.SELECTION_CARD:
                 synchronized (controllerLock){
                     SelectionCard selCard = (SelectionCard) msg;
-                    Player player = mainController.getPlayerByUsername(selCard.getUsername());
-                    mainController.playCard(player, selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
+                    mainController.selectionCard(selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     mainController.middleTurn();
                 }
                 break;

@@ -37,4 +37,13 @@ public class Boards implements Serializable {
     public void setboard(Card[][] gameboard) {
         this.gameboard = gameboard;
     }
+
+    public void setCheckboardXY(int x, int y, int value) {
+        this.checkboard[x][y] = value;
+    }
+
+    public void setGameboardXY(int x, int y, Card card) {
+        this.gameboard[x][y] = card;
+
+    }
 }

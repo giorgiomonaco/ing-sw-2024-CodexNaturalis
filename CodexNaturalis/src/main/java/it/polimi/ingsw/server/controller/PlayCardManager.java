@@ -8,66 +8,46 @@ public class PlayCardManager {
     private final Player player;
     private Boards board;
 
-    public PlayCardManager(Game game, Player player) {
+    public PlayCardManager(Game game) {
         this.game = game;
-        this.player = player;
+        player = game.getCurrentPlayer();
     }
 
     public void playCard(Card card, int x, int y, boolean side) {
-        this.board = player.getGameboard();
-        Card[][] cardBoard = board.getGameboard();
-        int[][] checkBoard = board.getCheckboard();
-
+        //assigns a value to the direction the card is facing
         card.setFrontSide(side);
 
-        cardBoard[x][y] = card;
-        checkBoard[x][y] = 1;
+        game.getCurrentPlayer().getGameboard().getGameboard()[x][y] = card;
+        game.getCurrentPlayer().getGameboard().getCheckboard()[x][y] = 1;
         card.addResources(player);
 
-        updateBoxes(card, x, y, checkBoard, side);
-        updatePlayerResources(x, y, cardBoard);
+        updateBoxes(card, x, y, side);
+        updatePlayerResources(x, y, game.getCurrentPlayer().getGameboard().getGameboard());
     }
 
-    private void updateBoxes(Card card, int x, int y, int[][] checkBoard, boolean side) {
-        if (card == null) {
-            throw new IllegalArgumentException("Card cannot be null");
-        }
-        try {
-            if (side) {
-                if (checkBoard[x + 1][y + 1] != 1 && card.getFrontVisibleAngle(3) != null) {
-                    checkBoard[x + 1][y + 1] = 0;
-                }
-                if (checkBoard[x + 1][y - 1] != 1 && card.getFrontVisibleAngle(1) != null) {
-                    checkBoard[x + 1][y - 1] = 0;
-                }
-                if (checkBoard[x - 1][y + 1] != 1 && card.getFrontVisibleAngle(0) != null) {
-                    checkBoard[x - 1][y + 1] = 0;
-                }
-                if (checkBoard[x - 1][y - 1] != 1 && card.getFrontVisibleAngle(2) != null) {
-                    checkBoard[x - 1][y - 1] = 0;
-                }
-            } else {
-                if (checkBoard[x + 1][y + 1] != 1) {
-                    checkBoard[x + 1][y + 1] = 0;
-                }
-                if (checkBoard[x + 1][y - 1] != 1) {
-                    checkBoard[x + 1][y - 1] = 0;
-                }
-                if (checkBoard[x - 1][y + 1] != 1) {
-                    checkBoard[x - 1][y + 1] = 0;
-                }
-                if (checkBoard[x - 1][y - 1] != 1) {
-                    checkBoard[x - 1][y - 1] = 0;
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid coordinates", e);
-        }
+    public void setCheckBoard(int[][] checkBoard) {
+        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);
     }
 
+    private void updateBoxes(Card card, int x, int y, boolean side) {
+        int[][] checkBoard = game.getCurrentPlayer().getGameboard().getCheckboard();
+
+        updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
+        updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
+        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(0) : null);
+        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(2) : null);
+
+        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);  // Ensure the updated checkBoard is set back to the player
+    }
+
+    private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {
+        if (checkBoard[x][y] != 1 && angle != null) {
+            checkBoard[x][y] = 0;
+        }
+    }
     private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
 
-        int[] resources = player.getResourcesAvailable();
+        int[] resources = game.getCurrentPlayer().getResourcesAvailable();
         VisibleAngle coveredAngle = null;
 
         if (cardBoard[x+1][y+1] != null) {
@@ -99,7 +79,7 @@ public class PlayCardManager {
         }
 
         if (coveredAngle != null) {
-            player.resourceLowering(coveredAngle.getSymbol());
+            game.getCurrentPlayer().resourceLowering(coveredAngle.getSymbol());
         }
 
     }

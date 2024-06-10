@@ -7,9 +7,10 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PlayCardReq extends Message {
+public class PlayCardReq extends Message implements Serializable {
     List<Card> card;
     Boards boards;
     int[] resources;

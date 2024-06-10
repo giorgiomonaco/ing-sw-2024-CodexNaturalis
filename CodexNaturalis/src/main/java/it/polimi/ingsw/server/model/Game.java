@@ -152,6 +152,7 @@ public class Game {
         return currentPlayer;
     }
 
+
     public Player getNextPlayer(){int index = playerList.indexOf(getCurrentPlayer());
     return playerList.get(index+1);
     }
@@ -212,15 +213,15 @@ public class Game {
         this.availableTokens.remove(toRemove);
     }
 
-    public Card drawVisibleResourceCard(int index){
-        Card card = visibleResourceCards.remove(index);
-        visibleResourceCards.add(drawResourceCard());
-        return card;
-    }
-
-    public Card drawVisibleGoldCard(int index){
-        Card card = visibleGoldCards.remove(index);
-        visibleGoldCards.add(drawGoldCard());
-        return card;
+    public Card drawFromVisible(int i, String card){
+        if (Objects.equals(card, "gold")) {
+            visibleGoldCards.addLast(drawGoldCard());
+            return visibleGoldCards.remove(i);
+        }
+        if (Objects.equals(card, "resource")) {
+            visibleResourceCards.addLast(drawResourceCard());
+            return visibleResourceCards.remove(i);
+        }
+        return null;
     }
 }

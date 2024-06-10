@@ -6,10 +6,11 @@ import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainController {
+public class MainController implements Serializable {
     private Game game;
     private final ServerHandler serverHandler;
     private GameSetUpper gameSetUpper;
@@ -106,18 +107,25 @@ public class MainController {
         }
     }
 
-    public void beginTurn(){
-        currPlayerIndex = (currPlayerIndex+1)%(game.getUserList().size());
-        Player p = game.getPlayerList().get(currPlayerIndex);
-        game.setCurrentPlayer(p);
-
-        if(game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex){
-            endGame();
+    public void beginTurn() {
+        if (game.getUserList().isEmpty()) {
+            throw new IllegalStateException("User list is empty. Cannot begin turn.");
         }
-        else {
-            game.setCurrentPlayer(p);
-            serverHandler.sendMessageToPlayer(game.getUserList().get(currPlayerIndex),
-                    new PlayCardReq(ServerHandler.HOSTNAME, p.getPlayerHand(),p.getGameboard(), p.getResourcesAvailable()));
+
+        currPlayerIndex = (currPlayerIndex + 1) % game.getUserList().size();
+        game.setCurrentPlayer(game.getPlayerList().get(currPlayerIndex));
+
+
+        if (game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex) {
+            endGame();
+        } else {
+            serverHandler.sendMessageToPlayer(
+                    game.getCurrentPlayer().getPlayerName(),
+                    new PlayCardReq(ServerHandler.HOSTNAME,
+                            game.getCurrentPlayer().getPlayerHand(),
+                            game.getCurrentPlayer().getGameboard(),
+                            game.getCurrentPlayer().getResourcesAvailable())
+            );
         }
     }
 
@@ -172,6 +180,23 @@ public class MainController {
     }
 
     public void endGame(){
+        Player player = null;
+        int maxPoints = 0;
+        for (int i = 0; i < game.getUserList().size(); i++) {
+            EndgameManager endgameManager = new EndgameManager(game, game.getPlayerList().get(i));
+            game.getPlayerList().get(i).addPoints(endgameManager.objectivePointsCounter());
+
+            if (game.getPlayerList().get(i).getPoints() > maxPoints) {
+                maxPoints = game.getPlayerList().get(i).getPoints();
+                player = game.getPlayerList().get(i);
+            }
+        }
+        if (player != null) {
+            serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true));
+            serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false));
+
+        }
+
 
     }
 
@@ -198,25 +223,26 @@ public class MainController {
 
 
     public void drawCard(int cardIndex) {
-        Player p = game.getCurrentPlayer();
+
         Card card = cardSelector(cardIndex);
         if (card instanceof ResourceCard) {
-            p.addResourceCard((ResourceCard) card);
+            game.getCurrentPlayer().addResourceCard((ResourceCard) card);
         } else if (card instanceof GoldCard) {
-            p.addGoldCard((GoldCard) card);
+            game.getCurrentPlayer().addGoldCard((GoldCard) card);
         }
     }
     public Card cardSelector(int cardIndex) {
-        return switch (cardIndex -1) {
-            case 0 -> game.drawVisibleGoldCard(0);
-            case 1 -> game.drawVisibleGoldCard(1);
-            case 2 -> game.drawVisibleResourceCard(0);
-            case 3 -> game.drawVisibleResourceCard(1);
+        return switch (cardIndex - 1) {
+            case 0 -> game.drawFromVisible(0, "gold");
+            case 1 -> game.drawFromVisible(1, "gold");
+            case 2 -> game.drawFromVisible(0, "resource");
+            case 3 -> game.drawFromVisible(1, "resource");
             case 4 -> game.drawGoldCard();
             case 5 -> game.drawResourceCard();
             default -> null;
         };
     }
+
     public List<Card> getUncoveredCards(){
         List<Card> uncoveredCards = new ArrayList<>();
         uncoveredCards.addAll(game.getVisibleGoldCards());
@@ -229,24 +255,97 @@ public class MainController {
         return firstTurn;
     }
 
-    public void playCard(Player p, Card card, int x, int y, boolean side){
-        PlayCardManager playCardManager = new PlayCardManager(game, game.getCurrentPlayer());
+    public void selectionCard(Card card, int x, int y, boolean side){
 
-        if (card instanceof ResourceCard) {
-            p.removeResourceCardFromHand((ResourceCard) card);
-            playCardManager.playCard(card, x, y, side);
-            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
-
-        } else if (card instanceof GoldCard goldCard) {
-            p.removeGoldCardFromHand(goldCard);
-            playCardManager.playCard(card, x, y, side);
-            game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
+        try {
+            game.getCurrentPlayer().removeCardFromHand(card);
+            playCard(card, x, y, side);
+            if (card instanceof ResourceCard) {
+                game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
+            }
+            else if (card instanceof GoldCard goldCard) {
+                game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
-
     public void middleTurn() {
-        Player p = game.getCurrentPlayer();
-        serverHandler.sendMessageToPlayer(p.getPlayerName(),
+        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
                 new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
+    }
+
+
+
+
+    //utilities
+    public void playCard(Card card, int x, int y, boolean side) {
+        //assigns a value to the direction the card is facing
+        card.setFrontSide(side);
+
+        game.getCurrentPlayer().getGameboard().setGameboardXY(x, y, card);
+        game.getCurrentPlayer().getGameboard().setCheckboardXY(x, y, 1);
+        card.addResources(game.getCurrentPlayer());
+
+        updateBoxes(card, x, y, side);
+        updatePlayerResources(x, y, game.getCurrentPlayer().getGameboard().getGameboard());
+    }
+
+
+
+    private void updateBoxes(Card card, int x, int y, boolean side) {
+        int[][] checkBoard = game.getCurrentPlayer().getGameboard().getCheckboard().clone();
+
+        updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
+        updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
+        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(0) : null);
+        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(2) : null);
+
+        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);  // Ensure the updated checkBoard is set back to the player
+    }
+
+    private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {
+        if (checkBoard[x][y] != 1 && angle != null) {
+            checkBoard[x][y] = 0;
+        }
+    }
+    private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
+
+        int[] resources = game.getCurrentPlayer().getResourcesAvailable();
+        VisibleAngle coveredAngle = null;
+
+        if (cardBoard[x+1][y+1] != null) {
+            boolean front = cardBoard[x+1][y+1].getSide();
+            if (front) {
+                coveredAngle = cardBoard[x+1][y+1].getFrontVisibleAngle(0);
+            }
+        }
+
+        if (cardBoard[x+1][y-1] != null) {
+            boolean front = cardBoard[x+1][y-1].getSide();
+            if (front) {
+                coveredAngle = cardBoard[x+1][y+1].getFrontVisibleAngle(2);
+            }
+        }
+
+        if (cardBoard[x-1][y+1] != null) {
+            boolean front = cardBoard[x-1][y+1].getSide();
+            if (front) {
+                coveredAngle = cardBoard[x-1][y+1].getFrontVisibleAngle(1);
+            }
+        }
+
+        if (cardBoard[x-1][y-1] != null) {
+            boolean front = cardBoard[x-1][y-1].getSide();
+            if (front) {
+                coveredAngle = cardBoard[x-1][y-1].getFrontVisibleAngle(3);
+            }
+        }
+
+        if (coveredAngle != null) {
+            game.getCurrentPlayer().resourceLowering(coveredAngle.getSymbol());
+        }
+
     }
 }

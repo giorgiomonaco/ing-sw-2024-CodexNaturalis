@@ -31,6 +31,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private int[] resources;
     private List<Card> visibleGoldCards = new ArrayList<>();
     private List<Card> visibleResourceCards = new ArrayList<>();
+    private boolean winner = false;
 
 
 
@@ -151,5 +152,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     }
     public List<Card> getVisibleResourceCards() {
         return visibleResourceCards;
+    }
+
+    public void setWinner(boolean win) {
+        this.winner = win;
+    }
+
+    public boolean getWinner() {
+        return winner;
     }
 }
