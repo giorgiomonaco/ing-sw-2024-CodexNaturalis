@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainController implements Serializable {
     private Game game;
@@ -113,9 +115,11 @@ public class MainController implements Serializable {
             throw new IllegalStateException("User list is empty. Cannot begin turn.");
         }
 
-        currPlayerIndex = (currPlayerIndex + 1) % game.getUserList().size();
-        game.setCurrentPlayer(game.getPlayerList().get(currPlayerIndex));
-
+        // Skip the turn of the disconnected players until I find a connected one.
+        do {
+            currPlayerIndex = (currPlayerIndex + 1) % game.getUserList().size();
+            game.setCurrentPlayer(game.getPlayerList().get(currPlayerIndex));
+        } while (!game.getCurrentPlayer().isConnected());
 
         if (game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex) {
             endGame();
@@ -133,7 +137,13 @@ public class MainController implements Serializable {
     public void beginFirstTurn(){
 
         List<String> availableToken = game.getAvailableTokens();
-        firstTurnIndex = (firstTurnIndex+1)%(game.getUserList().size());
+
+        // Skip the turn of the disconnected players until I find a connected one or the first turn is ended.
+        do {
+            firstTurnIndex = (firstTurnIndex + 1) % (game.getUserList().size());
+            game.setCurrentPlayer(game.getPlayerList().get(firstTurnIndex));
+        } while (!game.getCurrentPlayer().isConnected() &&
+                !(firstTurnIndex == game.getPlayersNumber()-1));
 
         if(firstTurnIndex == 0 && !firstTurn){
             serverHandler.sendMessageToPlayer(game.getUserList().getFirst(),
@@ -349,4 +359,29 @@ public class MainController implements Serializable {
         }
 
     }
+
+    public void playerDisconnect(String username) {
+        if(!game.getUserList().contains(username)){
+            System.out.println(Colors.redColor + "The player named " + username + " wasn't actually playing." + Colors.resetColor);
+        } else if (!game.getGameState().equals(gameStateEnum.END)) {
+            for(Player p: game.getPlayerList()){
+                if(p.getPlayerName().equals(username)){
+                    if(p.isConnected()){
+                        p.setConnected(false);
+                    } else {
+                        System.out.println(Colors.redColor + "The player named " + username + " was already disconnected." + Colors.resetColor);
+                    }
+                    if(game.getCurrentPlayer().equals(p)){
+                        if(isFirstTurn()){
+                            beginFirstTurn();
+                        } else {
+                            beginTurn();
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
 }

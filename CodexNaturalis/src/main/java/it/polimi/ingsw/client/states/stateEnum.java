@@ -57,6 +57,10 @@ public enum stateEnum {
      * number of players that can join the game.
      */
     REJECTED,
+    /**
+     * The game is ended because of a disconnection of a player
+     * when the game is not even started.
+     */
     DISCONNECTION,
-    SHOW_WINNER, YOUR_TURN
+    SHOW_WINNER
 }

@@ -1,15 +1,19 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.network.ClientConnection;
 import it.polimi.ingsw.network.LoginResult;
+import it.polimi.ingsw.network.Pinger;
 import it.polimi.ingsw.network.RMI.ServerRMI;
 import it.polimi.ingsw.network.ServerConfigNetwork;
 import it.polimi.ingsw.network.TCP.ServerTCP;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
 import it.polimi.ingsw.network.message.messEnum;
+import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 
 import java.rmi.RemoteException;
@@ -26,23 +30,33 @@ public class ServerHandler {
     private boolean creatingLobby;
     private final Object lobbyLock = new Object();
     private final Object controllerLock = new Object();
+    private Pinger pinger;
+    private GameStopper gameStopper;
+    // Timeout for the game when only one player remain connected.
+    public static int TIMEOUT = 30;
+    private gameStateEnum previous;
 
     public ServerHandler(ServerConfigNetwork data) {
         this.configBase = data;
         connectedClients = new HashMap<>();
         waitingLobby = new ArrayList<>();
         creatingLobby = false;
+        pinger = new Pinger(this);
+        gameStopper = new GameStopper(this);
+
         try {
             rmiServer = new ServerRMI(configBase, this);
             tcpServer = new ServerTCP(configBase, this);
         } catch (RemoteException e) {
             System.err.println("Unable to create a new server, maybe one is already running.");
         }
+
     }
 
     public void init() {
         rmiServer.start();
         tcpServer.start();
+        pinger.start();
     }
 
     public void isValid(String check){
@@ -122,6 +136,9 @@ public class ServerHandler {
                     mainController.endTurn();
                 }
                 break;
+            case PING:
+                pinger.loadMessage(msg);
+                break;
         }
     }
 
@@ -191,6 +208,12 @@ public class ServerHandler {
                 if (!connectedClients.get(username).isConnected()) {
                     connectedClients.get(username).setConnected(true);
                     System.out.println("Reconnection of the player with the username: " + username);
+                    synchronized (controllerLock) {
+                        if(mainController.getGame().getGameState().equals(gameStateEnum.STOP)){
+                            gameStopper.interrupt();
+                            mainController.getGame().setGameState(previous);
+                        }
+                    }
                     logged = true;
                     reconnected = true;
                 } else {
@@ -220,4 +243,67 @@ public class ServerHandler {
             }
         }
     }
+
+    public Map<String, ClientConnection> getConnectedClients() {
+        Map<String, ClientConnection> copy;
+        synchronized (connectedClients) {
+            copy = new HashMap<>(connectedClients);
+        }
+        return copy;
+    }
+
+    public void playerDisconnection(ClientConnection client){
+        System.out.println(Colors.redColor+ "Disconnection of a client..." + Colors.resetColor);
+        String name = null;
+
+        synchronized (connectedClients) {
+            // check if the client is actually connected
+            if (connectedClients.containsValue(client)) {
+                //search the nickname of the client
+                for (String user : connectedClients.keySet()) {
+                    if (connectedClients.get(user).equals(client)) {
+                        name = user;
+                        connectedClients.get(user).setConnected(false);
+                        System.out.println(Colors.redColor + user + " is now disconnected!" + Colors.resetColor);
+                        break;
+                    }
+                }
+            } else {
+                System.out.println(Colors.redColor + "The client was already disconnected." + Colors.resetColor);
+                return;
+            }
+        }
+
+        synchronized (controllerLock) {
+            if (mainController == null) {
+                // the game has not been created yet.
+                sendMessageToAll(new GameAborted(HOSTNAME));
+                System.exit(1);
+            } else {
+                mainController.playerDisconnect(name);
+                int count = 0;
+                synchronized (connectedClients) {
+                    for (String user : connectedClients.keySet()) {
+                        if (connectedClients.get(user).isConnected()) {
+                            count++;
+                        }
+                    }
+                }
+
+                if(count == 1) {
+                    previous = mainController.getGame().getGameState();
+                    mainController.getGame().setGameState(gameStateEnum.STOP);
+                    gameStopper.start();
+                }
+            }
+        }
+    }
+
+    public void endGame(){
+        //vince l'unico giocatore rimasto
+
+        // per ora sto usando la exit per testare
+        System.exit(2);
+    }
+
 }

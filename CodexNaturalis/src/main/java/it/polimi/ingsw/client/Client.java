@@ -66,9 +66,9 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         return username;
     }
 
-    public void manageMessage(Message msg) {
+    public void manageMessage(Message msg) throws RemoteException {
         if(msg.getType().equals(messEnum.PING)){
-
+            sendMessage(new PingMessage(username));
         } else {
             callHandler(msg);
         }
