@@ -98,6 +98,16 @@ public class Tui implements UserInterface{
         }
 
     }
+    @Override
+    public void printChat(){
+        List<Chat> a = tuiCli.getChat();
+        System.out.println("\n\nCHAT: ");
+
+        for (Chat c:a){
+            System.out.println(c.getSender() + ": "+ c.getMsg());
+        }
+
+    }
 
     @Override
     public void endGame() {

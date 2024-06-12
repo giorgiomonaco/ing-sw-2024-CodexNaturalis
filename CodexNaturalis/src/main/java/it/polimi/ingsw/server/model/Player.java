@@ -31,6 +31,8 @@ public class Player implements Serializable {
 
     private String playerTokenS;
 
+    private List<Chat> chat = new ArrayList<>();
+
     private int playerPoints = 0;
     private InitialCard initialCard;
 
@@ -252,5 +254,11 @@ public class Player implements Serializable {
 
     public int getPoints() {return playerPoints;}
 
+    public List<Chat> getChat() {
+        return chat;
+    }
 
+    public void setChat(List<Chat> chat) {
+        this.chat = chat;
+    }
 }

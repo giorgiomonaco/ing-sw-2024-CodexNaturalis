@@ -12,6 +12,10 @@ public class Gui implements UserInterface {
     public void run() {
 
     }
+    @Override
+    public void printChat(){
+
+    }
 
     @Override
     public void endGame() {

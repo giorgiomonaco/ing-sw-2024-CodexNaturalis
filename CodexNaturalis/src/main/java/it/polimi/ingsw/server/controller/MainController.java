@@ -9,6 +9,7 @@ import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainController implements Serializable {
     private Game game;
@@ -24,6 +25,7 @@ public class MainController implements Serializable {
     // If it's the first turn the players have to choose the token and the personal objective cards.
     private int firstTurnIndex;
     private boolean firstTurn;
+    private Game game1;
 
     //Constructor, it only needs a game to control
     public MainController(ServerHandler serverHandler){
@@ -64,19 +66,18 @@ public class MainController implements Serializable {
             return;
         }
         try {
-
             game.addPlayer(new Player(username));
             List <String> userList = game.getUserList();
             serverHandler.sendMessageToAllExcept(username,
                     new NewPlayerJoin(ServerHandler.HOSTNAME,
                             "\nNew player logged!: " + username + "\nWaiting for the other " +
-                                    (game.getPlayersNumber()-game.getPlayerList().size()) +
+                                    (game.getPlayersNumber()- game.getPlayerList().size()) +
                                     " player/s to join...",
                             username));
             serverHandler.sendMessageToPlayer(username,
                     new LobbyCreation(ServerHandler.HOSTNAME,
                             "You joined the lobby!\nWaiting for the other " +
-                                    (game.getPlayersNumber()-game.getPlayerList().size()) +
+                                    (game.getPlayersNumber()- game.getPlayerList().size()) +
                                     " player/s to join...",
                             userList));
 
@@ -179,6 +180,17 @@ public class MainController implements Serializable {
 
         beginTurn();
     }
+    public void chatUpdate(String username, String destination, String chat){
+        if(Objects.equals(destination, "all")) {
+            for (Player p : game.getPlayerList()) {
+                p.getChat().add(new Chat(username,chat));
+                serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
+            }
+        }
+
+    }
+
+
 
     public void endGame(){
         Player player = null;

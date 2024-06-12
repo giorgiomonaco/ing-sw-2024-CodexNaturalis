@@ -12,6 +12,7 @@ public class Game {
     List<String> userList = new ArrayList<>();
     private int playersNumber;
 
+    private List<List<Chat>> playersChats = new ArrayList<>();
     //deck of resource cards (common to every player)
     private final List<ResourceCard> resourceDeck = new ArrayList<>();
 
@@ -120,9 +121,11 @@ public class Game {
         if (playerList.size() < playersNumber) {
             playerList.add(player);
             userList.add(player.getPlayerName());
+            playersChats.add(player.getChat());
             if (playerList.size() == playersNumber) {
                 gameState = gameStateEnum.START;
             }
+
         }
         else throw new IllegalStateException("The game is full");
     }
@@ -223,5 +226,13 @@ public class Game {
             return visibleResourceCards.remove(i);
         }
         return null;
+    }
+
+    public List<List<Chat>> getPlayersChats() {
+        return playersChats;
+    }
+
+    public void setPlayersChats(List<List<Chat>> playersChats) {
+        this.playersChats = playersChats;
     }
 }

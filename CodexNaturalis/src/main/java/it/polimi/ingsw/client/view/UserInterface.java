@@ -17,4 +17,6 @@ public interface UserInterface {
 
     void viewFirst(InitialCard init);
 
+    void printChat();
+
 }

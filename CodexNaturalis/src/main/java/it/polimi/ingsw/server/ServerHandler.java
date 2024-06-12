@@ -122,6 +122,20 @@ public class ServerHandler {
                     mainController.endTurn();
                 }
                 break;
+
+            case messEnum.CHATMSG:
+                synchronized (controllerLock){
+                    ChatMessage chatMsg = (ChatMessage) msg;
+                    String destination = chatMsg.getDestination();
+                    String chat = chatMsg.getChat();
+
+                    if(destination.equals("all")){
+                        mainController.chatUpdate(chatMsg.getUsername(), destination, chat);
+
+                   // else //mainController.msgtoPLAYER;
+                    }
+
+                }
         }
     }
 
