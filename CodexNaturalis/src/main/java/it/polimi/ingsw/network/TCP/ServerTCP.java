@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
  * The class creates the ServerSocket and also the threads
  * that manage the accepted connections.
  */
-public class ServerTCP {
+public class ServerTCP extends Thread{
     static int PORT;
     private ServerHandler handlerTCP;
     public List<TCPClientHandler> connectedClients;
@@ -26,7 +26,7 @@ public class ServerTCP {
         connectedClients = new ArrayList<>();
     }
 
-    public void start(){
+    public void run(){
         ExecutorService executor = Executors.newCachedThreadPool();
         ServerSocket serverSocket;
         try {
@@ -46,8 +46,6 @@ public class ServerTCP {
 
                 connectedClients.add(acceptedClient);
                 executor.submit(acceptedClient);
-                //Thread newThread = new Thread(acceptedClient);
-                // newThread.start();
             } catch (IOException e) {
                 break; // You join here if the serverSocket has been closed.
             }
@@ -55,7 +53,4 @@ public class ServerTCP {
         executor.shutdown();
     }
 
-    public void stop(){
-
-    }
 }

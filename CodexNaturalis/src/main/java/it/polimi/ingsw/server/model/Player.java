@@ -10,6 +10,8 @@ public class Player implements Serializable {
     private Boards Gameboard;
     //Name of the player
     private final String playerName;
+    //Used to check if the player is connected
+    private boolean connected;
 
     //List of the resource cards the player has in hand
     private final List<ResourceCard> playerResourceCards = new ArrayList<>();
@@ -47,6 +49,7 @@ public class Player implements Serializable {
     //Constructor
     public Player(String name) {
         this.playerName = name;
+        this.connected = true;
     }
 
     //Getter of the list of the resource cards now in hand
@@ -258,6 +261,13 @@ public class Player implements Serializable {
         return chat;
     }
 
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
     public void setChat(List<Chat> chat) {
         this.chat = chat;
     }

@@ -3,5 +3,7 @@ package it.polimi.ingsw.server.model.gameStateEnum;
 public enum gameStateEnum {
     ACCEPT_PLAYER,
     START,
-    FINAL_TURN
+    STOP,
+    FINAL_TURN,
+    END
 }

@@ -8,8 +8,8 @@ import java.rmi.RemoteException;
 
 public class RMIClientHandler extends ClientConnection {
 
-    private ServerHandler handler;
-    private RMIClientInterface rmiClientInterface;
+    private final ServerHandler handler;
+    private final RMIClientInterface rmiClientInterface;
 
     public RMIClientHandler(ServerHandler handler, RMIClientInterface rmiClientInterface){
         this.handler = handler;
@@ -23,6 +23,7 @@ public class RMIClientHandler extends ClientConnection {
             rmiClientInterface.receiveFromServer(msg);
         } catch (RemoteException e) {
             System.err.println("Error on the remote invocation of the method.");
+            handler.playerDisconnection(this);
         }
     }
 }

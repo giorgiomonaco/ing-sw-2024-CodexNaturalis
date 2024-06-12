@@ -61,8 +61,10 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
             } while(!result.isLogged());
         } catch (IOException e) {
             System.err.println("Lost connection with the client: " + socket);
+            handlerTCP.playerDisconnection(this);
         } catch (ClassNotFoundException e) {
             System.err.println("Couldn't cast a message of the client: " + socket);
+            handlerTCP.playerDisconnection(this);
         }
 
         // wait for the msg of the client (login already managed)
@@ -72,48 +74,15 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
                 handlerTCP.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection with the client: " + socket);
-                // have to manage disconnection of the client!!
+                Thread.currentThread().interrupt();
+                handlerTCP.playerDisconnection(this);
             } catch (ClassNotFoundException e) {
                 System.err.println("Couldn't cast a message of the client: " + socket);
-                // IDK if I have to disconnect the client here, maybe just resend the message.
+                handlerTCP.playerDisconnection(this);
             }
         }
 
     }
-/*
-    public boolean manageLogin(LoginRequest msg) {
-        boolean result;
-        LoginResponse response;
-
-        if(handlerTCP.getConnectedClients().isEmpty()){
-            handlerTCP.getConnectedClients().add(msg.getUsername());
-            System.out.println("New player added, username: " + msg.getUsername());
-            // maybe have to start the game here
-            response = new LoginResponse(ServerHandler.HOSTNAME, 1, msg.getUsername());
-            result = true;
-        } else if(handlerTCP.getConnectedClients().size() == handlerTCP.getGame().getNumOfPlayers()){
-            response = new LoginResponse(ServerHandler.HOSTNAME, 4, msg.getUsername());
-            result = false;
-        } else if(handlerTCP.getConnectedClients().contains(msg.getUsername())){
-                response = new LoginResponse(ServerHandler.HOSTNAME, 3, msg.getUsername());
-                result = false;
-        } else {
-                handlerTCP.getConnectedClients().add(msg.getUsername());
-                System.out.println("New player added, username: " + msg.getUsername());
-                response = new LoginResponse(ServerHandler.HOSTNAME, 2, msg.getUsername());
-                result = true;
-        }
-
-        try {
-            out.writeObject(response);
-            out.flush();
-        } catch (IOException e) {
-            System.err.println("Lost connection with the server.");
-        }
-
-        return result;
-    }
-*/
 
     public LoginResult manageLogin(LoginRequest request){
         setConnected(true);
@@ -138,7 +107,8 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
             out.flush();
             out.reset();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Lost connection with the client: " + socket);
+            handlerTCP.playerDisconnection(this);
         }
     }
 
