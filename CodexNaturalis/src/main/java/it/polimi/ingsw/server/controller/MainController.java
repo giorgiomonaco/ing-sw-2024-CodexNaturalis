@@ -187,11 +187,26 @@ public class MainController implements Serializable {
 
     public void chatUpdate(String username, String destination, String chat){
         if(Objects.equals(destination, "all")) {
+            chat = "public: "+chat;
             for (Player p : game.getPlayerList()) {
                 p.getChat().add(new Chat(username,chat));
                 serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
             }
         }
+        else {
+           for (Player p : game.getPlayerList()){
+                if(Objects.equals(p.getPlayerName(), destination)){
+                    chat = "private: "+chat;
+                    p.getChat().add(new Chat(username,chat));
+                    serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
+                    serverHandler.sendMessageToPlayer(username, new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
+                }
+            }
+
+
+
+        }
+
 
     }
 

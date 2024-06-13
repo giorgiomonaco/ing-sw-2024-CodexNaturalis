@@ -30,19 +30,12 @@ public class ChatCommand implements CommandManager {
             throw new CommandNotAvailableException();
         }
 
-        if (commands[1].equals("to")) {
-//controlla username
-            String[] temp = Arrays.copyOfRange(commands, 3, commands.length);
-            String result = String.join(" ", temp);
-            ChatMessage toSend = new ChatMessage(client.getUsername(), commands[2], result);
-            client.sendMessage(toSend);
 
-        } else {
             String[] temp = Arrays.copyOfRange(commands, 2, commands.length);
             String result = String.join(" ", temp);
             ChatMessage toSend = new ChatMessage(client.getUsername(), commands[1], result);
             client.sendMessage(toSend);
-        }
+
 
 
     }

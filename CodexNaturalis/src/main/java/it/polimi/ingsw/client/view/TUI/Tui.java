@@ -108,7 +108,7 @@ public class Tui implements UserInterface{
         System.out.println("\n\nCHAT: ");
 
         for (Chat c:a){
-            System.out.println(c.getSender() + ": "+ c.getMsg());
+            System.out.println(c.getSender() + "-> "+ c.getMsg());
         }
 
     }
