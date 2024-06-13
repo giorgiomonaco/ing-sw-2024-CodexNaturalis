@@ -329,9 +329,9 @@ public class ServerHandler {
     }
 
     public void endGame(){
-        //vince l'unico giocatore rimasto
+        // the last player win the game
+        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true));
 
-        // per ora sto usando la exit per testare
         System.exit(2);
     }
 

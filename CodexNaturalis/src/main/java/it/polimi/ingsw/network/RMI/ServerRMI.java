@@ -25,9 +25,6 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
         handlerRMI = handler;
     }
 
-    public ServerRMI() throws RemoteException {
-        super();
-    }
 
     public void start(){
         try {
