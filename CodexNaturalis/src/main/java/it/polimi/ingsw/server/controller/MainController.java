@@ -344,13 +344,14 @@ public class MainController implements Serializable {
     private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
 
         int[] resources = game.getCurrentPlayer().getResourcesAvailable();
-        VisibleAngle coveredAngle = null;
+        List<VisibleAngle> coveredAngle = new ArrayList<>();
+
 
         if (cardBoard[x+1][y+1] != null) {
             boolean front = cardBoard[x+1][y+1].getSide();
             if (front) {
                 if(cardBoard[x+1][y+1].getFrontVisibleAngle(0) != null) {
-                    coveredAngle = cardBoard[x + 1][y + 1].getFrontVisibleAngle(0);
+                    coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
                 }
             }
         }
@@ -359,7 +360,7 @@ public class MainController implements Serializable {
             boolean front = cardBoard[x+1][y-1].getSide();
             if (front) {
                 if(cardBoard[x+1][y-1].getFrontVisibleAngle(2) != null) {
-                    coveredAngle = cardBoard[x + 1][y - 1].getFrontVisibleAngle(2);
+                    coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
                 }
             }
         }
@@ -368,7 +369,7 @@ public class MainController implements Serializable {
             boolean front = cardBoard[x-1][y+1].getSide();
             if (front) {
                 if(cardBoard[x-1][y+1].getFrontVisibleAngle(1) != null) {
-                    coveredAngle = cardBoard[x - 1][y + 1].getFrontVisibleAngle(1);
+                    coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
                 }
             }
         }
@@ -377,13 +378,15 @@ public class MainController implements Serializable {
             boolean front = cardBoard[x-1][y-1].getSide();
             if (front) {
                 if(cardBoard[x-1][y-1].getFrontVisibleAngle(3) != null) {
-                    coveredAngle = cardBoard[x - 1][y - 1].getFrontVisibleAngle(3);
+                    coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
                 }
             }
         }
 
-        if (coveredAngle != null) {
-            game.getCurrentPlayer().resourceLowering(coveredAngle.getSymbol());
+        if (!coveredAngle.isEmpty()) {
+            for (VisibleAngle angle : coveredAngle) {
+                game.getCurrentPlayer().resourceLowering(angle.getSymbol());
+            }
         }
 
     }
