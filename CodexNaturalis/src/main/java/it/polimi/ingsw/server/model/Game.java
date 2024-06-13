@@ -35,6 +35,8 @@ public class Game {
     public List<Card> visibleResourceCards = new ArrayList<>();
     public List<Card> visibleGoldCards = new ArrayList<>();
 
+    private List<ObjectiveCard> commonObjectives;
+
     /*
     private void loadGame(SaveData existingGame){
         gameState = existingGame.getState();
@@ -183,8 +185,13 @@ public class Game {
 
     public void drawUncoveredCards() {
         for (int i = 0; i < 2; i++) {
+            if(goldDeck.isEmpty() || resourceDeck.isEmpty() || objectiveDeck.isEmpty()){
+                System.out.println("One of the decks is empty");
+                return;
+            }
             visibleGoldCards.add(drawGoldCard());
             visibleResourceCards.add(drawResourceCard());
+            commonObjectives.add(drawObjectiveCard());
         }
     }
 
@@ -234,5 +241,13 @@ public class Game {
 
     public void setPlayersChats(List<List<Chat>> playersChats) {
         this.playersChats = playersChats;
+    }
+
+    public List<ObjectiveCard> getCommonObjectives() {
+        return commonObjectives;
+    }
+
+    public void setCommonObjectives(List<ObjectiveCard> commonObjectives) {
+        this.commonObjectives = commonObjectives;
     }
 }
