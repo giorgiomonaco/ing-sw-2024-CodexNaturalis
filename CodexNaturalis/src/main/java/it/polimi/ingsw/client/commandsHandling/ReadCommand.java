@@ -13,10 +13,9 @@ import java.util.Scanner;
 
 public class ReadCommand implements Runnable{
 
-    private Tui tui;
-    private String command;
-    private Map<String, CommandManager> mapOfCommand;
-    private Client client;
+    private final Tui tui;
+    private final Map<String, CommandManager> mapOfCommand;
+    private final Client client;
 
     public ReadCommand(Tui tui, Client tcpClient){
         this.tui = tui;
@@ -29,12 +28,12 @@ public class ReadCommand implements Runnable{
         Scanner scan = new Scanner(System.in);
 
         while(!Thread.currentThread().isInterrupted()) {
-            command = scan.nextLine().trim();
+            String command = scan.nextLine().trim();
 
             try {
                 mapCommand(command);
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                client.manageDisconnection();
             }
         }
     }

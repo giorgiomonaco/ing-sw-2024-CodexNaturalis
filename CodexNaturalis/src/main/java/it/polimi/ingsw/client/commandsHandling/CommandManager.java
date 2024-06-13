@@ -8,6 +8,6 @@ import java.rmi.RemoteException;
 
 public interface CommandManager {
 
-    public void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException, WrongInsertionException;
+    void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException, WrongInsertionException;
 
 }

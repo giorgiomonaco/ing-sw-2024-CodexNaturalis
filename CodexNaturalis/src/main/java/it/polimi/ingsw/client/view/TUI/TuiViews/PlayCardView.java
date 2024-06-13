@@ -7,10 +7,7 @@ import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
 
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class PlayCardView implements TuiView {
     private Boards boards;
@@ -22,11 +19,12 @@ public class PlayCardView implements TuiView {
     @Override
     public void play(Client client) {
         this.client = client;
-        System.out.println("CHOOSE A CARD TO PLAY FROM YOUR HAND \n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n-Red: Position not available   -Green: Position available    -Blue: Cards played");
+        System.out.println("CHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n-Red: Position not available   -Green: Position available    -Blue: Cards played");
         playerHand = client.getPlayerHand();
         boards = client.getBoards();
         printBoard();
 
+        System.out.println("\nCHOOSE A CARD TO PLAY FROM YOUR HAND \n");
         printHand();
         printPoints();
         printResources();
@@ -35,7 +33,7 @@ public class PlayCardView implements TuiView {
     }
 
     private void askCardToPlay() {
-        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command card <num> <x> <y> <true>, where:\n-num is the number of the card you want to play\n-x and y are the coordinates on the board\n-Write true if you want to place the card face up, false if you want to place it back up");
+        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command card <num> <x> <y> <side>, where:\n-num is the number of the card you want to play\n-x and y are the coordinates on the board\n-for side write front if you want to place the card face up, back if you want to place it back up.");
 
     }
 
@@ -80,7 +78,7 @@ public class PlayCardView implements TuiView {
 
 
             for (int x = 99; x >= 0; x--) {
-                if (boards.checkboard[x][y] == 1) {
+                if (boards.checkBoard[x][y] == 1) {
                     if (x > maxX) maxX = x;
                     if (x < minX) minX = x;
                     if (y > maxY) maxY = y;
@@ -101,15 +99,15 @@ public class PlayCardView implements TuiView {
 
             for (int x = minX-1; x < maxX+2; x++) {
 
-                switch (boards.checkboard[x][y]) {
+                switch (boards.checkBoard[x][y]) {
                     case -1:
-                        System.out.print(" " + colors.redColor + boards.checkboard[x][y] + colors.resetColor + " ");
+                        System.out.print(" " + colors.redColor + boards.checkBoard[x][y] + colors.resetColor + " ");
                         break;
                     case 0:
-                        System.out.print("  " + colors.greenColor + boards.checkboard[x][y] + colors.resetColor + " ");
+                        System.out.print("  " + colors.greenColor + boards.checkBoard[x][y] + colors.resetColor + " ");
                         break;
                     case 1:
-                        System.out.print("  " + colors.blueColor + boards.checkboard[x][y] + colors.resetColor + " ");
+                        System.out.print("  " + colors.blueColor + boards.checkBoard[x][y] + colors.resetColor + " ");
                         break;
 
                 }
@@ -117,7 +115,7 @@ public class PlayCardView implements TuiView {
         }
 
     }
-}
+
 
     private void printPoints(){
         System.out.println("\nYour current points: " + client.getPoints());

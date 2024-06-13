@@ -11,7 +11,7 @@ import it.polimi.ingsw.network.message.messEnum;
 import java.rmi.RemoteException;
 
 public class LoginCommand implements CommandManager {
-    private Client client;
+    private final Client client;
     public LoginCommand(Client client) {
         this.client = client;
     }

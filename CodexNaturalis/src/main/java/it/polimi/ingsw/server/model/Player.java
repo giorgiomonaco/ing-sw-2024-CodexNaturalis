@@ -91,7 +91,7 @@ public class Player implements Serializable {
     public void removeCardFromHand(Card card) {
 
         for (Card c : playerHand) {
-            if (c != null && c.equals(card, c)) {
+            if (c != null && c.equals(card)) {
                 if (c instanceof GoldCard) {
                     playerGoldCards.remove((GoldCard) c);
                 } else if (c instanceof ResourceCard) {
@@ -243,7 +243,7 @@ public class Player implements Serializable {
         this.selObjectiveCard.add(selObjectiveCard);
     }
 
-    public Boards getGameboard() {
+    public Boards getGameBoards() {
         return Gameboard;
     }
 

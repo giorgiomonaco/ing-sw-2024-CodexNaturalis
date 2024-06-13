@@ -46,9 +46,9 @@ public class EndgameManager {
     private int objectiveCreator(){
         // stage one -- finding the first card basing on its color
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
-        Boards gameBoard = this.player.getGameboard();
+        Boards gameBoard = this.player.getGameBoards();
 
-        Card[][] cardMatrix = gameBoard.getGameboard();
+        Card[][] cardMatrix = gameBoard.getGameBoard();
 
 
         for (int row = 0; row< gameBoard.getMAX_Y(); row++){
@@ -117,7 +117,7 @@ public class EndgameManager {
     // Starting from the top card, every layout is either going down in a straight line, or on the diagonals
     private boolean checkDirection(ObjectiveCard card, Card[][] cardMatrix, int row, int col, String direction, String toCheck){
 
-        Boards board = this.player.getGameboard();
+        Boards board = this.player.getGameBoards();
         if (row == board.getMAX_Y() || col == 0 || col == board.getMAX_X()){
             return false;
         }

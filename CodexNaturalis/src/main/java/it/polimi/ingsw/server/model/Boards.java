@@ -1,17 +1,16 @@
 package it.polimi.ingsw.server.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Boards implements Serializable {
-    public Card[][] gameboard;
-    public int[][] checkboard;
+    public Card[][] gameBoard;
+    public int[][] checkBoard;
     private final int MAX_X = 100;
     private final int MAX_Y = 100;
 
     public Boards(){
-        this.gameboard = new Card[MAX_X][MAX_Y];
-        this.checkboard = new int[MAX_X][MAX_Y];
+        this.gameBoard = new Card[MAX_X][MAX_Y];
+        this.checkBoard = new int[MAX_X][MAX_Y];
     }
 
     public int getMAX_X() {
@@ -22,29 +21,28 @@ public class Boards implements Serializable {
         return MAX_Y;
     }
 
-    public Card[][] getGameboard() {
-        return gameboard;
+    public Card[][] getGameBoard() {
+        return gameBoard;
     }
 
-    public int[][] getCheckboard() {
-        return checkboard;
+    public int[][] getCheckBoard() {
+        return checkBoard;
     }
 
-    public void setCheckboard(int[][] checkboard) {
-        this.checkboard = checkboard;
+    public void setCheckBoard(int[][] checkBoard) {
+        this.checkBoard = checkBoard;
     }
 
-    public void setboard(Card[][] gameboard) {
-        this.gameboard = gameboard;
+    public void setGameBoard(Card[][] gameBoard) {
+        this.gameBoard = gameBoard;
     }
 
-    public void setCheckboardXY(int x, int y, int value) {
-        this.checkboard[x][y] = value;
+    public void setCheckBoardXY(int x, int y, int value) {
+        this.checkBoard[x][y] = value;
     }
 
-    public void setGameboardXY(int x, int y, Card card) {
-        this.gameboard[x][y] = card;
-
+    public void setGameBoardXY(int x, int y, Card card) {
+        this.gameBoard[x][y] = card;
     }
 
 }

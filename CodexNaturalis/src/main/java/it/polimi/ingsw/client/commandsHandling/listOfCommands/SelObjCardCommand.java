@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 
 public class SelObjCardCommand implements CommandManager {
 
-    private Client client;
+    private final Client client;
 
     public SelObjCardCommand(Client client){
         this.client = client;

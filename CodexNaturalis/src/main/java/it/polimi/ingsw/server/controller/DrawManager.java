@@ -51,12 +51,12 @@ public class DrawManager {
     }
 
     private void updateCheckboard(Player player, InitialCard initialCard) {
-        Boards gameBoard = player.getGameboard();
+        Boards gameBoard = player.getGameBoards();
         if (gameBoard != null) {
-            int[][] checkboard = gameBoard.getCheckboard();
+            int[][] checkboard = gameBoard.getCheckBoard();
             if (checkboard != null) {
                 checkboard[50][50] = 1;
-                gameBoard.getGameboard()[50][50] = initialCard;
+                gameBoard.getGameBoard()[50][50] = initialCard;
                 updateCheckboardBasedOnCard(checkboard, initialCard);
             }
         }

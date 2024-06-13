@@ -100,7 +100,7 @@ public class MainController implements Serializable {
                                 ServerHandler.HOSTNAME,
                                 admin,
                                 game.getPlayerList().get(i).getPlayerHand(),
-                                game.getCurrentPlayer().getInitialCard()));
+                                game.getPlayerList().get(i).getInitialCard()));
 
 
             }
@@ -128,7 +128,7 @@ public class MainController implements Serializable {
                     game.getCurrentPlayer().getPlayerName(),
                     new PlayCardReq(ServerHandler.HOSTNAME,
                             game.getCurrentPlayer().getPlayerHand(),
-                            game.getCurrentPlayer().getGameboard(),
+                            game.getCurrentPlayer().getGameBoards(),
                             game.getCurrentPlayer().getResourcesAvailable(),
                             game.getCurrentPlayer().getPlayerPoints())
             );
@@ -315,25 +315,25 @@ public class MainController implements Serializable {
         //assigns a value to the direction the card is facing
         card.setFrontSide(side);
 
-        game.getCurrentPlayer().getGameboard().setGameboardXY(x, y, card);
-        game.getCurrentPlayer().getGameboard().setCheckboardXY(x, y, 1);
+        game.getCurrentPlayer().getGameBoards().setGameBoardXY(x, y, card);
+        game.getCurrentPlayer().getGameBoards().setCheckBoardXY(x, y, 1);
         card.addResources(game.getCurrentPlayer());
 
         updateBoxes(card, x, y, side);
-        updatePlayerResources(x, y, game.getCurrentPlayer().getGameboard().getGameboard());
+        updatePlayerResources(x, y, game.getCurrentPlayer().getGameBoards().getGameBoard());
     }
 
 
 
     private void updateBoxes(Card card, int x, int y, boolean side) {
-        int[][] checkBoard = game.getCurrentPlayer().getGameboard().getCheckboard().clone();
+        int[][] checkBoard = game.getCurrentPlayer().getGameBoards().getCheckBoard().clone();
 
         updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
         updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
         updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(2) : null);
         updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(0) : null);
 
-        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);  // Ensure the updated checkBoard is set back to the player
+        game.getCurrentPlayer().getGameBoards().setCheckBoard(checkBoard);  // Ensure the updated checkBoard is set back to the player
     }
 
     private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {
@@ -350,7 +350,7 @@ public class MainController implements Serializable {
             boolean front = cardBoard[x+1][y+1].getSide();
             if (front) {
                 if(cardBoard[x+1][y+1].getFrontVisibleAngle(0) != null) {
-                    coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
+                    coveredAngle.add(cardBoard[x+1][y+1].getFrontVisibleAngle(0));
                 }
             }
         }
@@ -368,7 +368,7 @@ public class MainController implements Serializable {
             boolean front = cardBoard[x-1][y+1].getSide();
             if (front) {
                 if(cardBoard[x-1][y+1].getFrontVisibleAngle(1) != null) {
-                    coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
+                    coveredAngle.add(cardBoard[x-1][y+1].getFrontVisibleAngle(1));
                 }
             }
         }
@@ -377,7 +377,7 @@ public class MainController implements Serializable {
             boolean front = cardBoard[x-1][y-1].getSide();
             if (front) {
                 if(cardBoard[x-1][y-1].getFrontVisibleAngle(3) != null) {
-                    coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
+                    coveredAngle.add(cardBoard[x-1][y-1].getFrontVisibleAngle(3));
                 }
             }
         }

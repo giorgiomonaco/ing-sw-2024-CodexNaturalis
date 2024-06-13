@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 
 public class SelTokenCommand implements CommandManager {
 
-    private Client client;
+    private final Client client;
     public SelTokenCommand(Client client){
         this.client = client;
     }

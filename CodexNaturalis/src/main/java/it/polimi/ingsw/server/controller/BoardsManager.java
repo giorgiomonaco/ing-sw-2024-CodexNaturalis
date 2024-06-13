@@ -2,8 +2,6 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.*;
 
-import java.util.Scanner;
-
 public class BoardsManager {
 
     private Game game;
@@ -27,15 +25,15 @@ public class BoardsManager {
     }
 
     public void placeInitialCard(InitialCard card) {
-        board.getGameboard()[(board.getMAX_Y() / 2)][board.getMAX_Y() / 2] = card;
+        board.getGameBoard()[(board.getMAX_Y() / 2)][board.getMAX_Y() / 2] = card;
         updateBoxes(card,board.getMAX_X() / 2, board.getMAX_Y() / 2);
     }
 
     //---------------------------------- WHEN CARD PLAYED--------------------------------------
 
     public void WhenPlay(Card card, int x, int y){
-        board.getCheckboard()[x][y]=0;
-        board.getGameboard()[x][y]=card;
+        board.getCheckBoard()[x][y]=0;
+        board.getGameBoard()[x][y]=card;
         updateBoxes(card,x,y);
     }
 
@@ -61,7 +59,7 @@ public class BoardsManager {
 
        for(int i=0;i<board.getMAX_X();i++){
            for(int j=0;j< board.getMAX_Y();j++){
-               board.getCheckboard()[i][j] = -1;
+               board.getCheckBoard()[i][j] = -1;
            }
        }
 
@@ -71,37 +69,37 @@ public class BoardsManager {
     public void updateBoxes(Card card, int x, int y){
         if(card.isFrontSide()){
             if((card.getFrontVisibleAngle(3)!=null) &&
-                    (board.getCheckboard()[x-1][y+1] != 1)){
-                board.getCheckboard()[(x)-1][(y)+1]=0;
+                    (board.getCheckBoard()[x-1][y+1] != 1)){
+                board.getCheckBoard()[(x)-1][(y)+1]=0;
             }
             if(card.getFrontVisibleAngle(0)!=null &&
-                    (board.getCheckboard()[x+1][y+1] != 1)){
-                board.getCheckboard()[(x)+1][(y)+1]=0;
+                    (board.getCheckBoard()[x+1][y+1] != 1)){
+                board.getCheckBoard()[(x)+1][(y)+1]=0;
             }
             if(card.getFrontVisibleAngle(1)!=null &&
-                    (board.getCheckboard()[x+1][y-1] != 1)){
-                board.getCheckboard()[(x)+1][(y)-1]=0;
+                    (board.getCheckBoard()[x+1][y-1] != 1)){
+                board.getCheckBoard()[(x)+1][(y)-1]=0;
             }
             if(card.getFrontVisibleAngle(2)!=null &&
-                    (board.getCheckboard()[x-1][y-1] != 1)){
-                board.getCheckboard()[(x)-1][(y)-1]=0;
+                    (board.getCheckBoard()[x-1][y-1] != 1)){
+                board.getCheckBoard()[(x)-1][(y)-1]=0;
             }
         } else {
             if (card.getBackVisibleAngle(3) != null &&
-                    (board.getCheckboard()[x - 1][y + 1] != 1)) {
-                board.getCheckboard()[(x) - 1][(y) + 1] = 0;
+                    (board.getCheckBoard()[x - 1][y + 1] != 1)) {
+                board.getCheckBoard()[(x) - 1][(y) + 1] = 0;
             }
             if (card.getBackVisibleAngle(0) != null &&
-                    (board.getCheckboard()[x + 1][y + 1] != 1)) {
-                board.getCheckboard()[(x) + 1][(y) + 1] = 0;
+                    (board.getCheckBoard()[x + 1][y + 1] != 1)) {
+                board.getCheckBoard()[(x) + 1][(y) + 1] = 0;
             }
             if (card.getBackVisibleAngle(1) != null &&
-                    (board.getCheckboard()[x + 1][y - 1] != 1)) {
-                board.getCheckboard()[(x) + 1][(y) - 1] = 0;
+                    (board.getCheckBoard()[x + 1][y - 1] != 1)) {
+                board.getCheckBoard()[(x) + 1][(y) - 1] = 0;
             }
             if (card.getBackVisibleAngle(2) != null &&
-                    (board.getCheckboard()[x + 1][y - 1] != 1)) {
-                board.getCheckboard()[(x) - 1][(y) - 1] = 0;
+                    (board.getCheckBoard()[x + 1][y - 1] != 1)) {
+                board.getCheckBoard()[(x) - 1][(y) - 1] = 0;
             }
         }
     }

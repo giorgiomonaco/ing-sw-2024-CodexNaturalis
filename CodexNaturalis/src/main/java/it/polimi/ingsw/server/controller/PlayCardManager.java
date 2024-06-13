@@ -17,27 +17,27 @@ public class PlayCardManager {
         //assigns a value to the direction the card is facing
         card.setFrontSide(side);
 
-        game.getCurrentPlayer().getGameboard().getGameboard()[x][y] = card;
-        game.getCurrentPlayer().getGameboard().getCheckboard()[x][y] = 1;
+        game.getCurrentPlayer().getGameBoards().getGameBoard()[x][y] = card;
+        game.getCurrentPlayer().getGameBoards().getCheckBoard()[x][y] = 1;
         card.addResources(player);
 
         updateBoxes(card, x, y, side);
-        updatePlayerResources(x, y, game.getCurrentPlayer().getGameboard().getGameboard());
+        updatePlayerResources(x, y, game.getCurrentPlayer().getGameBoards().getGameBoard());
     }
 
     public void setCheckBoard(int[][] checkBoard) {
-        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);
+        game.getCurrentPlayer().getGameBoards().setCheckBoard(checkBoard);
     }
 
     private void updateBoxes(Card card, int x, int y, boolean side) {
-        int[][] checkBoard = game.getCurrentPlayer().getGameboard().getCheckboard();
+        int[][] checkBoard = game.getCurrentPlayer().getGameBoards().getCheckBoard();
 
         updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
         updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
         updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(0) : null);
         updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(2) : null);
 
-        game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);  // Ensure the updated checkBoard is set back to the player
+        game.getCurrentPlayer().getGameBoards().setCheckBoard(checkBoard);  // Ensure the updated checkBoard is set back to the player
     }
 
     private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {

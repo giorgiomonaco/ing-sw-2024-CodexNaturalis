@@ -13,9 +13,6 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
-
-
-import java.awt.*;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
@@ -31,8 +28,8 @@ public class ServerHandler {
     private boolean creatingLobby;
     private final Object lobbyLock = new Object();
     private final Object controllerLock = new Object();
-    private Pinger pinger;
-    private GameStopper gameStopper;
+    private final Pinger pinger;
+    private final GameStopper gameStopper;
     // Timeout for the game when only one player remain connected.
     public static int TIMEOUT = 30;
     private boolean stop;
@@ -141,7 +138,6 @@ public class ServerHandler {
             case PING:
                 pinger.loadMessage(msg);
                 break;
-
             case messEnum.CHATMSG:
                 synchronized (controllerLock){
                     ChatMessage chatMsg = (ChatMessage) msg;
