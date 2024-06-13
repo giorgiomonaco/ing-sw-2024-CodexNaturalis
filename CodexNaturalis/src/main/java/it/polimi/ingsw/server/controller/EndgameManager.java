@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,25 +19,28 @@ public class EndgameManager {
         this.player = player;
     }
 
-    public int objectivePointsCounter(){
-        ObjectiveCard obj = this.player.getPlayerObjectiveCard();
+    public int objectivePointsCounter() {
+        List<ObjectiveCard> obj = new ArrayList<>();
+        obj.add(this.player.getPlayerObjectiveCard());
+        obj.addAll(game.getCommonObjectives());
 
         //getting the type of the objective (1. cards position -- 2. points for each resource)
-        try {
-            return switch (obj.getType()) {
-                case "position" -> objectiveCreator();
-                case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special" ->
-                        resourceCounter(obj.getType());
-                default -> 0;
-            };
-        }
-        catch(NullPointerException e) {
-            System.err.println("NullPointerException: " + e.getMessage());
-        }
+        for (ObjectiveCard o : obj) {
+            try {
+                return switch (o.getType()) {
+                    case "position" -> objectiveCreator();
+                    case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special" ->
+                            resourceCounter(o.getType());
+                    default -> 0;
+                };
+            } catch (NullPointerException e) {
+                System.err.println("NullPointerException: " + e.getMessage());
+            }
 
-
+        }
         return 0;
     }
+
 
     // this function analyzes the objective description to find how many occurrences of a same layout happen
     private int objectiveCreator(){

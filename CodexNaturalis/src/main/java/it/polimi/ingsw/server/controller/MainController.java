@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class MainController implements Serializable {
     private Game game;
@@ -163,9 +162,6 @@ public class MainController implements Serializable {
                             availableToken,
                             getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
 
-            if(firstTurnIndex == game.getPlayersNumber()-1){
-                firstTurn = false;
-            }
         }
 
     }
@@ -182,14 +178,13 @@ public class MainController implements Serializable {
             game.setGameState(gameStateEnum.FINAL_TURN);
         }
 
-        // salvare il gioco
-
         // inviare messaggio fine turno
         serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(), new WaitTurnMsg(ServerHandler.HOSTNAME));
 
 
         beginTurn();
     }
+
     public void chatUpdate(String username, String destination, String chat){
         if(Objects.equals(destination, "all")) {
             chat = "public: "+chat;
@@ -295,19 +290,15 @@ public class MainController implements Serializable {
 
     public void selectionCard(Card card, int x, int y, boolean side){
 
-        try {
-            game.getCurrentPlayer().removeCardFromHand(card);
-            playCard(card, x, y, side);
-            if (card instanceof ResourceCard) {
-                game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
-            }
-            else if (card instanceof GoldCard goldCard) {
-                game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
-            }
+        game.getCurrentPlayer().removeCardFromHand(card);
+        playCard(card, x, y, side);
+        if (card instanceof ResourceCard) {
+            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
         }
-        catch (Exception e){
-            e.printStackTrace();
+        else if (card instanceof GoldCard goldCard) {
+            game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
         }
+
     }
 
 
@@ -398,17 +389,28 @@ public class MainController implements Serializable {
                     } else {
                         System.out.println(Colors.redColor + "The player named " + username + " was already disconnected." + Colors.resetColor);
                     }
-                    if(game.getCurrentPlayer().equals(p)){
-                        if(isFirstTurn()){
-                            beginFirstTurn();
-                        } else {
-                            beginTurn();
-                        }
-                    }
                     break;
                 }
             }
         }
     }
 
+    public void checkNextTurnForDisconnection(String username) {
+        for(Player p: game.getPlayerList()){
+            if(p.getPlayerName().equals(username)){
+                if(game.getCurrentPlayer().equals(p)){
+                    beginTurn();
+                }
+                break;
+            }
+        }
+    }
+
+    public boolean isLastPlayer(String username){
+        return game.getUserList().indexOf(username) == game.getPlayersNumber() - 1;
+    }
+
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
 }

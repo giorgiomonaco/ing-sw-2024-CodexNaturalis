@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
@@ -29,8 +30,8 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<Card> visibleGoldCards = new ArrayList<>();
     private List<Card> visibleResourceCards = new ArrayList<>();
     private boolean winner = false;
-
     private List<Chat> chat;
+
 
 
     protected Client() throws RemoteException {
@@ -165,5 +166,11 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setChat(List<Chat> chat) {
         this.chat = chat;
+    }
+
+    public void manageDisconnection(){
+        System.out.println(Colors.redColor + "CONNECTION LOST!" + Colors.resetColor);
+        setCurrentState(stateEnum.DISCONNECTION);
+        getUI().run();
     }
 }

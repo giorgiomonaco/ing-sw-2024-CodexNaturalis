@@ -8,7 +8,10 @@ import java.io.Serializable;
 public class DisconnectionView implements TuiView{
     @Override
     public void play(Client client) {
-        System.out.println(Colors.redColor + "GAME ABORTED!" + Colors.resetColor);
-        System.out.println(Colors.redColor + "The game was closed because someone lost the connection during the login phase, when the game wasn't even started." + Colors.resetColor);
+        System.out.println(Colors.redColor + "GAME ABORTED" + Colors.resetColor);
+        System.out.println(Colors.redColor + "The game was closed because the connection was lost!" +
+                "\nSomeone lost the connection during the setup phase, when the game wasn't even started, " +
+                "\nor the server crashed for some reason." + Colors.resetColor);
+        System.exit(1);
     }
 }

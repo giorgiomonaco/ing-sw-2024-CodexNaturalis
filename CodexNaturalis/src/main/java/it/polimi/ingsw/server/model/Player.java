@@ -271,4 +271,5 @@ public class Player implements Serializable {
     public void setChat(List<Chat> chat) {
         this.chat = chat;
     }
+
 }

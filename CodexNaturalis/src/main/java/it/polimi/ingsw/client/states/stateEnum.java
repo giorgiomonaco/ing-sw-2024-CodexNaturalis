@@ -27,6 +27,11 @@ public enum stateEnum {
      */
     GAME_STARTED,
     /**
+     * The game is stopped because only one player is left in the game,
+     * a timer is started which decrees the end of the game if no other player enters before the end.
+     */
+    GAME_STOPPED,
+    /**
      * When the game start, for the setup of the board, it's asked to select the token.
      */
     SELECT_TOKEN,
