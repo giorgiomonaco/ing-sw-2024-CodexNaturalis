@@ -27,6 +27,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private boolean admin = false;
     private Boards boards;
     private int[] resources;
+    private int points;
     private List<Card> visibleGoldCards = new ArrayList<>();
     private List<Card> visibleResourceCards = new ArrayList<>();
     private boolean winner = false;
@@ -172,5 +173,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         System.out.println(Colors.redColor + "CONNECTION LOST!" + Colors.resetColor);
         setCurrentState(stateEnum.DISCONNECTION);
         getUI().run();
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

@@ -129,7 +129,8 @@ public class MainController implements Serializable {
                     new PlayCardReq(ServerHandler.HOSTNAME,
                             game.getCurrentPlayer().getPlayerHand(),
                             game.getCurrentPlayer().getGameboard(),
-                            game.getCurrentPlayer().getResourcesAvailable())
+                            game.getCurrentPlayer().getResourcesAvailable(),
+                            game.getCurrentPlayer().getPlayerPoints())
             );
         }
     }
@@ -329,8 +330,8 @@ public class MainController implements Serializable {
 
         updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
         updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
-        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(0) : null);
-        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(2) : null);
+        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(2) : null);
+        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(0) : null);
 
         game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);  // Ensure the updated checkBoard is set back to the player
     }
@@ -342,41 +343,50 @@ public class MainController implements Serializable {
     }
     private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
 
-        int[] resources = game.getCurrentPlayer().getResourcesAvailable();
-        VisibleAngle coveredAngle = null;
+        List<VisibleAngle> coveredAngle = new ArrayList<>();
 
-        if (cardBoard[x+1][y+1] != null) {
+
+        if (cardBoard[x + 1][y + 1] != null) {
             boolean front = cardBoard[x+1][y+1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x+1][y+1].getFrontVisibleAngle(0);
+                if(cardBoard[x+1][y+1].getFrontVisibleAngle(0) != null) {
+                    coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
+                }
             }
         }
 
         if (cardBoard[x+1][y-1] != null) {
             boolean front = cardBoard[x+1][y-1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x+1][y+1].getFrontVisibleAngle(2);
+                if(cardBoard[x+1][y-1].getFrontVisibleAngle(2) != null) {
+                    coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
+                }
             }
         }
 
         if (cardBoard[x-1][y+1] != null) {
             boolean front = cardBoard[x-1][y+1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x-1][y+1].getFrontVisibleAngle(1);
+                if(cardBoard[x-1][y+1].getFrontVisibleAngle(1) != null) {
+                    coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
+                }
             }
         }
 
         if (cardBoard[x-1][y-1] != null) {
             boolean front = cardBoard[x-1][y-1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x-1][y-1].getFrontVisibleAngle(3);
+                if(cardBoard[x-1][y-1].getFrontVisibleAngle(3) != null) {
+                    coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
+                }
             }
         }
 
-        if (coveredAngle != null) {
-            game.getCurrentPlayer().resourceLowering(coveredAngle.getSymbol());
+        if (!coveredAngle.isEmpty()) {
+            for (VisibleAngle angle : coveredAngle) {
+                game.getCurrentPlayer().resourceLowering(angle.getSymbol());
+            }
         }
-
     }
 
     public void playerDisconnect(String username) {

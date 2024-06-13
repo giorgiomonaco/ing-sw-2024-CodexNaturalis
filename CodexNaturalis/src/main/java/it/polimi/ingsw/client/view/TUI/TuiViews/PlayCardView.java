@@ -8,6 +8,7 @@ import it.polimi.ingsw.server.model.Card;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,6 +28,8 @@ public class PlayCardView implements TuiView {
         printBoard();
 
         printHand();
+        printPoints();
+        printResources();
         askCardToPlay();
 
     }
@@ -116,6 +119,23 @@ public class PlayCardView implements TuiView {
     }
 }
 
+    private void printPoints(){
+        System.out.println("\nYour current points: " + client.getPoints());
+    }
+
+    private void printResources(){
+        System.out.print("Your current resources: ");
+        int count = 0;
+        List<String> resName = List.of(new String[]{"mushroom", "leaf", "fox", "butterfly", "feather", "bottle", "scroll"});
+        for(int i : client.getResources()){
+            System.out.print(resName.get(count) + " ");
+            System.out.print(i + " ");
+            count++;
+        }
+        System.out.println();
+    }
+
+}
 
 
 
