@@ -26,6 +26,7 @@ public class PlayCardView implements TuiView{
         boards = client.getBoards();
         printBoard();
         printHand();
+        printPoints();
         askCardToPlay();
 
     }
@@ -61,6 +62,10 @@ public class PlayCardView implements TuiView{
                 }
             }
         }
+    }
+
+    private void printPoints(){
+        System.out.println("\nYour current points: " + client.getPoints());
     }
 
 }

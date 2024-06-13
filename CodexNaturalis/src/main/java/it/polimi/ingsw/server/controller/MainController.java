@@ -129,7 +129,8 @@ public class MainController implements Serializable {
                     new PlayCardReq(ServerHandler.HOSTNAME,
                             game.getCurrentPlayer().getPlayerHand(),
                             game.getCurrentPlayer().getGameboard(),
-                            game.getCurrentPlayer().getResourcesAvailable())
+                            game.getCurrentPlayer().getResourcesAvailable(),
+                            game.getCurrentPlayer().getPlayerPoints())
             );
         }
     }
@@ -348,28 +349,36 @@ public class MainController implements Serializable {
         if (cardBoard[x+1][y+1] != null) {
             boolean front = cardBoard[x+1][y+1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x+1][y+1].getFrontVisibleAngle(0);
+                if(cardBoard[x+1][y+1].getFrontVisibleAngle(0) != null) {
+                    coveredAngle = cardBoard[x + 1][y + 1].getFrontVisibleAngle(0);
+                }
             }
         }
 
         if (cardBoard[x+1][y-1] != null) {
             boolean front = cardBoard[x+1][y-1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x+1][y+1].getFrontVisibleAngle(2);
+                if(cardBoard[x+1][y-1].getFrontVisibleAngle(2) != null) {
+                    coveredAngle = cardBoard[x + 1][y - 1].getFrontVisibleAngle(2);
+                }
             }
         }
 
         if (cardBoard[x-1][y+1] != null) {
             boolean front = cardBoard[x-1][y+1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x-1][y+1].getFrontVisibleAngle(1);
+                if(cardBoard[x-1][y+1].getFrontVisibleAngle(1) != null) {
+                    coveredAngle = cardBoard[x - 1][y + 1].getFrontVisibleAngle(1);
+                }
             }
         }
 
         if (cardBoard[x-1][y-1] != null) {
             boolean front = cardBoard[x-1][y-1].getSide();
             if (front) {
-                coveredAngle = cardBoard[x-1][y-1].getFrontVisibleAngle(3);
+                if(cardBoard[x-1][y-1].getFrontVisibleAngle(3) != null) {
+                    coveredAngle = cardBoard[x - 1][y - 1].getFrontVisibleAngle(3);
+                }
             }
         }
 
