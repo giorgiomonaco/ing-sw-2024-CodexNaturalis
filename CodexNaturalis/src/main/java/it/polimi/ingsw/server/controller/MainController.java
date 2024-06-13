@@ -178,14 +178,13 @@ public class MainController implements Serializable {
             game.setGameState(gameStateEnum.FINAL_TURN);
         }
 
-        // salvare il gioco
-
         // inviare messaggio fine turno
         serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(), new WaitTurnMsg(ServerHandler.HOSTNAME));
 
 
         beginTurn();
     }
+
     public void chatUpdate(String username, String destination, String chat){
         if(Objects.equals(destination, "all")) {
             for (Player p : game.getPlayerList()) {
@@ -276,19 +275,15 @@ public class MainController implements Serializable {
 
     public void selectionCard(Card card, int x, int y, boolean side){
 
-        try {
-            game.getCurrentPlayer().removeCardFromHand(card);
-            playCard(card, x, y, side);
-            if (card instanceof ResourceCard) {
-                game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
-            }
-            else if (card instanceof GoldCard goldCard) {
-                game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
-            }
+        game.getCurrentPlayer().removeCardFromHand(card);
+        playCard(card, x, y, side);
+        if (card instanceof ResourceCard) {
+            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
         }
-        catch (Exception e){
-            e.printStackTrace();
+        else if (card instanceof GoldCard goldCard) {
+            game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
         }
+
     }
 
 

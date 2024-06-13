@@ -135,7 +135,6 @@ public class ServerHandler {
                     DrawCardResponse draw = (DrawCardResponse) msg;
                     int choice = draw.getChoice();
                     mainController.drawCard(choice);
-                    // implemento il "fine turno"
                     mainController.endTurn();
                 }
                 break;
