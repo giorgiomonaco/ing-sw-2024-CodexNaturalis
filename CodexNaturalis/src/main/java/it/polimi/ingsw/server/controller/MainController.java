@@ -212,7 +212,8 @@ public class MainController implements Serializable {
         if (player != null) {
             serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true));
             serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false));
-
+            System.out.println(Colors.greenColor + "THE WINNER IS " + player.getPlayerName() + Colors.resetColor);
+            System.exit(1);
         }
 
 

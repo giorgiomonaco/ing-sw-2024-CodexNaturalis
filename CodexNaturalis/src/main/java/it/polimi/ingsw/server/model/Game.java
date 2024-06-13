@@ -35,7 +35,7 @@ public class Game {
     public List<Card> visibleResourceCards = new ArrayList<>();
     public List<Card> visibleGoldCards = new ArrayList<>();
 
-    private List<ObjectiveCard> commonObjectives;
+    private List<ObjectiveCard> commonObjectives = new ArrayList<>();
 
     /*
     private void loadGame(SaveData existingGame){
