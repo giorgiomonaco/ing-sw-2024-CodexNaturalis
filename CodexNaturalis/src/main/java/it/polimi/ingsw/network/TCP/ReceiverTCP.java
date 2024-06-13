@@ -21,10 +21,12 @@ public class ReceiverTCP extends Thread{
                 client.manageMessage(msg);
             } catch (IOException e) {
                 System.err.println("Lost connection to the server.");
-                throw new RuntimeException(e);
+                client.manageDisconnection();
+                Thread.currentThread().interrupt();
             } catch (ClassNotFoundException e) {
                 System.err.println("Couldn't cast the message.");
-                throw new RuntimeException(e);
+                client.manageDisconnection();
+                Thread.currentThread().interrupt();
             }
         }
     }

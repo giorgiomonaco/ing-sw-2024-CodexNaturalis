@@ -35,6 +35,7 @@ public class ClientTCP extends Client{
             socket = new Socket(serverIP, serverPort);
         } catch (IOException e) {
             System.err.println("Couldn't connect to the TCP server " + serverIP);
+            manageDisconnection();
         }
 
         try {
@@ -42,6 +43,7 @@ public class ClientTCP extends Client{
             out = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             System.err.println("Couldn't get the I/O for the TCP connection to the server " + serverIP);
+            manageDisconnection();
         }
 
         Message connectionMessage;
@@ -49,15 +51,17 @@ public class ClientTCP extends Client{
             connectionMessage = (ConnectionActive) in.readObject();
         } catch (IOException e) {
             System.err.println("Lost connection with the server " + serverIP);
+            manageDisconnection();
         } catch (ClassNotFoundException e) {
             System.err.println("Couldn't cast the message from the server " + serverIP);
+            manageDisconnection();
         }
 
         System.out.println("TCP Client ready to receive and send.");
 
         receiver = new ReceiverTCP(in, this);
         receiver.start();
-        sender = new SenderTCP(out);
+        sender = new SenderTCP(out, this);
     }
 
 

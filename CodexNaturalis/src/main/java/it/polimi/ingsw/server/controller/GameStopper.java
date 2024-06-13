@@ -18,7 +18,7 @@ public class GameStopper extends Thread{
         handler.sendMessageToAll(new GameStopped(ServerHandler.HOSTNAME));
 
         try {
-            TimeUnit.MINUTES.sleep(ServerHandler.TIMEOUT);
+            TimeUnit.MILLISECONDS.sleep(ServerHandler.TIMEOUT);
         } catch (InterruptedException e) {
             System.out.println(Colors.yellowColor + "A player rejoined the game! The counter stopped." + Colors.resetColor);
             return;

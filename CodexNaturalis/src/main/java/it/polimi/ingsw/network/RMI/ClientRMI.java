@@ -29,6 +29,7 @@ public class ClientRMI extends Client implements RMIClientInterface {
             System.out.println("RMI Client ready to receive and send.");
         } catch (RemoteException e) {
             System.err.println("Couldn't access the remote object.");
+            manageDisconnection();
         } catch (NotBoundException e) {
             System.err.println("Server is not bound");
         }
@@ -45,7 +46,7 @@ public class ClientRMI extends Client implements RMIClientInterface {
             stub.receiveMessage(msg, this);
         } catch (RemoteException e) {
             // Lost connection with the server
-            throw new RuntimeException(e);
+            manageDisconnection();
         }
     }
 }
