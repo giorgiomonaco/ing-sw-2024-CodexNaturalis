@@ -330,8 +330,8 @@ public class MainController implements Serializable {
 
         updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
         updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
-        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(0) : null);
-        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(2) : null);
+        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(2) : null);
+        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(0) : null);
 
         game.getCurrentPlayer().getGameboard().setCheckboard(checkBoard);  // Ensure the updated checkBoard is set back to the player
     }
@@ -343,11 +343,10 @@ public class MainController implements Serializable {
     }
     private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
 
-        int[] resources = game.getCurrentPlayer().getResourcesAvailable();
         List<VisibleAngle> coveredAngle = new ArrayList<>();
 
 
-        if (cardBoard[x+1][y+1] != null) {
+        if (cardBoard[x + 1][y + 1] != null) {
             boolean front = cardBoard[x+1][y+1].getSide();
             if (front) {
                 if(cardBoard[x+1][y+1].getFrontVisibleAngle(0) != null) {
@@ -388,7 +387,6 @@ public class MainController implements Serializable {
                 game.getCurrentPlayer().resourceLowering(angle.getSymbol());
             }
         }
-
     }
 
     public void playerDisconnect(String username) {
