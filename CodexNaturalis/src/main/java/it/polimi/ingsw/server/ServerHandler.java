@@ -145,12 +145,8 @@ public class ServerHandler {
                     ChatMessage chatMsg = (ChatMessage) msg;
                     String destination = chatMsg.getDestination();
                     String chat = chatMsg.getChat();
+                    mainController.chatUpdate(chatMsg.getUsername(), destination, chat);
 
-                    if(destination.equals("all")){
-                        mainController.chatUpdate(chatMsg.getUsername(), destination, chat);
-
-                   // else //mainController.msgtoPLAYER;
-                    }
 
                 }
         }
