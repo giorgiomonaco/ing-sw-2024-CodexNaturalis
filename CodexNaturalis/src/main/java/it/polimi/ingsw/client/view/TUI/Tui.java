@@ -296,6 +296,9 @@ public class Tui implements UserInterface{
                         case "feather":
                             System.out.print("f");
                             break;
+                        case "nulla":
+                            System.out.println("nulla");
+                            break;
                     }
 
                 }

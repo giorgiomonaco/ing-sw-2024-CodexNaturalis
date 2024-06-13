@@ -40,45 +40,7 @@ public class BoardsManager {
     }
 
     //da spostare in TUI view
-    public int[] AskWherePlay(Boards board){
-        int counter = 0;
-        int[][] checker = board.getCheckboard();
 
-        for(int o=0;o<board.getMAX_X();o++){
-            for(int p=0;p< board.getMAX_Y();p++) {
-                checker[o][p]=0;
-            }
-            }
-
-        for(int i=0;i<board.getMAX_X();i++){
-            for(int j=0;j< board.getMAX_Y();j++) {
-                if (board.getCheckboard()[i][j] == -1) System.out.print("0 ");
-                if (board.getCheckboard()[i][j] == 0){
-                    counter++;
-                    checker[i][j]=counter;
-                    System.out.print(counter + " ");
-                }
-                if (board.getCheckboard()[i][j] == 1) System.out.print("C ");
-            }
-            System.out.println();
-            }
-        System.out.println("which box you wanna place the Card?");
-
-        Scanner t= new Scanner(System.in);
-        int o = t.nextInt();
-
-        int q[] = new int[2];
-        for(int u=0;u<board.getMAX_X();u++){
-            for(int y=0;y< board.getMAX_Y();y++) {
-               if (checker[u][y]== o) {
-                   q[0]=u;
-                   q[1]=y;
-
-               }
-            }
-        }
-    return q;
-    }
 
 
 

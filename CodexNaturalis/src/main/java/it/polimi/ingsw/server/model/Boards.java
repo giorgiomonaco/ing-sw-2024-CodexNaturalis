@@ -46,4 +46,5 @@ public class Boards implements Serializable {
         this.gameboard[x][y] = card;
 
     }
+
 }
