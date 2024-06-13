@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class MainController implements Serializable {
     private Game game;
@@ -163,9 +162,6 @@ public class MainController implements Serializable {
                             availableToken,
                             getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
 
-            if(firstTurnIndex == game.getPlayersNumber()-1){
-                firstTurn = false;
-            }
         }
 
     }
@@ -383,17 +379,28 @@ public class MainController implements Serializable {
                     } else {
                         System.out.println(Colors.redColor + "The player named " + username + " was already disconnected." + Colors.resetColor);
                     }
-                    if(game.getCurrentPlayer().equals(p)){
-                        if(isFirstTurn()){
-                            beginFirstTurn();
-                        } else {
-                            beginTurn();
-                        }
-                    }
                     break;
                 }
             }
         }
     }
 
+    public void checkNextTurnForDisconnection(String username) {
+        for(Player p: game.getPlayerList()){
+            if(p.getPlayerName().equals(username)){
+                if(game.getCurrentPlayer().equals(p)){
+                    beginTurn();
+                }
+                break;
+            }
+        }
+    }
+
+    public boolean isLastPlayer(String username){
+        return game.getUserList().indexOf(username) == game.getPlayersNumber() - 1;
+    }
+
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
 }

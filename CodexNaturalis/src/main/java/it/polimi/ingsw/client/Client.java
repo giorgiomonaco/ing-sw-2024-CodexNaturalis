@@ -29,8 +29,8 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<Card> visibleGoldCards = new ArrayList<>();
     private List<Card> visibleResourceCards = new ArrayList<>();
     private boolean winner = false;
-
     private List<Chat> chat;
+    private boolean firstTurn = true;
 
 
     protected Client() throws RemoteException {
@@ -165,5 +165,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setChat(List<Chat> chat) {
         this.chat = chat;
+    }
+
+    public boolean isFirstTurn() {
+        return firstTurn;
+    }
+
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
     }
 }

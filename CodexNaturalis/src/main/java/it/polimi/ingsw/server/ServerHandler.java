@@ -13,11 +13,12 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
-import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 
+import java.awt.*;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.List;
 
 public class ServerHandler {
     private ServerRMI rmiServer;
@@ -34,7 +35,7 @@ public class ServerHandler {
     private GameStopper gameStopper;
     // Timeout for the game when only one player remain connected.
     public static int TIMEOUT = 30;
-    private gameStateEnum previous;
+    private boolean stop;
 
     public ServerHandler(ServerConfigNetwork data) {
         this.configBase = data;
@@ -43,6 +44,7 @@ public class ServerHandler {
         creatingLobby = false;
         pinger = new Pinger(this);
         gameStopper = new GameStopper(this);
+        stop = false;
 
         try {
             rmiServer = new ServerRMI(configBase, this);
@@ -113,10 +115,11 @@ public class ServerHandler {
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
                     mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
 
-                    if(mainController.isFirstTurn()){
+                    if(!mainController.isLastPlayer(username)){
                         mainController.beginFirstTurn();
                     } else {
-                       mainController.beginTurn();
+                        mainController.setFirstTurn(false);
+                        mainController.beginTurn();
                     }
                 }
                 break;
@@ -215,23 +218,34 @@ public class ServerHandler {
                 // New user
                 connectedClients.put(username, connection);
                 connection.setUsername(username);
-                System.out.println("New client connected with the username: " + username);
+                System.out.println(Colors.yellowColor + "New client connected with the username: " + username + Colors.resetColor);
                 logged = true;
             } else {
                 // Reconnection of a known player
                 if (!connectedClients.get(username).isConnected()) {
-                    connectedClients.get(username).setConnected(true);
-                    System.out.println("Reconnection of the player with the username: " + username);
-                    synchronized (controllerLock) {
-                        if(mainController.getGame().getGameState().equals(gameStateEnum.STOP)){
-                            gameStopper.interrupt();
-                            mainController.getGame().setGameState(previous);
+                    // Check if the game is in STOP phase
+                    if(stop){
+                        gameStopper.interrupt();
+                        stop = false;
+                        synchronized (controllerLock) {
+                            mainController.beginTurn();
                         }
+                    }
+
+                    // Update with the new connection
+                    connectedClients.replace(username, connectedClients.get(username), connection);
+                    connection.setUsername(username);
+                    System.out.println(Colors.yellowColor + "Reconnection of the player with the username: " + username + Colors.resetColor);
+
+                    // Update the model
+                    synchronized (controllerLock) {
+                        Player p = mainController.getPlayerByUsername(username);
+                        p.setConnected(true);
                     }
                     logged = true;
                     reconnected = true;
                 } else {
-                    System.out.println("The username " + username + "is already taken, try to choose another one.");
+                    System.out.println(Colors.yellowColor + "The username " + username + "is already taken, try to choose another one." + Colors.resetColor);
                 }
             }
         }
@@ -289,12 +303,13 @@ public class ServerHandler {
         }
 
         synchronized (controllerLock) {
-            if (mainController == null) {
+            if (mainController == null || mainController.isFirstTurn()) {
                 // the game has not been created yet.
                 sendMessageToAll(new GameAborted(HOSTNAME));
                 System.exit(1);
             } else {
                 mainController.playerDisconnect(name);
+
                 int count = 0;
                 synchronized (connectedClients) {
                     for (String user : connectedClients.keySet()) {
@@ -303,11 +318,11 @@ public class ServerHandler {
                         }
                     }
                 }
-
                 if(count == 1) {
-                    previous = mainController.getGame().getGameState();
-                    mainController.getGame().setGameState(gameStateEnum.STOP);
+                    stop = true;
                     gameStopper.start();
+                } else {
+                    mainController.checkNextTurnForDisconnection(name);
                 }
             }
         }
@@ -319,5 +334,6 @@ public class ServerHandler {
         // per ora sto usando la exit per testare
         System.exit(2);
     }
+
 
 }
