@@ -115,10 +115,6 @@ public class Player implements Serializable {
         playerObjectiveCard = card;
     }
 
-    //method to get a card from the list by index
-    public ObjectiveCard getObjectiveCardFromHand() {
-        return playerObjectiveCard;
-    }
 
     //Method to assign the token to the player
     public void setPlayerToken(Token token) {
