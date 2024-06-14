@@ -268,4 +268,66 @@ public class Player implements Serializable {
         this.chat = chat;
     }
 
+    public void addGoldCardPoints(GoldCard goldCard, int x, int y) {
+        switch(goldCard.getCondition()){
+            case 0:
+                addPoints(goldCard.getCardPoints());
+                break;
+            case 1:
+                pointsForCoveredAngle(goldCard, x, y);
+                break;
+            case 2:
+                addPoints(goldCard.getCardPoints() * resourcesAvailable[4]);
+            case 3:
+                addPoints(goldCard.getCardPoints() * resourcesAvailable[5]);
+            case 4:
+                addPoints(goldCard.getCardPoints() * resourcesAvailable[6]);
+            default:
+                System.out.println("Impossible to get card points");
+
+
+        }
+    }
+
+    private void pointsForCoveredAngle(GoldCard goldCard, int x, int y) {
+        Card[][] board = Gameboard.getGameBoard();
+        int count = 0;
+
+        //Check covered angles and keep count
+        if(board[x-1][y-1] != null){
+            if(board[x-1][y-1].getSide() && board[x-1][y-1].getFrontVisibleAngle(3) != null){
+                count++;
+            }
+            else if(!board[x-1][y-1].getSide()){
+                count++;
+            }
+        }
+        if(board[x+1][y-1] != null){
+            if(board[x+1][y-1].getSide() && board[x+1][y-1].getFrontVisibleAngle(2) != null){
+                count++;
+            }
+            else if(!board[x+1][y-1].getSide()){
+                count++;
+            }
+        }
+        if(board[x-1][y+1] != null){
+            if(board[x-1][y+1].getSide() && board[x-1][y+1].getFrontVisibleAngle(1) != null){
+                count++;
+            }
+            else if(!board[x-1][y+1].getSide()){
+                count++;
+            }
+        }
+        if(board[x+1][y+1] != null){
+            if(board[x+1][y+1].getSide() && board[x+1][y+1].getFrontVisibleAngle(0) != null){
+                count++;
+            }
+            else if(!board[x+1][y+1].getSide()){
+                count++;
+            }
+        }
+
+        addPoints(goldCard.getCardPoints()*count);
+    }
+
 }
