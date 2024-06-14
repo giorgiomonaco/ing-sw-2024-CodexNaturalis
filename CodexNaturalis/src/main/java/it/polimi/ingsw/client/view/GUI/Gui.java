@@ -21,6 +21,7 @@ public class Gui implements UserInterface {
 
     public Gui (Client client){
         this.client = client;
+        gbc = new GridBagConstraints();
 
     }
 
@@ -74,10 +75,11 @@ public class Gui implements UserInterface {
     }
 
     private void addLoginPanel(){
-        LoginPanel logPanel = new LoginPanel(gbl);
+        LoginPanel logPanel = new LoginPanel(gbl, client);
         //now we add it to the frame
         gbc.gridx = 0;
         gbc.gridy = 0;
+
         frame.add(logPanel,gbc);
         //we make the panel visible to be displaced
         frame.setVisible(true);
