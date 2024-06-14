@@ -93,12 +93,12 @@ public class CardManager {
         symbols.add(butterfly);
 
         //then we create all the object symbols
-        Symbol sword = new ObjectSymbol("sword", "object");
+        Symbol feather = new ObjectSymbol("feather", "object");
         Symbol bottle = new ObjectSymbol("bottle", "object");
         Symbol scroll = new ObjectSymbol("scroll", "object");
 
         //we add all the Symbols to the
-        symbols.add(sword);
+        symbols.add(feather);
         symbols.add(bottle);
         symbols.add(scroll);
 

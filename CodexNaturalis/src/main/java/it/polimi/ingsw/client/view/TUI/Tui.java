@@ -205,6 +205,8 @@ public class Tui implements UserInterface{
                         case "feather":
                             System.out.print("f");
                             break;
+                        default:
+                            break;
                     }
 
                 }
@@ -263,6 +265,8 @@ public class Tui implements UserInterface{
                         case "fox":
                             q = color.blueColor + "BLU " + color.resetColor;;
                             break;
+                        default:
+                            break;
                     }
                     System.out.println("\n"+"||  " + q + "  ||");
                 }
@@ -296,8 +300,7 @@ public class Tui implements UserInterface{
                         case "feather":
                             System.out.print("f");
                             break;
-                        case "nulla":
-                            System.out.println("nulla");
+                        default:
                             break;
                     }
 
@@ -347,6 +350,8 @@ public class Tui implements UserInterface{
                         case "feather":
                             System.out.print("f");
                             break;
+                        default:
+                            break;
                     }
                     if(i==0) System.out.print("=============");
                     if (i == 1) System.out.println("\n||           ||");
@@ -380,6 +385,8 @@ public class Tui implements UserInterface{
                         case "feather":
                             System.out.print("f");
                             break;
+                        default:
+                            break;
                     }
                     if (i == 0) System.out.print("=============");
                     if (i == 1) {
@@ -406,7 +413,8 @@ public class Tui implements UserInterface{
                                 case "feather":
                                     System.out.print("f");
                                     break;
-
+                                default:
+                                    break;
                             }
                         }
                         System.out.println("     ||");
@@ -441,7 +449,6 @@ public class Tui implements UserInterface{
                    case "special":
                        System.out.println(" || f b s ||");
                        break;
-
                        case "feather":
                            System.out.println(" ||  f  f ||");
                            break;
@@ -451,6 +458,8 @@ public class Tui implements UserInterface{
                        case "scroll":
                            System.out.println(" ||  s  s ||");
                            break;
+                   default:
+                       break;
                }
 
 
