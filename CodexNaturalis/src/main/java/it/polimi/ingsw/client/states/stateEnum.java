@@ -9,6 +9,10 @@ public enum stateEnum {
      */
     LOGIN,
     /**
+     * The login was ok, the client enters the server.
+     */
+    LOGIN_SUCCESSFUL,
+    /**
      * After the login, the client is waiting for the admin to create a lobby.
      */
     WAITING_LOBBY,

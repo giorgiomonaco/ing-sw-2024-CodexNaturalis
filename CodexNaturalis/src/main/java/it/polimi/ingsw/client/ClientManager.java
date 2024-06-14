@@ -24,7 +24,7 @@ public class ClientManager {
         if(selectedView == ViewMode.TUI) {
             gameView = new Tui(client);
         } else {
-            gameView = new Gui();
+            gameView = new Gui(client);
         }
         gameView.run();
     }
@@ -38,7 +38,7 @@ public class ClientManager {
         if(selectedView == ViewMode.TUI) {
             gameView = new Tui(client);
         } else {
-            gameView = new Gui();
+            gameView = new Gui(client);
         }
         gameView.run();
     }
