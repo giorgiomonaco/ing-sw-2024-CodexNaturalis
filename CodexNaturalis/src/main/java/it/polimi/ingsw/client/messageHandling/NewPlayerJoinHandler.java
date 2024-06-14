@@ -10,14 +10,12 @@ public class NewPlayerJoinHandler implements MessageHandler{
     public void handle(Message msg, Client client) {
         NewPlayerJoin newPlayer = (NewPlayerJoin) msg;
         client.getPlayerList().add(newPlayer.getNewUser());
-        client.getUI().printMessage(newPlayer);
+        client.getUI().printMessage(newPlayer.getDescription());
 
-        client.getUI().printMessage(new CommonMessage("",
-                "ACTUAL LOBBY: "));
+        client.getUI().printMessage("ACTUAL LOBBY: ");
 
         for(String s : client.getPlayerList()){
-            client.getUI().printMessage(new CommonMessage("",
-                    s + " "));
+            client.getUI().printMessage(s + " ");
         }
     }
 }

@@ -17,7 +17,7 @@ public class LoginHandler implements MessageHandler{
             client.setCurrentState(stateEnum.LOGIN_SUCCESSFUL);
             client.getUI().run();
         } else {
-            client.getUI().printErrorMessage(response);
+            client.getUI().printErrorMessage(response.getDescription());
         }
     }
 

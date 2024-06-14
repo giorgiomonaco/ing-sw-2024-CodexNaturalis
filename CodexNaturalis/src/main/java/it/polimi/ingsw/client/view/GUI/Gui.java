@@ -56,12 +56,7 @@ public class Gui implements UserInterface {
     }
 
     @Override
-    public void printErrorMessage(Message msg) {
-
-    }
-
-    @Override
-    public void printMessage(Message msg) {
+    public void printErrorMessage(String msg) {
 
     }
 

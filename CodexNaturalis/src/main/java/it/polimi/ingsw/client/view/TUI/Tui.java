@@ -122,15 +122,13 @@ public class Tui implements UserInterface{
     }
 
     @Override
-    public void printErrorMessage(Message msg) {
-        String toPrint = msg.getDescription();
-        System.err.println(toPrint);
+    public void printErrorMessage(String msg) {
+        System.err.println(msg);
     }
 
     @Override
-    public void printMessage(Message msg) {
-        String toPrint = msg.getDescription();
-        System.out.println(toPrint);
+    public void printMessage(String msg) {
+        System.out.println(msg);
     }
 
 

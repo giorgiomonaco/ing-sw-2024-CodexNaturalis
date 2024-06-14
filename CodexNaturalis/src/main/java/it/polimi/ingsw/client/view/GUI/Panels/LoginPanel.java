@@ -33,7 +33,6 @@ public class LoginPanel extends JPanel {
 
         setSize(new Dimension(400, 300));
 
-
         createElements();
 
         //Add event listener to the button
