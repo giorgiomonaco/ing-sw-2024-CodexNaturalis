@@ -14,6 +14,7 @@ public class Gui implements UserInterface {
 
     public Gui (Client client){
         this.client = client;
+
     }
 
     @Override
