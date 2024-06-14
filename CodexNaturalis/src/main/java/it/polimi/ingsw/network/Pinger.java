@@ -37,7 +37,7 @@ public class Pinger extends Thread {
                                 new PingMessage(ServerHandler.HOSTNAME));
 
                         try{
-                            TimeUnit.MILLISECONDS.sleep(3000);
+                            TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -53,14 +53,14 @@ public class Pinger extends Thread {
                 }
 
                 try{
-                    TimeUnit.MILLISECONDS.sleep(5000);
+                    TimeUnit.SECONDS.sleep(8);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             } else {
                 try{
                     System.out.println(Colors.greenColor + "No players connected yet." + Colors.resetColor);
-                    TimeUnit.MILLISECONDS.sleep(7000);
+                    TimeUnit.SECONDS.sleep(10);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

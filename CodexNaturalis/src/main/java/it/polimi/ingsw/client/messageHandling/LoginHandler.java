@@ -14,9 +14,8 @@ public class LoginHandler implements MessageHandler{
 
         if(response.getResult() == 1){
             client.setUsername(response.getDescription());
-            client.getUI().printMessage(
-                    new CommonMessage("",
-                            "Login successful!"));
+            client.setCurrentState(stateEnum.LOGIN_SUCCESSFUL);
+            client.getUI().run();
         } else {
             client.getUI().printErrorMessage(response);
         }

@@ -16,6 +16,7 @@ import it.polimi.ingsw.server.model.*;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ServerHandler {
     private ServerRMI rmiServer;
@@ -236,7 +237,7 @@ public class ServerHandler {
                     logged = true;
                     reconnected = true;
                 } else {
-                    System.out.println(Colors.yellowColor + "The username " + username + "is already taken, try to choose another one." + Colors.resetColor);
+                    System.out.println(Colors.yellowColor + "The username " + username + " is already taken, try to choose another one." + Colors.resetColor);
                 }
             }
         }

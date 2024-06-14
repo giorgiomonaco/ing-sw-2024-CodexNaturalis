@@ -9,7 +9,6 @@ import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class Tui implements UserInterface{
         readerThread.start();
 
         phaseView.put(stateEnum.LOGIN, new LoginView());
+        phaseView.put(stateEnum.LOGIN_SUCCESSFUL, new LoginSuccessView());
         phaseView.put(stateEnum.WAITING_LOBBY, new WaitingLobbyView());
         phaseView.put(stateEnum.ALREADY_STARTED, new AlreadyStartedView());
         phaseView.put(stateEnum.DISCONNECTION, new DisconnectionView());
@@ -56,6 +56,9 @@ public class Tui implements UserInterface{
         switch(tuiCli.getCurrentState()){
             case LOGIN:
                 phaseView.get(stateEnum.LOGIN).play(tuiCli);
+                break;
+            case LOGIN_SUCCESSFUL:
+                phaseView.get(stateEnum.LOGIN_SUCCESSFUL).play(tuiCli);
                 break;
             case WAITING_LOBBY:
                 phaseView.get(stateEnum.WAITING_LOBBY).play(tuiCli);

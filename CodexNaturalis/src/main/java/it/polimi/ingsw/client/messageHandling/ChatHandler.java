@@ -15,7 +15,5 @@ public class ChatHandler implements MessageHandler {
         ChatResponse chat = (ChatResponse) msg;
         client.setChat(chat.getChat());
         client.getUI().printChat();
-
-
     }
 }
