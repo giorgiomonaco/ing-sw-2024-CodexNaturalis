@@ -191,7 +191,7 @@ public class MainController implements Serializable {
             chat = "public: "+chat;
             for (Player p : game.getPlayerList()) {
                 p.getChat().add(new Chat(username,chat));
-                serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
+                serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(ServerHandler.HOSTNAME,p.getChat()));
             }
         }
         else {
@@ -199,8 +199,8 @@ public class MainController implements Serializable {
                 if(Objects.equals(p.getPlayerName(), destination)){
                     chat = "private: "+chat;
                     p.getChat().add(new Chat(username,chat));
-                    serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
-                    serverHandler.sendMessageToPlayer(username, new ChatResponse(serverHandler.HOSTNAME,p.getChat()));
+                    serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(ServerHandler.HOSTNAME,p.getChat()));
+                    serverHandler.sendMessageToPlayer(username, new ChatResponse(ServerHandler.HOSTNAME,p.getChat()));
                 }
             }
 
@@ -298,7 +298,8 @@ public class MainController implements Serializable {
             game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
         }
         else if (card instanceof GoldCard goldCard) {
-            game.getCurrentPlayer().addPoints(goldCard.getCardPoints());
+            //checks all the possible conditions for getting points
+            game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
         }
 
     }
