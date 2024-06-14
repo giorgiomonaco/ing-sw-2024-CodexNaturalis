@@ -1,5 +1,9 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.server.model.GoldCard;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.ResourceCard;
+import it.polimi.ingsw.server.model.VisibleAngle;
 import org.junit.jupiter.api.Test;
 
 
