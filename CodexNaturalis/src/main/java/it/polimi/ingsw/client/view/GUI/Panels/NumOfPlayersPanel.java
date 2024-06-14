@@ -8,7 +8,7 @@ import java.awt.*;
 public class NumOfPlayersPanel extends JPanel {
     Client client;
     GridBagConstraints gbc;
-    public NumOfPlayersPanel(){
+    public NumOfPlayersPanel(Client client){
         this.client = client;
 
         /*

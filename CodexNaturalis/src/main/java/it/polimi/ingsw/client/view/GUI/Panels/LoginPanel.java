@@ -14,10 +14,6 @@ import java.util.Scanner;
 
 public class LoginPanel extends JPanel {
 
-    private Client client;
-
-    //layout and constraints
-    private GridBagLayout gbl;
     private GridBagConstraints gbc;
     //Prepare elements: label, text field and button
     private JLabel label1;
@@ -25,11 +21,11 @@ public class LoginPanel extends JPanel {
     private JButton button;
 
 
-    public LoginPanel(GridBagLayout gbl, Client client){
+    public LoginPanel(Client client){
 
-        this.client = client;
-        this.gbl = gbl;
         this.gbc = new GridBagConstraints();
+
+        setLayout(new GridBagLayout());
 
         setSize(new Dimension(400, 300));
 
@@ -69,14 +65,17 @@ public class LoginPanel extends JPanel {
         //Now we add them to the panel with their constraints
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
         add(label1,gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
         add(textField, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
         add(button,gbc);
 
     }

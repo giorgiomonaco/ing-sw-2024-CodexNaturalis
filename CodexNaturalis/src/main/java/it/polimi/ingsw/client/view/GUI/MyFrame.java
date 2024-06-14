@@ -13,7 +13,7 @@ public class MyFrame extends JFrame {
     private static final int DIM_Y = 600;
 
     public MyFrame(){
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
         setSize(new Dimension(DIM_X,DIM_Y));
         setTitle("CODEX NATURALIS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

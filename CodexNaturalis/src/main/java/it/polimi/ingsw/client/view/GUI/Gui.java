@@ -16,7 +16,6 @@ import java.util.List;
 public class Gui implements UserInterface {
 
     //layout and constraints
-    private GridBagLayout gbl;
     private GridBagConstraints gbc;
 
     private final Client client;
@@ -26,9 +25,7 @@ public class Gui implements UserInterface {
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
-        gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
-
     }
 
     @Override
@@ -83,7 +80,7 @@ public class Gui implements UserInterface {
     }
 
     private void addLoginPanel(){
-        LoginPanel logPanel = new LoginPanel(gbl, client);
+        LoginPanel logPanel = new LoginPanel(client);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.NORTH;
@@ -96,7 +93,9 @@ public class Gui implements UserInterface {
     private void chooseNumOfPlayers(){
         //we want to clean the frame
         frame.getContentPane().removeAll();
-        frame.add(new NumOfPlayersPanel());
+        frame.repaint();
+        frame.add(new NumOfPlayersPanel(client));
+        frame.setVisible(true);
 
     }
 
