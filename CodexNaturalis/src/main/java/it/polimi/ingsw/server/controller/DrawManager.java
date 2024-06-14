@@ -44,7 +44,7 @@ public class DrawManager {
             if (initialCard != null) {
                 player.setInitialCard(initialCard);
                 initialCard.addResources(player);
-                initialCard.setFrontSide(true);
+             //  initialCard.setFrontSide(true);
                 updateCheckboard(player, initialCard);
             }
         }

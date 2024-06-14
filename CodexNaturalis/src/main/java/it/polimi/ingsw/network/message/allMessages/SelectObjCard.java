@@ -10,9 +10,7 @@ public class SelectObjCard extends Message {
         super(messEnum.SELECT_OBJECTIVE, senderUsername);
     }
 
-    public SelectObjCard(String senderUsername, String optDescription) {
-        super(messEnum.SELECT_OBJECTIVE, senderUsername, optDescription);
-    }
+
 
     @Override
     public MessageHandler createHandler() {

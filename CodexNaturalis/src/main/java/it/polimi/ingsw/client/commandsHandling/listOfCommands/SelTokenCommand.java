@@ -27,6 +27,7 @@ public class SelTokenCommand implements CommandManager {
         }
 
         Message toSend = new SelectionToken(client.getUsername(), commands[1]);
+        client.setCurrentState(stateEnum.SEL_FIRST_CARD_SIDE);
         client.sendMessage(toSend);
 
     }
