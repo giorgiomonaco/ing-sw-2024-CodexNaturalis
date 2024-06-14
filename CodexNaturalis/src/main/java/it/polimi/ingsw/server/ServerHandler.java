@@ -66,14 +66,14 @@ public class ServerHandler {
     public void manageMessage(Message msg) {
         switch(msg.getType()) {
             case messEnum.SELECTION_NUM_PLAYERS:
-                synchronized (controllerLock){
+                synchronized (controllerLock) {
 
-                    if(mainController == null){
+                    if (mainController == null) {
 
                         SelectionNumPlayers sel = (SelectionNumPlayers) msg;
                         this.mainController = new MainController(this);
                         mainController.gameCreation(sel.getUsername(), sel.getNumOfPlayers());
-                        if(!waitingLobby.isEmpty()){
+                        if (!waitingLobby.isEmpty()) {
                             int waitingSize = waitingLobby.size();
                             int acceptedClients = sel.getNumOfPlayers() - 1;
                             int rejectedClients = waitingSize - acceptedClients;
@@ -84,7 +84,7 @@ public class ServerHandler {
                                     connectedClients.get(waitingLobby.get(waitingSize - 1 - i)).setConnected(false);
                                 }
                             }
-                            for(int i = 0; i < acceptedClients; i++){
+                            for (int i = 0; i < acceptedClients; i++) {
                                 mainController.joinPlayer(waitingLobby.get(i));
                             }
                         }
@@ -103,9 +103,18 @@ public class ServerHandler {
                     mainController.getPlayerByUsername(selToken.getUsername()).setPlayerTokenS(selToken.getDescription());
                     mainController.getGame().removeAvailableTokens(selToken.getDescription());
                     sendMessageToPlayer(selToken.getUsername(),
-                            new SelectObjCard(ServerHandler.HOSTNAME));
+                            new SelectFirstSide(messEnum.SELECT_FIRST_SIDE,selToken.getUsername()));
                 }
                 break;
+
+                case messEnum.SELECTION_FIRSTCARD:
+                synchronized (controllerLock) {
+                    SelectionFirstCardSide selFirstSide = (SelectionFirstCardSide) msg;
+                    mainController.getPlayerByUsername(selFirstSide.getUsername()).getInitialCard().setFrontSide(Trasfomatore(selFirstSide.getSelection()));
+                    sendMessageToPlayer(selFirstSide.getUsername(), new SelectObjCard(HOSTNAME));
+                }
+                break;
+
             case SELECTION_OBJECTIVE:
                 synchronized (controllerLock) {
                     SelectionObjCard selObj = (SelectionObjCard) msg;
@@ -113,7 +122,7 @@ public class ServerHandler {
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
                     mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
 
-                    if(!mainController.isLastPlayer(username)){
+                    if (!mainController.isLastPlayer(username)) {
                         mainController.beginFirstTurn();
                     } else {
                         mainController.setFirstTurn(false);
@@ -121,15 +130,16 @@ public class ServerHandler {
                     }
                 }
                 break;
+
             case messEnum.SELECTION_CARD:
-                synchronized (controllerLock){
+                synchronized (controllerLock) {
                     SelectionCard selCard = (SelectionCard) msg;
                     mainController.selectionCard(selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     mainController.middleTurn();
                 }
                 break;
             case messEnum.DRAW_CARD_RESPONSE:
-                synchronized (controllerLock){
+                synchronized (controllerLock) {
                     DrawCardResponse draw = (DrawCardResponse) msg;
                     int choice = draw.getChoice();
                     mainController.drawCard(choice);
@@ -140,14 +150,17 @@ public class ServerHandler {
                 pinger.loadMessage(msg);
                 break;
             case messEnum.CHATMSG:
-                synchronized (controllerLock){
+                synchronized (controllerLock) {
                     ChatMessage chatMsg = (ChatMessage) msg;
                     String destination = chatMsg.getDestination();
                     String chat = chatMsg.getChat();
                     mainController.chatUpdate(chatMsg.getUsername(), destination, chat);
-
-
+                    break;
                 }
+
+
+
+
         }
     }
 
@@ -327,5 +340,8 @@ public class ServerHandler {
         System.exit(2);
     }
 
-
+    public boolean Trasfomatore(String a){
+        if(Objects.equals(a, "front")) return true;
+        else return false;
+    }
 }

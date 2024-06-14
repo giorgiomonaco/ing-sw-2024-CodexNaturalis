@@ -42,6 +42,7 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.PLAY_CARD, new PlayCardView());
         phaseView.put(stateEnum.SELECT_NUM_PLAYERS, new SelNumPlayerView());
         phaseView.put(stateEnum.SELECT_TOKEN, new SelTokenView());
+        phaseView.put(stateEnum.SEL_FIRST_CARD_SIDE, new SelectionFirstCardSideView());
         phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
@@ -101,6 +102,9 @@ public class Tui implements UserInterface{
                 break;
             case SHOW_WINNER:
                 phaseView.get(stateEnum.SHOW_WINNER).play(tuiCli);
+                break;
+            case SEL_FIRST_CARD_SIDE:
+                phaseView.get(stateEnum.SEL_FIRST_CARD_SIDE).play(tuiCli);
                 break;
         }
 
@@ -400,8 +404,7 @@ public class Tui implements UserInterface{
                                 case "feather":
                                     System.out.print("f");
                                     break;
-                                default:
-                                    break;
+
                             }
                         }
                         System.out.println("     ||");

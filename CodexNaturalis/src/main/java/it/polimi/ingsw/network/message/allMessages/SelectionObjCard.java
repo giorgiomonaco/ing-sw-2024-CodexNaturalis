@@ -18,6 +18,8 @@ public class SelectionObjCard extends Message {
         this.selection = selection;
     }
 
+
+
     @Override
     public MessageHandler createHandler() {
         return null;
