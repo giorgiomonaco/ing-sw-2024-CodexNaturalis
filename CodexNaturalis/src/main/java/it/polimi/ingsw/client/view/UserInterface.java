@@ -12,11 +12,6 @@ public interface UserInterface {
     void printErrorMessage(Message msg);
     void printMessage(Message msg);
 
-    void viewCards(List<Card> playerHand);
-    void viewCard(Card card);
-
-    void viewFirst(InitialCard init);
-
     void printChat();
 
 }

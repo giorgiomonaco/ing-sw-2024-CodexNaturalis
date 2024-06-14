@@ -12,15 +12,18 @@ import java.util.List;
 
 public class Gui implements UserInterface {
 
-    //Grid Layout to manage disposition of elements in frame
+    //layout and constraints
     private GridBagLayout gbl;
     private GridBagConstraints gbc;
+
     private final Client client;
 
     private MyFrame frame;
 
     public Gui (Client client){
         this.client = client;
+        gbl = new GridBagLayout();
+        gbc = new GridBagConstraints();
 
     }
 
@@ -30,7 +33,9 @@ public class Gui implements UserInterface {
             case LOGIN:
                 createFrame();
                 addLoginPanel();
-
+                break;
+            default:
+                break;
         }
 
     }
@@ -54,31 +59,15 @@ public class Gui implements UserInterface {
 
     }
 
-    @Override
-    public void viewCards(List<Card> playerHand) {
-
-    }
-
-    @Override
-    public void viewCard(Card card) {
-
-    }
-
-    @Override
-    public void viewFirst(InitialCard init) {
-
-    }
 
     private void createFrame(){
         frame = new MyFrame(gbl);
     }
 
     private void addLoginPanel(){
-        LoginPanel logPanel = new LoginPanel(gbl);
+        LoginPanel logPanel = new LoginPanel(gbl, client);
         //now we add it to the frame
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        frame.add(logPanel,gbc);
+        frame.add(logPanel);
         //we make the panel visible to be displaced
         frame.setVisible(true);
     }

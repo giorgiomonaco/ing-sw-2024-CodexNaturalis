@@ -133,21 +133,6 @@ public class Tui implements UserInterface{
         System.out.println(toPrint);
     }
 
-    @Override
-    public void viewCards(List<Card> playerHand) {
-
-    }
-
-    public void viewCard(Card card) {
-        DrawCardView drawCardView = new DrawCardView();
-        printCard(card);
-    }
-
-    @Override
-    public void viewFirst(InitialCard init) {
-
-    }
-
 
     public void printCard(Card card) {
         if (card instanceof ResourceCard) {
@@ -158,6 +143,7 @@ public class Tui implements UserInterface{
             System.out.println(card.getCardID());
         }
     }
+
     private void printGoldCard(GoldCard g) {
         VisibleAngle[] array;
         for(int p=0;p<2;p++) {
