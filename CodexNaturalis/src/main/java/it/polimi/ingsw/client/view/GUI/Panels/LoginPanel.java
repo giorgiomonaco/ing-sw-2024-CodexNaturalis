@@ -17,12 +17,12 @@ public class LoginPanel extends JPanel {
     private Client client;
 
     //layout and constraints
-    GridBagLayout gbl;
-    GridBagConstraints gbc;
+    private GridBagLayout gbl;
+    private GridBagConstraints gbc;
     //Prepare elements: label, text field and button
-    JLabel label1;
-    JTextField textField;
-    JButton button;
+    private JLabel label1;
+    private JTextField textField;
+    private JButton button;
 
 
     public LoginPanel(GridBagLayout gbl, Client client){

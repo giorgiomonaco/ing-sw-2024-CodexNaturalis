@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.GUI.Panels.LoginPanel;
+import it.polimi.ingsw.client.view.GUI.Panels.NumOfPlayersPanel;
 import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.Card;
@@ -39,6 +40,9 @@ public class Gui implements UserInterface {
                 break;
             case LOGIN_SUCCESSFUL:
                 printMessage("Login successful!");
+                break;
+            case SELECT_NUM_PLAYERS:
+                chooseNumOfPlayers();
                 break;
             default:
                 break;
@@ -92,6 +96,13 @@ public class Gui implements UserInterface {
         frame.add(logPanel,gbc);
         //we make the panel visible to be displaced
         frame.setVisible(true);
+    }
+
+    private void chooseNumOfPlayers(){
+        //we want to clean the frame
+        frame.getContentPane().removeAll();
+        frame.add(new NumOfPlayersPanel());
+
     }
 
 }
