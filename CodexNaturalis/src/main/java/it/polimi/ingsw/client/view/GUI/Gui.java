@@ -1,31 +1,25 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.view.Colors;
+import it.polimi.ingsw.client.view.GUI.Panels.LobbyPanel;
 import it.polimi.ingsw.client.view.GUI.Panels.LoginPanel;
 import it.polimi.ingsw.client.view.GUI.Panels.NumOfPlayersPanel;
 import it.polimi.ingsw.client.view.UserInterface;
-import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.InitialCard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class Gui implements UserInterface {
-
-    //layout and constraints
-    private GridBagConstraints gbc;
 
     private final Client client;
 
     private MyFrame frame;
+    private int y;
 
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
-        gbc = new GridBagConstraints();
+        y = 1;
     }
 
     @Override
@@ -39,7 +33,13 @@ public class Gui implements UserInterface {
                 printMessage("Login successful!");
                 break;
             case SELECT_NUM_PLAYERS:
-                chooseNumOfPlayers();
+                addNumOfPlayersPanel();
+                break;
+            case WAITING_LOBBY:
+                printMessage("Waiting for the admin to create the lobby...");
+                break;
+            case LOBBY:
+                addLobbyPanel();
                 break;
             default:
                 break;
@@ -57,17 +57,28 @@ public class Gui implements UserInterface {
     }
 
     @Override
-    public void printErrorMessage(String msg) {
-
-    }
-
-    public void printMessage(String s) {
-        gbc = new GridBagConstraints();
+    public void printErrorMessage(String s) {
+        GridBagConstraints gbc = new GridBagConstraints();
         JPanel message = new JPanel();
         message.setSize(new Dimension(400, 200));
         JLabel label = new JLabel(s);
+        label.setForeground(Color.red);
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = y++;
+        gbc.anchor = GridBagConstraints.CENTER;
+        message.add(label);
+        frame.add(message, gbc);
+        frame.setVisible(true);
+    }
+
+    public void printMessage(String s) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        JPanel message = new JPanel();
+        message.setSize(new Dimension(400, 200));
+        JLabel label = new JLabel(s);
+        label.setForeground(Color.green);
+        gbc.gridx = 0;
+        gbc.gridy = y++;
         gbc.anchor = GridBagConstraints.CENTER;
         message.add(label);
         frame.add(message, gbc);
@@ -81,22 +92,35 @@ public class Gui implements UserInterface {
 
     private void addLoginPanel(){
         LoginPanel logPanel = new LoginPanel(client);
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.BOTH;
+
         //now we add it to the frame
         frame.add(logPanel,gbc);
         //we make the panel visible to be displaced
         frame.setVisible(true);
     }
 
-    private void chooseNumOfPlayers(){
+    private void addNumOfPlayersPanel(){
         //we want to clean the frame
-        frame.getContentPane().removeAll();
+        frame.getContentPane().remove(0);
+        y--;
         frame.repaint();
         frame.add(new NumOfPlayersPanel(client));
         frame.setVisible(true);
+    }
 
+    private void addLobbyPanel(){
+        frame.getContentPane().removeAll();
+        y--;
+        frame.repaint();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(new LobbyPanel(client), gbc);
+        frame.setVisible(true);
     }
 
 }

@@ -17,6 +17,7 @@ public class LoginPanel extends JPanel {
     private GridBagConstraints gbc;
     //Prepare elements: label, text field and button
     private JLabel label1;
+    private JLabel title;
     private JTextField textField;
     private JButton button;
 
@@ -26,8 +27,6 @@ public class LoginPanel extends JPanel {
         this.gbc = new GridBagConstraints();
 
         setLayout(new GridBagLayout());
-
-        setSize(new Dimension(400, 300));
 
         createElements();
 
@@ -55,6 +54,9 @@ public class LoginPanel extends JPanel {
     }
 
     private void createElements(){
+
+        //the game title
+        // title = new JLabel()
         //first we want to ask to insert the username:
         label1= new JLabel("Insert your Username:");
         //create a j text file to catch user writing
@@ -76,7 +78,7 @@ public class LoginPanel extends JPanel {
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        add(button,gbc);
+        add(button, gbc);
 
     }
 }

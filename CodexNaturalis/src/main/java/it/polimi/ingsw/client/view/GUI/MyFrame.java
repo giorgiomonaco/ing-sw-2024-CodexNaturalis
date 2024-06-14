@@ -17,6 +17,9 @@ public class MyFrame extends JFrame {
         setSize(new Dimension(DIM_X,DIM_Y));
         setTitle("CODEX NATURALIS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+
         setVisible(true);
     }
 

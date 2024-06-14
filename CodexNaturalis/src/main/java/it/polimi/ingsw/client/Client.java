@@ -32,6 +32,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<Card> visibleResourceCards = new ArrayList<>();
     private boolean winner = false;
     private List<Chat> chat;
+    private String serverLastMessage;
 
 
 
@@ -181,5 +182,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public String getServerLastMessage() {
+        return serverLastMessage;
+    }
+
+    public void setServerLastMessage(String serverLastMessage) {
+        this.serverLastMessage = serverLastMessage;
     }
 }
