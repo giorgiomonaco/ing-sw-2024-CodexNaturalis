@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.view.GUI.Panels.BackGroundPanel;
-import it.polimi.ingsw.client.view.GUI.Panels.LobbyPanel;
-import it.polimi.ingsw.client.view.GUI.Panels.LoginPanel;
-import it.polimi.ingsw.client.view.GUI.Panels.NumOfPlayersPanel;
+import it.polimi.ingsw.client.view.GUI.Panels.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
 import javax.imageio.ImageIO;
@@ -47,6 +44,15 @@ public class Gui implements UserInterface {
                 addLobbyPanel();
                 break;
             case GAME_STARTED:
+                addGameStartedPanel();
+                break;
+            case SELECT_TOKEN:
+                break;
+            case SEL_FIRST_CARD_SIDE:
+                break;
+            case SELECT_OBJECTIVE:
+                break;
+            case WAITING_TURN:
                 break;
             default:
                 break;
@@ -134,6 +140,16 @@ public class Gui implements UserInterface {
         gbc.gridx = 0;
         gbc.gridy = 0;
         frame.add(new LobbyPanel(client), gbc);
+        frame.setVisible(true);
+    }
+
+    private void addGameStartedPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(new GameStartedPanel(client), gbc);
         frame.setVisible(true);
     }
 
