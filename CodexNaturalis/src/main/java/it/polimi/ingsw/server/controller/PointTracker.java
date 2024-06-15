@@ -1,5 +1,7 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.controller;
 
+
+import it.polimi.ingsw.server.model.Token;
 
 import java.util.ArrayList;
 import java.util.List;
