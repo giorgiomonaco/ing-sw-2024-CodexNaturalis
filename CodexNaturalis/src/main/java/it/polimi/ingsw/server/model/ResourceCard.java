@@ -11,8 +11,8 @@ public class ResourceCard extends Card{
     private final int cardPoints;
 
     //Constructor
-    public ResourceCard(int number, int points, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol){
-        super(frontAngles, backAngles, backSymbol);
+    public ResourceCard(int number, int points, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String frontPath, String backPath){
+        super(frontAngles, backAngles, backSymbol, frontPath, backPath);
         this.cardNumber = number;
         this.cardPoints = points;
     }

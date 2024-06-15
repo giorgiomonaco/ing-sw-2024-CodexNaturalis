@@ -1,6 +1,10 @@
 package it.polimi.ingsw.server.model;
 
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 //manca check durante piazzamento della carta con risorse necessarie e del player
@@ -13,10 +17,11 @@ public class ObjectiveCard implements Serializable {
     private final String card2;
     private final String direction2;
     private final String card3;
+    private BufferedImage image;
 
 
 
-    public ObjectiveCard(int num, int points, String type, String card1, String direction1, String card2, String direction2, String card3) {
+    public ObjectiveCard(int num, int points, String type, String card1, String direction1, String card2, String direction2, String card3, String path) {
         this.type = type;
         this.card1 = card1;
         this.direction1 = direction1;
@@ -25,6 +30,11 @@ public class ObjectiveCard implements Serializable {
         this.card3 = card3;
         this.points = points;
         this.cardNumber = num;
+        try {
+            this.image = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getPoints() {
@@ -56,5 +66,13 @@ public class ObjectiveCard implements Serializable {
     }
     public int getCardName(){
         return this.cardNumber;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }

@@ -162,8 +162,18 @@ public class InitialCardsInitializer {
                     }
                 }
 
+                String front;
+                String back;
 
-                InitialCard initialCard = new InitialCard(cardNumber, initialCardFrontAngles, initialCardBackAngles, backSymbol);
+                if(osName.contains("mac")){
+                    front = "src/main/resources/images/initialCards/front/frontInitial-" + cardNumber + ".png";
+                    back = "src/main/resources/images/initialCards/back/backInitial-" + cardNumber + ".png";
+                } else {
+                    front = "CodexNaturalis/src/main/resources/images/initialCards/front/frontInitial-" + cardNumber + ".png";
+                    back = "CodexNaturalis/src/main/resources/images/initialCards/back/backInitial-" + cardNumber + ".png";
+                }
+
+                InitialCard initialCard = new InitialCard(cardNumber, initialCardFrontAngles, initialCardBackAngles, backSymbol, front, back);
                 addCardToGame(initialCard);
 
                 cardNumber++;

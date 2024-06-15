@@ -58,7 +58,15 @@ public class ObjectiveCardInitializer {
                 // Getting the points of the card
                 int pointsInt = Integer.parseInt(points);
 
-                ObjectiveCard objectiveCard = new ObjectiveCard(count, pointsInt, type, card1, direction1, card2, direction2, card3);
+                String front;
+
+                if(osName.contains("mac")){
+                    front = "src/main/resources/images/objectiveCards/front/" + count + ".png";
+                } else {
+                    front = "CodexNaturalis/src/main/resources/images/objectiveCards/front/" + count + ".png";
+                }
+
+                ObjectiveCard objectiveCard = new ObjectiveCard(count, pointsInt, type, card1, direction1, card2, direction2, card3, front);
                 addCardToGame(objectiveCard);
 
                 count++;

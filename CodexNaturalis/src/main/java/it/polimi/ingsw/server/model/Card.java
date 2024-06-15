@@ -1,7 +1,10 @@
 package it.polimi.ingsw.server.model;
 
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +42,19 @@ public abstract class Card implements Serializable {
     private BufferedImage backImage;
 
     //Constructor
-    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol) {
+    public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String frontPath, String backPath) {
         for (int i = 0; i < 4; i++) {
             this.frontAngles[i] = frontAngles[i];
             this.backAngles[i] = backAngles[i];
             cardID++;
         }
         this.backSymbol = backSymbol;
+        try {
+            this.frontImage = ImageIO.read(new File(frontPath));
+            this.backImage = ImageIO.read(new File(backPath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

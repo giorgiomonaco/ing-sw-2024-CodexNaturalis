@@ -2,8 +2,6 @@ package it.polimi.ingsw.network;
 
 import java.util.Scanner;
 
-import static sun.util.locale.LocaleUtils.isEmpty;
-
 public class ClientConfigNetwork {
     private int portRMI;
     private int portTCP;
