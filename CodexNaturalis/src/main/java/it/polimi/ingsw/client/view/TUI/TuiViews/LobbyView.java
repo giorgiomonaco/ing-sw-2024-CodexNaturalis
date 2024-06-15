@@ -10,5 +10,10 @@ public class LobbyView implements TuiView{
         System.out.println("\n+----------------------+\n" +
                 "|        LOBBY         |\n" +
                 "+----------------------+\n");
+        System.out.println(client.getServerLastMessage());
+        System.out.println("ACTUAL LOBBY:");
+        for(String s : client.getPlayerList()){
+            System.out.println(s + " ");
+        }
     }
 }

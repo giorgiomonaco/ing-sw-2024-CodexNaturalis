@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.messageHandling;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.CommonMessage;
 import it.polimi.ingsw.network.message.allMessages.NewPlayerJoin;
@@ -10,14 +11,17 @@ public class NewPlayerJoinHandler implements MessageHandler{
     public void handle(Message msg, Client client) {
         NewPlayerJoin newPlayer = (NewPlayerJoin) msg;
         client.getPlayerList().add(newPlayer.getNewUser());
-        client.getUI().printMessage(newPlayer);
+        client.setServerLastMessage(newPlayer.getDescription());
+        if(client.getUI() instanceof Tui) {
+            System.out.println(client.getServerLastMessage());
 
-        client.getUI().printMessage(new CommonMessage("",
-                "ACTUAL LOBBY: "));
+            System.out.println("ACTUAL LOBBY: ");
 
-        for(String s : client.getPlayerList()){
-            client.getUI().printMessage(new CommonMessage("",
-                    s + " "));
+            for (String s : client.getPlayerList()) {
+                System.out.println(s + " ");
+            }
+        } else {
+            client.getUI().run();
         }
     }
 }

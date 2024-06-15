@@ -71,5 +71,6 @@ public enum stateEnum {
      * when the game is not even started.
      */
     DISCONNECTION,
-    SHOW_WINNER
+    SHOW_WINNER,
+    SEL_FIRST_CARD_SIDE
 }

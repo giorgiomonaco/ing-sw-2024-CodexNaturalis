@@ -1,28 +1,25 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Panels.LobbyPanel;
 import it.polimi.ingsw.client.view.GUI.Panels.LoginPanel;
+import it.polimi.ingsw.client.view.GUI.Panels.NumOfPlayersPanel;
 import it.polimi.ingsw.client.view.UserInterface;
-import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.InitialCard;
 
+import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class Gui implements UserInterface {
 
-    //Grid Layout to manage disposition of elements in frame
-    private GridBagLayout gbl;
-    private GridBagConstraints gbc;
     private final Client client;
 
     private MyFrame frame;
+    private int y;
 
     public Gui (Client client){
         this.client = client;
-        gbc = new GridBagConstraints();
-
+        client.setUI(this);
+        y = 1;
     }
 
     @Override
@@ -31,7 +28,21 @@ public class Gui implements UserInterface {
             case LOGIN:
                 createFrame();
                 addLoginPanel();
-
+                break;
+            case LOGIN_SUCCESSFUL:
+                printMessage("Login successful!");
+                break;
+            case SELECT_NUM_PLAYERS:
+                addNumOfPlayersPanel();
+                break;
+            case WAITING_LOBBY:
+                printMessage("Waiting for the admin to create the lobby...");
+                break;
+            case LOBBY:
+                addLobbyPanel();
+                break;
+            default:
+                break;
         }
 
     }
@@ -46,42 +57,69 @@ public class Gui implements UserInterface {
     }
 
     @Override
-    public void printErrorMessage(Message msg) {
-
+    public void printErrorMessage(String s) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        JPanel message = new JPanel();
+        message.setSize(new Dimension(400, 200));
+        JLabel label = new JLabel(s);
+        label.setForeground(Color.red);
+        gbc.gridx = 0;
+        gbc.gridy = y++;
+        gbc.anchor = GridBagConstraints.CENTER;
+        message.add(label);
+        frame.add(message, gbc);
+        frame.setVisible(true);
     }
 
-    @Override
-    public void printMessage(Message msg) {
-
+    public void printMessage(String s) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        JPanel message = new JPanel();
+        message.setSize(new Dimension(400, 200));
+        JLabel label = new JLabel(s);
+        label.setForeground(Color.green);
+        gbc.gridx = 0;
+        gbc.gridy = y++;
+        gbc.anchor = GridBagConstraints.CENTER;
+        message.add(label);
+        frame.add(message, gbc);
+        frame.setVisible(true);
     }
 
-    @Override
-    public void viewCards(List<Card> playerHand) {
-
-    }
-
-    @Override
-    public void viewCard(Card card) {
-
-    }
-
-    @Override
-    public void viewFirst(InitialCard init) {
-
-    }
 
     private void createFrame(){
-        frame = new MyFrame(gbl);
+        frame = new MyFrame();
     }
 
     private void addLoginPanel(){
-        LoginPanel logPanel = new LoginPanel(gbl, client);
-        //now we add it to the frame
+        LoginPanel logPanel = new LoginPanel(client);
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
 
+        //now we add it to the frame
         frame.add(logPanel,gbc);
         //we make the panel visible to be displaced
+        frame.setVisible(true);
+    }
+
+    private void addNumOfPlayersPanel(){
+        //we want to clean the frame
+        frame.getContentPane().remove(0);
+        y--;
+        frame.repaint();
+        frame.add(new NumOfPlayersPanel(client));
+        frame.setVisible(true);
+    }
+
+    private void addLobbyPanel(){
+        frame.getContentPane().removeAll();
+        y--;
+        frame.repaint();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(new LobbyPanel(client), gbc);
         frame.setVisible(true);
     }
 

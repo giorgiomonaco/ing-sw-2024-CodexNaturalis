@@ -14,15 +14,7 @@ public class LobbyHandler implements MessageHandler{
         LobbyCreation lobby = (LobbyCreation) msg;
         client.setCurrentState(stateEnum.LOBBY);
         client.setPlayerList(lobby.getPlayersInLobby());
+        client.setServerLastMessage(msg.getDescription());
         client.getUI().run();
-        client.getUI().printMessage(msg);
-
-        client.getUI().printMessage(new CommonMessage("",
-                "ACTUAL LOBBY: "));
-
-        for(String s : client.getPlayerList()){
-            client.getUI().printMessage(new CommonMessage("",
-                    s + " "));
-        }
     }
 }

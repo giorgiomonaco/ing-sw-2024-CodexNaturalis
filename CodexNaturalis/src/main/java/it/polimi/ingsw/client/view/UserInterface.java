@@ -9,14 +9,8 @@ import java.util.List;
 public interface UserInterface {
     void run();
     void endGame();
-    void printErrorMessage(Message msg);
-    void printMessage(Message msg);
-
-    void viewCards(List<Card> playerHand);
-    void viewCard(Card card);
-
-    void viewFirst(InitialCard init);
-
+    void printErrorMessage(String msg);
+    void printMessage(String msg);
     void printChat();
 
 }

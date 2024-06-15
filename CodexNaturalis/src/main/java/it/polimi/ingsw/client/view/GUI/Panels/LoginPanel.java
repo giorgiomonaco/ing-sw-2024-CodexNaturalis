@@ -14,25 +14,19 @@ import java.util.Scanner;
 
 public class LoginPanel extends JPanel {
 
-    private Client client;
-
-    //layout and constraints
-    GridBagLayout gbl;
-    GridBagConstraints gbc;
+    private GridBagConstraints gbc;
     //Prepare elements: label, text field and button
-    JLabel label1;
-    JTextField textField;
-    JButton button;
+    private JLabel label1;
+    private JLabel title;
+    private JTextField textField;
+    private JButton button;
 
 
-    public LoginPanel(GridBagLayout gbl, Client client){
+    public LoginPanel(Client client){
 
-        this.client = client;
-        this.gbl = gbl;
         this.gbc = new GridBagConstraints();
 
-        setSize(new Dimension(400, 300));
-
+        setLayout(new GridBagLayout());
 
         createElements();
 
@@ -60,6 +54,9 @@ public class LoginPanel extends JPanel {
     }
 
     private void createElements(){
+
+        //the game title
+        // title = new JLabel()
         //first we want to ask to insert the username:
         label1= new JLabel("Insert your Username:");
         //create a j text file to catch user writing
@@ -70,15 +67,18 @@ public class LoginPanel extends JPanel {
         //Now we add them to the panel with their constraints
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
         add(label1,gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
         add(textField, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(button,gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        add(button, gbc);
 
     }
 }

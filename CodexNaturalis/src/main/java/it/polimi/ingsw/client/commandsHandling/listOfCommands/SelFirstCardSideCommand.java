@@ -5,29 +5,34 @@ import it.polimi.ingsw.client.commandsHandling.CommandManager;
 import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.commandsHandling.commandsException.WrongInsertionException;
 import it.polimi.ingsw.client.states.stateEnum;
-import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.allMessages.SelectionToken;
+import it.polimi.ingsw.network.message.allMessages.SelectionFirstCardSide;
+import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
 
 import java.rmi.RemoteException;
+import java.util.Objects;
 
-public class SelTokenCommand implements CommandManager {
-
+public class SelFirstCardSideCommand implements CommandManager {
     private final Client client;
-    public SelTokenCommand(Client client){
+
+
+    public SelFirstCardSideCommand(Client client) {
         this.client = client;
     }
+
     @Override
     public void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException, WrongInsertionException {
 
-        if(!client.getCurrentState().equals(stateEnum.SELECT_TOKEN)){
+        if (!client.getCurrentState().equals(stateEnum.SEL_FIRST_CARD_SIDE)) {
             throw new CommandNotAvailableException();
         }
-        if(!client.getAvailableTokens().contains(commands[1])){
-            throw new WrongInsertionException("The selected color is not available. Please choose one of the available ones");
+
+        String selection = commands[1];
+        if (!Objects.equals(selection, "front") && !Objects.equals(selection, "back")) {
+            throw new WrongInsertionException("WRONG SELECTION!\nYou have to put [side] than [front] or [back]");
         }
 
-        Message toSend = new SelectionToken(client.getUsername(), commands[1]);
-        client.setCurrentState(stateEnum.SEL_FIRST_CARD_SIDE);
+
+        SelectionFirstCardSide toSend = new SelectionFirstCardSide(client.getUsername(), selection);
         client.sendMessage(toSend);
 
     }
