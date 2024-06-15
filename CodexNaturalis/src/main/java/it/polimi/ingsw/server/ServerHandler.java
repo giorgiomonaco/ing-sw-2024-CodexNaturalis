@@ -106,7 +106,7 @@ public class ServerHandler {
                 }
                 break;
 
-                case messEnum.SELECTION_FIRSTCARD:
+            case SELECTION_FIRSTCARD:
                 synchronized (controllerLock) {
                     SelectionFirstCardSide selFirstSide = (SelectionFirstCardSide) msg;
                     mainController.getPlayerByUsername(selFirstSide.getUsername()).getInitialCard().setFrontSide(fromStringToBool(selFirstSide.getSelection()));

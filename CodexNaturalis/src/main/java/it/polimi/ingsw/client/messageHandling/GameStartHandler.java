@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.message.allMessages.GameStarting;
 public class GameStartHandler implements MessageHandler {
     @Override
     public void handle(Message msg, Client client) {
+
         client.setCurrentState(stateEnum.GAME_STARTED);
 
         GameStarting game = (GameStarting) msg;

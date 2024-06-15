@@ -1,13 +1,18 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Panels.BackGroundPanel;
 import it.polimi.ingsw.client.view.GUI.Panels.LobbyPanel;
 import it.polimi.ingsw.client.view.GUI.Panels.LoginPanel;
 import it.polimi.ingsw.client.view.GUI.Panels.NumOfPlayersPanel;
 import it.polimi.ingsw.client.view.UserInterface;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Gui implements UserInterface {
 
@@ -40,6 +45,8 @@ public class Gui implements UserInterface {
                 break;
             case LOBBY:
                 addLobbyPanel();
+                break;
+            case GAME_STARTED:
                 break;
             default:
                 break;
@@ -85,8 +92,15 @@ public class Gui implements UserInterface {
     }
 
 
-    private void createFrame(){
+    private void createFrame() {
         frame = new MyFrame();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("src/main/resources/images/backGround.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        frame.setContentPane(new BackGroundPanel(image));
     }
 
     private void addLoginPanel(){
@@ -94,7 +108,8 @@ public class Gui implements UserInterface {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.CENTER;
+
 
         //now we add it to the frame
         frame.add(logPanel,gbc);

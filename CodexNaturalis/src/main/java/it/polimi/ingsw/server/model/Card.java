@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model;
 
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,10 @@ public abstract class Card implements Serializable {
     //if true = front visible
     //if false = back visible
     private boolean frontSide;
+
+    private BufferedImage frontImage;
+
+    private BufferedImage backImage;
 
     //Constructor
     public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol) {
@@ -144,5 +149,20 @@ public abstract class Card implements Serializable {
         return false;
     }
 
+    public BufferedImage getFrontImage() {
+        return frontImage;
+    }
+
+    public void setFrontImage(BufferedImage frontImage) {
+        this.frontImage = frontImage;
+    }
+
+    public BufferedImage getBackImage() {
+        return backImage;
+    }
+
+    public void setBackImage(BufferedImage backImage) {
+        this.backImage = backImage;
+    }
 }
 
