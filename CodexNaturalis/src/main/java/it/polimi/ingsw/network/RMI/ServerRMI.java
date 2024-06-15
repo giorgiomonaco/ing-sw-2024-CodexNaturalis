@@ -63,7 +63,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
         LoginResult result = handlerRMI.manageLoginRequest(request, new RMIClientHandler(handlerRMI, rmiClientInterface));
 
         if(result.isLogged() && result.isReconnected()){
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
+            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 3, request.getUsername()));
         }
         else if(result.isLogged() && !result.isReconnected()){
             rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));

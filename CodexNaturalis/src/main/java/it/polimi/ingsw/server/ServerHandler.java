@@ -16,7 +16,6 @@ import it.polimi.ingsw.server.model.*;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ServerHandler {
     private ServerRMI rmiServer;
@@ -110,7 +109,7 @@ public class ServerHandler {
                 case messEnum.SELECTION_FIRSTCARD:
                 synchronized (controllerLock) {
                     SelectionFirstCardSide selFirstSide = (SelectionFirstCardSide) msg;
-                    mainController.getPlayerByUsername(selFirstSide.getUsername()).getInitialCard().setFrontSide(Trasfomatore(selFirstSide.getSelection()));
+                    mainController.getPlayerByUsername(selFirstSide.getUsername()).getInitialCard().setFrontSide(fromStringToBool(selFirstSide.getSelection()));
                     sendMessageToPlayer(selFirstSide.getUsername(), new SelectObjCard(HOSTNAME));
                 }
                 break;
@@ -340,8 +339,7 @@ public class ServerHandler {
         System.exit(2);
     }
 
-    public boolean Trasfomatore(String a){
-        if(Objects.equals(a, "front")) return true;
-        else return false;
+    public boolean fromStringToBool(String a){
+        return Objects.equals(a, "front");
     }
 }

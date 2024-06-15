@@ -1,6 +1,5 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.*;
 import org.junit.jupiter.api.Test;
 
 
@@ -220,7 +219,7 @@ class PlayerTest {
         ResourceSymbol symbol = new ResourceSymbol("leaf", "res");
         List<Symbol> list =new ArrayList<>();
         list.add(symbol);
-        int[] array = new int[7];
+
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
@@ -231,53 +230,133 @@ class PlayerTest {
 
     @Test
     void setInitialCard() {
+        Player player = new Player("test");
+        VisibleAngle[] angles = new VisibleAngle[4];
+        ResourceSymbol symbol = new ResourceSymbol("leaf", "res");
+        List<Symbol> list =new ArrayList<>();
+        list.add(symbol);
+
+        for(int i = 0; i<4; i++){
+            angles[i] = new VisibleAngle(null);
+        }
+        InitialCard card = new InitialCard(1, angles,  angles, list);
+        player.setInitialCard(card);
+        assertEquals(player.getInitialCard(), card);
+
     }
 
     @Test
     void getUsername() {
+        Player player = new Player("test");
+        assertEquals(player.getUsername(), "test");
     }
 
     @Test
     void getPlayerHand() {
+        Player player = new Player("test");
+        VisibleAngle[] angles = new VisibleAngle[4];
+        int[] array = new int[7];
+        for(int i = 0; i<4; i++){
+            angles[i] = new VisibleAngle(null);
+        }
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        for(int i =0; i<3; i++){
+            player.getPlayerHand().add(card);
+        }
+        assertEquals(player.getPlayerHand().getFirst(), card);
+
     }
 
     @Test
     void getSelObjectiveCard() {
+        Player player = new Player("test");
+        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null);
+        player.setObjectiveCard(card);
+        assertEquals(player.getPlayerObjectiveCard(), card);
     }
 
     @Test
     void addSelObjectiveCard() {
+        Player player = new Player("test");
+        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null);
+        player.addSelObjectiveCard(card);
+        assertEquals(player.getSelObjectiveCard().getFirst(), card);
     }
 
     @Test
     void getGameBoards() {
+        Player player = new Player("test");
+        Boards boards = new Boards();
+        player.setBoards(boards);
+        assertEquals(player.getGameBoards(), boards);
     }
 
     @Test
     void setBoards() {
+        Player player = new Player("test");
+        Boards boards = new Boards();
+        player.setBoards(boards);
+        assertEquals(player.getGameBoards(), boards);
     }
 
     @Test
     void getPoints() {
+        Player player = new Player("test");
+        int points = 2;
+        player.setPlayerPoints(points);
+        assertEquals(player.getPoints(), points);
+
     }
 
     @Test
     void getChat() {
+        Player player = new Player("test");
+        List<Chat> chats= new ArrayList<>();
+        Chat prova = new Chat("tom", "ciao");
+        chats.add(prova);
+        chats.add(prova);
+        player.setChat(chats);
+        assertEquals(player.getChat().getFirst(), prova);
     }
 
     @Test
     void isConnected() {
+        Player player = new Player("test");
+        player.setConnected(true);
+        assertTrue(player.isConnected());
+
+
     }
 
     @Test
     void setConnected() {
+        Player player = new Player("test");
+        player.setConnected(true);
+        assertTrue(player.isConnected());
     }
 
     @Test
     void setChat() {
+        Player player = new Player("test");
+        List<Chat> chats= new ArrayList<>();
+        Chat prova = new Chat("tom", "ciao");
+        chats.add(prova);
+        chats.add(prova);
+        player.setChat(chats);
+        assertEquals(player.getChat().getFirst(), prova);
     }
 
     @Test
     void addGoldCardPoints() {
+        Player player = new Player("test");
+        VisibleAngle[] angles = new VisibleAngle[4];
+        int[] array = new int[7];
+        for(int i = 0; i<4; i++){
+            angles[i] = new VisibleAngle(null);
+        }
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        player.addGoldCard(card);
+        player.addGoldCardPoints(card, 49,49);
+        assertEquals(player.getPoints(), 1);
     }
 }
