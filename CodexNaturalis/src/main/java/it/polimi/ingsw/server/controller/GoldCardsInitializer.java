@@ -163,7 +163,19 @@ public class GoldCardsInitializer {
                     neededSymbols[i] = Integer.parseInt(symbol);
                     i++;
                 }
-                GoldCard goldCard = new GoldCard(cardNumber, goldCardFrontAngles, goldCardBackAngles, backSymbol, condition, pointsInt, neededSymbols);
+
+                String front;
+                String back;
+
+                if(osName.contains("mac")){
+                    front = "src/main/resources/images/goldCards/front/" + cardNumber + ".png";
+                    back = "src/main/resources/images/goldCards/back/" + type + ".png";
+                } else {
+                    front = "CodexNaturalis/src/main/resources/images/goldCards/front/" + cardNumber + ".png";
+                    back = "CodexNaturalis/src/main/resources/images/goldCards/back/" + type + ".png";
+                }
+
+                GoldCard goldCard = new GoldCard(cardNumber, goldCardFrontAngles, goldCardBackAngles, backSymbol, condition, pointsInt, neededSymbols, front, back);
                 addCardToGame(goldCard);
 
                 cardNumber++;

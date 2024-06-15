@@ -132,15 +132,24 @@ public class ResourceCardInitializer {
                         System.out.println("Error while parsing through cards");
                 }
 
+                String front;
+                String back;
+
+                if(osName.contains("mac")){
+                    front = "src/main/resources/images/resCards/front/" + cardNumber + ".png";
+                    back = "src/main/resources/images/resCards/back/" + type + ".png";
+                } else {
+                    front = "CodexNaturalis/src/main/resources/images/resCards/front/" + cardNumber + ".png";
+                    back = "CodexNaturalis/src/main/resources/images/resCards/back/" + type + ".png";
+                }
+
                 ResourceCard resourceCard = new  ResourceCard( cardNumber,  pointsInt,
-                resCardFrontAngles, resCardBackAngles, backSymbol);
+                resCardFrontAngles, resCardBackAngles, backSymbol, front, back);
                 addCardToGame(resourceCard);
 
                 cardNumber++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
-
             throw new RuntimeException("Impossibile caricare le carte.");
         }
     }

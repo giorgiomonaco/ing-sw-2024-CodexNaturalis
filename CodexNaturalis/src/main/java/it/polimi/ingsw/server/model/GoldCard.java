@@ -24,8 +24,8 @@ public class GoldCard extends Card {
 
     //Constructor
     public GoldCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, int condition,
-                    int cardPoints, int[] neededSymbols){
-        super(frontAngles, backAngles, backSymbol);
+                    int cardPoints, int[] neededSymbols, String front, String back){
+        super(frontAngles, backAngles, backSymbol, front, back);
         //we assign the name of the card
         this.cardName = name;
         this.condition = condition;

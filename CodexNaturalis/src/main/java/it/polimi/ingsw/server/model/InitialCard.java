@@ -11,8 +11,8 @@ public class InitialCard extends Card{
 
 
     //Constructor
-    public InitialCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol){
-        super(frontAngles, backAngles, backSymbol);
+    public InitialCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String front, String back){
+        super(frontAngles, backAngles, backSymbol, front, back);
         this.cardName = name;
     }
 
