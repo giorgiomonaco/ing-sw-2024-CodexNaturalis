@@ -89,7 +89,7 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
         LoginResult result = handlerTCP.manageLoginRequest(request, this);
 
         if(result.isLogged() && result.isReconnected()){
-            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
+            sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 3, request.getUsername()));
         }
         else if(result.isLogged() && !result.isReconnected()){
             sendMessage(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));

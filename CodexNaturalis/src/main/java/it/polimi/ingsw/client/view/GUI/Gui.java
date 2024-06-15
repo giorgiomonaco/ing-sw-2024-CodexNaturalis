@@ -76,7 +76,6 @@ public class Gui implements UserInterface {
         JPanel message = new JPanel();
         message.setSize(new Dimension(400, 200));
         JLabel label = new JLabel(s);
-        label.setForeground(Color.green);
         gbc.gridx = 0;
         gbc.gridy = y++;
         gbc.anchor = GridBagConstraints.CENTER;

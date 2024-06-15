@@ -16,7 +16,12 @@ public class LoginHandler implements MessageHandler{
             client.setUsername(response.getDescription());
             client.setCurrentState(stateEnum.LOGIN_SUCCESSFUL);
             client.getUI().run();
-        } else {
+        } else if (response.getResult() == 3){
+            client.setUsername(response.getDescription());
+            client.setCurrentState(stateEnum.WAITING_TURN);
+            client.getUI().run();
+        }
+        else {
             client.getUI().printErrorMessage(response.getDescription());
         }
     }
