@@ -63,5 +63,19 @@
 	"BackSymbol1": "leaf",
 	"BackSymbol2": "mushroom",
 	"BackSymbol3": "null"
-  }
+  },
+	{
+		"FrontTopLeft": "butterfly",
+		"FrontTopRight": "mushroom",
+		"FrontBottomLeft": "leaf",
+		"FrontBottomRight": "fox",
+		"BackTopLeft": "empty",
+		"BackTopRight": "empty",
+		"BackBottomLeft": "null",
+		"BackBottomRight": "null",
+		"BackSymbol1": "fox",
+		"BackSymbol2": "butterfly",
+		"BackSymbol3": "leaf"
+	}
+
 ]

@@ -311,15 +311,21 @@ public class Tui implements UserInterface{
 
     public void printInitialCard(InitialCard r) {
         System.out.println("\nCARTA INIZIALE:\n");
-        String a;
+        VisibleAngle a;
         for (int p=0;p<2;p++){
             if(p==0) System.out.println("FRONTE:");
             if(p==1) System.out.println("\nRETRO:");
             if(p==0){
                 for(int i=0;i<4;i++){
-                    a=r.getFrontVisibleAngle(i).getSymbol().getSymbolName();
+                    a=r.getFrontVisibleAngle(i);
+                    if ( a == null) {
+                        System.out.print("X");
 
-                    switch (a) {
+                    } else if (a.getSymbol() == null) {
+
+                        System.out.print("E");
+                    } else
+                    switch (a.getSymbol().getSymbolName()) {
                         case "mushroom":
                             System.out.print("M");
                             break;
@@ -352,9 +358,15 @@ public class Tui implements UserInterface{
             }
             if(p==1){
                 for(int i=0;i<4;i++) {
-                    a = r.getFrontVisibleAngle(i).getSymbol().getSymbolName();
+                    a=r.getBackVisibleAngle(i);
+                    if ( a == null) {
+                        System.out.print("X");
 
-                    switch (a) {
+                    } else if (a.getSymbol() == null) {
+
+                        System.out.print("E");
+                    } else
+                    switch (a.getSymbol().getSymbolName()) {
                         case "mushroom":
                             System.out.print("M");
                             break;

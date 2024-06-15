@@ -17,7 +17,7 @@ public class SelectionFirstCardSideView implements TuiView{
         System.out.println("\n\nHere is your initial card!\n");
         InitialCard init = client.getInit();
         view.printInitialCard(init);
-        System.out.println("\nSelect the side of the initial card, insert [front] or [back]:\n");
+        System.out.println("\nSelect the side of the initial card, insert [side] than [front] or [back]:\n");
 
     }
 }
