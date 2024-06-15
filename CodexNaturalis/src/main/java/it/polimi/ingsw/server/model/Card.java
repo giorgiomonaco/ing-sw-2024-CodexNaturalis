@@ -37,9 +37,9 @@ public abstract class Card implements Serializable {
     //if false = back visible
     private boolean frontSide;
 
-    private BufferedImage frontImage;
+    private String frontImage;
 
-    private BufferedImage backImage;
+    private String backImage;
 
     //Constructor
     public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String frontPath, String backPath) {
@@ -49,12 +49,9 @@ public abstract class Card implements Serializable {
             cardID++;
         }
         this.backSymbol = backSymbol;
-        try {
-            this.frontImage = ImageIO.read(new File(frontPath));
-            this.backImage = ImageIO.read(new File(backPath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        this.frontImage = frontPath;
+        this.backImage = backPath;
     }
 
 
@@ -158,19 +155,19 @@ public abstract class Card implements Serializable {
         return false;
     }
 
-    public BufferedImage getFrontImage() {
+    public String getFrontImage() {
         return frontImage;
     }
 
-    public void setFrontImage(BufferedImage frontImage) {
+    public void setFrontImage(String frontImage) {
         this.frontImage = frontImage;
     }
 
-    public BufferedImage getBackImage() {
+    public String getBackImage() {
         return backImage;
     }
 
-    public void setBackImage(BufferedImage backImage) {
+    public void setBackImage(String backImage) {
         this.backImage = backImage;
     }
 }

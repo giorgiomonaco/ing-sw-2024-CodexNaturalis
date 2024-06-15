@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class GameStartedPanel extends JPanel {
 
@@ -26,8 +27,14 @@ public class GameStartedPanel extends JPanel {
 
         // Add cards to the panel
         for (int i = 0; i < 3; i++) {
-            BufferedImage frontImage = client.getPlayerHand().get(i).getFrontImage();
-            BufferedImage backImage = client.getPlayerHand().get(i).getBackImage();
+            BufferedImage frontImage = null;
+            BufferedImage backImage = null;
+            try {
+                frontImage = ImageIO.read(new File(client.getPlayerHand().get(i).getFrontImage()));
+                backImage = ImageIO.read(new File(client.getPlayerHand().get(i).getBackImage()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             JLabel cardLabel = new JLabel(new ImageIcon(frontImage));
             cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
             cardLabel.addMouseListener(new CardMouseListener(cardLabel, frontImage, backImage));

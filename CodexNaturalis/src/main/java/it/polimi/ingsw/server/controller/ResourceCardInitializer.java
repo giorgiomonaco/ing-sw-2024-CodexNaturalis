@@ -22,7 +22,7 @@ public class ResourceCardInitializer {
     // See card manager to get the list
     public final List<Symbol> symbols;
 
-    public int cardNumber = 0;
+    public int cardNumber = 1;
 
 
     // Constructor

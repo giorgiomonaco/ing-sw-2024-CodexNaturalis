@@ -24,7 +24,7 @@ public class InitialCardsInitializer {
     //List of all the symbols to create the cards - 7, see CardManager for the list
     private final List<Symbol> symbols;
 
-    private int cardNumber = 0;
+    private int cardNumber = 1;
 
     //Constructor
     public InitialCardsInitializer(Game game, List<Symbol> symbols){

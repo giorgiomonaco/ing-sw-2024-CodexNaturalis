@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GoldCardsInitializer {
     private final Game game;
-    private int cardNumber = 0;
+    private int cardNumber = 1;
 
     //list of the symbols to create the cards
     //remember they are 7 - see card manager for the list

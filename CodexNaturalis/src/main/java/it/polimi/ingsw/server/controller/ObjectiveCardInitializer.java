@@ -16,7 +16,7 @@ import java.io.Reader;
 import java.util.List;
 
 public class ObjectiveCardInitializer {
-    private int count = 0;
+    private int count = 1;
     private final Game game;
     //list of every symbol that can be on the card
     private final List<Symbol> symbols;

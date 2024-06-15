@@ -3,11 +3,14 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.SelectionFirstCardSide;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +31,13 @@ public class SelFirstCardPanel extends JPanel {
         // We create a panel for the cards
         JPanel cardPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
-        cardImages.add(client.getInit().getFrontImage());
-        cardImages.add(client.getInit().getBackImage());
+        try {
+            cardImages.add(ImageIO.read(new File(client.getInit().getFrontImage())));
+            cardImages.add(ImageIO.read(new File(client.getInit().getBackImage())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         int i = 0;
 
         // Add cards to the panel
