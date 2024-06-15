@@ -1,6 +1,4 @@
-package it.polimi.ingsw.model;
-
-import static org.junit.jupiter.api.Assertions.*;
+package it.polimi.ingsw.server.model;
 
 class GameTest {
 
