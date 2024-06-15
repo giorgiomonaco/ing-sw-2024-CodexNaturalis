@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model;
 
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 //manca check durante piazzamento della carta con risorse necessarie e del player
@@ -13,6 +14,7 @@ public class ObjectiveCard implements Serializable {
     private final String card2;
     private final String direction2;
     private final String card3;
+    private BufferedImage image;
 
 
 
@@ -56,5 +58,13 @@ public class ObjectiveCard implements Serializable {
     }
     public int getCardName(){
         return this.cardNumber;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }

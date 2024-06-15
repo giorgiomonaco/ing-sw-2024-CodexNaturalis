@@ -27,10 +27,10 @@ public class SelectTokenPanel extends JPanel {
 
         add(title, BorderLayout.NORTH);
 
-        // We create a panel for the cards
-        JPanel tokenPanel = new JPanel(new GridLayout(1, 3, 10, 10));
-
         tokens = client.getAvailableTokens();
+
+        // We create a panel for the tokens
+        JPanel tokenPanel = new JPanel(new GridLayout(1, tokens.size(), 10, 10));
 
         // Add cards to the panel
         for (String token : tokens) {
@@ -38,28 +38,28 @@ public class SelectTokenPanel extends JPanel {
             switch (token) {
                 case "red":
                     try {
-                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_rouge.psd"));
+                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_rouge.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     break;
                 case "blue":
                     try {
-                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_bleu.psd"));
+                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_bleu.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     break;
                 case "yellow":
                     try {
-                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_jaune.psd"));
+                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_jaune.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     break;
                 case "green":
                     try {
-                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_vert.psd"));
+                        tokenImage = ImageIO.read(new File("src/main/resources/images/token/CODEX_pion_vert.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
