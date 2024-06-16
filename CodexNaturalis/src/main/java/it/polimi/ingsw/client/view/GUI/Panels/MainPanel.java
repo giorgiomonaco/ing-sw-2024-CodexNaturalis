@@ -30,14 +30,24 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 90;
-        gbc.gridheight = 65;
+        gbc.gridheight = 75;
         gbc.weightx = 0.9;
-        gbc.weighty = 0.65;
+        gbc.weighty = 0.75;
         gbc.fill = GridBagConstraints.BOTH;
         //add component to the panel
         add(board, gbc);
 
         //same for every component with different proportions
+        //OTHERS---
+        gbc.gridx = 90;
+        gbc.gridy = 0;
+        gbc.gridwidth = 10;
+        gbc.gridheight = 65;
+        gbc.weightx = 0.1;
+        gbc.weighty = 0.65;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(other, gbc);
+
         //first we reset the gbc just to be sure
         //CHAT---
         gbc.gridx = 65;
@@ -51,24 +61,14 @@ public class MainPanel extends JPanel {
 
         //CARDS---
         gbc.gridx = 0;
-        gbc.gridy = 65;
+        gbc.gridy = 75;
         gbc.gridwidth = 65;
-        gbc.gridheight = 35;
+        gbc.gridheight = 25;
         gbc.weightx = 0.65;
-        gbc.weighty = 0.35;
+        gbc.weighty = 0.25;
         gbc.fill = GridBagConstraints.BOTH;
         hand.setBackground(Color.blue);
         add(hand, gbc);
-
-        //CHAT---
-        gbc.gridx = 90;
-        gbc.gridy = 0;
-        gbc.gridwidth = 10;
-        gbc.gridheight = 65;
-        gbc.weightx = 0.1;
-        gbc.weighty = 0.65;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(other, gbc);
 
 
     }
