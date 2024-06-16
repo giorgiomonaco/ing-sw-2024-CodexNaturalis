@@ -70,6 +70,19 @@ public class Gui implements UserInterface {
                 glassPane.setVisible(true);
                 frame.setVisible(true);
                 break;
+            case GAME_STOPPED:
+                manageStop();
+                break;
+            case ALREADY_STARTED:
+                break;
+            case DISCONNECTION:
+                break;
+            case REJECTED:
+                break;
+            case SHOW_WINNER:
+                break;
+            case DRAW_CARD:
+                break;
             default:
                 break;
         }
@@ -127,6 +140,21 @@ public class Gui implements UserInterface {
                 // Disegna un rettangolo semitrasparente
                 g.setColor(new Color(0, 0, 0, 150)); // Colore nero con trasparenza
                 g.fillRect(0, 0, getWidth(), getHeight());
+
+                // Imposta il colore del testo
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Arial", Font.BOLD, 24));
+
+                // Testo da visualizzare
+                String text = "Wait for your turn...";
+
+                // Ottieni le dimensioni del testo
+                FontMetrics metrics = g.getFontMetrics(g.getFont());
+                int x = (getWidth() - metrics.stringWidth(text)) / 2;
+                int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+
+                // Disegna il testo al centro del pannello
+                g.drawString(text, x, y);
             }
         };
 
@@ -198,6 +226,41 @@ public class Gui implements UserInterface {
         frame.repaint();
         frame.add(new MainPanel(client));
         frame.setVisible(true);
+    }
+
+    private void manageStop(){
+        JPanel stopPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Disegna un rettangolo semitrasparente
+                g.setColor(new Color(0, 0, 0, 200)); // Colore nero con trasparenza
+                g.fillRect(0, 0, getWidth(), getHeight());
+
+                // Imposta il colore del testo
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Arial", Font.BOLD, 24));
+
+                // Testo da visualizzare
+                String text = "-- GAME STOPPED --\nIf nobody rejoin the game in 30 seconds, you will win the game.";
+
+                // Ottieni le dimensioni del testo
+                FontMetrics metrics = g.getFontMetrics(g.getFont());
+                int x = (getWidth() - metrics.stringWidth(text)) / 2;
+                int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+
+                // Disegna il testo al centro del pannello
+                g.drawString(text, x, y);
+            }
+        };
+
+        // Imposta il layout manager del glassPane
+        stopPane.setLayout(new GridBagLayout());
+        stopPane.setOpaque(false);
+
+        // Imposta il glassPane come il glass pane del frame
+        frame.setGlassPane(stopPane);
+        stopPane.setVisible(true);
     }
 
 }
