@@ -41,7 +41,7 @@ public class GoldCardsInitializerTest {
             array[i] = 0;
         }
 
-        GoldCard card = new GoldCard(0, resCardFrontAngles, resCardBackAngles, symbols, 1, 3, array);
+        GoldCard card = new GoldCard(0, resCardFrontAngles, resCardBackAngles, symbols, 1, 3, array, null, null);
         game.addGoldCardToDeck(card);
 
         // Verifica che la carta sia stata aggiunta correttamente al gioco

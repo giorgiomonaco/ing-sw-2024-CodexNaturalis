@@ -90,40 +90,30 @@ public class Gui implements UserInterface {
     }
 
     public void printMessage(String s) {
-        GridBagConstraints gbc = new GridBagConstraints();
         JPanel message = new JPanel();
         message.setSize(new Dimension(400, 200));
         JLabel label = new JLabel(s);
-        gbc.gridx = 0;
-        gbc.gridy = y++;
-        gbc.anchor = GridBagConstraints.CENTER;
         message.add(label);
-        frame.add(message, gbc);
+        frame.add(message, BorderLayout.AFTER_LAST_LINE);
         frame.setVisible(true);
     }
 
 
     private void createFrame() {
         frame = new MyFrame();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File("src/main/resources/images/backGround.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        frame.setContentPane(new BackGroundPanel(image));
+        // BufferedImage image = null;
+        // try {
+        //    image = ImageIO.read(new File("src/main/resources/images/backGround.png"));
+        //} catch (IOException e) {
+        //    throw new RuntimeException(e);
+        //}
+        //frame.setContentPane(new BackGroundPanel(image));
     }
 
     private void addLoginPanel(){
         LoginPanel logPanel = new LoginPanel(client);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-
         //now we add it to the frame
-        frame.add(logPanel,gbc);
+        frame.add(logPanel, BorderLayout.CENTER);
         //we make the panel visible to be displaced
         frame.setVisible(true);
     }
@@ -131,60 +121,43 @@ public class Gui implements UserInterface {
     private void addNumOfPlayersPanel(){
         //we want to clean the frame
         frame.getContentPane().remove(0);
-        y--;
         frame.repaint();
-        frame.add(new NumOfPlayersPanel(client));
+        frame.add(new NumOfPlayersPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
     private void addLobbyPanel(){
         frame.getContentPane().removeAll();
-        y--;
         frame.repaint();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        frame.add(new LobbyPanel(client), gbc);
+        frame.add(new LobbyPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
     private void addGameStartedPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        frame.add(new GameStartedPanel(client), gbc);
+        frame.add(new GameStartedPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
     private void addSelTokenPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        frame.add(new SelectTokenPanel(client), gbc);
+        frame.add(new SelectTokenPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
     private void addSelFirstPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        frame.add(new SelFirstCardPanel(client), gbc);
+        frame.add(new SelFirstCardPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
     private void addSelObjPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        frame.add(new SelObjPanel(client), gbc);
+        frame.add(new SelObjPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
