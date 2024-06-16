@@ -57,6 +57,7 @@ public class MainPanel extends JPanel {
         gbc.weightx = 0.65;
         gbc.weighty = 0.35;
         gbc.fill = GridBagConstraints.BOTH;
+        hand.setBackground(Color.blue);
         add(hand, gbc);
 
         //CHAT---

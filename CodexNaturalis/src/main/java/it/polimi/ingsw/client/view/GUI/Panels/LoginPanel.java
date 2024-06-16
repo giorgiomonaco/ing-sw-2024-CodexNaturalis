@@ -27,28 +27,26 @@ public class LoginPanel extends JPanel {
         this.gbc = new GridBagConstraints();
 
         setLayout(new GridBagLayout());
+        setOpaque(false);
 
         createElements();
 
         //Add event listener to the button
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //getting the text from text field
-                String inputTxt = textField.getText();
+        button.addActionListener(e -> {
+            //getting the text from text field
+            String inputTxt = textField.getText();
 
-                //now we use scanner as usual
-                Scanner scan = new Scanner(inputTxt);
-                scan.close();
+            //now we use scanner as usual
+            Scanner scan = new Scanner(inputTxt);
+            scan.close();
 
-                try {
-                    //send message with the name of the player
-                    client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
-                } catch (RemoteException ex) {
-                    throw new RuntimeException(ex);
-                }
-
+            try {
+                //send message with the name of the player
+                client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
+            } catch (RemoteException ex) {
+                throw new RuntimeException(ex);
             }
+
         });
 
     }

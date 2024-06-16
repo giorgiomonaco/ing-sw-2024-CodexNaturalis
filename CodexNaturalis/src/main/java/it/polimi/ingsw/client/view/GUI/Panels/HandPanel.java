@@ -31,24 +31,15 @@ public class HandPanel extends JPanel {
         ImageIcon originalIcon1 = new ImageIcon(client.getPlayerHand().get(1).getFrontImage());
         ImageIcon originalIcon2 = new ImageIcon(client.getPlayerHand().get(2).getFrontImage());
         //then we get the images
-        Image image0 = originalIcon0.getImage();
+        Image image0 = originalIcon0.getImage().getScaledInstance(210, 140,Image.SCALE_SMOOTH);
         Image image1 = originalIcon1.getImage();
         Image image2 = originalIcon2.getImage();
 
+        ImageIcon resizedO = new ImageIcon(image0);
+
         //we create the labels for the cards and populate with images
-            firstCard = new JLabel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
+            firstCard = new JLabel(resizedO);
 
-                        // Ridimensiona l'immagine per adattarla al label
-                        int width = getWidth();
-                        int height = getHeight();
-                        Image scaledImage = image0.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-                        g.drawImage(scaledImage, 0, 0, null);
-
-                }
-            };
             secondCard = new JLabel(){
                 @Override
                 protected void paintComponent(Graphics g) {

@@ -31,8 +31,5 @@ public class SelObjCardCommand implements CommandManager {
 
         SelectionObjCard toSend = new SelectionObjCard(client.getUsername(), selection);
         client.sendMessage(toSend);
-
-        client.setCurrentState(stateEnum.WAITING_TURN);
-        client.getUI().run();
     }
 }

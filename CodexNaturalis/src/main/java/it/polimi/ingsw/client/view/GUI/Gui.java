@@ -16,6 +16,8 @@ public class Gui implements UserInterface {
     private final Client client;
 
     private MyFrame frame;
+    // private JLayeredPane layeredPane;
+    private JPanel glassPane;
     private int y;
 
     public Gui (Client client){
@@ -47,6 +49,9 @@ public class Gui implements UserInterface {
                 addGameStartedPanel();
                 break;
             case SELECT_TOKEN:
+                if(glassPane.isVisible()){
+                    glassPane.setVisible(false);
+                }
                 addSelTokenPanel();
                 break;
             case SEL_FIRST_CARD_SIDE:
@@ -56,8 +61,14 @@ public class Gui implements UserInterface {
                 addSelObjPanel();
                 break;
             case PLAY_CARD:
+                if(glassPane.isVisible()){
+                    glassPane.setVisible(false);
+                }
                 addMainPanel();
+                break;
             case WAITING_TURN:
+                glassPane.setVisible(true);
+                frame.setVisible(true);
                 break;
             default:
                 break;
@@ -101,13 +112,34 @@ public class Gui implements UserInterface {
 
     private void createFrame() {
         frame = new MyFrame();
-        // BufferedImage image = null;
-        // try {
+        //BufferedImage image = null;
+        //try {
         //    image = ImageIO.read(new File("src/main/resources/images/backGround.png"));
         //} catch (IOException e) {
         //    throw new RuntimeException(e);
         //}
-        //frame.setContentPane(new BackGroundPanel(image));
+        //layeredPane = frame.getLayeredPane();
+        //layeredPane.add(new BackGroundPanel(image), JLayeredPane.DEFAULT_LAYER);
+        glassPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Disegna un rettangolo semitrasparente
+                g.setColor(new Color(0, 0, 0, 150)); // Colore nero con trasparenza
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+
+        // Imposta il layout manager del glassPane
+        glassPane.setLayout(new GridBagLayout());
+        glassPane.setOpaque(false);
+
+        // Imposta il glassPane come il glass pane del frame
+        frame.setGlassPane(glassPane);
+        glassPane.setVisible(false);
+
+        // Rendi il frame visibile
+        frame.setVisible(true);
     }
 
     private void addLoginPanel(){
