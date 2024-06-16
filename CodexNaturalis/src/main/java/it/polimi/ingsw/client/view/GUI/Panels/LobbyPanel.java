@@ -10,15 +10,20 @@ import java.awt.*;
 public class LobbyPanel extends JPanel {
 
     public LobbyPanel(Client client) {
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
         setOpaque(false);
 
         JLabel lobbyTitle = new JLabel("LOBBY", SwingConstants.CENTER);
         lobbyTitle.setFont(new Font("Papyrus", Font.BOLD, 54));
         lobbyTitle.setForeground(Color.BLACK);
-        // lobbyTitle.setOpaque(false);
+        lobbyTitle.setOpaque(false);
 
-        add(lobbyTitle, BorderLayout.NORTH);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.NORTH;
+
+        add(lobbyTitle, gbc);
 
         JList<String> playerList = new JList<>(new DefaultListModel<>());
         DefaultListModel<String> listModel = (DefaultListModel<String>) playerList.getModel();
@@ -29,8 +34,17 @@ public class LobbyPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(playerList);
         playerList.setCellRenderer(new CenteredListCellRenderer(client.getUsername()));
+        scrollPane.setPreferredSize(new Dimension(200,350));
 
-        add(scrollPane, BorderLayout.CENTER);
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx = 0;
+        gbc1.gridy = 1;
+        gbc1.gridheight = 1;
+        gbc1.gridwidth = 1;
+        gbc1.insets = new Insets(10, 10, 10, 10);
+        gbc1.anchor = GridBagConstraints.CENTER;
+
+        add(scrollPane, gbc1);
     }
 
     private static class CenteredListCellRenderer extends DefaultListCellRenderer {
