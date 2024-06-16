@@ -13,7 +13,7 @@ class GoldCardTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         assertEquals(card.getCardName(), 1);
     }
 
@@ -24,7 +24,7 @@ class GoldCardTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         assertArrayEquals (card.getNeededSymbols(), array);
     }
 
@@ -35,7 +35,7 @@ class GoldCardTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         assertEquals(card.getCardPoints(), 1);
     }
 
@@ -46,7 +46,7 @@ class GoldCardTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         assertEquals(card.getCondition(), 0);
     }
 }

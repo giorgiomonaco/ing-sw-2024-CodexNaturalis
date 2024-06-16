@@ -18,7 +18,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        ResourceCard card = new ResourceCard(1,2, angles, angles, null);
+        ResourceCard card = new ResourceCard(1,2, angles, angles, null, null, null);
         player.addResourceCard(card);
         assertEquals(player.getPlayerResourceCards().getFirst(), card);
     }
@@ -30,7 +30,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        ResourceCard card = new ResourceCard(1,2, angles, angles, null);
+        ResourceCard card = new ResourceCard(1,2, angles, angles, null, null, null);
         player.addResourceCard(card);
         assertEquals(player.getPlayerResourceCards().getFirst(), card);
     }
@@ -42,7 +42,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        ResourceCard card = new ResourceCard(1,2, angles, angles, null);
+        ResourceCard card = new ResourceCard(1,2, angles, angles, null, null, null);
         player.getPlayerHand().add(card);
 
         assertEquals(player.getPlayerHand().getFirst(), card);
@@ -56,7 +56,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         player.addGoldCard(card);
         assertEquals(player.getPlayerGoldCards().getFirst(), card);
     }
@@ -69,7 +69,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         player.addGoldCard(card);
         assertEquals(player.getPlayerGoldCards().getFirst(), card);
     }
@@ -82,7 +82,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         player.getPlayerGoldCards().add(card);
         assertEquals(player.getGoldCardFromHand(0), card);
     }
@@ -95,7 +95,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         player.getPlayerHand().add(card);
         player.removeCardFromHand(card);
         assertEquals(player.getPlayerHand().size(), 0);
@@ -104,7 +104,7 @@ class PlayerTest {
     @Test
     void getPlayerObjectiveCard() {
         Player player = new Player("test");
-        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null);
+        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null, null);
         player.setObjectiveCard(card);
         assertEquals(player.getPlayerObjectiveCard(), card);
     }
@@ -112,7 +112,7 @@ class PlayerTest {
     @Test
     void setObjectiveCard() {
         Player player = new Player("test");
-        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null);
+        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null, null);
         player.setObjectiveCard(card);
         assertEquals(player.getPlayerObjectiveCard(), card);
     }
@@ -223,7 +223,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        InitialCard card = new InitialCard(1, angles,  angles, list);
+        InitialCard card = new InitialCard(1, angles,  angles, list, null, null);
         player.setInitialCard(card);
         assertEquals(player.getInitialCard(), card);
     }
@@ -239,7 +239,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        InitialCard card = new InitialCard(1, angles,  angles, list);
+        InitialCard card = new InitialCard(1, angles,  angles, list, null, null);
         player.setInitialCard(card);
         assertEquals(player.getInitialCard(), card);
 
@@ -259,7 +259,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         for(int i =0; i<3; i++){
             player.getPlayerHand().add(card);
         }
@@ -270,7 +270,7 @@ class PlayerTest {
     @Test
     void getSelObjectiveCard() {
         Player player = new Player("test");
-        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null);
+        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null, null);
         player.setObjectiveCard(card);
         assertEquals(player.getPlayerObjectiveCard(), card);
     }
@@ -278,7 +278,7 @@ class PlayerTest {
     @Test
     void addSelObjectiveCard() {
         Player player = new Player("test");
-        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null);
+        ObjectiveCard card = new ObjectiveCard(1, 1, "leaf", null, null ,null, null, null,  null);
         player.addSelObjectiveCard(card);
         assertEquals(player.getSelObjectiveCard().getFirst(), card);
     }
@@ -354,7 +354,7 @@ class PlayerTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array);
+        GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         player.addGoldCard(card);
         player.addGoldCardPoints(card, 49,49);
         assertEquals(player.getPoints(), 1);
