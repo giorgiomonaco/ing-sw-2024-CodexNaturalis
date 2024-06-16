@@ -73,4 +73,5 @@ public class CommonBoard {
     public PointTracker getPointTracker() {
         return pointTracker;
     }
+
 }

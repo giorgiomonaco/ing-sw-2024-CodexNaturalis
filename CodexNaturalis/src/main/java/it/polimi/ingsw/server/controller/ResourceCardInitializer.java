@@ -154,8 +154,9 @@ public class ResourceCardInitializer {
         }
     }
 
-    // Add the card to the resource deck
+   // Add the card to the resource deck
     public void addCardToGame(ResourceCard card) {
         game.addResourceCardToDeck(card);
     }
 }
+

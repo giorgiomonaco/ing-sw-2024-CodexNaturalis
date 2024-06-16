@@ -24,27 +24,6 @@ public class BoardsManager {
         }
     }
 
-    public void placeInitialCard(InitialCard card) {
-        board.getGameBoard()[(board.getMAX_Y() / 2)][board.getMAX_Y() / 2] = card;
-        updateBoxes(card,board.getMAX_X() / 2, board.getMAX_Y() / 2);
-    }
-
-    //---------------------------------- WHEN CARD PLAYED--------------------------------------
-
-    public void WhenPlay(Card card, int x, int y){
-        board.getCheckBoard()[x][y]=0;
-        board.getGameBoard()[x][y]=card;
-        updateBoxes(card,x,y);
-    }
-
-    //da spostare in TUI view
-
-
-
-
-
-
-
 
    // -------------------------------------FOR CHECKBOARD--------------------------------------
 
@@ -54,7 +33,7 @@ public class BoardsManager {
 
 
     // set tutte le caselle a -1
-   private Boards cleanCheckBoard(Boards board){
+   public Boards cleanCheckBoard(Boards board){
     this.board= board;
 
        for(int i=0;i<board.getMAX_X();i++){
@@ -66,7 +45,7 @@ public class BoardsManager {
        return board;
    }
 
-    public void updateBoxes(Card card, int x, int y){
+  /*  public void updateBoxes(Card card, int x, int y){
         if(card.isFrontSide()){
             if((card.getFrontVisibleAngle(3)!=null) &&
                     (board.getCheckBoard()[x-1][y+1] != 1)){
@@ -102,7 +81,7 @@ public class BoardsManager {
                 board.getCheckBoard()[(x) - 1][(y) - 1] = 0;
             }
         }
-    }
+    }*/
 
 
 

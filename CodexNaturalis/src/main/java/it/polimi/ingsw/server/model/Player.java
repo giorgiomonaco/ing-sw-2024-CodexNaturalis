@@ -326,4 +326,7 @@ public class Player implements Serializable {
         addPoints(goldCard.getCardPoints()*count);
     }
 
+    public Boards getGameboard() {
+        return Gameboard;
+    }
 }

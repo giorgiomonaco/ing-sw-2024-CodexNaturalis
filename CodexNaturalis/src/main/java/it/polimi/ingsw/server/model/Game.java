@@ -192,6 +192,8 @@ public class Game {
             visibleGoldCards.add(drawGoldCard());
             visibleResourceCards.add(drawResourceCard());
             commonObjectives.add(drawObjectiveCard());
+
+
         }
     }
 

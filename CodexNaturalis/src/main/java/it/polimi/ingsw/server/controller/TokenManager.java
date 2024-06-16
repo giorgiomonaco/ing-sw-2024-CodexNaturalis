@@ -77,4 +77,7 @@ public class TokenManager {
             tokenCounter++;
         }
 
+    public List<Token> getTokens() {
+        return tokens;
+    }
 }
