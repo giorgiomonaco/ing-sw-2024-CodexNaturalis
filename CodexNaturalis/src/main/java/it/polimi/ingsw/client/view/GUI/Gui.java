@@ -55,6 +55,8 @@ public class Gui implements UserInterface {
             case SELECT_OBJECTIVE:
                 addSelObjPanel();
                 break;
+            case PLAY_CARD:
+                addMainPanel();
             case WAITING_TURN:
                 break;
             default:
@@ -156,6 +158,13 @@ public class Gui implements UserInterface {
         frame.getContentPane().removeAll();
         frame.repaint();
         frame.add(new SelObjPanel(client), BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+
+    private void addMainPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new MainPanel(client));
         frame.setVisible(true);
     }
 
