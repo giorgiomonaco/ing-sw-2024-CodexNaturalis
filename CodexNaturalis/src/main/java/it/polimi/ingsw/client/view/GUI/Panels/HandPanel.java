@@ -26,9 +26,6 @@ public class HandPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-
-        //Starting from creating labels for the cards
-
         //we retrieve the images of the cards
         ImageIcon originalIcon0 = new ImageIcon(client.getPlayerHand().get(0).getFrontImage());
         ImageIcon originalIcon1 = new ImageIcon(client.getPlayerHand().get(1).getFrontImage());
@@ -37,6 +34,8 @@ public class HandPanel extends JPanel {
         Image image0 = originalIcon0.getImage();
         Image image1 = originalIcon1.getImage();
         Image image2 = originalIcon2.getImage();
+
+        //we create the labels for the cards and populate with images
             firstCard = new JLabel() {
                 @Override
                 protected void paintComponent(Graphics g) {
