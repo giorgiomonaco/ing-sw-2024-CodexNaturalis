@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.network.message.allMessages.SelectionFirstCardSide;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
 
 import javax.imageio.ImageIO;
