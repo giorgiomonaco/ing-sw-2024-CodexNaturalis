@@ -29,7 +29,14 @@ public class SelObjPanel extends JPanel {
         add(title, BorderLayout.NORTH);
 
         // We create a panel for the cards
-        JPanel cardPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JPanel cardPanel = new JPanel(new GridBagLayout());
+        cardPanel.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         try {
             cardImages.add(ImageIO.read(new File(client.getPlayerObjective().getFirst().getImage())));
@@ -43,12 +50,18 @@ public class SelObjPanel extends JPanel {
         // Add cards to the panel
         for (BufferedImage image : cardImages) {
 
-            JLabel tokenLabel = new JLabel(new ImageIcon(image));
-            tokenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            tokenLabel.addMouseListener(new SelObjListener(i, client));
-            tokenLabel.setIcon(new ImageIcon(image));
-            cardPanel.add(tokenLabel);
+            BufferedImage imgOut = new BufferedImage(300, 200, image.getType());
+            Graphics2D g2d = imgOut.createGraphics();
+            g2d.drawImage(image, 0, 0, 300, 200, null);
+            g2d.dispose();
+
+            JLabel objLabel = new JLabel(new ImageIcon(imgOut));
+            objLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            objLabel.addMouseListener(new SelObjListener(i, client));
+            objLabel.setIcon(new ImageIcon(imgOut));
+            cardPanel.add(objLabel, gbc);
             i++;
+            gbc.gridx++;
 
         }
 

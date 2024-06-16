@@ -30,7 +30,14 @@ public class SelectTokenPanel extends JPanel {
         tokens = client.getAvailableTokens();
 
         // We create a panel for the tokens
-        JPanel tokenPanel = new JPanel(new GridLayout(1, tokens.size(), 10, 10));
+        JPanel tokenPanel = new JPanel(new GridBagLayout());
+        tokenPanel.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         // Add cards to the panel
         for (String token : tokens) {
@@ -66,11 +73,17 @@ public class SelectTokenPanel extends JPanel {
                     break;
             }
             if(tokenImage != null) {
-                JLabel tokenLabel = new JLabel(new ImageIcon(tokenImage));
+                BufferedImage imgOut = new BufferedImage(200, 200, tokenImage.getType());
+                Graphics2D g2d = imgOut.createGraphics();
+                g2d.drawImage(tokenImage, 0, 0, 200, 200, null);
+                g2d.dispose();
+
+                JLabel tokenLabel = new JLabel(new ImageIcon(imgOut));
                 tokenLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 tokenLabel.addMouseListener(new TokenMouseListener(token, client));
-                tokenLabel.setIcon(new ImageIcon(tokenImage));
-                tokenPanel.add(tokenLabel);
+                tokenLabel.setIcon(new ImageIcon(imgOut));
+                tokenPanel.add(tokenLabel, gbc);
+                gbc.gridx++;
             }
         }
 

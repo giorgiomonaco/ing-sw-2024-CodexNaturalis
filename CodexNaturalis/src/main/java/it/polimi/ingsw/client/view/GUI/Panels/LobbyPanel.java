@@ -34,7 +34,7 @@ public class LobbyPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(playerList);
         playerList.setCellRenderer(new CenteredListCellRenderer(client.getUsername()));
-        scrollPane.setPreferredSize(new Dimension(200,350));
+        scrollPane.setPreferredSize(new Dimension(200,200));
 
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
