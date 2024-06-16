@@ -10,42 +10,65 @@ import java.io.File;
 public class MainPanel extends JPanel {
 
     private Client client;
-    private GridBagLayout gbl;
     private GridBagConstraints gbc;
-    ImageIcon image;
 
-    public MainPanel(GridBagLayout layout, Client client){
+    public MainPanel(Client client){
 
-        setPreferredSize(new Dimension(900, 500));
+        this.client = client;
+        //setting right layout to manage the panel
+        setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
 
+        //we crete all the panels in the main panel
+        ChatPanel chat = new ChatPanel(client);
+        BoardPanel board = new BoardPanel(client);
+        AccessoryPanel other = new AccessoryPanel(client);
+        HandPanel hand = new HandPanel(client);
+        //we assign the right space to every panel in proportions to be defined later
+        //board panel will cover 65% of y and 90% of x space
+        //BOARD-----
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 90;
+        gbc.gridheight = 65;
+        gbc.weightx = 0.9;
+        gbc.weighty = 0.65;
+        //color panel just for visualization
+        board.setBackground(Color.red);
+        //add component to the panel
+        add(board, gbc);
 
+        //same for every component with different proportions
+        //first we reset the gbc just to be sure
+        //CHAT---
+        gbc.gridx = 65;
+        gbc.gridy = 65;
+        gbc.gridwidth = 35;
+        gbc.gridheight = 35;
+        gbc.weightx = 0.35;
+        gbc.weighty = 0.35;
+        chat.setBackground(Color.green);
+        add(chat, gbc);
 
-        //Create the panel that will contain the cards
-        JPanel cardsPanel = new JPanel();
+        //CARDS---
+        gbc.gridx = 0;
+        gbc.gridy = 65;
+        gbc.gridwidth = 65;
+        gbc.gridheight = 35;
+        gbc.weightx = 0.65;
+        gbc.weighty = 0.35;
+        hand.setBackground(Color.blue);
+        add(hand, gbc);
 
-        //Now we create the slots for the cards and we populate just for the fun
-
-        image = new ImageIcon("it/polimi/ingsw/client/view/GUI/Images/swamp.jpg");
-        //Dimensions fixed for the card
-        Dimension fixedCardDim = new Dimension(250, 375);
-        //create the container of the card
-        JLabel firstCard = new JLabel(image);
-        firstCard.setPreferredSize(fixedCardDim);
-        firstCard.setMaximumSize(fixedCardDim);
-
-        image = new ImageIcon("it/polimi/ingsw/client/view/GUI/Images/plains.jpg");
-        //create the container of the card
-        JLabel secondCard = new JLabel(image);
-        secondCard.setPreferredSize(fixedCardDim);
-        secondCard.setMaximumSize(fixedCardDim);
-
-        image = new ImageIcon("it/polimi/ingsw/client/view/GUI/Images/mountain land.jpg");
-        //create the container of the card
-        JLabel thirdCard = new JLabel(image);
-        thirdCard.setPreferredSize(fixedCardDim);
-        thirdCard.setMaximumSize(fixedCardDim);
-
-        //We create the panel for the chat
+        //CHAT---
+        gbc.gridx = 90;
+        gbc.gridy = 0;
+        gbc.gridwidth = 10;
+        gbc.gridheight = 65;
+        gbc.weightx = 0.1;
+        gbc.weighty = 0.65;
+        other.setBackground(Color.black);
+        add(other, gbc);
 
 
     }
