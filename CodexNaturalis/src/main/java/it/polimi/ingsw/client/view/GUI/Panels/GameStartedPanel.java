@@ -15,18 +15,23 @@ public class GameStartedPanel extends JPanel {
 
     public GameStartedPanel(Client client){
         setLayout(new BorderLayout());
+        setOpaque(false);
 
         JLabel title = new JLabel("GAME STARTED", SwingConstants.CENTER);
         title.setFont(new Font("Papyrus", Font.BOLD, 54));
         title.setForeground(Color.BLACK);
+        title.setOpaque(false);
 
         add(title, BorderLayout.NORTH);
 
         // We create a panel for the cards
         JPanel cardPanel = new JPanel(new GridBagLayout());
+        cardPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
         gbc.insets = new Insets(10, 10, 10, 10);
 
 
@@ -40,16 +45,27 @@ public class GameStartedPanel extends JPanel {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            JLabel cardLabel = new JLabel(new ImageIcon(frontImage));
+
+            BufferedImage frontOut = new BufferedImage(300, 200, frontImage.getType());
+            Graphics2D g2dF = frontOut.createGraphics();
+            g2dF.drawImage(frontImage, 0, 0, 300, 200, null);
+            g2dF.dispose();
+
+            BufferedImage backOut = new BufferedImage(300, 200, backImage.getType());
+            Graphics2D g2dB = backOut.createGraphics();
+            g2dB.drawImage(backImage, 0, 0, 300, 200, null);
+            g2dB.dispose();
+
+            JLabel cardLabel = new JLabel(new ImageIcon(frontOut));
             cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            cardLabel.addMouseListener(new CardMouseListener(cardLabel, frontImage, backImage));
+            cardLabel.addMouseListener(new CardMouseListener(cardLabel, frontOut, backOut));
             cardPanel.add(cardLabel, gbc);
             gbc.gridx++;
         }
 
         add(cardPanel, BorderLayout.CENTER);
-
     }
+
 
     private static class CardMouseListener extends MouseAdapter {
         private final JLabel cardLabel;

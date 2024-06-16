@@ -56,7 +56,6 @@ public class Gui implements UserInterface {
                 addSelObjPanel();
                 break;
             case WAITING_TURN:
-                printMessage("Wait for your turn...");
                 break;
             default:
                 break;

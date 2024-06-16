@@ -11,10 +11,12 @@ public class LobbyPanel extends JPanel {
 
     public LobbyPanel(Client client) {
         setLayout(new BorderLayout());
+        setOpaque(false);
 
         JLabel lobbyTitle = new JLabel("LOBBY", SwingConstants.CENTER);
         lobbyTitle.setFont(new Font("Papyrus", Font.BOLD, 54));
         lobbyTitle.setForeground(Color.BLACK);
+        // lobbyTitle.setOpaque(false);
 
         add(lobbyTitle, BorderLayout.NORTH);
 
