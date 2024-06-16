@@ -11,7 +11,7 @@ public class ResourceCardTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        ResourceCard card = new ResourceCard(1,2, angles, angles, null);
+        ResourceCard card = new ResourceCard(1,2, angles, angles, null, null, null);
         assertEquals(card.getCardPoints(), 2);
     }
 
@@ -22,7 +22,7 @@ public class ResourceCardTest {
         for(int i = 0; i<4; i++){
             angles[i] = new VisibleAngle(null);
         }
-        ResourceCard card = new ResourceCard(1,2, angles, angles, null);
+        ResourceCard card = new ResourceCard(1,2, angles, angles, null, null, null);
         assertEquals(card.getCardNumber(), 1);
     }
 }
