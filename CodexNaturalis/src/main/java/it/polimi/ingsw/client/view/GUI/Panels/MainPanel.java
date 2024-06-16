@@ -34,8 +34,6 @@ public class MainPanel extends JPanel {
         gbc.weightx = 0.9;
         gbc.weighty = 0.65;
         gbc.fill = GridBagConstraints.BOTH;
-        //color panel just for visualization
-        board.setBackground(Color.red);
         //add component to the panel
         add(board, gbc);
 
@@ -49,7 +47,6 @@ public class MainPanel extends JPanel {
         gbc.weightx = 0.35;
         gbc.weighty = 0.35;
         gbc.fill = GridBagConstraints.BOTH;
-        chat.setBackground(Color.green);
         add(chat, gbc);
 
         //CARDS---
@@ -60,7 +57,6 @@ public class MainPanel extends JPanel {
         gbc.weightx = 0.65;
         gbc.weighty = 0.35;
         gbc.fill = GridBagConstraints.BOTH;
-        hand.setBackground(Color.blue);
         add(hand, gbc);
 
         //CHAT---
@@ -71,7 +67,6 @@ public class MainPanel extends JPanel {
         gbc.weightx = 0.1;
         gbc.weighty = 0.65;
         gbc.fill = GridBagConstraints.BOTH;
-        other.setBackground(Color.black);
         add(other, gbc);
 
 

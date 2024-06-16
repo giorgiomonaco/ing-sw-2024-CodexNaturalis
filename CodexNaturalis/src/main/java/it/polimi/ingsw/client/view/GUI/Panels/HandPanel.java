@@ -15,6 +15,11 @@ public class HandPanel extends JPanel {
     then "send" card to the board panel
      */
     private Client client;
+
+    JLabel firstCard;
+    JLabel secondCard;
+    JLabel thirdCard;
+
     public HandPanel(Client client) {
         this.client = client;
         //setting layout
@@ -23,17 +28,15 @@ public class HandPanel extends JPanel {
 
 
         //Starting from creating labels for the cards
-        JLabel firstCard = new JLabel("prima");
-        JLabel secondCard = new JLabel("seconda");
-        JLabel thirdCard = new JLabel("terza");
+        for(int i = 0; i < 3; i++) {
+            firstCard = new JLabel(assignImageToCard(i));
+            secondCard = new JLabel(assignImageToCard(i));
+            thirdCard = new JLabel(assignImageToCard(i));
+        }
 
-        //Fill up the cards for debugging -------- DEBUG
-        firstCard.setBackground(Color.gray);
-        secondCard.setBackground(Color.gray);
-        thirdCard.setBackground(Color.gray);
+        //We populate the labels with the right cards
 
 
-        //
 
         //We add a padding to the labels to separate the different cards
         gbc.insets = new Insets(5,5, 5, 5);
@@ -55,10 +58,22 @@ public class HandPanel extends JPanel {
         gbc.gridx = 2;
         add(thirdCard, gbc);
 
+    }
 
-
-
-
+    //method to populate the labels with the cards
+    private ImageIcon assignImageToCard(int i) {
+        //we create the icon with the image of the card
+        ImageIcon originalIcon = new ImageIcon(client.getPlayerHand().get(i).getFrontImage());
+        //then we resize the image
+        Image originalImage = originalIcon.getImage();
+        //now we get the size of the label
+        int labelWidth = firstCard.getWidth();
+        int labelHeight = firstCard.getHeight();
+        //we resize basing on the dimensions
+        Image resizedImage2 = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+        //we return the icon to assign to label
+        return new ImageIcon(resizedImage2);
 
     }
+
 }
