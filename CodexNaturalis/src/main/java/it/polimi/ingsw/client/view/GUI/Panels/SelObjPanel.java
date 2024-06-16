@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
 
 import javax.imageio.ImageIO;
@@ -80,12 +81,15 @@ public class SelObjPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            try {
-                client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
-            } catch (RemoteException ex) {
-                throw new RuntimeException(ex);
+                if(client.getCurrentState().equals(stateEnum.SELECT_OBJECTIVE)) {
+                    try {
+                     client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
+                  } catch (RemoteException ex) {
+                     throw new RuntimeException(ex);
+                 }
+                }
             }
-        }
+
     }
 
 }
