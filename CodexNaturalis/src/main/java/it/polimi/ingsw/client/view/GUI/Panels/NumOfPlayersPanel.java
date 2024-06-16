@@ -48,7 +48,7 @@ public class NumOfPlayersPanel extends JPanel {
 
             if(sel > 1 && sel < 5) {
                 try {
-                    //send message with the name of the player
+                    //send message with the number of the players
                     client.sendMessage(new SelectionNumPlayers(client.getUsername(), sel));
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);

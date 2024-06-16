@@ -39,7 +39,7 @@ public class SelectTokenPanel extends JPanel {
         gbc.gridwidth = 1;
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Add cards to the panel
+        // Add tokens to the panel
         for (String token : tokens) {
             BufferedImage tokenImage = null;
             switch (token) {

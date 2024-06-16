@@ -22,9 +22,13 @@ public class SelFirstCardPanel extends JPanel {
     public SelFirstCardPanel(Client client){
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("SELECT THE SIDE OF THE INITIAL CARD", SwingConstants.CENTER);
+        // We use html to write the text on different levels
+        JLabel title = new JLabel("<html><div style='text-align: center;'>SELECT THE SIDE<br>OF THE INITIAL CARD<div></html>", SwingConstants.CENTER);
         title.setFont(new Font("Papyrus", Font.BOLD, 54));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setVerticalAlignment(SwingConstants.CENTER);
         title.setForeground(Color.BLACK);
+        title.setOpaque(false);
 
         add(title, BorderLayout.NORTH);
 

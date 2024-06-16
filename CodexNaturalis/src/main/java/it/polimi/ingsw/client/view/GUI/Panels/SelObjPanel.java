@@ -23,9 +23,12 @@ public class SelObjPanel extends JPanel {
     public SelObjPanel(Client client){
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("SELECT YOUR OBJECTIVE CARD", SwingConstants.CENTER);
+        // We use html to write the text on different levels
+        JLabel title = new JLabel("<html><div style='text-align: center;'>SELECT YOUR<br>OBJECTIVE CARD<div></html>", SwingConstants.CENTER);
         title.setFont(new Font("Papyrus", Font.BOLD, 54));
         title.setForeground(Color.BLACK);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setVerticalAlignment(SwingConstants.CENTER);
 
         add(title, BorderLayout.NORTH);
 

@@ -14,7 +14,6 @@ public class LoginPanel extends JPanel {
     private GridBagConstraints gbc;
     //Prepare elements: label, text field and button
     private JLabel label1;
-    private JLabel title;
     private JTextField textField;
     private JButton button;
 
@@ -53,8 +52,6 @@ public class LoginPanel extends JPanel {
 
     private void createElements(){
 
-        //the game title
-        // title = new JLabel()
         //first we want to ask to insert the username:
         label1= new JLabel("Insert your Username:");
         //create a j text file to catch user writing
@@ -81,6 +78,7 @@ public class LoginPanel extends JPanel {
     }
 
     public static boolean isAlphabetic(String str) {
+        // Check if the string contains numbers or special characters
         for (int i = 0; i < str.length(); i++) {
             if (!Character.isLetter(str.charAt(i))) {
                 return false;

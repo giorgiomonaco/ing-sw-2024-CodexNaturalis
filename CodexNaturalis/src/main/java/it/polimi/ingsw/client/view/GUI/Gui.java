@@ -1,11 +1,14 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.GUI.Panels.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gui implements UserInterface {
 
@@ -15,16 +18,16 @@ public class Gui implements UserInterface {
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
     private JPanel message;
-    private int y;
+
 
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
-        y = 1;
     }
 
     @Override
     public void run() {
+
         switch (client.getCurrentState()){
             case LOGIN:
                 createFrame();
@@ -140,36 +143,30 @@ public class Gui implements UserInterface {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Disegna un rettangolo semitrasparente
+                // Draw the semi-transparent cover
                 g.setColor(new Color(0, 0, 0, 150)); // Colore nero con trasparenza
                 g.fillRect(0, 0, getWidth(), getHeight());
 
-                // Imposta il colore del testo
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial", Font.BOLD, 24));
-
-                // Testo da visualizzare
                 String text = "Wait for your turn...";
-
-                // Ottieni le dimensioni del testo
                 FontMetrics metrics = g.getFontMetrics(g.getFont());
                 int x = (getWidth() - metrics.stringWidth(text)) / 2;
                 int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
 
-                // Disegna il testo al centro del pannello
+                // Draw the text
                 g.drawString(text, x, y);
             }
         };
 
-        // Imposta il layout manager del glassPane
         glassPane.setLayout(new GridBagLayout());
         glassPane.setOpaque(false);
 
-        // Imposta il glassPane come il glass pane del frame
+        // Set the glassPane as the frame GlassPane
         frame.setGlassPane(glassPane);
         glassPane.setVisible(false);
 
-        // Rendi il frame visibile
+        // Set the frame visible
         frame.setVisible(true);
     }
 
@@ -236,32 +233,26 @@ public class Gui implements UserInterface {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Disegna un rettangolo semitrasparente
+                // Draw the semi-transparent cover
                 g.setColor(new Color(0, 0, 0, 200)); // Colore nero con trasparenza
                 g.fillRect(0, 0, getWidth(), getHeight());
 
-                // Imposta il colore del testo
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial", Font.BOLD, 24));
-
-                // Testo da visualizzare
                 String text = "-- GAME STOPPED --\nIf nobody rejoin the game in 30 seconds, you will win the game.";
-
-                // Ottieni le dimensioni del testo
                 FontMetrics metrics = g.getFontMetrics(g.getFont());
                 int x = (getWidth() - metrics.stringWidth(text)) / 2;
                 int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
 
-                // Disegna il testo al centro del pannello
+                // Draw the text
                 g.drawString(text, x, y);
             }
         };
 
-        // Imposta il layout manager del glassPane
         stopPane.setLayout(new GridBagLayout());
         stopPane.setOpaque(false);
 
-        // Imposta il glassPane come il glass pane del frame
+        // Set the stopPane as the frame GlassPane
         frame.setGlassPane(stopPane);
         stopPane.setVisible(true);
     }
