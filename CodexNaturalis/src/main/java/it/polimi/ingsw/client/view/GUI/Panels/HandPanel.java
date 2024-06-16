@@ -23,14 +23,17 @@ public class HandPanel extends JPanel {
 
 
         //Starting from creating labels for the cards
-        JLabel firstCard = new JLabel();
-        JLabel secondCard = new JLabel();
-        JLabel thirdCard = new JLabel();
+        JLabel firstCard = new JLabel("prima");
+        JLabel secondCard = new JLabel("seconda");
+        JLabel thirdCard = new JLabel("terza");
 
-        //Fill up the cards for debugging
+        //Fill up the cards for debugging -------- DEBUG
         firstCard.setBackground(Color.gray);
         secondCard.setBackground(Color.gray);
         thirdCard.setBackground(Color.gray);
+
+
+        //
 
         //We add a padding to the labels to separate the different cards
         gbc.insets = new Insets(5,5, 5, 5);
