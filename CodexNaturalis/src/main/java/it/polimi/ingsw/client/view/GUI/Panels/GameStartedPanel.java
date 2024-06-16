@@ -23,7 +23,12 @@ public class GameStartedPanel extends JPanel {
         add(title, BorderLayout.NORTH);
 
         // We create a panel for the cards
-        JPanel cardPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+        JPanel cardPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+
 
         // Add cards to the panel
         for (int i = 0; i < 3; i++) {
@@ -38,7 +43,8 @@ public class GameStartedPanel extends JPanel {
             JLabel cardLabel = new JLabel(new ImageIcon(frontImage));
             cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
             cardLabel.addMouseListener(new CardMouseListener(cardLabel, frontImage, backImage));
-            cardPanel.add(cardLabel);
+            cardPanel.add(cardLabel, gbc);
+            gbc.gridx++;
         }
 
         add(cardPanel, BorderLayout.CENTER);

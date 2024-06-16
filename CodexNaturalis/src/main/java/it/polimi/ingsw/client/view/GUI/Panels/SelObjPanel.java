@@ -4,11 +4,14 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.SelectionFirstCardSide;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +32,13 @@ public class SelObjPanel extends JPanel {
         // We create a panel for the cards
         JPanel cardPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
-        cardImages.add(client.getPlayerObjective().getFirst().getImage());
-        cardImages.add(client.getPlayerObjective().getLast().getImage());
+        try {
+            cardImages.add(ImageIO.read(new File(client.getPlayerObjective().getFirst().getImage())));
+            cardImages.add(ImageIO.read(new File(client.getPlayerObjective().getLast().getImage())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         int i = 1;
 
         // Add cards to the panel

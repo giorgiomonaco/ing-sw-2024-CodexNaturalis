@@ -15,6 +15,5 @@ FirstTurnHandler implements MessageHandler{
         client.setAdmin(firstTurn.isAdmin());
         client.setCurrentState(stateEnum.SELECT_TOKEN);
         client.getUI().run();
-
     }
 }

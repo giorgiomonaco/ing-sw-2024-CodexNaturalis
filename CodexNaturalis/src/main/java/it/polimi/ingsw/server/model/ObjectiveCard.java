@@ -17,7 +17,7 @@ public class ObjectiveCard implements Serializable {
     private final String card2;
     private final String direction2;
     private final String card3;
-    private BufferedImage image;
+    private String image;
 
 
 
@@ -30,11 +30,7 @@ public class ObjectiveCard implements Serializable {
         this.card3 = card3;
         this.points = points;
         this.cardNumber = num;
-        try {
-            this.image = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.image = path;
     }
 
     public int getPoints() {
@@ -68,11 +64,11 @@ public class ObjectiveCard implements Serializable {
         return this.cardNumber;
     }
 
-    public BufferedImage getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

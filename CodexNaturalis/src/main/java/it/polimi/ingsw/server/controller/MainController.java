@@ -155,14 +155,13 @@ public class MainController implements Serializable {
                             getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
 
             firstTurn = true;
-        } else if (firstTurnIndex != 0){
+        } else if (firstTurnIndex != 0) {
             serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
                             false,
                             availableToken,
                             getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
-
         }
 
     }
