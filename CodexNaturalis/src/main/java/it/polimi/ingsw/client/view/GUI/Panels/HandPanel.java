@@ -28,15 +28,54 @@ public class HandPanel extends JPanel {
 
 
         //Starting from creating labels for the cards
-        for(int i = 0; i < 3; i++) {
-            firstCard = new JLabel(assignImageToCard(i));
-            secondCard = new JLabel(assignImageToCard(i));
-            thirdCard = new JLabel(assignImageToCard(i));
-        }
 
-        //We populate the labels with the right cards
+        //we retrieve the images of the cards
+        ImageIcon originalIcon0 = new ImageIcon(client.getPlayerHand().get(0).getFrontImage());
+        ImageIcon originalIcon1 = new ImageIcon(client.getPlayerHand().get(1).getFrontImage());
+        ImageIcon originalIcon2 = new ImageIcon(client.getPlayerHand().get(2).getFrontImage());
+        //then we get the images
+        Image image0 = originalIcon0.getImage();
+        Image image1 = originalIcon1.getImage();
+        Image image2 = originalIcon2.getImage();
+            firstCard = new JLabel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
 
+                        // Ridimensiona l'immagine per adattarla al label
+                        int width = getWidth();
+                        int height = getHeight();
+                        Image scaledImage = image0.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                        g.drawImage(scaledImage, 0, 0, null);
 
+                }
+            };
+            secondCard = new JLabel(){
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+
+                    // Ridimensiona l'immagine per adattarla al label
+                    int width = getWidth();
+                    int height = getHeight();
+                    Image scaledImage = image1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                    g.drawImage(scaledImage, 0, 0, null);
+
+                }
+            };
+            thirdCard = new JLabel(){
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+
+                    // Ridimensiona l'immagine per adattarla al label
+                    int width = getWidth();
+                    int height = getHeight();
+                    Image scaledImage = image2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                    g.drawImage(scaledImage, 0, 0, null);
+
+                }
+            };
 
         //We add a padding to the labels to separate the different cards
         gbc.insets = new Insets(5,5, 5, 5);
@@ -57,23 +96,6 @@ public class HandPanel extends JPanel {
 
         gbc.gridx = 2;
         add(thirdCard, gbc);
-
-    }
-
-    //method to populate the labels with the cards
-    private ImageIcon assignImageToCard(int i) {
-        //we create the icon with the image of the card
-        ImageIcon originalIcon = new ImageIcon(client.getPlayerHand().get(i).getFrontImage());
-        //then we resize the image
-        Image originalImage = originalIcon.getImage();
-        //now we get the size of the label
-        int labelWidth = firstCard.getWidth();
-        int labelHeight = firstCard.getHeight();
-        //we resize basing on the dimensions
-        Image resizedImage2 = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-        //we return the icon to assign to label
-        return new ImageIcon(resizedImage2);
-
     }
 
 }
