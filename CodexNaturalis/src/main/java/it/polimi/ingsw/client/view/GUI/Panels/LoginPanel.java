@@ -2,13 +2,10 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
-import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.network.message.messEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
@@ -39,12 +36,15 @@ public class LoginPanel extends JPanel {
             //now we use scanner as usual
             Scanner scan = new Scanner(inputTxt);
             scan.close();
-
-            try {
-                //send message with the name of the player
-                client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
-            } catch (RemoteException ex) {
-                throw new RuntimeException(ex);
+            if(isAlphabetic(inputTxt) && !inputTxt.isEmpty()) {
+                try {
+                    //send message with the name of the player
+                    client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                client.getUI().printErrorMessage("WRONG INSERTION! You have to insert a string of characters!");
             }
 
         });
@@ -79,4 +79,14 @@ public class LoginPanel extends JPanel {
         add(button, gbc);
 
     }
+
+    public static boolean isAlphabetic(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isLetter(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

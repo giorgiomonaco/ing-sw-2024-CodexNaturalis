@@ -4,12 +4,8 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.GUI.Panels.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Gui implements UserInterface {
 
@@ -18,6 +14,7 @@ public class Gui implements UserInterface {
     private MyFrame frame;
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
+    private JPanel message;
     private int y;
 
     public Gui (Client client){
@@ -100,23 +97,29 @@ public class Gui implements UserInterface {
 
     @Override
     public void printErrorMessage(String s) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        JPanel message = new JPanel();
+        if(message != null){
+            frame.getContentPane().remove(message);
+            frame.repaint();
+        }
+        message = new JPanel();
         message.setSize(new Dimension(400, 200));
         JLabel label = new JLabel(s);
         label.setForeground(Color.red);
-        gbc.gridx = 0;
-        gbc.gridy = y++;
-        gbc.anchor = GridBagConstraints.CENTER;
+        label.setOpaque(false);
         message.add(label);
-        frame.add(message, gbc);
+        frame.add(message, BorderLayout.AFTER_LAST_LINE);
         frame.setVisible(true);
     }
 
     public void printMessage(String s) {
-        JPanel message = new JPanel();
+        if(message != null){
+            frame.getContentPane().remove(message);
+            frame.repaint();
+        }
+        message = new JPanel();
         message.setSize(new Dimension(400, 200));
         JLabel label = new JLabel(s);
+        label.setOpaque(false);
         message.add(label);
         frame.add(message, BorderLayout.AFTER_LAST_LINE);
         frame.setVisible(true);
@@ -180,7 +183,7 @@ public class Gui implements UserInterface {
 
     private void addNumOfPlayersPanel(){
         //we want to clean the frame
-        frame.getContentPane().remove(0);
+        frame.getContentPane().removeAll();
         frame.repaint();
         frame.add(new NumOfPlayersPanel(client), BorderLayout.CENTER);
         frame.setVisible(true);
