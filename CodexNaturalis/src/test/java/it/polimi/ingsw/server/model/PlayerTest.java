@@ -312,7 +312,7 @@ class PlayerTest {
     void getChat() {
         Player player = new Player("test");
         List<Chat> chats= new ArrayList<>();
-        Chat prova = new Chat("tom", "ciao");
+        Chat prova = new Chat("tom", "ciao", true, "all");
         chats.add(prova);
         chats.add(prova);
         player.setChat(chats);
@@ -339,7 +339,7 @@ class PlayerTest {
     void setChat() {
         Player player = new Player("test");
         List<Chat> chats= new ArrayList<>();
-        Chat prova = new Chat("tom", "ciao");
+        Chat prova = new Chat("tom", "ciao", true , "all");
         chats.add(prova);
         chats.add(prova);
         player.setChat(chats);
