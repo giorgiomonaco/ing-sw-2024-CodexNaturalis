@@ -4,15 +4,19 @@ import it.polimi.ingsw.client.Client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class DeckPanel extends JPanel {
 
     private Client client;
+    private DrawPanel dp;
     private final static int CARD_X = 210;
     private final static int CARD_Y = 140;
 
-    public DeckPanel(Client client){
+    public DeckPanel(Client client, DrawPanel dp){
         this.client = client;
+        this.dp = dp;
         initializePanel();
     }
 
@@ -21,10 +25,10 @@ public class DeckPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
         //we retrieve the images of the cards
-        ImageIcon originalIcon0 = new ImageIcon(client.getPlayerHand().get(2).getBackImage());
+        ImageIcon originalIcon0 = new ImageIcon(client.getDeckPath().get(1));
         ImageIcon originalIcon1 = new ImageIcon(client.getVisibleResourceCards().get(0).getFrontImage());
         ImageIcon originalIcon2 = new ImageIcon(client.getVisibleResourceCards().get(1).getFrontImage());
-        ImageIcon originalIcon3 = new ImageIcon(client.getPlayerHand().get(1).getBackImage());
+        ImageIcon originalIcon3 = new ImageIcon(client.getDeckPath().get(0));
         ImageIcon originalIcon4 = new ImageIcon(client.getVisibleGoldCards().get(0).getFrontImage());
         ImageIcon originalIcon5 = new ImageIcon(client.getVisibleGoldCards().get(1).getFrontImage());
 
@@ -52,6 +56,15 @@ public class DeckPanel extends JPanel {
         JLabel firstGold = new JLabel(resizedIcon4);
         JLabel secondGold = new JLabel(resizedIcon5);
 
+        //Add the listeners to the labels
+        deckRes.addMouseListener(new cardMouseListener(deckRes, 6, dp));
+        firstRes.addMouseListener(new cardMouseListener(firstRes, 3, dp));
+        secondRes.addMouseListener(new cardMouseListener(secondRes, 4, dp));
+        deckGold.addMouseListener(new cardMouseListener(deckGold, 5, dp));
+        firstGold.addMouseListener(new cardMouseListener(firstGold, 1, dp));
+        secondGold.addMouseListener(new cardMouseListener(secondGold, 2, dp));
+
+
         // Set insets to reduce space between cards
         gbc.insets = new Insets(0, 0, 0, 0);
 
@@ -61,11 +74,10 @@ public class DeckPanel extends JPanel {
         gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
 
-        // Add the button first
+        // Add every label
         gbc.gridx = 0;
         add(deckRes, gbc);
 
-        // Add every label
         gbc.gridx = 1;
         add(firstRes, gbc);
 
@@ -81,6 +93,36 @@ public class DeckPanel extends JPanel {
 
         gbc.gridx = 2;
         add(secondGold, gbc);
+    }
+
+    private static class cardMouseListener extends MouseAdapter {
+        private int index;
+        private DrawPanel dp;
+        private boolean isFront = true;
+        private JLabel label;
+
+        public cardMouseListener(JLabel label, int index, DrawPanel dp) {
+            this.label = label;
+            this.index = index;
+            this.dp = dp;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (isFront) {
+                if(dp.getSelection() == -1) {
+                    dp.setSelection(index);
+                    // highlight the label
+                    label.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
+                    isFront = !isFront;
+                }
+            } else {
+                dp.setSelection(-1);
+                // remove the highlight
+                label.setBorder(null);
+                isFront = !isFront;
+            }
+        }
     }
 
 

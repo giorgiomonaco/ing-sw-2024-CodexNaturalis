@@ -10,18 +10,22 @@ import java.util.List;
 
 public class DrawCardRequest extends Message {
 
-    List<Card> goldCards;
-    List<Card> resourceCards;
+    private List<Card> goldCards;
+    private List<Card> resourceCards;
+    private String goldDeck;
+    private String resDeck;
 
     @Override
     public MessageHandler createHandler() {
         return new DrawCardHandler();
     }
 
-    public DrawCardRequest(String senderUsername, List<Card> list, List<Card> list2) {
+    public DrawCardRequest(String senderUsername, List<Card> list, List<Card> list2, String gold, String res) {
         super(messEnum.DRAW_CARD_REQUEST, senderUsername);
-        goldCards = list;
-        resourceCards = list2;
+        this.goldCards = list;
+        this.resourceCards = list2;
+        this.goldDeck = gold;
+        this.resDeck = res;
     }
 
     public List<Card> getGoldCards() {
@@ -32,11 +36,11 @@ public class DrawCardRequest extends Message {
         return resourceCards;
     }
 
-    public void setGoldCards(List<Card> goldCards) {
-        this.goldCards = goldCards;
+    public String getGoldDeck() {
+        return goldDeck;
     }
 
-    public void setResourceCards(List<Card> resourceCards) {
-        this.resourceCards = resourceCards;
+    public String getResDeck() {
+        return resDeck;
     }
 }

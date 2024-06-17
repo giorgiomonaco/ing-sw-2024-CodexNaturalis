@@ -9,10 +9,13 @@ public class DrawCardHandler implements MessageHandler {
 
     @Override
     public void handle(Message msg, Client client) {
+
         DrawCardRequest drawCardRequest = (DrawCardRequest) msg;
         client.setCurrentState(stateEnum.DRAW_CARD);
         client.setVisibleGoldCards(drawCardRequest.getGoldCards());
         client.setVisibleResourceCards(drawCardRequest.getResourceCards());
+        client.addDeckPath(drawCardRequest.getGoldDeck());
+        client.addDeckPath(drawCardRequest.getResDeck());
         client.getUI().run();
 
     }

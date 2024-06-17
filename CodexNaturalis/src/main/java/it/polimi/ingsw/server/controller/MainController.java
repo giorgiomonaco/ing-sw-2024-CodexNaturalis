@@ -298,8 +298,16 @@ public class MainController implements Serializable {
 
 
     public void middleTurn() {
-        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
-                new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards()));
+        if(!game.getResourceDeck().isEmpty() && !game.getGoldDeck().isEmpty()) {
+            serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
+                    new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards(), game.getGoldDeck().getFirst().getBackImage(), game.getResourceDeck().getFirst().getBackImage()));
+        } else if(game.getResourceDeck().isEmpty()) {
+            serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
+                    new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards(), game.getGoldDeck().getFirst().getBackImage(), null));
+        } else {
+            serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
+                    new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards(), null, game.getResourceDeck().getFirst().getBackImage()));
+        }
     }
 
 

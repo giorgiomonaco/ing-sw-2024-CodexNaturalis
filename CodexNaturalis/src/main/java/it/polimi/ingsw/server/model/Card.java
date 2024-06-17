@@ -132,8 +132,6 @@ public abstract class Card implements Serializable {
 
     ;
 
-
-
     public boolean equals(Card in, Card hand) {
         if (in instanceof GoldCard) {
             if (hand instanceof GoldCard) {
