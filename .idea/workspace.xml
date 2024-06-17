@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="path">
+    <list default="true" id="32fb16a6-9038-4982-ae10-750a3d0270ed" name="Changes" comment="player tests completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/commands/listOfCommands/ShowHandCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/DrawManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/DrawManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/model/InitialCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/states/stateEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/states/stateEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/view/ViewMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/client/view/ViewMode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/network/message/allMessages/WaitingForLobby.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/network/message/allMessages/WaitingForLobby.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/server/model/VisibleAngle.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/classes/it/polimi/ingsw/server/model/VisibleAngle.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/test-classes/it/polimi/ingsw/controller/GoldCardsInitializerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/target/test-classes/it/polimi/ingsw/controller/GoldCardsInitializerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/target/test-classes/it/polimi/ingsw/controller/ResourceCardInitializerTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -46,10 +44,10 @@
     &quot;accountId&quot;: &quot;a8d8adef-2b2b-476b-9baf-67bdf425f39e&quot;
   }
 }</component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -72,40 +70,74 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ClientMain.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.ServerMain.executor": "Run",
-    "Application.it.polimi.ingsw.client.ClientMain.executor": "Run",
-    "Application.it.polimi.ingsw.server.ServerMain.executor": "Run",
-    "JUnit.ResourceCardInitializerTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce/CodexNaturalis/src/test/java/it/polimi/ingsw",
-    "last_opened_file_path": "C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ClientMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ServerMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.it.polimi.ingsw.client.ClientMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.it.polimi.ingsw.server.ServerMain.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChatTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChatTest.getMsg.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChatTest.getSender.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChatTest.setMsg.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GoldCardTest.getCardName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GoldCardTest.getCardPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GoldCardTest.getCondition.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GoldCardTest.getNeededSymbols.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.addGoldCardPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.addPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.addSelObjectiveCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getChat.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getGameBoards.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getInitialCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getPlayerHand.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getPlayerName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getPlayerObjectiveCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getPlayerPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getResourcesAvailable.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getSelObjectiveCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.getUsername.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.isConnected.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.removeCardFromHand.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.resourceAdding.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.resourceLowering.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.setObjectiveCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.setPlayerPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.setPlayerToken.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.setResource.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ResourceCardInitializerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ResourceCardTest.getCardNumber.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ResourceCardTest.getCardPoints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.java in PSP41.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.model in PSP41.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce/CodexNaturalis/src/test/java/it/polimi/ingsw&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/montu/IdeaProjects/ing-sw-2024-Monaco-Montuschi-Neri-Croce&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "module"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\francesca.malagoli\IdeaProjects\ing-sw-2024-Monaco-Montuschi-Neri-Croce\CodexNaturalis\src\main\java\it\polimi\ingsw\model" />
@@ -114,17 +146,20 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="it.polimi.ingsw.server.controller" />
+      <recent name="it.polimi.ingsw.server.model" />
       <recent name="it.polimi.ingsw.controller" />
     </key>
     <key name="MoveInnerDialog.RECENTS_KEY">
       <recent name="it.polimi.ingsw.client.view.TUI.TuiViews" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="it.polimi.ingsw.server.model" />
       <recent name="it.polimi.ingsw.client.view.TUI.TuiViews" />
       <recent name="it.polimi.ingsw.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerMain">
+  <component name="RunManager" selected="Application.ClientMain">
     <configuration name="ClientMain" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.client.ClientMain" />
       <module name="PSP41" />
@@ -151,12 +186,84 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ChatTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP41" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.server.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.server.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.server.model.ChatTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChatTest.getSender" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP41" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.server.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.server.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.server.model.ChatTest" />
+      <option name="METHOD_NAME" value="getSender" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChatTest.setMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP41" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.server.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.server.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.server.model.ChatTest" />
+      <option name="METHOD_NAME" value="setMsg" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in PSP41" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP41" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/CodexNaturalis/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="model in PSP41" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP41" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/server/model" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.java in PSP41" />
+        <item itemvalue="JUnit.model in PSP41" />
+        <item itemvalue="JUnit.ChatTest" />
+        <item itemvalue="JUnit.ChatTest.setMsg" />
+        <item itemvalue="JUnit.ChatTest.getSender" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -178,6 +285,8 @@
       <workItem from="1716049594308" duration="1592000" />
       <workItem from="1716051263300" duration="66000" />
       <workItem from="1717075641998" duration="12091000" />
+      <workItem from="1718547291202" duration="9807000" />
+      <workItem from="1718659756463" duration="441000" />
     </task>
     <task id="LOCAL-00001" summary="prova">
       <option name="closed" value="true" />
@@ -453,7 +562,79 @@
       <option name="project" value="LOCAL" />
       <updated>1717090499323</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="player tests">
+      <option name="closed" value="true" />
+      <created>1718377743252</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1718377743252</updated>
+    </task>
+    <task id="LOCAL-00037" summary="player tests">
+      <option name="closed" value="true" />
+      <created>1718379481826</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1718379481826</updated>
+    </task>
+    <task id="LOCAL-00038" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718458080430</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1718458080430</updated>
+    </task>
+    <task id="LOCAL-00039" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718459763122</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1718459763122</updated>
+    </task>
+    <task id="LOCAL-00040" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718459808302</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1718459808302</updated>
+    </task>
+    <task id="LOCAL-00041" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718460371556</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1718460371556</updated>
+    </task>
+    <task id="LOCAL-00042" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718548366595</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1718548366595</updated>
+    </task>
+    <task id="LOCAL-00043" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718624389007</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1718624389007</updated>
+    </task>
+    <task id="LOCAL-00044" summary="player tests completed">
+      <option name="closed" value="true" />
+      <created>1718635639655</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1718635639655</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,19 +662,21 @@
     <MESSAGE value="COLORS" />
     <MESSAGE value="start game" />
     <MESSAGE value="path" />
-    <option name="LAST_COMMIT_MESSAGE" value="path" />
+    <MESSAGE value="player tests" />
+    <MESSAGE value="player tests completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="player tests completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>74</line>
+          <line>75</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>75</line>
+          <line>76</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -503,22 +686,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>94</line>
+          <line>95</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>98</line>
+          <line>99</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>99</line>
+          <line>100</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>104</line>
+          <line>105</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -558,56 +741,41 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>183</line>
+          <line>182</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>246</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>247</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>241</line>
+          <line>234</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>240</line>
+          <line>233</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>239</line>
+          <line>232</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>236</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>235</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>234</line>
+          <line>227</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/server/controller/MainController.java</url>
-          <line>248</line>
-          <option name="timeStamp" value="51" />
+          <line>231</line>
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="it.polimi.ingsw.network.TCP.ClientTCP" memberName="boards" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

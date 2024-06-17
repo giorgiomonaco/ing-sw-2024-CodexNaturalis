@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model;
 
 
 import java.util.List;
-import java.util.Objects;
 
 public class InitialCard extends Card{
     //By now we have only the name of the card
@@ -22,7 +21,7 @@ public class InitialCard extends Card{
         return cardName;
     }
 
-    public void addResourcesGoldCard(Player p) {
+    public void addResourcesInitCard(Player p) {
         if(isFrontSide()){
             for(VisibleAngle angle : getFrontAngles()){
                 if (angle != null) {
