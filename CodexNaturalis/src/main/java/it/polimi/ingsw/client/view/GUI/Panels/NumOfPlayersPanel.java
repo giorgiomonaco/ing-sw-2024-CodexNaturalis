@@ -44,17 +44,22 @@ public class NumOfPlayersPanel extends JPanel {
             Scanner scan = new Scanner(txt1);
             scan.close();
 
-            int sel = Integer.parseInt(txt1);
-
-            if(sel > 1 && sel < 5) {
-                try {
-                    //send message with the number of the players
-                    client.sendMessage(new SelectionNumPlayers(client.getUsername(), sel));
-                } catch (RemoteException ex) {
-                    throw new RuntimeException(ex);
-                }
+            if(!isNumeric(txt1)) {
+                client.getUI().printErrorMessage("WRONG SELECTION! You have to insert a number, not a string.");
             } else {
-                client.getUI().printErrorMessage("WRONG SELECTION! You have to select a number of player between 2 and 4.");
+
+                int sel = Integer.parseInt(txt1);
+
+                if (sel > 1 && sel < 5) {
+                    try {
+                        //send message with the number of the players
+                        client.sendMessage(new SelectionNumPlayers(client.getUsername(), sel));
+                    } catch (RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    client.getUI().printErrorMessage("WRONG SELECTION! You have to select a number of player between 2 and 4.");
+                }
             }
 
         });

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
-import com.sun.tools.javac.Main;
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.commandsHandling.commandsException.WrongInsertionException;
 import it.polimi.ingsw.network.message.allMessages.SelectionCard;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.GoldCard;

@@ -82,6 +82,7 @@ public class Gui implements UserInterface {
             case SHOW_WINNER:
                 break;
             case DRAW_CARD:
+                addDrawPanel();
                 break;
             default:
                 break;
@@ -230,6 +231,14 @@ public class Gui implements UserInterface {
         frame.add(mainPanel);
         frame.setVisible(true);
         mainPanel.getBoard().scrollToMiddle();
+    }
+
+    private void addDrawPanel() {
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        DrawPanel drawPanel = new DrawPanel(client);
+        frame.add(drawPanel);
+        frame.setVisible(true);
     }
 
     private void manageStop(){
