@@ -43,7 +43,7 @@ public class DrawManager {
             InitialCard initialCard = game.drawInitialCard();
             if (initialCard != null) {
                 player.setInitialCard(initialCard);
-                initialCard.addResources(player);
+                initialCard.addResourcesGoldCard(player);
              //  initialCard.setFrontSide(true);
                 updateCheckboard(player, initialCard);
             }
