@@ -72,7 +72,7 @@ public class BoardPanel extends JPanel {
                 cardLabel.setBounds(x, y, CARD_X, CARD_Y);
 
                 if (client.getBoards().checkBoard[i / rows][i % cols] == 0) {
-                    cardLabel.addMouseListener(new cardMouseListener(cardLabel, matrix, mainPanel));
+                    cardLabel.addMouseListener(new cardMouseListener(cardLabel, (i / rows), (i % cols), mainPanel));
                     cardLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     cardLabel.setBackground(Color.green);
                     cardLabel.setOpaque(true);
@@ -106,29 +106,31 @@ public class BoardPanel extends JPanel {
     }
 
     private static class cardMouseListener extends MouseAdapter {
-        private int index;
+        private int x;
+        private int y;
         private MainPanel mainPanel;
         private boolean isFront = true;
         private JLabel label;
 
-        public cardMouseListener(JLabel label, List<JLabel> matrix, MainPanel mainPanel) {
+        public cardMouseListener(JLabel label, int x, int y, MainPanel mainPanel) {
             this.label = label;
-            this.index = matrix.indexOf(label);
+            this.x = x;
+            this.y = y;
             this.mainPanel = mainPanel;
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
             if (isFront) {
-                if(mainPanel.getY() == -1 && mainPanel.getX() == -1) {
-                    mainPanel.setX(index / 100);
-                    mainPanel.setY(index % 100);
+                if(mainPanel.getyCoord() == -1 && mainPanel.getxCoord() == -1) {
+                    mainPanel.setxCoord(x);
+                    mainPanel.setyCoord(y);
                     label.setBackground(Color.blue);
                     isFront = !isFront;
                 }
             } else {
-                mainPanel.setX(-1);
-                mainPanel.setY(-1);
+                mainPanel.setxCoord(-1);
+                mainPanel.setyCoord(-1);
                 label.setBackground(Color.green);
                 isFront = !isFront;
             }
