@@ -229,6 +229,7 @@ public class Gui implements UserInterface {
         mainPanel = new MainPanel(client);
         frame.add(mainPanel);
         frame.setVisible(true);
+        mainPanel.getBoard().scrollToMiddle();
     }
 
     private void manageStop(){

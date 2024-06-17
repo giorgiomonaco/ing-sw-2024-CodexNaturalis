@@ -14,12 +14,11 @@ public class HandPanel extends JPanel {
     In this panel there will be only the cards the player got in hand
     So 3 cards
     Clickable if in play phase
-    (getting bright if overed by mouse)
+    (getting bright if hovered by mouse)
     when clicked -> "Do you want to play it?"
     then "send" card to the board panel
      */
 
-    //---- optimize with a for each
     private Client client;
     JLabel firstCard;
     JLabel secondCard;
@@ -50,24 +49,30 @@ public class HandPanel extends JPanel {
         JLabel secondCard = new JLabel(resizedIcon1);
         JLabel thirdCard = new JLabel(resizedIcon2);
 
-        //We add a padding to the labels to separate the different cards
-        gbc.insets = new Insets(5,5, 5, 5);
+        // Create the button
+        JButton actionButton = new JButton("Action");
 
-        //we set all parameters that have to be same for all
+        // Set insets to reduce space between cards
+        gbc.insets = new Insets(0, 0, 0, 0);
+
+        // Set all parameters that have to be same for all
         gbc.gridy = 0;
-        gbc.weighty = 1.0;
-        gbc.weightx = 1.0;
+        gbc.weighty = 0.5;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
 
-        //add every label
+        // Add the button first
         gbc.gridx = 0;
+        add(actionButton, gbc);
+
+        // Add every label
+        gbc.gridx = 1;
         add(firstCard, gbc);
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         add(secondCard, gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 3;
         add(thirdCard, gbc);
     }
-
 }

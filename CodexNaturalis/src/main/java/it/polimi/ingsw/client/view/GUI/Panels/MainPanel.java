@@ -4,76 +4,99 @@ import it.polimi.ingsw.client.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class MainPanel extends JPanel {
 
     private Client client;
     private GridBagConstraints gbc;
     private ChatPanel chat;
+    private BoardPanel board;
+    private int x;
+    private int y;
 
     public MainPanel(Client client){
 
         this.client = client;
+        x = -1;
+        y = -1;
         //setting right layout to manage the panel
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
-        //we crete all the panels in the main panel
+        // Create all the panels in the main panel
         chat = new ChatPanel(client);
-        BoardPanel board = new BoardPanel(client);
+        board = new BoardPanel(client, this);
         AccessoryPanel other = new AccessoryPanel(client);
         HandPanel hand = new HandPanel(client);
-        //we assign the right space to every panel in proportions to be defined later
-        //board panel will cover 65% of y and 90% of x space
-        //BOARD-----
+
+        // Set proportions for each panel
+        // Board panel will cover 70% of y and 80% of x space
+        // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 90;
-        gbc.gridheight = 75;
-        gbc.weightx = 0.9;
-        gbc.weighty = 0.75;
+        gbc.gridwidth = 80; // Reduced from 90
+        gbc.gridheight = 85; // Increased from 80
+        gbc.weightx = 0.8; // Reduced from 0.9
+        gbc.weighty = 0.85; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
-        //add component to the panel
         add(board, gbc);
 
-        //same for every component with different proportions
-        //OTHERS---
-        gbc.gridx = 90;
+        // OTHERS---
+        gbc.gridx = 80; // Changed from 90
         gbc.gridy = 0;
-        gbc.gridwidth = 10;
-        gbc.gridheight = 65;
-        gbc.weightx = 0.1;
-        gbc.weighty = 0.65;
+        gbc.gridwidth = 20; // Increased from 10
+        gbc.gridheight = 85; // Increased from 80
+        gbc.weightx = 0.2; // Increased from 0.1
+        gbc.weighty = 0.85; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(other, gbc);
 
-        //first we reset the gbc just to be sure
-        //CHAT---
-        gbc.gridx = 65;
-        gbc.gridy = 65;
-        gbc.gridwidth = 35;
-        gbc.gridheight = 35;
-        gbc.weightx = 0.35;
-        gbc.weighty = 0.35;
+        // Reset the gbc
+        // CHAT---
+        gbc.gridx = 80; // Changed from 90
+        gbc.gridy = 85; // Changed from 80
+        gbc.gridwidth = 20; // Increased from 10
+        gbc.gridheight = 15; // Reduced from 20
+        gbc.weightx = 0.2; // Reduced from 0.35
+        gbc.weighty = 0.15; // Increased from 0.1
         gbc.fill = GridBagConstraints.BOTH;
         add(chat, gbc);
 
-        //CARDS---
+        // CARDS---
         gbc.gridx = 0;
-        gbc.gridy = 75;
-        gbc.gridwidth = 65;
-        gbc.gridheight = 25;
-        gbc.weightx = 0.65;
-        gbc.weighty = 0.25;
+        gbc.gridy = 85; // Changed from 80
+        gbc.gridwidth = 80; // Reduced from 90
+        gbc.gridheight = 15; // Reduced from 20
+        gbc.weightx = 0.8; // Reduced from 0.9
+        gbc.weighty = 0.15; // Increased from 0.1
         gbc.fill = GridBagConstraints.BOTH;
         hand.setBackground(Color.blue);
         add(hand, gbc);
-
     }
 
     public ChatPanel getChat() {
         return chat;
+    }
+
+    public BoardPanel getBoard() {
+        return board;
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
