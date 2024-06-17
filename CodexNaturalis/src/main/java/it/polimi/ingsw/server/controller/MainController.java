@@ -193,7 +193,7 @@ public class MainController implements Serializable {
             }
         }
         else {
-           for (Player p : game.getPlayerList()){
+            for (Player p : game.getPlayerList()){
                 if(Objects.equals(p.getPlayerName(), destination)){
                     p.getChat().add(new Chat(username,chat,true, destination));
                     getPlayerByUsername(username).getChat().add(new Chat(username, chat,true, destination));
@@ -416,5 +416,14 @@ public class MainController implements Serializable {
 
     public void setFirstTurn(boolean firstTurn) {
         this.firstTurn = firstTurn;
+    }
+
+    public void initialCardSideSelection(boolean b) {
+        int y = game.getCurrentPlayer().getGameBoards().getMAX_Y();
+        int x = game.getCurrentPlayer().getGameBoards().getMAX_X();
+
+        game.getCurrentPlayer().getGameBoards().getGameBoard()[x/2][y/2].setFrontSide(b);
+        updateBoxes(game.getCurrentPlayer().getInitialCard(), x/2, y/2, b);
+
     }
 }

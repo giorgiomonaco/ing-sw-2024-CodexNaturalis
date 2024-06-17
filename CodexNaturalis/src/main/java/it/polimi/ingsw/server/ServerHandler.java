@@ -110,7 +110,7 @@ public class ServerHandler {
             case SELECTION_FIRSTCARD:
                 synchronized (controllerLock) {
                     SelectionFirstCardSide selFirstSide = (SelectionFirstCardSide) msg;
-                    mainController.getPlayerByUsername(selFirstSide.getUsername()).getInitialCard().setFrontSide(fromStringToBool(selFirstSide.getSelection()));
+                    mainController.initialCardSideSelection(fromStringToBool(selFirstSide.getSelection()));
                     sendMessageToPlayer(selFirstSide.getUsername(), new SelectObjCard(HOSTNAME));
                 }
                 break;
