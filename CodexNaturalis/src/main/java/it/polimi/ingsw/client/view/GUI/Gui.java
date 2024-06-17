@@ -1,15 +1,11 @@
 package it.polimi.ingsw.client.view.GUI;
 
-import com.sun.tools.javac.Main;
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.GUI.Panels.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Gui implements UserInterface {
 
@@ -95,7 +91,7 @@ public class Gui implements UserInterface {
     @Override
     public void printChat() {
         if (mainPanel != null){
-            mainPanel.getChat().addMessage1();
+            mainPanel.getChat().addMessage();
         }
     }
 

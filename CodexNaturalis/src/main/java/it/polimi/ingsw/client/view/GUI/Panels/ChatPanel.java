@@ -20,8 +20,6 @@ public class ChatPanel extends JPanel {
     and a bar to scroll
      */
     private GridBagConstraints gbc;
-    private GridBagConstraints gbcChat;
-    private int mexNum;
     private JPanel writingPanel;
     private JTextField textField;
     private JButton sendButton;
@@ -35,14 +33,14 @@ public class ChatPanel extends JPanel {
     }
 
     private void initComponents() {
-        // Imposta il layout
+        // Set the layout
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
 
-        // Pannello della chat
+        // Chat panel
         chatPanel = new JPanel();
         chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
         scrollPane = new JScrollPane(chatPanel);
@@ -53,7 +51,7 @@ public class ChatPanel extends JPanel {
         gbc.weighty = 0.9;
         add(scrollPane, gbc);
 
-        // Pannello di scrittura
+        // Writing panel
         writingPanel = new JPanel();
         writingPanel.setLayout(new BorderLayout());
 
@@ -68,15 +66,38 @@ public class ChatPanel extends JPanel {
         gbc.weighty = 0.1;
         add(writingPanel, gbc);
 
-        // Aggiungi il listener al pulsante di invio
+        // Add listener to the button
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendMessage();
+                String message = textField.getText().trim();
+                String destination = null;
+                if (!message.isEmpty()) {
+                    if(!message.startsWith("/")){
+                        destination = "all";
+                    } else {
+                        message = message.substring(1).trim();
+                        String[] words = message.split("\\s+");
+                        destination = words[0];
+                        int destLength = words[0].length();
+
+                        if (message.length() > destLength) {
+                            message = message.substring(destLength).trim();
+                        } else {
+                            message = "";
+                        }
+                    }
+                    try {
+                        client.sendMessage(new ChatMessage(client.getUsername(), destination, message));
+                    } catch (RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    textField.setText("");
+                }
             }
         });
 
-        // Aggiungi il listener per premere Enter nel textField
+        // Add listener to press Enter on the textField
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,29 +129,7 @@ public class ChatPanel extends JPanel {
         });
     }
 
-    private void sendMessage() {
-        String message = textField.getText().trim();
-        if (!message.isEmpty()) {
-            addMessage("Me: " + message);
-            textField.setText("");
-
-            // Qui puoi aggiungere il codice per inviare il messaggio al server
-            // client.sendMessageToServer(message);
-        }
-    }
-
-    public void addMessage(String message) {
-        JLabel messageLabel = new JLabel(message);
-        chatPanel.add(messageLabel);
-        chatPanel.revalidate();
-        chatPanel.repaint();
-
-        // Scrolla verso il basso
-        JScrollBar vertical = scrollPane.getVerticalScrollBar();
-        vertical.setValue(vertical.getMaximum());
-    }
-
-    public void addMessage1() {
+    public void addMessage() {
         Chat lastChat = client.getChat().getLast();
 
         String message = lastChat.getSender() + ": " + lastChat.getMsg();
@@ -148,7 +147,7 @@ public class ChatPanel extends JPanel {
         chatPanel.revalidate();
         chatPanel.repaint();
 
-        // Scrolla verso il basso
+        // Scroll
         JScrollBar vertical = scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
     }
