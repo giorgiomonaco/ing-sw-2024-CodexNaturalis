@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
 
 import javax.imageio.ImageIO;
@@ -22,14 +23,24 @@ public class SelObjPanel extends JPanel {
     public SelObjPanel(Client client){
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("SELECT YOUR OBJECTIVE CARD", SwingConstants.CENTER);
+        // We use html to write the text on different levels
+        JLabel title = new JLabel("<html><div style='text-align: center;'>SELECT YOUR<br>OBJECTIVE CARD<div></html>", SwingConstants.CENTER);
         title.setFont(new Font("Papyrus", Font.BOLD, 54));
         title.setForeground(Color.BLACK);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setVerticalAlignment(SwingConstants.CENTER);
 
         add(title, BorderLayout.NORTH);
 
         // We create a panel for the cards
-        JPanel cardPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JPanel cardPanel = new JPanel(new GridBagLayout());
+        cardPanel.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         try {
             cardImages.add(ImageIO.read(new File(client.getPlayerObjective().getFirst().getImage())));
@@ -43,12 +54,18 @@ public class SelObjPanel extends JPanel {
         // Add cards to the panel
         for (BufferedImage image : cardImages) {
 
-            JLabel tokenLabel = new JLabel(new ImageIcon(image));
-            tokenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            tokenLabel.addMouseListener(new SelObjListener(i, client));
-            tokenLabel.setIcon(new ImageIcon(image));
-            cardPanel.add(tokenLabel);
+            BufferedImage imgOut = new BufferedImage(300, 200, image.getType());
+            Graphics2D g2d = imgOut.createGraphics();
+            g2d.drawImage(image, 0, 0, 300, 200, null);
+            g2d.dispose();
+
+            JLabel objLabel = new JLabel(new ImageIcon(imgOut));
+            objLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            objLabel.addMouseListener(new SelObjListener(i, client));
+            objLabel.setIcon(new ImageIcon(imgOut));
+            cardPanel.add(objLabel, gbc);
             i++;
+            gbc.gridx++;
 
         }
 
@@ -67,12 +84,15 @@ public class SelObjPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            try {
-                client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
-            } catch (RemoteException ex) {
-                throw new RuntimeException(ex);
+                if(client.getCurrentState().equals(stateEnum.SELECT_OBJECTIVE)) {
+                    try {
+                     client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
+                  } catch (RemoteException ex) {
+                     throw new RuntimeException(ex);
+                 }
+                }
             }
-        }
+
     }
 
 }

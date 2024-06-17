@@ -34,7 +34,7 @@ public class LobbyPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(playerList);
         playerList.setCellRenderer(new CenteredListCellRenderer(client.getUsername()));
-        scrollPane.setPreferredSize(new Dimension(200,350));
+        scrollPane.setPreferredSize(new Dimension(200,200));
 
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
@@ -60,13 +60,14 @@ public class LobbyPanel extends JPanel {
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setFont(new Font("Serif", Font.PLAIN, 18));
 
-            // Aggiungi un bordo alle celle
+            // Adding border to the cells
             label.setBorder(new EmptyBorder(10, 10, 10, 10));
             if (isSelected) {
                 label.setBackground(list.getSelectionBackground());
                 label.setForeground(list.getSelectionForeground());
             } else if (value.equals(clientUsername)) {
-                label.setBackground(Color.YELLOW);  // Colora la cella dell'utente corrente in giallo
+                // Color the cell with the client username
+                label.setBackground(Color.YELLOW);
                 label.setForeground(list.getForeground());
             } else {
                 label.setBackground(list.getBackground());

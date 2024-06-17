@@ -1,14 +1,10 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.allMessages.SelectionNumPlayers;
-import it.polimi.ingsw.network.message.messEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
@@ -40,26 +36,50 @@ public class NumOfPlayersPanel extends JPanel {
         add(txtField);
         add(button);
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //getting the text from text field
-                String txt = txtField.getText();
+        button.addActionListener(e -> {
+            //getting the text from text field
+            String txt1 = txtField.getText();
 
-                //now we use scanner as usual
-                Scanner scan = new Scanner(txt);
-                scan.close();
+            //now we use scanner as usual
+            Scanner scan = new Scanner(txt1);
+            scan.close();
 
-                int sel = Integer.parseInt(txt);
+            int sel = Integer.parseInt(txt1);
 
+            if(sel > 1 && sel < 5) {
                 try {
-                    //send message with the name of the player
+                    //send message with the number of the players
                     client.sendMessage(new SelectionNumPlayers(client.getUsername(), sel));
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-
+            } else {
+                client.getUI().printErrorMessage("WRONG SELECTION! You have to select a number of player between 2 and 4.");
             }
+
+        });
+
+        txtField.addActionListener(e -> {
+            //getting the text from text field
+            String txt1 = txtField.getText();
+
+            //now we use scanner as usual
+            Scanner scan = new Scanner(txt1);
+            scan.close();
+
+            int sel = Integer.parseInt(txt1);
+
+            if(sel > 1 && sel < 5) {
+                try {
+                    //send message with the number of the players
+                    client.sendMessage(new SelectionNumPlayers(client.getUsername(), sel));
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                client.getUI().printErrorMessage("WRONG SELECTION! You have to select a number of player between 2 and 4.");
+            }
+
         });
 
 

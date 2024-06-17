@@ -42,6 +42,7 @@ public class MainController implements Serializable {
     public void gameCreation(String username, int numOfPlayers){
 
         game = new Game(numOfPlayers);
+        firstTurn = true;
         //Then creates  the game set up
         gameSetUpper = new GameSetUpper(game);
         //Start the setup of the game
@@ -146,7 +147,7 @@ public class MainController implements Serializable {
         } while (!game.getCurrentPlayer().isConnected() &&
                 !(firstTurnIndex == game.getPlayersNumber()-1));
 
-        if(firstTurnIndex == 0 && !firstTurn){
+        if(firstTurnIndex == 0){
             serverHandler.sendMessageToPlayer(game.getUserList().getFirst(),
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
@@ -154,8 +155,7 @@ public class MainController implements Serializable {
                             availableToken,
                             getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
 
-            firstTurn = true;
-        } else if (firstTurnIndex != 0) {
+        } else {
             serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
                     new FirstTurn(
                             ServerHandler.HOSTNAME,
@@ -187,27 +187,21 @@ public class MainController implements Serializable {
 
     public void chatUpdate(String username, String destination, String chat){
         if(Objects.equals(destination, "all")) {
-            chat = "public: "+chat;
             for (Player p : game.getPlayerList()) {
-                p.getChat().add(new Chat(username,chat));
+                p.getChat().add(new Chat(username,chat,false, "all"));
                 serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(ServerHandler.HOSTNAME,p.getChat()));
             }
         }
         else {
            for (Player p : game.getPlayerList()){
                 if(Objects.equals(p.getPlayerName(), destination)){
-                    chat = "private: "+chat;
-                    p.getChat().add(new Chat(username,chat));
+                    p.getChat().add(new Chat(username,chat,true, destination));
+                    getPlayerByUsername(username).getChat().add(new Chat(username, chat,true, destination));
                     serverHandler.sendMessageToPlayer(p.getPlayerName(), new ChatResponse(ServerHandler.HOSTNAME,p.getChat()));
-                    serverHandler.sendMessageToPlayer(username, new ChatResponse(ServerHandler.HOSTNAME,p.getChat()));
+                    serverHandler.sendMessageToPlayer(username, new ChatResponse(ServerHandler.HOSTNAME,getPlayerByUsername(username).getChat()));
                 }
             }
-
-
-
         }
-
-
     }
 
 
@@ -241,7 +235,6 @@ public class MainController implements Serializable {
         currPlayerIndex = -1;
         finalPlayerIndex = -1;
         firstTurnIndex = -1;
-        firstTurn = false;
 
     }
 

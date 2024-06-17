@@ -2,13 +2,10 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
-import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 import it.polimi.ingsw.network.message.messEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
@@ -17,7 +14,6 @@ public class LoginPanel extends JPanel {
     private GridBagConstraints gbc;
     //Prepare elements: label, text field and button
     private JLabel label1;
-    private JLabel title;
     private JTextField textField;
     private JButton button;
 
@@ -27,36 +23,56 @@ public class LoginPanel extends JPanel {
         this.gbc = new GridBagConstraints();
 
         setLayout(new GridBagLayout());
+        setOpaque(false);
 
         createElements();
 
         //Add event listener to the button
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //getting the text from text field
-                String inputTxt = textField.getText();
+        button.addActionListener(e -> {
+            //getting the text from text field
+            String inputTxt = textField.getText();
 
-                //now we use scanner as usual
-                Scanner scan = new Scanner(inputTxt);
-                scan.close();
-
+            //now we use scanner as usual
+            Scanner scan = new Scanner(inputTxt);
+            scan.close();
+            if(isAlphabetic(inputTxt) && !inputTxt.isEmpty()) {
                 try {
                     //send message with the name of the player
                     client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-
+            } else {
+                client.getUI().printErrorMessage("WRONG INSERTION! You have to insert a string of characters!");
             }
+
+        });
+
+        //Add event listener to the Enter button
+        textField.addActionListener(e -> {
+            //getting the text from text field
+            String inputTxt = textField.getText();
+
+            //now we use scanner as usual
+            Scanner scan = new Scanner(inputTxt);
+            scan.close();
+            if(isAlphabetic(inputTxt) && !inputTxt.isEmpty()) {
+                try {
+                    //send message with the name of the player
+                    client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                client.getUI().printErrorMessage("WRONG INSERTION! You have to insert a string of characters!");
+            }
+
         });
 
     }
 
     private void createElements(){
 
-        //the game title
-        // title = new JLabel()
         //first we want to ask to insert the username:
         label1= new JLabel("Insert your Username:");
         //create a j text file to catch user writing
@@ -81,4 +97,15 @@ public class LoginPanel extends JPanel {
         add(button, gbc);
 
     }
+
+    public static boolean isAlphabetic(String str) {
+        // Check if the string contains numbers or special characters
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isLetter(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
