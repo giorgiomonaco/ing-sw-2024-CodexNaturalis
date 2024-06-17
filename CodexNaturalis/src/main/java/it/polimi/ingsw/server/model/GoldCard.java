@@ -6,7 +6,7 @@ import java.util.List;
 public class GoldCard extends Card {
 
     //name of the card if it has one
-    private final int cardName;
+    private final int cardNumber;
     // Card condition for points (points for each covered VisibleAngle, symbol, or for just placing the card
     private final int condition;
     //number of points the card gives when played
@@ -27,7 +27,7 @@ public class GoldCard extends Card {
                     int cardPoints, int[] neededSymbols, String front, String back){
         super(frontAngles, backAngles, backSymbol, front, back);
         //we assign the name of the card
-        this.cardName = name;
+        this.cardNumber = name;
         this.condition = condition;
         //We assign the value of the card points
         this.cardPoints = cardPoints;
@@ -36,8 +36,8 @@ public class GoldCard extends Card {
     }
 
     //get of the card name
-    public int getCardName() {
-        return cardName;
+    public int getCardNumber() {
+        return cardNumber;
     }
 
     //get the list of all the symbols needed to play the card

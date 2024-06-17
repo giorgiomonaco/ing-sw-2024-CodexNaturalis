@@ -2,8 +2,10 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import com.sun.tools.javac.Main;
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.commandsHandling.commandsException.WrongInsertionException;
 import it.polimi.ingsw.network.message.allMessages.SelectionCard;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.GoldCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,8 +113,9 @@ public class MainPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println(mp.getxCoord() + " " + mp.getyCoord());
-            if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null)) {
+            // for debugging
+            // System.out.println(mp.getxCoord() + " " + mp.getyCoord());
+            if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide())) {
                 try {
                     //send message with the number of the players
                     client.sendMessage(new SelectionCard(client.getUsername(), mp.getCard(), mp.getxCoord(), mp.getyCoord(), mp.isSide()));
@@ -123,7 +126,22 @@ public class MainPanel extends JPanel {
                 client.getUI().printErrorMessage("WRONG SELECTION! You have to select a place in the board first.");
             } else if (mp.getCard() == null) {
                 client.getUI().printErrorMessage("WRONG SELECTION! You have to select a card first.");
+            } else {
+                client.getUI().printErrorMessage("You do not have enough resources to play this card. Please choose another one.");
             }
+
+        }
+
+        private boolean availableResources(Card card, boolean side){
+            if(card instanceof GoldCard && side){
+                for (int i = 0; i < 7; i++) {
+                    if(!(((GoldCard) card).getNeededSymbols()[i] <= client.getResources()[i])){
+                        return false;
+                    }
+
+                }
+            }
+            return true;
         }
     }
 

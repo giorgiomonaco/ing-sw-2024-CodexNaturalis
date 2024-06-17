@@ -1,10 +1,6 @@
 package it.polimi.ingsw.server.model;
 
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,13 +137,13 @@ public abstract class Card implements Serializable {
     public boolean equals(Card in, Card hand) {
         if (in instanceof GoldCard) {
             if (hand instanceof GoldCard) {
-                return ((GoldCard) in).getCardName() == ((GoldCard) hand).getCardName();
+                return ((GoldCard) in).getCardNumber() == ((GoldCard) hand).getCardNumber();
             } else if (hand instanceof ResourceCard) {
-                return ((GoldCard) in).getCardName() == ((ResourceCard) hand).getCardNumber();
+                return ((GoldCard) in).getCardNumber() == ((ResourceCard) hand).getCardNumber();
             }
         } else if (in instanceof ResourceCard) {
             if (hand instanceof GoldCard) {
-                return ((ResourceCard) in).getCardNumber() == ((GoldCard) hand).getCardName();
+                return ((ResourceCard) in).getCardNumber() == ((GoldCard) hand).getCardNumber();
             } else if (hand instanceof ResourceCard) {
                 return ((ResourceCard) in).getCardNumber() == ((ResourceCard) hand).getCardNumber();
             }

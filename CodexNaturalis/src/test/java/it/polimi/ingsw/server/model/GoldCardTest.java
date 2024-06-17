@@ -14,7 +14,7 @@ class GoldCardTest {
             angles[i] = new VisibleAngle(null);
         }
         GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
-        assertEquals(card.getCardName(), 1);
+        assertEquals(card.getCardNumber(), 1);
     }
 
     @Test

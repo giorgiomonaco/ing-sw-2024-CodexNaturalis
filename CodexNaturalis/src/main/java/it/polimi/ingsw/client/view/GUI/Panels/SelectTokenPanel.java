@@ -21,7 +21,7 @@ public class SelectTokenPanel extends JPanel {
     public SelectTokenPanel(Client client){
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("SELECT YOUR TOKEN", SwingConstants.CENTER);
+        JLabel title = new JLabel("<html><div style='text-align: center;'>SELECT<br>YOUR TOKEN<div></html>", SwingConstants.CENTER);
         title.setFont(new Font("Papyrus", Font.BOLD, 54));
         title.setForeground(Color.BLACK);
 

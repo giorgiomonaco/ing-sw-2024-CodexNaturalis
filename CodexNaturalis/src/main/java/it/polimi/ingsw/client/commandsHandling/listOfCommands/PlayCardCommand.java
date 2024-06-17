@@ -46,14 +46,13 @@ public class PlayCardCommand implements CommandManager {
             throw new WrongInsertionException("The selected side is not available. Please choose above the available ones");
         }
 
-        else if(card instanceof GoldCard){
+        else if(card instanceof GoldCard && side){
             for (int i = 0; i < 7; i++) {
                 if(!(((GoldCard) card).getNeededSymbols()[i] <= client.getResources()[i])){
                     throw new WrongInsertionException("You do not have enough resources to play this card. Please choose another one");
                 }
 
             }
-
         }
         SelectionCard toSend = new SelectionCard(client.getUsername(), client.getPlayerHand().get(index-1), x, y, side);
         client.sendMessage(toSend);

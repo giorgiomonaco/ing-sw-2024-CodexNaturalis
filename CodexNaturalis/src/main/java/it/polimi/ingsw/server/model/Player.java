@@ -90,19 +90,26 @@ public class Player implements Serializable {
     //method to remove a card from the player hand passing the object
     public void removeCardFromHand(Card card) {
 
-        for (Card c : playerHand) {
-            if (c != null && c.equals(card)) {
-                if (c instanceof GoldCard) {
-                    playerGoldCards.remove((GoldCard) c);
-                } else if (c instanceof ResourceCard) {
+        if(card instanceof ResourceCard) {
+            for (Card c : playerHand) {
+                if(c instanceof ResourceCard && ((ResourceCard) c).getCardNumber() == ((ResourceCard) card).getCardNumber()) {
                     playerResourceCards.remove((ResourceCard) c);
+                    playerHand.remove(c);
+                    return;
                 }
-                playerHand.remove(c);
-                return;
+            }
+        } else {
+            for (Card c : playerHand) {
+                if(c instanceof GoldCard && ((GoldCard) c).getCardNumber() == ((GoldCard) card).getCardNumber()) {
+                    playerGoldCards.remove((GoldCard) c);
+                    playerHand.remove(c);
+                    return;
+                }
             }
         }
 
         System.out.println("Card not found");
+
     }
 
     //Getter of the list of the obj cards now in hand
