@@ -48,6 +48,27 @@ public class LoginPanel extends JPanel {
 
         });
 
+        //Add event listener to the Enter button
+        textField.addActionListener(e -> {
+            //getting the text from text field
+            String inputTxt = textField.getText();
+
+            //now we use scanner as usual
+            Scanner scan = new Scanner(inputTxt);
+            scan.close();
+            if(isAlphabetic(inputTxt) && !inputTxt.isEmpty()) {
+                try {
+                    //send message with the name of the player
+                    client.sendMessage(new LoginRequest(messEnum.LOGIN_REQUEST, inputTxt));
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                client.getUI().printErrorMessage("WRONG INSERTION! You have to insert a string of characters!");
+            }
+
+        });
+
     }
 
     private void createElements(){

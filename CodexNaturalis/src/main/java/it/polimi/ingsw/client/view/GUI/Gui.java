@@ -18,11 +18,13 @@ public class Gui implements UserInterface {
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
     private JPanel message;
+    private boolean permission;
 
 
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
+        permission = true;
     }
 
     @Override
@@ -234,23 +236,35 @@ public class Gui implements UserInterface {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Draw the semi-transparent cover
-                g.setColor(new Color(0, 0, 0, 200)); // Colore nero con trasparenza
+                g.setColor(new Color(0, 0, 0, 200));
                 g.fillRect(0, 0, getWidth(), getHeight());
 
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial", Font.BOLD, 24));
-                String text = "-- GAME STOPPED --\nIf nobody rejoin the game in 30 seconds, you will win the game.";
+                String[] lines = {
+                        "-- GAME STOPPED --",
+                        "If nobody rejoin the game in 30 seconds,",
+                        "you will win the game."
+                };
                 FontMetrics metrics = g.getFontMetrics(g.getFont());
-                int x = (getWidth() - metrics.stringWidth(text)) / 2;
-                int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
 
-                // Draw the text
-                g.drawString(text, x, y);
+                int totalHeight = 0;
+                for (String line : lines) {
+                    totalHeight += metrics.getHeight();
+                }
+                int y = (getHeight() - totalHeight) / 2;
+
+                for (String line : lines) {
+                    int x = (getWidth() - metrics.stringWidth(line)) / 2;
+                    g.drawString(line, x, y + metrics.getAscent());
+                    y += metrics.getHeight();
+                }
             }
         };
 
         stopPane.setLayout(new GridBagLayout());
         stopPane.setOpaque(false);
+        permission = false;
 
         // Set the stopPane as the frame GlassPane
         frame.setGlassPane(stopPane);
