@@ -37,9 +37,6 @@ public class GoldCardsInitializerTest {
         resCardFrontAngles[3] = new VisibleAngle(null);
 
         int[] array = new int[7];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = 0;
-        }
 
         GoldCard card = new GoldCard(0, resCardFrontAngles, resCardBackAngles, symbols, 1, 3, array, null, null);
         game.addGoldCardToDeck(card);

@@ -21,4 +21,30 @@ public class InitialCard extends Card{
     public int getCardName() {
         return cardName;
     }
+
+    public void addResourcesGoldCard(Player p) {
+        if(isFrontSide()){
+            for(VisibleAngle angle : getFrontAngles()){
+                if (angle != null) {
+                    Symbol symbol = angle.getSymbol();
+                    if (symbol != null) {
+                        p.resourceAdding(symbol);
+                    }
+                }
+            }
+        }
+        else {
+            for(VisibleAngle angle : getBackAngles()){
+                if (angle != null) {
+                    Symbol symbol = angle.getSymbol();
+                    if (symbol != null) {
+                        p.resourceAdding(symbol);
+                    }
+                }
+            }
+            for (Symbol s: getBackSymbol()){
+                p.resourceAdding(s);
+            }
+        }
+    }
 }
