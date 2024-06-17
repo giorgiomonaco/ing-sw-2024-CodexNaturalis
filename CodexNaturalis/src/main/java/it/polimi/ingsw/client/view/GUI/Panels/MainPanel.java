@@ -11,6 +11,7 @@ public class MainPanel extends JPanel {
 
     private Client client;
     private GridBagConstraints gbc;
+    private ChatPanel chat;
 
     public MainPanel(Client client){
 
@@ -20,7 +21,7 @@ public class MainPanel extends JPanel {
         gbc = new GridBagConstraints();
 
         //we crete all the panels in the main panel
-        ChatPanel chat = new ChatPanel(client);
+        chat = new ChatPanel(client);
         BoardPanel board = new BoardPanel(client);
         AccessoryPanel other = new AccessoryPanel(client);
         HandPanel hand = new HandPanel(client);
@@ -70,6 +71,9 @@ public class MainPanel extends JPanel {
         hand.setBackground(Color.blue);
         add(hand, gbc);
 
+    }
 
+    public ChatPanel getChat() {
+        return chat;
     }
 }

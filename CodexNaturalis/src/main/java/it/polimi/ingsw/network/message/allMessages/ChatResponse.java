@@ -25,4 +25,5 @@ public class ChatResponse extends Message {
     public MessageHandler createHandler() {
         return new ChatHandler();
     }
+
 }

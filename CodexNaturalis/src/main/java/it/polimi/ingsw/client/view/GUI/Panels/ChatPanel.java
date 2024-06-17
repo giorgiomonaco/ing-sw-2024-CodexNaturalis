@@ -1,11 +1,14 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.network.message.allMessages.ChatMessage;
+import it.polimi.ingsw.server.model.Chat;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 public class ChatPanel extends JPanel {
 
@@ -77,7 +80,30 @@ public class ChatPanel extends JPanel {
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendMessage();
+                String message = textField.getText().trim();
+                String destination = null;
+                if (!message.isEmpty()) {
+                    if(!message.startsWith("/")){
+                        destination = "all";
+                    } else {
+                        message = message.substring(1).trim();
+                        String[] words = message.split("\\s+");
+                        destination = words[0];
+                        int destLength = words[0].length();
+
+                        if (message.length() > destLength) {
+                            message = message.substring(destLength).trim();
+                        } else {
+                            message = "";
+                        }
+                    }
+                    try {
+                        client.sendMessage(new ChatMessage(client.getUsername(), destination, message));
+                    } catch (RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    textField.setText("");
+                }
             }
         });
     }
@@ -95,6 +121,29 @@ public class ChatPanel extends JPanel {
 
     public void addMessage(String message) {
         JLabel messageLabel = new JLabel(message);
+        chatPanel.add(messageLabel);
+        chatPanel.revalidate();
+        chatPanel.repaint();
+
+        // Scrolla verso il basso
+        JScrollBar vertical = scrollPane.getVerticalScrollBar();
+        vertical.setValue(vertical.getMaximum());
+    }
+
+    public void addMessage1() {
+        Chat lastChat = client.getChat().getLast();
+
+        String message = lastChat.getSender() + ": " + lastChat.getMsg();
+        JLabel messageLabel = null;
+
+        if(lastChat.isPrivate()){
+            message = message +  " (to "+ lastChat.getReceiver() + ")";
+            messageLabel = new JLabel(message);
+            messageLabel.setForeground(Color.blue);
+        } else {
+            messageLabel = new JLabel(message);
+        }
+
         chatPanel.add(messageLabel);
         chatPanel.revalidate();
         chatPanel.repaint();

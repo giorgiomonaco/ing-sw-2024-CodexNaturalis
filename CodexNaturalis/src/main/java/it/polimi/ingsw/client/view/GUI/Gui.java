@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.GUI;
 
+import com.sun.tools.javac.Main;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.GUI.Panels.*;
@@ -19,6 +20,7 @@ public class Gui implements UserInterface {
     private JPanel glassPane;
     private JPanel message;
     private boolean permission;
+    private MainPanel mainPanel;
 
 
     public Gui (Client client){
@@ -91,8 +93,10 @@ public class Gui implements UserInterface {
 
     }
     @Override
-    public void printChat(){
-
+    public void printChat() {
+        if (mainPanel != null){
+            mainPanel.getChat().addMessage1();
+        }
     }
 
     @Override
@@ -226,7 +230,8 @@ public class Gui implements UserInterface {
     private void addMainPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        frame.add(new MainPanel(client));
+        mainPanel = new MainPanel(client);
+        frame.add(mainPanel);
         frame.setVisible(true);
     }
 

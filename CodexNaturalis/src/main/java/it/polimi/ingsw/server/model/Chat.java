@@ -4,11 +4,15 @@ import java.io.Serializable;
 
 public class Chat implements Serializable {
     String sender;
+    String receiver;
     String msg;
+    boolean priv;
 
-    public Chat(String sender, String msg){
+    public Chat(String sender, String msg, boolean priv, String receiver){
         this.sender = sender;
-        this.msg=msg;
+        this.msg = msg;
+        this.priv = priv;
+        this.receiver = receiver;
     }
 
     public String getMsg() {
@@ -19,7 +23,11 @@ public class Chat implements Serializable {
         return sender;
     }
 
+    public boolean isPrivate() {
+        return priv;
+    }
 
-
-
+    public String getReceiver() {
+        return receiver;
+    }
 }

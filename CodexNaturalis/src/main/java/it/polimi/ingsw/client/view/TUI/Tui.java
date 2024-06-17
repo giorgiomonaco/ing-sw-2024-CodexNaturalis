@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.view.UserInterface;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.*;
 
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -115,7 +116,11 @@ public class Tui implements UserInterface{
         System.out.println("\n\nCHAT: ");
 
         for (Chat c:a){
-            System.out.println(c.getSender() + "-> "+ c.getMsg());
+            if(c.isPrivate()) {
+                System.out.println(Colors.blueColor + c.getSender() + " -> " + c.getMsg() + " (to "+ c.getReceiver() + ")" + Colors.resetColor);
+            } else {
+                System.out.println(c.getSender() + " -> " + c.getMsg());
+            }
         }
 
     }
