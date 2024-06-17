@@ -380,6 +380,7 @@ public class MainController implements Serializable {
                 game.getCurrentPlayer().resourceLowering(angle.getSymbol());
             }
         }
+        coveredAngle.clear();
     }
 
     public void playerDisconnect(String username) {
@@ -418,12 +419,27 @@ public class MainController implements Serializable {
         this.firstTurn = firstTurn;
     }
 
+
     public void initialCardSideSelection(boolean b) {
+        if (game == null || game.getCurrentPlayer() == null) {
+            throw new IllegalArgumentException("Game or current player is null");
+        }
+
         int y = game.getCurrentPlayer().getGameBoards().getMAX_Y();
         int x = game.getCurrentPlayer().getGameBoards().getMAX_X();
 
-        game.getCurrentPlayer().getGameBoards().getGameBoard()[x/2][y/2].setFrontSide(b);
-        updateBoxes(game.getCurrentPlayer().getInitialCard(), x/2, y/2, b);
+        if (game.getCurrentPlayer().getGameBoards().getGameBoard() == null ||
+                game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2] == null ||
+                game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2] == null) {
+            throw new IllegalArgumentException("Game board or game board cell is null");
+        }
 
+        game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2].setFrontSide(b);
+        if (game.getCurrentPlayer().getInitialCard() != null) {
+            game.getCurrentPlayer().getInitialCard().addResourcesInitCard(game.getCurrentPlayer());
+            updateBoxes(game.getCurrentPlayer().getInitialCard(), x / 2, y / 2, b);
+        } else {
+            throw new IllegalArgumentException("Initial card is null");
+        }
     }
 }
