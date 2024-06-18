@@ -435,6 +435,7 @@ public class MainController implements Serializable {
             }
         }
 
+        // If there are covered angles, lower the player's resources based on the symbols
     if (!coveredAngle.isEmpty()) {
         for (VisibleAngle angle : coveredAngle) {
             if(angle.getSymbol() != null) {
@@ -443,16 +444,9 @@ public class MainController implements Serializable {
         }
     }
 
-    coveredAngle.clear();
+    coveredAngle.clear(); // Clear the list for future use
 }
-        // If there are covered angles, lower the player's resources based on the symbols
-        if (!coveredAngle.isEmpty()) {
-            for (VisibleAngle angle : coveredAngle) {
-                game.getCurrentPlayer().resourceLowering(angle.getSymbol());
-            }
-        }
-        coveredAngle.clear(); // Clear the list for future use
-    }
+
 
     /**
      * Handles the disconnection of a player.
