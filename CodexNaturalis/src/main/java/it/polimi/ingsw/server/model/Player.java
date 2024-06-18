@@ -192,6 +192,8 @@ public class Player implements Serializable {
             case "scroll":
                 this.resourcesAvailable[6]--;
                 break;
+            default:
+                break;
         }
 
     }
