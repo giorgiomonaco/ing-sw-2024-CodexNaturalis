@@ -309,6 +309,7 @@ public class MainController implements Serializable {
             game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
         }
 
+        System.out.println("finito selcard");
     }
 
 
@@ -323,6 +324,7 @@ public class MainController implements Serializable {
             serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
                     new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards(), null, game.getResourceDeck().getFirst().getBackImage()));
         }
+        System.out.println("finito middle");
     }
 
 
@@ -333,10 +335,14 @@ public class MainController implements Serializable {
 
         game.getCurrentPlayer().getGameBoards().setGameBoardXY(x, y, card);
         game.getCurrentPlayer().getGameBoards().setCheckBoardXY(x, y, 1);
+        System.out.println("prima delle res");
         card.addResources(game.getCurrentPlayer());
 
+        System.out.println("prima di update boxes");
         updateBoxes(card, x, y, side);
+        System.out.println("prima di update player res");
         updatePlayerResources(x, y, game.getCurrentPlayer().getGameBoards().getGameBoard());
+        System.out.println("finito play card");
     }
 
 
@@ -429,6 +435,16 @@ public class MainController implements Serializable {
             }
         }
 
+    if (!coveredAngle.isEmpty()) {
+        for (VisibleAngle angle : coveredAngle) {
+            if(angle.getSymbol() != null) {
+                game.getCurrentPlayer().resourceLowering(angle.getSymbol());
+            }
+        }
+    }
+
+    coveredAngle.clear();
+}
         // If there are covered angles, lower the player's resources based on the symbols
         if (!coveredAngle.isEmpty()) {
             for (VisibleAngle angle : coveredAngle) {

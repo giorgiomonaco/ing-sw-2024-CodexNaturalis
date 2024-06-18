@@ -55,7 +55,7 @@ public class ServerHandler {
     public void init() {
         rmiServer.start();
         tcpServer.start();
-        pinger.start();
+        // pinger.start();
     }
 
     public void isValid(String check){
@@ -133,7 +133,9 @@ public class ServerHandler {
                 break;
 
             case messEnum.SELECTION_CARD:
+                System.out.println("ricevuto");
                 synchronized (controllerLock) {
+                    System.out.println("preso lock");
                     SelectionCard selCard = (SelectionCard) msg;
                     mainController.selectionCard(selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     mainController.middleTurn();

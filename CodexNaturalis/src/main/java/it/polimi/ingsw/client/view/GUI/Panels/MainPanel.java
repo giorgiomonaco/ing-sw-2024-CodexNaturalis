@@ -118,7 +118,9 @@ public class MainPanel extends JPanel {
             if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide())) {
                 try {
                     //send message with the selection of the card
+                    System.out.println("invio");
                     client.sendMessage(new SelectionCard(client.getUsername(), mp.getCard(), mp.getxCoord(), mp.getyCoord(), mp.isSide()));
+                    System.out.println("fatto");
                     mp.getCard().setTurn(mp.getTurn() * 10);
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
@@ -135,7 +137,7 @@ public class MainPanel extends JPanel {
 
         private boolean availableResources(Card card, boolean side){
             if(card instanceof GoldCard && side){
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 4; i++) {
                     if(!(((GoldCard) card).getNeededSymbols()[i] <= client.getResources()[i])){
                         return false;
                     }
