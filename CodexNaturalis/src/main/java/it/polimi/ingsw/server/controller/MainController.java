@@ -326,22 +326,43 @@ public class MainController implements Serializable {
 
 
 
+    // Update the boxes on the checkBoard based on the card's position and visibility
     private void updateBoxes(Card card, int x, int y, boolean side) {
-        int[][] checkBoard = game.getCurrentPlayer().getGameBoards().getCheckBoard().clone();
+        // Clone the current player's checkBoard to avoid direct modification
+        int[][] original = game.getCurrentPlayer().getGameBoards().getCheckBoard();
+        int[][] checkBoard = new int[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            checkBoard[i] = original[i].clone();
+        }
 
-        updateCheckBoard(checkBoard, x + 1, y + 1, side ? card.getFrontVisibleAngle(3) : null);
-        updateCheckBoard(checkBoard, x + 1, y - 1, side ? card.getFrontVisibleAngle(1) : null);
-        updateCheckBoard(checkBoard, x - 1, y + 1, side ? card.getFrontVisibleAngle(2) : null);
-        updateCheckBoard(checkBoard, x - 1, y - 1, side ? card.getFrontVisibleAngle(0) : null);
+        // Update the checkBoard positions based on the card's visible angles and the side flag
+        if (side) {
+            updateCheckBoard(checkBoard, x + 1, y + 1, card.getFrontVisibleAngle(3));
+            updateCheckBoard(checkBoard, x + 1, y - 1, card.getFrontVisibleAngle(1));
+            updateCheckBoard(checkBoard, x - 1, y + 1, card.getFrontVisibleAngle(2));
+            updateCheckBoard(checkBoard, x - 1, y - 1, card.getFrontVisibleAngle(0));
+        } else {
+            updateCheckBoard(checkBoard, x + 1, y + 1, null);
+            updateCheckBoard(checkBoard, x + 1, y - 1, null);
+            updateCheckBoard(checkBoard, x - 1, y + 1, null);
+            updateCheckBoard(checkBoard, x - 1, y - 1, null);
+        }
 
-        game.getCurrentPlayer().getGameBoards().setCheckBoard(checkBoard);  // Ensure the updated checkBoard is set back to the player
+        // Ensure the updated checkBoard is set back to the player
+        game.getCurrentPlayer().getGameBoards().setCheckBoard(checkBoard);
     }
 
     private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {
-        if (checkBoard[x][y] != 1 && angle != null) {
-            checkBoard[x][y] = 0;
+        // Ensure the coordinates are within bounds
+        if (x >= 0 && x < checkBoard.length && y >= 0 && y < checkBoard[0].length) {
+            // Update the checkBoard position based on the angle and existing value
+            if (checkBoard[x][y] != 1 && angle != null) {
+                checkBoard[x][y] = 0;
+            }
         }
     }
+
+
     private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
 
         List<VisibleAngle> coveredAngle = new ArrayList<>();
