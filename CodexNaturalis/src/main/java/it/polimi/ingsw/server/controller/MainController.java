@@ -11,34 +11,53 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * The main controller has to start the view as soon as the game is created
+ * then has to process every response from the view and use the managers to
+ * modify the state of the game and use the managers to modify everything
+ */
 public class MainController implements Serializable {
     private Game game;
     private final ServerHandler serverHandler;
     private GameSetUpper gameSetUpper;
 
-    // Index of the current player
+    /**
+     * Index of the current player
+     */
     private int currPlayerIndex;
 
-    // Index of the first player to reach 21 points
+    /**
+     * Index of the first player to reach 21 points
+     */
     private int finalPlayerIndex;
 
-    // If it's the first turn the players have to choose the token and the personal objective cards.
+    /**
+     * If it's the first turn the players have to choose the token and the personal objective cards.
+     */
     private int firstTurnIndex;
     private boolean firstTurn;
 
 
-    //Constructor, it only needs a game to control
+    /**
+     * Constructor
+     * @param serverHandler is assigned to the controller
+     */
     public MainController(ServerHandler serverHandler){
         this.serverHandler =  serverHandler;
     }
 
-    //The main controller has to start the view as soon as the game is created
-    //then has to process every response from the view and use the managers to
-    //modify the state of the game and use the managers to modify everything
 
-
-    //Here it plays the game
+    /**
+     * Sets up the game after the first player logs in.
+     *
+     * @param username The name of the player.
+     * @param numOfPlayers The number of players selected.
+     *
+     *
+     *
+     * @see GameSetUpper
+     * Creation of game objects, such as cards, is handled in GameSetUpper
+     */
     public void gameCreation(String username, int numOfPlayers){
 
         game = new Game(numOfPlayers);
@@ -62,6 +81,7 @@ public class MainController implements Serializable {
 
 
     public void joinPlayer(String username){
+
         if (!game.getGameState().equals(gameStateEnum.ACCEPT_PLAYER)) {
             serverHandler.sendMessageToPlayer(username,
                     new AlreadyStarted(ServerHandler.HOSTNAME));
@@ -325,9 +345,9 @@ public class MainController implements Serializable {
     private void updateBoxes(Card card, int x, int y, boolean side) {
         // Clone the current player's checkBoard to avoid direct modification
         int[][] original = game.getCurrentPlayer().getGameBoards().getCheckBoard();
-        int[][] checkBoard = new int[original.length][];
+        int[][] checkBoard = new int[original.length][original.length];
         for (int i = 0; i < original.length; i++) {
-            checkBoard[i] = original[i].clone();
+            System.arraycopy(original[i], 0, checkBoard[i], 0, original[i].length);
         }
 
         // Update the checkBoard positions based on the card's visible angles and the side flag
@@ -342,127 +362,152 @@ public class MainController implements Serializable {
             updateCheckBoard(checkBoard, x - 1, y + 1, card.getBackVisibleAngle(2));
             updateCheckBoard(checkBoard, x - 1, y - 1, card.getBackVisibleAngle(0));
         }
-    // Ensure the updated checkBoard is set back to the player
+
+        // Ensure the updated checkBoard is set back to the player
         game.getCurrentPlayer().getGameBoards().setCheckBoard(checkBoard);
-}
-
-private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {
-    // Ensure the coordinates are within bounds
-    if (x >= 0 && x < checkBoard.length && y >= 0 && y < checkBoard[0].length) {
-        // Update the checkBoard position based on the angle and existing value
-        if (checkBoard[x][y] != 1 && angle != null) {
-            checkBoard[x][y] = 0;
-        }
     }
-}
 
-
-private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
-
-    List<VisibleAngle> coveredAngle = new ArrayList<>();
-
-
-    if (cardBoard[x + 1][y + 1] != null) {
-        boolean front = cardBoard[x+1][y+1].getSide();
-        if (front) {
-            if(cardBoard[x+1][y+1].getFrontVisibleAngle(0) != null) {
-                coveredAngle.add(cardBoard[x+1][y+1].getFrontVisibleAngle(0));
+    private void updateCheckBoard(int[][] checkBoard, int x, int y, VisibleAngle angle) {
+        // Ensure the coordinates are within bounds
+        if (x >= 0 && x < checkBoard.length && y >= 0 && y < checkBoard[0].length) {
+            // Update the checkBoard position based on the angle and existing value
+            if (checkBoard[x][y] == -1 && angle != null) {
+                checkBoard[x][y] = 0;
+            }
+            else if(checkBoard[x][y] != 1 && angle == null) {
+                checkBoard[x][y] = -2;
             }
         }
     }
 
-    if (cardBoard[x+1][y-1] != null) {
-        boolean front = cardBoard[x+1][y-1].getSide();
-        if (front) {
-            if(cardBoard[x+1][y-1].getFrontVisibleAngle(2) != null) {
-                coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
+    /**
+     * Updates the player's resources based on the visible angles of the cards on the checkBoard.
+     * This function checks the front visible angles of neighboring cards and updates the player's resources accordingly.
+     *
+     * @param x The x-coordinate of the player's position.
+     * @param y The y-coordinate of the player's position.
+     * @param cardBoard The 2D array representing the checkBoard.
+     */
+    private void updatePlayerResources(int x, int y, Card[][] cardBoard) {
+
+        // List to store the covered angles by neighboring cards
+        List<VisibleAngle> coveredAngle = new ArrayList<>();
+
+        // Check the front visible angle of the card at (x+1, y+1) if it exists
+        if (cardBoard[x + 1][y + 1] != null) {
+            boolean front = cardBoard[x + 1][y + 1].getSide();
+            if (front) {
+                if (cardBoard[x + 1][y + 1].getFrontVisibleAngle(0) != null) {
+                    coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
+                }
+            }
+        }
+
+        // Check the front visible angle of the card at (x+1, y-1) if it exists
+        if (cardBoard[x + 1][y - 1] != null) {
+            boolean front = cardBoard[x + 1][y - 1].getSide();
+            if (front) {
+                if (cardBoard[x + 1][y - 1].getFrontVisibleAngle(2) != null) {
+                    coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
+                }
+            }
+        }
+
+        // Check the front visible angle of the card at (x-1, y+1) if it exists
+        if (cardBoard[x - 1][y + 1] != null) {
+            boolean front = cardBoard[x - 1][y + 1].getSide();
+            if (front) {
+                if (cardBoard[x - 1][y + 1].getFrontVisibleAngle(1) != null) {
+                    coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
+                }
+            }
+        }
+
+        // Check the front visible angle of the card at (x-1, y-1) if it exists
+        if (cardBoard[x - 1][y - 1] != null) {
+            boolean front = cardBoard[x - 1][y - 1].getSide();
+            if (front) {
+                if (cardBoard[x - 1][y - 1].getFrontVisibleAngle(3) != null) {
+                    coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
+                }
+            }
+        }
+
+        // If there are covered angles, lower the player's resources based on the symbols
+        if (!coveredAngle.isEmpty()) {
+            for (VisibleAngle angle : coveredAngle) {
+                game.getCurrentPlayer().resourceLowering(angle.getSymbol());
+            }
+        }
+        coveredAngle.clear(); // Clear the list for future use
+    }
+
+    /**
+     * Handles the disconnection of a player.
+     *
+     * @param username the username of the player to disconnect
+     */
+    public void playerDisconnect(String username) {
+        if(!game.getUserList().contains(username)){
+            System.out.println(Colors.redColor + "The player named " + username + " wasn't actually playing." + Colors.resetColor);
+        } else if (!game.getGameState().equals(gameStateEnum.END)) {
+            for(Player p: game.getPlayerList()){
+                if(p.getPlayerName().equals(username)){
+                    if(p.isConnected()){
+                        p.setConnected(false);
+                    } else {
+                        System.out.println(Colors.redColor + "The player named " + username + " was already disconnected." + Colors.resetColor);
+                    }
+                    break;
+                }
             }
         }
     }
-
-    if (cardBoard[x-1][y+1] != null) {
-        boolean front = cardBoard[x-1][y+1].getSide();
-        if (front) {
-            if(cardBoard[x-1][y+1].getFrontVisibleAngle(1) != null) {
-                coveredAngle.add(cardBoard[x-1][y+1].getFrontVisibleAngle(1));
-            }
-        }
-    }
-
-    if (cardBoard[x-1][y-1] != null) {
-        boolean front = cardBoard[x-1][y-1].getSide();
-        if (front) {
-            if(cardBoard[x-1][y-1].getFrontVisibleAngle(3) != null) {
-                coveredAngle.add(cardBoard[x-1][y-1].getFrontVisibleAngle(3));
-            }
-        }
-    }
-
-    if (!coveredAngle.isEmpty()) {
-        for (VisibleAngle angle : coveredAngle) {
-            game.getCurrentPlayer().resourceLowering(angle.getSymbol());
-        }
-    }
-    coveredAngle.clear();
-}
-
-public void playerDisconnect(String username) {
-    if(!game.getUserList().contains(username)){
-        System.out.println(Colors.redColor + "The player named " + username + " wasn't actually playing." + Colors.resetColor);
-    } else if (!game.getGameState().equals(gameStateEnum.END)) {
+    /**
+     * Checks if the given username is the current player and if so, initiates the next turn.
+     *
+     * @param username The username of the player to check.
+     */
+    public void checkNextTurnForDisconnection(String username) {
         for(Player p: game.getPlayerList()){
             if(p.getPlayerName().equals(username)){
-                if(p.isConnected()){
-                    p.setConnected(false);
-                } else {
-                    System.out.println(Colors.redColor + "The player named " + username + " was already disconnected." + Colors.resetColor);
+                if(game.getCurrentPlayer().equals(p)){
+                    beginTurn();
                 }
                 break;
             }
         }
     }
-}
 
-public void checkNextTurnForDisconnection(String username) {
-    for(Player p: game.getPlayerList()){
-        if(p.getPlayerName().equals(username)){
-            if(game.getCurrentPlayer().equals(p)){
-                beginTurn();
-            }
-            break;
+    public boolean isLastPlayer(String username){
+        return game.getUserList().indexOf(username) == game.getPlayersNumber() - 1;
+    }
+
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
+
+
+    public void initialCardSideSelection(boolean b) {
+        if (game == null || game.getCurrentPlayer() == null) {
+            throw new IllegalArgumentException("Game or current player is null");
+        }
+
+        int y = game.getCurrentPlayer().getGameBoards().getMAX_Y();
+        int x = game.getCurrentPlayer().getGameBoards().getMAX_X();
+
+        if (game.getCurrentPlayer().getGameBoards().getGameBoard() == null ||
+                game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2] == null ||
+                game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2] == null) {
+            throw new IllegalArgumentException("Game board or game board cell is null");
+        }
+
+        game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2].setFrontSide(b);
+        if (game.getCurrentPlayer().getInitialCard() != null) {
+            game.getCurrentPlayer().getInitialCard().addResourcesInitCard(game.getCurrentPlayer());
+            updateBoxes(game.getCurrentPlayer().getInitialCard(), x / 2, y / 2, b);
+        } else {
+            throw new IllegalArgumentException("Initial card is null");
         }
     }
-}
-
-public boolean isLastPlayer(String username){
-    return game.getUserList().indexOf(username) == game.getPlayersNumber() - 1;
-}
-
-public void setFirstTurn(boolean firstTurn) {
-    this.firstTurn = firstTurn;
-}
-
-
-public void initialCardSideSelection(boolean b) {
-    if (game == null || game.getCurrentPlayer() == null) {
-        throw new IllegalArgumentException("Game or current player is null");
-    }
-
-    int y = game.getCurrentPlayer().getGameBoards().getMAX_Y();
-    int x = game.getCurrentPlayer().getGameBoards().getMAX_X();
-
-    if (game.getCurrentPlayer().getGameBoards().getGameBoard() == null ||
-            game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2] == null ||
-            game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2] == null) {
-        throw new IllegalArgumentException("Game board or game board cell is null");
-    }
-
-    game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2].setFrontSide(b);
-    if (game.getCurrentPlayer().getInitialCard() != null) {
-        game.getCurrentPlayer().getInitialCard().addResourcesInitCard(game.getCurrentPlayer());
-        updateBoxes(game.getCurrentPlayer().getInitialCard(), x / 2, y / 2, b);
-    } else {
-        throw new IllegalArgumentException("Initial card is null");
-    }
-}
 }
