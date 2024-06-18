@@ -270,12 +270,7 @@ public class MainController implements Serializable {
         };
     }
 
-    public List<Card> getUncoveredCards(){
-        List<Card> uncoveredCards = new ArrayList<>();
-        uncoveredCards.addAll(game.getVisibleGoldCards());
-        uncoveredCards.addAll(game.getVisibleResourceCards());
-        return uncoveredCards;
-    }
+
 
 
     public boolean isFirstTurn() {
