@@ -199,7 +199,12 @@ public class MainController implements Serializable {
         }
 
         // inviare messaggio fine turno
-        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(), new WaitTurnMsg(ServerHandler.HOSTNAME));
+        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        game.getCurrentPlayer().getPlayerHand(),
+                        game.getCurrentPlayer().getGameBoards(),
+                        game.getCurrentPlayer().getResourcesAvailable(),
+                        game.getCurrentPlayer().getPlayerPoints()));
 
 
         beginTurn();

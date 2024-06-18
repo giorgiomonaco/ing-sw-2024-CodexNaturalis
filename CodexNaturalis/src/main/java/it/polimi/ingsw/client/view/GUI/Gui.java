@@ -17,6 +17,7 @@ public class Gui implements UserInterface {
     private JPanel message;
     private boolean permission;
     private MainPanel mainPanel;
+    private boolean yourTurn;
 
 
     public Gui (Client client){
@@ -65,11 +66,22 @@ public class Gui implements UserInterface {
                 if(glassPane.isVisible()){
                     glassPane.setVisible(false);
                 }
-                addMainPanel();
+                if(mainPanel == null) {
+                    addMainPanel();
+                }
+
+                mainPanel.setYourTurn(true);
                 break;
             case WAITING_TURN:
-                glassPane.setVisible(true);
-                frame.setVisible(true);
+                if(mainPanel == null) {
+                    glassPane.setVisible(true);
+                    frame.setVisible(true);
+                } else {
+                    mainPanel.setYourTurn(false);
+                    mainPanel.updatePanel();
+                    frame.setVisible(true);
+                    mainPanel.getBoard().scrollToMiddle();
+                }
                 break;
             case GAME_STOPPED:
                 manageStop();
@@ -236,11 +248,10 @@ public class Gui implements UserInterface {
     }
 
     private void addDrawPanel() {
-        frame.getContentPane().removeAll();
-        frame.repaint();
-        DrawPanel drawPanel = new DrawPanel(client);
-        frame.add(drawPanel);
-        frame.setVisible(true);
+
+        DrawFrame drawFrame = new DrawFrame(client);
+        drawFrame.setVisible(true);
+
     }
 
     private void manageStop(){

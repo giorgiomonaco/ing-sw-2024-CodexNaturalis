@@ -2,23 +2,26 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.DrawCardResponse;
-import it.polimi.ingsw.network.message.allMessages.SelectionCard;
-import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.GoldCard;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 
-public class DrawPanel extends JPanel {
+public class DrawFrame extends JFrame {
     private final Client client;
     private int selection;
+    private static final int DIM_X = 500;
+    private static final int DIM_Y = 300;
 
-    public DrawPanel(Client client) {
+    public DrawFrame(Client client) {
         this.client = client;
         this.selection = -1;
+        setSize(new Dimension(DIM_X,DIM_Y));
+        setTitle("DRAW");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
         initializePanel();
     }
 
@@ -50,10 +53,10 @@ public class DrawPanel extends JPanel {
     }
 
     private static class buttonListener extends MouseAdapter {
-        private DrawPanel dp;
+        private DrawFrame dp;
         private Client client;
 
-        public buttonListener(DrawPanel dp, Client client) {
+        public buttonListener(DrawFrame dp, Client client) {
             this.dp = dp;
             this.client = client;
         }
@@ -65,6 +68,7 @@ public class DrawPanel extends JPanel {
                 try {
                     //send message with the number of the players
                     client.sendMessage(new DrawCardResponse(client.getUsername(), dp.getSelection()));
+                    dp.dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
