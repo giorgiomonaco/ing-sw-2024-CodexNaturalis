@@ -13,6 +13,7 @@ public class InitialCard extends Card{
     public InitialCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String front, String back){
         super(frontAngles, backAngles, backSymbol, front, back);
         this.cardName = name;
+        setTurn(10);
     }
 
 

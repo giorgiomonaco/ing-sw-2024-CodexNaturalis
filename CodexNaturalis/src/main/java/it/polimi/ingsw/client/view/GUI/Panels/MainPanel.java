@@ -21,11 +21,13 @@ public class MainPanel extends JPanel {
     private int yCoord;
     private boolean side;
     private Card card;
+    private int turn;
 
-    public MainPanel(Client client){
+    public MainPanel(Client client, int turn){
 
         this.client = client;
         this.card = null;
+        this.turn = turn;
         xCoord = -1;
         yCoord = -1;
         side = true;
@@ -115,8 +117,9 @@ public class MainPanel extends JPanel {
             // System.out.println(mp.getxCoord() + " " + mp.getyCoord());
             if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide())) {
                 try {
-                    //send message with the number of the players
+                    //send message with the selection of the card
                     client.sendMessage(new SelectionCard(client.getUsername(), mp.getCard(), mp.getxCoord(), mp.getyCoord(), mp.isSide()));
+                    mp.getCard().setTurn(mp.getTurn() * 10);
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -183,5 +186,9 @@ public class MainPanel extends JPanel {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public int getTurn() {
+        return turn;
     }
 }

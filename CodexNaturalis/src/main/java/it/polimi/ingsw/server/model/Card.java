@@ -37,6 +37,8 @@ public abstract class Card implements Serializable {
 
     private String backImage;
 
+    private int turn = -1;
+
     //Constructor
     public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String frontPath, String backPath) {
         for (int i = 0; i < 4; i++) {
@@ -153,16 +155,16 @@ public abstract class Card implements Serializable {
         return frontImage;
     }
 
-    public void setFrontImage(String frontImage) {
-        this.frontImage = frontImage;
-    }
-
     public String getBackImage() {
         return backImage;
     }
 
-    public void setBackImage(String backImage) {
-        this.backImage = backImage;
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 }
 

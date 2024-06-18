@@ -10,7 +10,7 @@ import java.awt.*;
 public class Gui implements UserInterface {
 
     private final Client client;
-
+    private int turn;
     private MyFrame frame;
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
@@ -23,6 +23,7 @@ public class Gui implements UserInterface {
         this.client = client;
         client.setUI(this);
         permission = true;
+        turn = 2;
     }
 
     @Override
@@ -227,7 +228,8 @@ public class Gui implements UserInterface {
     private void addMainPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        mainPanel = new MainPanel(client);
+        mainPanel = new MainPanel(client, turn);
+        turn++;
         frame.add(mainPanel);
         frame.setVisible(true);
         mainPanel.getBoard().scrollToMiddle();
@@ -282,4 +284,11 @@ public class Gui implements UserInterface {
         stopPane.setVisible(true);
     }
 
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 }
