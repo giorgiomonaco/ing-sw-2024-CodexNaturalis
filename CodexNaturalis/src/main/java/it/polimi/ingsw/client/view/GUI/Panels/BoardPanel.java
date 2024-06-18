@@ -49,8 +49,8 @@ public class BoardPanel extends JPanel {
             int x = (i % cols) * (CARD_X + GAP_X);
             int y = (i / cols) * (CARD_Y + GAP_Y);
 
-            if (client.getBoards().gameBoard[i / rows][i % cols] != null) {
-                Card card = client.getBoards().gameBoard[i / rows][i % cols];
+            if (client.getBoards().gameBoard[i % rows][i / cols] != null) {
+                Card card = client.getBoards().gameBoard[i % rows][i / cols];
                 ImageIcon originalIcon = null;
                 if (card.getSide()) {
                     originalIcon = new ImageIcon(card.getFrontImage());
@@ -68,14 +68,14 @@ public class BoardPanel extends JPanel {
                 // Add to the layer related to the turn
                 layeredPane.add(cardLabel, (Integer) card.getTurn());
 
-            } else if (client.getBoards().checkBoard[i / rows][i % cols] == 0) {
+            } else if (client.getBoards().checkBoard[i % rows][i / cols] == 0) {
 
                 cardLabel = new JLabel();
                 cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 cardLabel.setVerticalAlignment(SwingConstants.CENTER);
                 cardLabel.setBounds(x, y, CARD_X, CARD_Y);
 
-                cardLabel.addMouseListener(new cardMouseListener(cardLabel, (i / rows), (i % cols), mainPanel));
+                cardLabel.addMouseListener(new cardMouseListener(cardLabel, (i % rows), (i / cols), mainPanel));
                 cardLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 cardLabel.setBackground(Color.green);
                 cardLabel.setOpaque(true);
@@ -128,6 +128,7 @@ public class BoardPanel extends JPanel {
                     mainPanel.setxCoord(x);
                     mainPanel.setyCoord(y);
                     label.setBackground(Color.blue);
+                    System.out.println(x + " " + y);
                     isFront = !isFront;
                 }
             } else {
