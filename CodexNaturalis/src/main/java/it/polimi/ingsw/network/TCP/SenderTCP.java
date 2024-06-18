@@ -19,6 +19,7 @@ public class SenderTCP{
         try {
             out.writeObject(msg);
             out.flush();
+            out.reset();
         } catch (IOException e) {
             client.manageDisconnection();
         }

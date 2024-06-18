@@ -44,7 +44,7 @@ public class NumOfPlayersPanel extends JPanel {
             Scanner scan = new Scanner(txt1);
             scan.close();
 
-            if(!isNumeric(txt1)) {
+            if(txt1.isEmpty() || !isNumeric(txt1)) {
                 client.getUI().printErrorMessage("WRONG SELECTION! You have to insert a number, not a string.");
             } else {
 
@@ -72,7 +72,7 @@ public class NumOfPlayersPanel extends JPanel {
             Scanner scan = new Scanner(txt1);
             scan.close();
 
-            if(!isNumeric(txt1)) {
+            if(txt1.isEmpty() || !isNumeric(txt1)) {
                 client.getUI().printErrorMessage("WRONG SELECTION! You have to insert a number, not a string.");
             } else {
 

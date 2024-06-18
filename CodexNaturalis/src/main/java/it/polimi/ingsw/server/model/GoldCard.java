@@ -20,7 +20,7 @@ public class GoldCard extends Card {
     2 = fox (res)
     3 = butterfly (res)
      */
-    private final int[] neededSymbols;
+    private int[] neededSymbols;
 
     //Constructor
     public GoldCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, int condition,

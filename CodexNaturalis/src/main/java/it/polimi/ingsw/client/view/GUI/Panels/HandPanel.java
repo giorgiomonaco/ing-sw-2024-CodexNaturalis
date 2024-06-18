@@ -13,8 +13,8 @@ import java.util.List;
 
 public class HandPanel extends JPanel {
 
-    private final static int CARD_X = 210;
-    private final static int CARD_Y = 140;
+    private final static int CARD_X = 150;
+    private final static int CARD_Y = 100;
 
     /*
     In this panel there will be only the cards the player got in hand
@@ -88,7 +88,7 @@ public class HandPanel extends JPanel {
         actionButton.addMouseListener(new buttonListener(cards, frontIcons, backIcons, mainPanel));
 
         // Set insets to reduce space between cards
-        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         // Set all parameters that have to be same for all
         gbc.gridy = 0;
