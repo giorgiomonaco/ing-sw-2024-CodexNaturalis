@@ -10,11 +10,11 @@ import java.awt.event.MouseEvent;
 public class DeckPanel extends JPanel {
 
     private Client client;
-    private DrawPanel dp;
+    private DrawFrame dp;
     private final static int CARD_X = 210;
     private final static int CARD_Y = 140;
 
-    public DeckPanel(Client client, DrawPanel dp){
+    public DeckPanel(Client client, DrawFrame dp){
         this.client = client;
         this.dp = dp;
         initializePanel();
@@ -97,11 +97,11 @@ public class DeckPanel extends JPanel {
 
     private static class cardMouseListener extends MouseAdapter {
         private int index;
-        private DrawPanel dp;
+        private DrawFrame dp;
         private boolean isFront = true;
         private JLabel label;
 
-        public cardMouseListener(JLabel label, int index, DrawPanel dp) {
+        public cardMouseListener(JLabel label, int index, DrawFrame dp) {
             this.label = label;
             this.index = index;
             this.dp = dp;

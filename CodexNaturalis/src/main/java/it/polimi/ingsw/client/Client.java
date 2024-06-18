@@ -23,6 +23,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<String> playerList = new ArrayList<>();
     private List<Card> playerHand = new ArrayList<>();
     private List<ObjectiveCard> playerObjective = new ArrayList<>();
+    private List<ObjectiveCard> commonObjectives = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
     private List<String> deckPath = new ArrayList<>();
     private boolean admin = false;
@@ -199,5 +200,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public List<String> getDeckPath() {
         return deckPath;
+    }
+
+    public List<ObjectiveCard> getCommonObjectives() {
+        return commonObjectives;
+    }
+
+    public void setCommonObjectives(List<ObjectiveCard> commonObjectives) {
+        this.commonObjectives = commonObjectives;
     }
 }

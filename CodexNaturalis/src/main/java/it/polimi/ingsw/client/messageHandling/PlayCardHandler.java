@@ -9,11 +9,11 @@ public class PlayCardHandler implements MessageHandler {
     @Override
     public void handle(Message msg, Client client) {
         PlayCardReq req = (PlayCardReq) msg;
-        client.setCurrentState(stateEnum.PLAY_CARD);
         client.setPoints(req.getPoints());
         client.setBoards(req.getBoards());
         client.setPlayerHand(req.getCard());
         client.setResources(req.getResources());
+        client.setCurrentState(stateEnum.PLAY_CARD);
         client.getUI().run();
     }
 }
