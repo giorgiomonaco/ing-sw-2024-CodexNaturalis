@@ -101,7 +101,9 @@ public class MainController implements Serializable {
                                 ServerHandler.HOSTNAME,
                                 admin,
                                 game.getPlayerList().get(i).getPlayerHand(),
-                                game.getPlayerList().get(i).getInitialCard()));
+                                game.getPlayerList().get(i).getInitialCard()),
+                                game.getCommonObjectives());
+
 
 
             }

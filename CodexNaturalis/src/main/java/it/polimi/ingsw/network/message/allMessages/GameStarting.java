@@ -6,6 +6,7 @@ import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.InitialCard;
+import it.polimi.ingsw.server.model.ObjectiveCard;
 import it.polimi.ingsw.server.model.ResourceCard;
 
 import java.util.ArrayList;
@@ -15,13 +16,15 @@ public class GameStarting extends Message {
 
     private List<Card> playerHand = new ArrayList<>();
     private InitialCard card;
+    private List<ObjectiveCard> commonObjectives = new ArrayList<>();
     private boolean admin;
 
-    public GameStarting(String senderUsername, boolean admin, List<Card> playerHand, InitialCard card) {
+    public GameStarting(String senderUsername, boolean admin, List<Card> playerHand, InitialCard card, List<ObjectiveCard> commonObjectives) {
         super(messEnum.GAME_STARTING, senderUsername);
         this.playerHand = playerHand;
         this.card = card;
         this.admin = admin;
+        this.commonObjectives = commonObjectives;
     }
 
     public GameStarting(String senderUsername, String optDescription) {
@@ -43,5 +46,9 @@ public class GameStarting extends Message {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public List<ObjectiveCard> getCommonObjectives() {
+        return commonObjectives;
     }
 }

@@ -17,6 +17,7 @@ public class MainPanel extends JPanel {
     private GridBagConstraints gbc;
     private ChatPanel chat;
     private BoardPanel board;
+    private ObjectivePanel objectivePanel;
     private int xCoord;
     private int yCoord;
     private boolean side;
@@ -42,6 +43,7 @@ public class MainPanel extends JPanel {
         // Create all the panels in the main panel
         chat = new ChatPanel(client);
         board = new BoardPanel(client, this);
+        objectivePanel = new ObjectivePanel(client);
         AccessoryPanel other = new AccessoryPanel(client);
         HandPanel hand = new HandPanel(client, this);
 
@@ -51,9 +53,9 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 85; // Increased from 80
+        gbc.gridheight = 90; // Increased from 80
         gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.85; // Increased from 0.8
+        gbc.weighty = 0.9; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
@@ -61,16 +63,16 @@ public class MainPanel extends JPanel {
         gbc.gridx = 80; // Changed from 90
         gbc.gridy = 0;
         gbc.gridwidth = 20; // Increased from 10
-        gbc.gridheight = 85; // Increased from 80
+        gbc.gridheight = 35;// Changed from 80
         gbc.weightx = 0.2; // Increased from 0.1
-        gbc.weighty = 0.85; // Increased from 0.8
+        gbc.weighty = 0.35; // Changed from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(other, gbc);
 
         // Reset the gbc
         // CHAT---
         gbc.gridx = 80; // Changed from 90
-        gbc.gridy = 85; // Changed from 80
+        gbc.gridy = 35; // Changed from 80
         gbc.gridwidth = 20; // Increased from 10
         gbc.gridheight = 15; // Reduced from 20
         gbc.weightx = 0.2; // Reduced from 0.35
@@ -88,6 +90,18 @@ public class MainPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         hand.setBackground(Color.gray);
         add(hand, gbc);
+
+        //OBJECTIVES---
+        gbc.gridx = 80;
+        gbc.gridy = 50;
+        gbc.gridwidth = 20;
+        gbc.gridheight = 50;
+        gbc.weightx = 0.2;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(objectivePanel, gbc);
+
+
 
         // PLACE BUTTON---
         gbc.gridx = 70;
