@@ -237,9 +237,9 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 85; // Increased from 80
+        gbc.gridheight = 90; // Increased from 80
         gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.85; // Increased from 0.8
+        gbc.weighty = 0.9; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
