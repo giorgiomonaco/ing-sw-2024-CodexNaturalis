@@ -345,10 +345,8 @@ public class MainController implements Serializable {
     private void updateBoxes(Card card, int x, int y, boolean side) {
         // Clone the current player's checkBoard to avoid direct modification
         int[][] original = game.getCurrentPlayer().getGameBoards().getCheckBoard();
-        int[][] checkBoard = new int[original.length][original.length];
-        for (int i = 0; i < original.length; i++) {
-            System.arraycopy(original[i], 0, checkBoard[i], 0, original[i].length);
-        }
+        int[][] checkBoard = original.clone();
+
 
         // Update the checkBoard positions based on the card's visible angles and the side flag
         if (side) {
