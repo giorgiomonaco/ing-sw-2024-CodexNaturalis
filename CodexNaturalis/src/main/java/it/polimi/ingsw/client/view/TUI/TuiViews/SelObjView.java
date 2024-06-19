@@ -23,6 +23,6 @@ public class SelObjView implements TuiView{
             i++;
         }
 
-        System.out.println("\n\nInsert obj <x> where x is the number of the card you want:\n");
+        System.out.println("\n\nInsert [obj <x>] where x is the number of the card you want:\n");
     }
 }
