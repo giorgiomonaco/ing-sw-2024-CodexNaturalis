@@ -13,7 +13,7 @@ public class PlayCardView implements TuiView {
     private Boards boards;
     private List<Card> playerHand;
     private Client client;
-    private Colors colors = new Colors();
+
 
 
     @Override
@@ -33,83 +33,55 @@ public class PlayCardView implements TuiView {
     }
 
     private void askCardToPlay() {
-        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command card <num> <x> <y> <side>, where:\n-num is the number of the card you want to play\n-x and y are the coordinates on the board\n-for side write front if you want to place the card face up, back if you want to place it back up.");
+        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command [card <num> <x> <y> <side>], where:\n->num is the number of the card you want to play\n->x and y are the coordinates that you choose\n-side -> front / back");
 
     }
 
     private void printHand() {
         Tui view = (Tui) client.getUI();
-        for (Card card : playerHand) {
-            view.printCard(card);
-        }
+            view.printCards(playerHand);
     }
 
     private void printBoard() {
-     /*  System.out.print("  X: ");
-        for (int o=40; o<60; o++ ) System.out.print(o+"  ");
-       System.out.print("\nY:" );
-        for (int y = 40; y < 60 ; y++){
-
-            System.out.println();
-            System.out.print(y + " ");
-            for (int x = 40; x < 60 ; x++){
-
-                switch (boards.checkboard[x][y]){
-                    case -1:
-                        System.out.print(" "+ colors.redColor+ boards.checkboard[x][y]+ colors.resetColor +" ");
-                        break;
-                    case 0:
-                        System.out.print("  "+ colors.greenColor + boards.checkboard[x][y]+ colors.resetColor +" ");
-                        break;
-                    case 1:
-                        System.out.print("  "+ colors.blueColor + boards.checkboard[x][y]+ colors.resetColor + " ");
-                        break;
-
-                }
-            }
-        }*/
 
         int maxX = 0;
         int maxY = 0;
         int minX = 100;
         int minY = 100;
+
         for (int y = 99; y >= 0; y--) {
-
-
-
             for (int x = 99; x >= 0; x--) {
                 if (boards.checkBoard[x][y] == 1) {
                     if (x > maxX) maxX = x;
                     if (x < minX) minX = x;
                     if (y > maxY) maxY = y;
                     if (y < minY) minY = y;
-
                 }
 
             }
         }
+
         System.out.print("X->");
         for (int o = minX-1; o < maxX+2; o++){
             System.out.print(" "+o+" ");
         }
         for (int y = minY-1; y < maxY+2; y++) {
-
             System.out.println();
             System.out.print(y + " ");
+
 
             for (int x = minX-1; x < maxX+2; x++) {
 
                 switch (boards.checkBoard[x][y]) {
-                    case -1:
-                        System.out.print(" " + colors.redColor + boards.checkBoard[x][y] + colors.resetColor + " ");
+                    case -1, -2:
+                        System.out.print("   ");
                         break;
                     case 0:
-                        System.out.print("  " + colors.greenColor + boards.checkBoard[x][y] + colors.resetColor + " ");
+                        System.out.print("  " + Colors.greenColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                         break;
                     case 1:
-                        System.out.print("  " + colors.blueColor + boards.checkBoard[x][y] + colors.resetColor + " ");
+                        System.out.print("  " + Colors.blueColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                         break;
-
                 }
             }
         }

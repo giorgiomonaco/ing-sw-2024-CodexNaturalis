@@ -129,7 +129,10 @@ public class Game {
             }
 
         }
-        else throw new IllegalStateException("The game is full");
+        else throw new IllegalStateException("" +
+                "" +
+                "" +
+                "The game is full");
     }
 
     //Method to get the list of the players
