@@ -19,6 +19,19 @@ public class EndgameManager {
         this.player = player;
     }
 
+
+    /**
+     * Calculates the total objective points for the current player.
+     * This method evaluates both the player's personal objective card and the common objective cards
+     * to calculate the total points based on the type of objectives.<br><br>
+     * The types of objectives can be:
+     * <ul>
+     *   <li>"position" - Points based on card positions.</li>
+     *   <li>"mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special" - Points for each resource type.</li>
+     * </ul>
+     *
+     * @return the total objective points for the current player.
+     */
     public int objectivePointsCounter() {
         List<ObjectiveCard> obj = new ArrayList<>();
         if(player.getPlayerObjectiveCard() == null || game.getCommonObjectives() == null) return 0;
@@ -63,6 +76,16 @@ public class EndgameManager {
 
         return 0;
     }
+
+
+    /**
+     * This method calculates the points based on the type of resource specified and the player's
+     * available resources. <br>It multiplies the points of the player's objective card by  3.
+     * <br><br> The "special" resource type is calculated differently than the other resource types.
+     *
+     * @param type The type of resource ("mushroom", "leaf", "fox", "butterfly", "feather", "bottle", "scroll", "special").
+     * @return The calculated points based on the specified resource type.
+     */
     private int resourceCounter(String type){
         int[] resources = player.getResourcesAvailable();
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
@@ -79,6 +102,12 @@ public class EndgameManager {
             default -> 0;
         };
     }
+
+    /**
+     * Calculates points based on special conditions for the current player.
+     *
+     * @return The calculated points based on special conditions.
+     */
     private int specialCounter(){
         int[] resources = this.player.getResourcesAvailable();
         int a = Math.floorDiv(resources[4],3);
@@ -86,11 +115,29 @@ public class EndgameManager {
         int c = Math.floorDiv(resources[6],3);
         return (findMin(a,b,c));
     }
+
+    /**
+     * finds the minimum between 3 numbers: a, b, c<br>
+     * @param a first number
+     * @param b second number
+     * @param c third number
+     * @return the minimum
+     */
     private int findMin(int a, int b, int c){
         return Math.min(Math.min(a,b),c);
     }
 
-    //this function verifies if the objective pattern is present and assigns points to the player accordingly
+    /**
+     * Verifies if the objective pattern is present in the specified position and assigns points to the player accordingly.<br><br>
+     * This method checks if the specified objective pattern, defined by the player's objective card,
+     * exists starting from the given coordinates (x, y) in the card matrix. It evaluates two directions
+     * to determine if both patterns are present and assigns points based on the objective card's configuration.
+     *
+     * @param x The starting x-coordinate in the card matrix.
+     * @param y The starting y-coordinate in the card matrix.
+     * @param cardMatrix The matrix of cards where the pattern is checked.
+     * @return The points assigned to the player if the objective pattern is found; otherwise, returns 0.
+     */
     int findPattern(int x, int y, Card[][] cardMatrix){
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
         int newX = x;
@@ -120,8 +167,20 @@ public class EndgameManager {
     }
 
 
-    //this function is called every for every direction findPattern() needs to verify.
-    // Starting from the top card, every layout is either going down in a straight line, or on the diagonals
+    /**
+     * Checks the specified direction in the card matrix starting from the given position (x, y).<br>
+     * This method evaluates a direction specified by the `direction` parameter starting from the position
+     * (x, y) in the `cardMatrix`. It checks if the symbol at the new position matches the `toCheck` symbol
+     * and ensures the new position is within the bounds of the game board.
+     *
+     * @param cardMatrix The matrix of cards where the direction is checked.
+     * @param x The starting x-coordinate in the card matrix.
+     * @param y The starting y-coordinate in the card matrix.
+     * @param direction The direction to check ("down", "down-right", or "down-left").
+     * @param toCheck The symbol color to check against at the new position.
+     * @return true if the symbol at the new position matches `toCheck` and the position is valid; false otherwise.
+     * @throws IllegalArgumentException if the new position is outside the bounds of the game board.
+     */
     boolean checkDirection(Card[][] cardMatrix, int x, int y, String direction, String toCheck) {
         Boards board = this.player.getGameBoards();
 
