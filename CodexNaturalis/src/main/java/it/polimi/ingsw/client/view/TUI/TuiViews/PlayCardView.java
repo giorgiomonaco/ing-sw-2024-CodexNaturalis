@@ -5,8 +5,10 @@ import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.VisibleAngle;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayCardView implements TuiView {
@@ -19,10 +21,11 @@ public class PlayCardView implements TuiView {
     @Override
     public void play(Client client) {
         this.client = client;
-        System.out.println("CHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n-Red: Position not available   -Green: Position available    -Blue: Cards played");
+        System.out.println("CHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n   -Green: Position available    -Blue: Card already played");
         playerHand = client.getPlayerHand();
         boards = client.getBoards();
         printBoard();
+        printLosableResources();
 
         System.out.println("\nCHOOSE A CARD TO PLAY FROM YOUR HAND \n");
         printHand();
@@ -33,7 +36,7 @@ public class PlayCardView implements TuiView {
     }
 
     private void askCardToPlay() {
-        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command [card <num> <x> <y> <side>], where:\n->num is the number of the card you want to play\n->x and y are the coordinates that you choose\n-side -> front / back");
+        System.out.println("WHICH CARD DO YOU WANT TO PLAY ?\n\nInsert command [card <num> <x> <y> <side>], where:\n->num is the number of the card you want to play\n->x and y are the coordinates that you choose\n->side = front / back");
 
     }
 
@@ -105,7 +108,94 @@ public class PlayCardView implements TuiView {
         System.out.println();
     }
 
+    private void printLosableResources() {
+        System.out.println("\n\nthose are your losable resources by placing a card on that spot");
+        int maxX = 0;
+        int maxY = 0;
+        int minX = 100;
+        int minY = 100;
+
+        for (int y = 99; y >= 0; y--) {
+            for (int x = 99; x >= 0; x--) {
+                if (boards.checkBoard[x][y] == 1) {
+                    if (x > maxX) maxX = x;
+                    if (x < minX) minX = x;
+                    if (y > maxY) maxY = y;
+                    if (y < minY) minY = y;
+                }
+
+            }
+        }/*
+        Card[][] cardBoard =client.getBoards().getGameBoard();
+
+        for (int y = minY-1; y < maxY+2; y++) {
+            for (int x = minX-1; x < maxX+2; x++) {
+
+                // List to store the covered angles by neighboring cards
+                List<VisibleAngle> coveredAngle = new ArrayList<>();
+                // Check the front visible angle of the card at (x+1, y+1) if it exists
+                if (cardBoard[x + 1][y + 1] != null) {
+                    boolean front = cardBoard[x + 1][y + 1].getSide();
+                    if (front) {
+                        if (cardBoard[x + 1][y + 1].getFrontVisibleAngle(0) != null) {
+                            coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
+                        }
+                    }
+                }
+
+                // Check the front visible angle of the card at (x+1, y-1) if it exists
+                if (cardBoard[x + 1][y - 1] != null) {
+                    boolean front = cardBoard[x + 1][y - 1].getSide();
+                    if (front) {
+                        if (cardBoard[x + 1][y - 1].getFrontVisibleAngle(2) != null) {
+                            coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
+                        }
+                    }
+                }
+
+                // Check the front visible angle of the card at (x-1, y+1) if it exists
+                if (cardBoard[x - 1][y + 1] != null) {
+                    boolean front = cardBoard[x - 1][y + 1].getSide();
+                    if (front) {
+                        if (cardBoard[x - 1][y + 1].getFrontVisibleAngle(1) != null) {
+                            coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
+                        }
+                    }
+                }
+
+                // Check the front visible angle of the card at (x-1, y-1) if it exists
+                if (cardBoard[x - 1][y - 1] != null) {
+                    boolean front = cardBoard[x - 1][y - 1].getSide();
+                    if (front) {
+                        if (cardBoard[x - 1][y - 1].getFrontVisibleAngle(3) != null) {
+                            coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
+                        }
+                    }
+                }
+
+                // If there are covered angles, lower the player's resources based on the symbols
+                if (!coveredAngle.isEmpty()) {
+                    System.out.print("["+x+","+y+"] ->");
+                    System.out.print("[");
+                    for (VisibleAngle angle : coveredAngle) {
+                        System.out.print(angle.getSymbol().getSymbolName());
+                        if(coveredAngle.size()>1){
+                            System.out.print(", ");
+                        }
+                    }
+                    System.out.println("]");
+
+                }
+
+
+                coveredAngle.clear(); // Clear the list for future use
+            }
+        }
+    }*/
+    }
 }
+
+
 
 
 
