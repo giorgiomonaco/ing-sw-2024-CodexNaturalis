@@ -7,6 +7,6 @@ import java.io.Serializable;
 public class WaitTurnView implements TuiView{
     @Override
     public void play(Client client) {
-        System.out.println("\n\nWait for your turn...\n\n");
+        System.out.println("\nTurn of : " + client.getPlayerList().get(client.getCurrIndex()) + "\nWait for your turn...\n");
     }
 }
