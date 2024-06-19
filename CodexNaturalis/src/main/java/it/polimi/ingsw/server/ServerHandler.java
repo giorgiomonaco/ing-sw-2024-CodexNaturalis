@@ -13,6 +13,8 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
+
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
@@ -29,7 +31,7 @@ public class ServerHandler {
     private final Object lobbyLock = new Object();
     private final Object controllerLock = new Object();
     private final Pinger pinger;
-    private final GameStopper gameStopper;
+    private GameStopper gameStopper;
     // Timeout for the game when only one player remain connected.
     public static int TIMEOUT = 30;
     private boolean stop;
@@ -159,10 +161,6 @@ public class ServerHandler {
                     mainController.chatUpdate(chatMsg.getUsername(), destination, chat);
                     break;
                 }
-
-
-
-
         }
     }
 
@@ -232,7 +230,9 @@ public class ServerHandler {
                 if (!connectedClients.get(username).isConnected()) {
                     // Check if the game is in STOP phase
                     if(stop){
+                        // We interrupt the thread and we create a new one
                         gameStopper.interrupt();
+                        gameStopper = new GameStopper(this);
                         stop = false;
                         synchronized (controllerLock) {
                             mainController.beginTurn();
@@ -316,7 +316,7 @@ public class ServerHandler {
         }
 
         synchronized (controllerLock) {
-            if (mainController == null || mainController.isFirstTurn()) {
+            if (mainController == null) {
                 // the game has not been created yet.
                 sendMessageToAll(new GameAborted(HOSTNAME));
                 System.exit(1);
@@ -327,11 +327,15 @@ public class ServerHandler {
                 synchronized (connectedClients) {
                     for (String user : connectedClients.keySet()) {
                         if (connectedClients.get(user).isConnected()) {
-                            count++;
+                            count = count + 1;
                         }
                     }
                 }
-                if(count == 1) {
+                if(count == 0) {
+                    System.out.println(Colors.redColor + "The server is closing because no one is connected anymore." + Colors.resetColor);
+                    System.exit(0);
+                }
+                else if(count == 1) {
                     stop = true;
                     gameStopper.start();
                 } else {
@@ -343,7 +347,7 @@ public class ServerHandler {
 
     public void endGame(){
         // the last player win the game
-        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true));
+        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, "suca"));
 
         System.exit(2);
     }

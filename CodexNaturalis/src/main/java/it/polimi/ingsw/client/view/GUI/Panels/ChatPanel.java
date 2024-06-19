@@ -66,6 +66,14 @@ public class ChatPanel extends JPanel {
         gbc.weighty = 0.1;
         add(writingPanel, gbc);
 
+        if(client.getChat() != null) {
+            if (!client.getChat().isEmpty()) {
+                for (Chat c : client.getChat()) {
+                    addMessage(c);
+                }
+            }
+        }
+
         // Add listener to the button
         sendButton.addActionListener(new ActionListener() {
             @Override
@@ -137,6 +145,28 @@ public class ChatPanel extends JPanel {
 
         if(lastChat.isPrivate()){
             message = message +  " (to "+ lastChat.getReceiver() + ")";
+            messageLabel = new JLabel(message);
+            messageLabel.setForeground(Color.blue);
+        } else {
+            messageLabel = new JLabel(message);
+        }
+
+        chatPanel.add(messageLabel);
+        chatPanel.revalidate();
+        chatPanel.repaint();
+
+        // Scroll
+        JScrollBar vertical = scrollPane.getVerticalScrollBar();
+        vertical.setValue(vertical.getMaximum());
+    }
+
+    public void addMessage(Chat chat) {
+
+        String message = chat.getSender() + ": " + chat.getMsg();
+        JLabel messageLabel = null;
+
+        if(chat.isPrivate()){
+            message = message +  " (to "+ chat.getReceiver() + ")";
             messageLabel = new JLabel(message);
             messageLabel.setForeground(Color.blue);
         } else {
