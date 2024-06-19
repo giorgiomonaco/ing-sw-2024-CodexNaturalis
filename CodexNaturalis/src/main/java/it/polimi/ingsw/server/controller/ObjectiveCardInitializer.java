@@ -26,6 +26,10 @@ public class ObjectiveCardInitializer {
         this.symbols = symbols;
     }
 
+
+    /**
+     * Initialize objective cards by reading from a JSON file, creating cards, and adding them to the game.
+     */
     public void initializeObjectiveCards(){
 
         String osName = System.getProperty("os.name").toLowerCase();
@@ -78,7 +82,27 @@ public class ObjectiveCardInitializer {
 
     }
 
-    //we add them to the obj card deck of the game
+    /**
+     *
+     *  This method gets the card from the constructor and adds it to the game
+     *
+     * Creates all the initial cards and adds them to the game's initial cards deck.
+     *
+     *       This method initializes the game by creating and adding cards to the initial cards deck.
+     *
+     *       List of all resource symbols angles can have:
+     *       <ul>
+     *         <li>0 = mushroom (resource)</li>
+     *        <li>1 = leaf (resource)</li>
+     *         <li>2 = fox (resource)</li>
+     *         <li>3 = butterfly (resource)</li>
+     *         <li>4 = feather (object)</li>
+     *         <li>5 = bottle (object)</li>
+     *         <li>6 = scroll (object)</li>
+     *       </ul>
+     *
+     * @param card
+     */
     public void addCardToGame(ObjectiveCard card){
         game.addObjectiveCardToDeck(card);
     }

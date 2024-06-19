@@ -4,7 +4,7 @@ import it.polimi.ingsw.server.model.*;
 
 public class BoardsManager {
 
-    private Game game;
+    private final Game game;
     Boards board;
 
     //-----------------INIZIALIZZAZIONI----------------
@@ -12,6 +12,15 @@ public class BoardsManager {
         this.game = game;
     }
 
+
+    /**
+     * Initializes the game boards for every player in the game.
+     *<br>
+     * This method creates a new game board for each player and associates
+     * it with the player.
+     * <br>It also cleans the game board by calling the
+     * cleanCheckBoard method.
+     */
     public void initializeBoards() {
         //fore every player in the game
         for (Player p : game.getPlayerList()) {
@@ -27,13 +36,22 @@ public class BoardsManager {
 
    // -------------------------------------FOR CHECKBOARD--------------------------------------
 
-    // value -1 = empty box
-    //value 0 = playable box
-    // value 1 = used box
-
-
-    // set tutte le caselle a -1
-   public Boards cleanCheckBoard(Boards board){
+    /**
+     * Cleans the check board by setting all cells to -1.
+     * <p>
+     * This method iterates through the check board and sets each cell to -1,
+     * indicating that it is an empty box.
+     *
+     * <br><br>The value assignments for the check board are:
+     * <ul>
+     *   <li>-1 = empty box</li>
+     *   <li>0 = playable box</li>
+     *   <li>1 = used box</li>
+     * </ul>
+     *
+     * @param board The game board to be cleaned.
+     */
+   public void cleanCheckBoard(Boards board){
     this.board= board;
 
        for(int i=0;i<board.getMAX_X();i++){
@@ -41,54 +59,5 @@ public class BoardsManager {
                board.getCheckBoard()[i][j] = -1;
            }
        }
-
-       return board;
    }
-
-  /*  public void updateBoxes(Card card, int x, int y){
-        if(card.isFrontSide()){
-            if((card.getFrontVisibleAngle(3)!=null) &&
-                    (board.getCheckBoard()[x-1][y+1] != 1)){
-                board.getCheckBoard()[(x)-1][(y)+1]=0;
-            }
-            if(card.getFrontVisibleAngle(0)!=null &&
-                    (board.getCheckBoard()[x+1][y+1] != 1)){
-                board.getCheckBoard()[(x)+1][(y)+1]=0;
-            }
-            if(card.getFrontVisibleAngle(1)!=null &&
-                    (board.getCheckBoard()[x+1][y-1] != 1)){
-                board.getCheckBoard()[(x)+1][(y)-1]=0;
-            }
-            if(card.getFrontVisibleAngle(2)!=null &&
-                    (board.getCheckBoard()[x-1][y-1] != 1)){
-                board.getCheckBoard()[(x)-1][(y)-1]=0;
-            }
-        } else {
-            if (card.getBackVisibleAngle(3) != null &&
-                    (board.getCheckBoard()[x - 1][y + 1] != 1)) {
-                board.getCheckBoard()[(x) - 1][(y) + 1] = 0;
-            }
-            if (card.getBackVisibleAngle(0) != null &&
-                    (board.getCheckBoard()[x + 1][y + 1] != 1)) {
-                board.getCheckBoard()[(x) + 1][(y) + 1] = 0;
-            }
-            if (card.getBackVisibleAngle(1) != null &&
-                    (board.getCheckBoard()[x + 1][y - 1] != 1)) {
-                board.getCheckBoard()[(x) + 1][(y) - 1] = 0;
-            }
-            if (card.getBackVisibleAngle(2) != null &&
-                    (board.getCheckBoard()[x + 1][y - 1] != 1)) {
-                board.getCheckBoard()[(x) - 1][(y) - 1] = 0;
-            }
-        }
-    }*/
-
-
-
-
-
-
-
-
-
 }

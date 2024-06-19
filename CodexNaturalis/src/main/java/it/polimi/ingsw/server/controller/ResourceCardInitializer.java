@@ -31,7 +31,25 @@ public class ResourceCardInitializer {
         this.symbols = symbols;
     }
 
-    // Initialize cards, creation and call to adder to deck
+
+    /**
+     * Creates all the initial cards and adds them to the game's initial cards deck.
+     *
+     * This method initializes the game by creating and adding cards to the initial cards deck.
+     *
+     * List of all resource symbols angles can have:
+     * <ul>
+     *   <li>0 = mushroom (resource)</li>
+     *   <li>1 = leaf (resource)</li>
+     *   <li>2 = fox (resource)</li>
+     *   <li>3 = butterfly (resource)</li>
+     *   <li>4 = feather (object)</li>
+     *   <li>5 = bottle (object)</li>
+     *   <li>6 = scroll (object)</li>
+     * </ul>
+
+     * Initialize resource cards by reading from a JSON file, creating cards, and adding them to the game.
+     */
     public void initializeResourceCards() {
 
         String osName = System.getProperty("os.name").toLowerCase();
@@ -144,7 +162,7 @@ public class ResourceCardInitializer {
                 }
 
                 ResourceCard resourceCard = new  ResourceCard( cardNumber,  pointsInt,
-                resCardFrontAngles, resCardBackAngles, backSymbol, front, back);
+                        resCardFrontAngles, resCardBackAngles, backSymbol, front, back);
                 addCardToGame(resourceCard);
 
                 cardNumber++;
@@ -154,7 +172,10 @@ public class ResourceCardInitializer {
         }
     }
 
-   // Add the card to the resource deck
+    /**
+     * This method gets the card from the constructor and adds it to the game
+     * @param card
+     */
     public void addCardToGame(ResourceCard card) {
         game.addResourceCardToDeck(card);
     }

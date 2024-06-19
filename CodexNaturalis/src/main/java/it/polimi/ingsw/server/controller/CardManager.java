@@ -15,15 +15,7 @@ public class CardManager {
 
     private final Game game;
 
-    //list of all resource symbols angles can have
-    //The list:
-    //0 = mushroom (res)
-    //1 = leaf (res)
-    //2 = fox (res)
-    //3 = butterfly (res)
-    //4 = feather (obj)
-    //5 = bottle (obj)
-    //6 = scroll (obj)
+
     private final List<Symbol> symbols = new ArrayList<>();
 
     //Constructor
@@ -31,9 +23,14 @@ public class CardManager {
         this.game = game;
     }
 
-    //Start the initialization of all the cards into the game:
-    //Create and place into the decks of the game all types of cards
-    //After creating their managers to do so
+    /**
+     * Initializes all the cards in the game.
+     *
+     * This method creates and places all types of cards into the game's decks.
+     * It also creates the managers to do so.
+     *
+     * @return void
+     */
     public void initializeAllCards() {
 
         //first we have to create the list of all symbols (resources and objects)
@@ -63,7 +60,13 @@ public class CardManager {
         shuffleDecks();
         drawUncoveredCards();
     }
-    // Shuffle all the decks
+
+
+    /**
+     * Shuffles all the decks used in the game.
+
+     * After calling this method, the order of cards in each deck will be random.
+     */
     private void shuffleDecks() {
         Collections.shuffle(game.getResourceDeck());
         Collections.shuffle(game.getGoldDeck());
@@ -72,7 +75,30 @@ public class CardManager {
     }
 
 
-    //getter of the symbol list
+    /**
+     * Creates all the symbols used in the game and adds them to the array of symbols.
+     *
+     * This method initializes the game by creating all the symbols present, starting
+     * with resource symbols followed by object symbols.
+     * <br>
+     * <br>
+     * The resource symbols created are:
+     * <ul>
+     *   <li>mushroom (resource)</li>
+     *   <li>leaf (resource)</li>
+     *   <li>fox (resource)</li>
+     *   <li>butterfly (resource)</li>
+     * </ul>
+     *<br>
+     * The object symbols created are:
+     * <ul>
+     *   <li>feather (object)</li>
+     *   <li>bottle (object)</li>
+     *   <li>scroll (object)</li>
+     * </ul>
+     *
+     * After calling this method, the symbols array will contain all the initialized symbols.
+     */
     public List<Symbol> getSymbols() {
         return symbols;
     }
@@ -103,6 +129,10 @@ public class CardManager {
         symbols.add(scroll);
 
     }
+
+    /**
+     * Draws uncovered cards from the game.
+     */
     public void drawUncoveredCards(){
         game.drawUncoveredCards();
     }

@@ -614,6 +614,7 @@ public class MainController implements Serializable {
      * @param  b   The boolean value to set the initial card side to.
      */
     public void initialCardSideSelection(boolean b) {
+
         if (game == null || game.getCurrentPlayer() == null) {
             throw new IllegalArgumentException("Game or current player is null");
         }
@@ -628,6 +629,8 @@ public class MainController implements Serializable {
         }
 
         game.getCurrentPlayer().getGameBoards().getGameBoard()[x / 2][y / 2].setFrontSide(b);
+
+
         if (game.getCurrentPlayer().getInitialCard() != null) {
             game.getCurrentPlayer().getInitialCard().addResourcesInitCard(game.getCurrentPlayer());
             updateBoxes(game.getCurrentPlayer().getInitialCard(), x / 2, y / 2, b);

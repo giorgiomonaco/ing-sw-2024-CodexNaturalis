@@ -7,14 +7,23 @@ import java.util.*;
 public class DrawManager {
     //This class manage all the drawing of the game
     private final Game game;
-    boolean frontSide;
 
     //Constructor
     public DrawManager(Game game) {
         this.game = game;
     }
 
-    //initialize players hand
+    /**
+     * Initializes the hand of each player in the game.
+     * This method sets up the initial hand for each player by drawing the necessary cards.
+     * Steps performed for each player:
+     * <ul>
+     *   <li>Set the current player.</li>
+     *   <li>Draw and add 2 initial resource cards.</li>
+     *   <li>Draw and add 1 gold card.</li>
+     *   <li>Draw and add 2 objective cards.</li>
+     * </ul>
+     */
     public void initializePlayersHand() {
         //for every player playing the game
         for (Player p : game.getPlayerList()) {
@@ -35,8 +44,17 @@ public class DrawManager {
         distributeInitialCards();
     }
 
-    // Distribute the initial card to every player
-// Placing it in the middle of the player board game
+    /**
+     * Distributes the initial card to every player.
+     * This method draws an initial card for each player and places it in the middle
+     * of the player's board game. It also updates the checkboard accordingly.
+     * Steps performed for each player:
+     * <ul>
+     *   <li>Draw an initial card.</li>
+     *   <li>If the initial card is not null, set it as the player's initial card.</li>
+     *   <li>Update the checkboard with the initial card.</li>
+     * </ul>
+     */
     public void distributeInitialCards() {
         List<Player> playerList = game.getPlayerList();
         for (Player player : playerList) {
@@ -44,12 +62,20 @@ public class DrawManager {
             if (initialCard != null) {
                 player.setInitialCard(initialCard);
 
-             //  initialCard.setFrontSide(true);
+                //  initialCard.setFrontSide(true);
                 updateCheckboard(player, initialCard);
             }
         }
     }
 
+
+    /**
+     * Updates the checkboard for the given player with the specified initial card.<br>
+     * This method places the initial card in the center of the player's game board
+     * and updates the checkboard to reflect the card's placement.
+     * @param player The player whose checkboard is being updated.
+     * @param initialCard The initial card to place on the checkboard.
+     */
     private void updateCheckboard(Player player, InitialCard initialCard) {
         Boards gameBoard = player.getGameBoards();
         if (gameBoard != null) {
@@ -57,43 +83,16 @@ public class DrawManager {
             if (checkboard != null) {
                 checkboard[50][50] = 1;
                 gameBoard.getGameBoard()[50][50] = initialCard;
-                updateCheckboardBasedOnCard(checkboard, initialCard);
             }
         }
     }
 
-    private void updateCheckboardBasedOnCard(int[][] checkboard, InitialCard initialCard) {
-        if (initialCard.isFrontSide()) {
-            updateCheckboardForAngles(checkboard, initialCard.getFrontAngles());
-        } else {
-            updateCheckboardForAngles(checkboard, initialCard.getBackAngles());
-        }
-    }
 
-    private void updateCheckboardForAngles(int[][] checkboard, VisibleAngle[] angles) {
-        if (angles != null) {
-            if (angles[0] != null) {
-                checkboard[49][49] = 0;
-            }
-            if (angles[1] != null) {
-                checkboard[51][49] = 0;
-            }
-            if (angles[2] != null) {
-                checkboard[49][51] = 0;
-            }
-            if (angles[3] != null) {
-                checkboard[51][51] = 0;
-            }
-        }
-    }
-
-    //Distribute the initial card to every player
-    //placing it in the middle of the player board game
-
-
-    //initialize resource cards
+    /**
+     * Draws a resource card from the resource deck and adds it to the current player's hand.
+     */
     public void drawResourceCards() {
-        //Draw a resource card from the resource deck of the game
+
         ResourceCard card = game.drawResourceCard();
         //add the card to the player hand
         game.getCurrentPlayer().addResourceCard(card);
@@ -101,7 +100,9 @@ public class DrawManager {
         // game.removeFormResourceDeck(card);
     }
 
-    //initialize gold cards
+    /**
+     * Draws a gold card from the resource deck and adds it to the current player's hand.
+     */
     public void drawGoldCards() {
         //Draw a gold card from the common deck
         GoldCard card = game.drawGoldCard();
@@ -111,53 +112,15 @@ public class DrawManager {
         // game.removeFormGoldDeck(card);
     }
 
-    //initialize obj cards
+    /**
+     * Draws an objective card from the resource deck and adds it to the current player's hand.
+     */
     public void drawObjectiveCards() {
         //Draw a gold card from the common deck
         ObjectiveCard card = game.drawObjectiveCard();
         //Add it to the hand of the player
         game.getCurrentPlayer().addSelObjectiveCard(card);
         //remove it from the gold deck
-        // game.removeFormGoldDeck(card);
     }
 
-
-    //initialize objective cards
-    public ObjectiveCard[] sendChoice() {
-        ObjectiveCard[] choice = new ObjectiveCard[2];
-        for (int i = 0; i < 2; i++) {
-            choice[i] = game.drawObjectiveCard();
-        }
-        return choice;
-    }
-
-    public void setObjectiveCards(ObjectiveCard choice) {
-        game.getCurrentPlayer().setObjectiveCard(choice);
-        game.getObjectiveDeck().remove(choice);
-    }
-
-    /*
-    Method to draw a card
-     */
-    public void startDrawPhase() {
-        /*
-        Draw phase:
-        . asking the deck the player wants to draw from
-        . draw from it
-        . add to player hand
-         */
-        //We ensure that the decks are not empty
-        boolean resDeckEmpty = game.getResourceDeck().isEmpty();
-        boolean goldDeckEmpty = game.getGoldDeck().isEmpty();
-        //We want to retrieve the names of the discovered cards we got
-        List<String> discoveredResCards = new ArrayList<>();
-        for (ResourceCard c : game.getCommonBoard().getDiscoveredResourceCards()) {
-            discoveredResCards.add(String.valueOf(c.getCardID()));
-        }
-        List<String> discoveredGoldCards = new ArrayList<>();
-        for (GoldCard c : game.getCommonBoard().getDiscoveredGoldCards()) {
-            discoveredGoldCards.add(String.valueOf(c.getCardID()));
-        }
-
-    }
 }
