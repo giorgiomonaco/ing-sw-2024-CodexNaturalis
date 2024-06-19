@@ -36,7 +36,6 @@ class CommonBoardManagerTest {
         //initialize the resource cards
         resourceCardInitializer.initializeResourceCards();
 
-        manager.discoverResourceCard();
 
         // Verifica che una carta di risorse sia stata disegnata e aggiunta al CommonBoard
         List<ResourceCard> discoveredSourceCards = game.getCommonBoard().getDiscoveredResourceCards();

@@ -17,7 +17,12 @@ public class GameSetUpper {
         this.game = game;
     }
 
-    //Initialization of the game
+
+    /**
+     * Sets up the game by initializing all necessary components, including tokens, player boards, the common board,
+     * and player hands. This method orchestrates the creation and initialization of managers responsible for different
+     * aspects of the game setup.
+     */
     public void gameSetUp(){
 
         //create the token manager
@@ -51,6 +56,13 @@ public class GameSetUpper {
 
     }
 
+
+    /**
+     * Creates a new game with the specified username. This method initializes the player, sets the game state,
+     * and initializes all the cards in the game.
+     *
+     * @param username The username of the player who is creating the game.
+     */
     public void CreateGame(String username){
 
         //Initialization of the players
