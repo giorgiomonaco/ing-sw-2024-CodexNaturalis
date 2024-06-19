@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Frames.MyFrame;
 import it.polimi.ingsw.client.view.GUI.Panels.*;
 import it.polimi.ingsw.client.view.UserInterface;
 
@@ -11,10 +12,10 @@ public class Gui implements UserInterface {
 
     private final Client client;
     private int turn;
-    private int index;
     private MyFrame frame;
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
+    private JPanel stopPane;
     private JPanel message;
     private boolean permission;
     private MainPanel mainPanel;
@@ -26,7 +27,6 @@ public class Gui implements UserInterface {
         client.setUI(this);
         permission = true;
         turn = 2;
-        index = -1;
         gameSetUp = true;
     }
 
@@ -67,8 +67,15 @@ public class Gui implements UserInterface {
                 gameSetUp = false;
                 break;
             case PLAY_CARD:
+                if(message != null){
+                    frame.getContentPane().remove(message);
+                    frame.repaint();
+                }
                 if(glassPane.isVisible()){
                     glassPane.setVisible(false);
+                }
+                if(stopPane != null){
+                    stopPane.setVisible(false);
                 }
                 if(mainPanel == null) {
                     addMainPanel();
@@ -80,6 +87,10 @@ public class Gui implements UserInterface {
                 }
                 break;
             case WAITING_TURN:
+                if(message != null){
+                    frame.getContentPane().remove(message);
+                    frame.repaint();
+                }
                 if(gameSetUp){
                     glassPane.setVisible(true);
                     frame.setVisible(true);
@@ -99,12 +110,16 @@ public class Gui implements UserInterface {
                 manageStop();
                 break;
             case ALREADY_STARTED:
+                addAlreadyStartedPanel();
                 break;
             case DISCONNECTION:
+                addDisconnectionPanel();
                 break;
             case REJECTED:
+                addRejectedPanel();
                 break;
             case SHOW_WINNER:
+                addEndGamePanel();
                 break;
             case DRAW_CARD:
                 addDrawFrame();
@@ -260,58 +275,81 @@ public class Gui implements UserInterface {
     }
 
     private void addDrawFrame() {
-
         DrawFrame drawFrame = new DrawFrame(client);
         drawFrame.setVisible(true);
+    }
 
+    private void addAlreadyStartedPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new AlreadyStartedPanel());
+        frame.setVisible(true);
+    }
+
+    private void addRejectedPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new RejectedPanel());
+        frame.setVisible(true);
+    }
+
+    private void addDisconnectionPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new DisconnectionPanel());
+        frame.setVisible(true);
+    }
+
+    private void addEndGamePanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new EndGamePanel(client));
+        frame.setVisible(true);
     }
 
     private void manageStop(){
-        JPanel stopPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Draw the semi-transparent cover
-                g.setColor(new Color(0, 0, 0, 200));
-                g.fillRect(0, 0, getWidth(), getHeight());
+        if(stopPane != null){
+            stopPane.setVisible(true);
+        } else {
+            stopPane = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    // Draw the semi-transparent cover
+                    g.setColor(new Color(0, 0, 0, 200));
+                    g.fillRect(0, 0, getWidth(), getHeight());
 
-                g.setColor(Color.WHITE);
-                g.setFont(new Font("Arial", Font.BOLD, 24));
-                String[] lines = {
-                        "-- GAME STOPPED --",
-                        "If nobody rejoin the game in 30 seconds,",
-                        "you will win the game."
-                };
-                FontMetrics metrics = g.getFontMetrics(g.getFont());
+                    g.setColor(Color.WHITE);
+                    g.setFont(new Font("Arial", Font.BOLD, 24));
+                    String[] lines = {
+                            "-- GAME STOPPED --",
+                            "If nobody rejoin the game in 30 seconds,",
+                            "you will win the game."
+                    };
+                    FontMetrics metrics = g.getFontMetrics(g.getFont());
 
-                int totalHeight = 0;
-                for (String line : lines) {
-                    totalHeight += metrics.getHeight();
+                    int totalHeight = 0;
+                    for (String line : lines) {
+                        totalHeight += metrics.getHeight();
+                    }
+                    int y = (getHeight() - totalHeight) / 2;
+
+                    for (String line : lines) {
+                        int x = (getWidth() - metrics.stringWidth(line)) / 2;
+                        g.drawString(line, x, y + metrics.getAscent());
+                        y += metrics.getHeight();
+                    }
                 }
-                int y = (getHeight() - totalHeight) / 2;
+            };
 
-                for (String line : lines) {
-                    int x = (getWidth() - metrics.stringWidth(line)) / 2;
-                    g.drawString(line, x, y + metrics.getAscent());
-                    y += metrics.getHeight();
-                }
-            }
-        };
+            stopPane.setLayout(new GridBagLayout());
+            stopPane.setOpaque(false);
+            permission = false;
 
-        stopPane.setLayout(new GridBagLayout());
-        stopPane.setOpaque(false);
-        permission = false;
-
-        // Set the stopPane as the frame GlassPane
-        frame.setGlassPane(stopPane);
-        stopPane.setVisible(true);
+            // Set the stopPane as the frame GlassPane
+            frame.setGlassPane(stopPane);
+            stopPane.setVisible(true);
+        }
     }
 
-    public int getTurn() {
-        return turn;
-    }
-
-    public void setTurn(int turn) {
-        this.turn = turn;
-    }
 }

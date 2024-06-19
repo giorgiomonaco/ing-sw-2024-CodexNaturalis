@@ -51,6 +51,14 @@ public class AccessoryPanel extends JPanel {
         }
 
         add(playersPanel, BorderLayout.CENTER);
+
+        /*
+        We create the panel to see the point tracker with the current situation
+        And we may add there the possibility to look at the card the player may draw
+        without making him actually draw
+         */
+
+
     }
 
     public List<JLabel> getPlayersLab() {

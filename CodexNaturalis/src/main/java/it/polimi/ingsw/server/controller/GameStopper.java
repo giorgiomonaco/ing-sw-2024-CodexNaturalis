@@ -16,6 +16,7 @@ public class GameStopper extends Thread{
     }
     public void run(){
         handler.sendMessageToAll(new GameStopped(ServerHandler.HOSTNAME));
+        System.out.println(Colors.redColor + "The game stopped because there is only one player connected." + Colors.resetColor);
 
         try {
             TimeUnit.SECONDS.sleep(ServerHandler.TIMEOUT);
