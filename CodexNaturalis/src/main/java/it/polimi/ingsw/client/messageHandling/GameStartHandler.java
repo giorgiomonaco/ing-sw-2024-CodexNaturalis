@@ -18,10 +18,5 @@ public class GameStartHandler implements MessageHandler {
 
         client.getUI().run();
 
-        if(!game.isAdmin()) {
-            client.setCurrentState(stateEnum.WAITING_TURN);
-            client.getUI().run();
-        }
-
     }
 }

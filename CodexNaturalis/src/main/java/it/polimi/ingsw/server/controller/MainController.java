@@ -207,47 +207,25 @@ public class MainController implements Serializable {
         } while (!game.getCurrentPlayer().isConnected() &&
                 !(firstTurnIndex == game.getPlayersNumber()-1));
 
-        if(firstTurnIndex == 0){
-            serverHandler.sendMessageToPlayer(game.getUserList().getFirst(),
-                    new FirstTurn(
-                            ServerHandler.HOSTNAME,
-                            true,
-                            availableToken,
-                            getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
 
-            for (String p : game.getUserList()) {
-                if (!p.equals(game.getUserList().getFirst())) {
-                    serverHandler.sendMessageToPlayer(
-                            p,
-                            new WaitTurnMsg(ServerHandler.HOSTNAME,
-                                    getPlayerByUsername(p).getPlayerHand(),
-                                    getPlayerByUsername(p).getGameBoards(),
-                                    getPlayerByUsername(p).getResourcesAvailable(),
-                                    getPlayerByUsername(p).getPlayerPoints(),
-                                    firstTurnIndex)
-                    );
-                }
-            }
+        serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
+                new FirstTurn(
+                        ServerHandler.HOSTNAME,
+                        availableToken,
+                        getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
 
-        } else {
-            serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
-                    new FirstTurn(
-                            ServerHandler.HOSTNAME,
-                            false,
-                            availableToken,
-                            getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
-            for (String p : game.getUserList()) {
-                if (!p.equals(game.getUserList().get(firstTurnIndex))) {
-                    serverHandler.sendMessageToPlayer(
-                            p,
-                            new WaitTurnMsg(ServerHandler.HOSTNAME,
-                                    getPlayerByUsername(p).getPlayerHand(),
-                                    getPlayerByUsername(p).getGameBoards(),
-                                    getPlayerByUsername(p).getResourcesAvailable(),
-                                    getPlayerByUsername(p).getPlayerPoints(),
-                                    firstTurnIndex)
-                    );
-                }
+        for (String p : game.getUserList()) {
+            if (!p.equals(game.getUserList().get(firstTurnIndex))) {
+                serverHandler.sendMessageToPlayer(
+                        p,
+                        new WaitTurnMsg(ServerHandler.HOSTNAME,
+                                getPlayerByUsername(p).getPlayerHand(),
+                                getPlayerByUsername(p).getGameBoards(),
+                                getPlayerByUsername(p).getResourcesAvailable(),
+                                getPlayerByUsername(p).getPlayerPoints(),
+                                firstTurnIndex)
+                );
+
             }
         }
 

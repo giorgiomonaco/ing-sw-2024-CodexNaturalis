@@ -20,8 +20,7 @@ public class LoginHandler implements MessageHandler{
             client.setUsername(response.getDescription());
             client.setCurrentState(stateEnum.WAITING_TURN);
             client.getUI().run();
-        }
-        else {
+        } else {
             client.getUI().printErrorMessage(response.getDescription());
         }
     }

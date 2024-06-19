@@ -26,7 +26,6 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<ObjectiveCard> commonObjectives = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
     private List<String> deckPath = new ArrayList<>();
-    private boolean admin = false;
     private Boards boards;
     private int[] resources;
     private int points;
@@ -111,14 +110,6 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setAvailableTokens(List<String> availableTokens) {
         this.availableTokens = availableTokens;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
     }
 
     public InitialCard getInit() {

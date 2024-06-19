@@ -64,6 +64,7 @@ public class Gui implements UserInterface {
                 break;
             case SELECT_OBJECTIVE:
                 addSelObjPanel();
+                gameSetUp = false;
                 break;
             case PLAY_CARD:
                 if(mainPanel == null) {
@@ -72,14 +73,15 @@ public class Gui implements UserInterface {
                     mainPanel.setYourTurn(true);
                     mainPanel.setIndex(client.getPlayerList().indexOf(client.getUsername()));
                 }
+                if(gameSetUp){
+                    gameSetUp = false;
+                }
                 break;
             case WAITING_TURN:
                 if(gameSetUp){
                     glassPane.setVisible(true);
                     frame.setVisible(true);
-                    gameSetUp = false;
-                }
-                else if(mainPanel == null) {
+                } else if(mainPanel == null) {
                     addMainPanel();
                     mainPanel.setYourTurn(false);
                     mainPanel.setIndex(client.getCurrIndex());

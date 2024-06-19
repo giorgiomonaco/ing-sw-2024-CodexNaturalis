@@ -13,7 +13,7 @@ public class SelTokenView implements TuiView{
 
         availableTokens = client.getAvailableTokens();
 
-        if(!client.isAdmin()) {
+        if(!client.getPlayerList().getFirst().equals(client.getUsername())) {
 
             System.out.println("\n+----------------------+\n" +
                     "|      GAME SET UP     |\n" +
