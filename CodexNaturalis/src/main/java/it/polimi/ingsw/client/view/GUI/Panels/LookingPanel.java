@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Frames.PointTrackerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +12,11 @@ public class LookingPanel extends JPanel {
 
     //we want to add button to look at point tracker
     //and to look at drawing possibilities
-    private Client client;
+    private final Client client;
     public LookingPanel(Client c){
         this.client = c;
         createElements();
-
     }
-
     private void createElements(){
         //first we create the looker of the point tracker
         JButton pointsLooker = new JButton("Points");
@@ -26,8 +25,8 @@ public class LookingPanel extends JPanel {
         pointsLooker.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //we want to retrieve the point tracker from the game
-
+                //we want to displace the point tracker frame
+                PointTrackerFrame scoreFrame = new PointTrackerFrame(client);
             }
         });
     }
