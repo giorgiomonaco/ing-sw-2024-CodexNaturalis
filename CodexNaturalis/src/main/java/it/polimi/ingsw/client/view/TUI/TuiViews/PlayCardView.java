@@ -13,7 +13,6 @@ public class PlayCardView implements TuiView {
     private Boards boards;
     private List<Card> playerHand;
     private Client client;
-    private Colors colors = new Colors();
 
 
     @Override
@@ -73,15 +72,16 @@ public class PlayCardView implements TuiView {
 
                 switch (boards.checkBoard[x][y]) {
                     case -1:
-                        System.out.print(" " + colors.redColor + boards.checkBoard[x][y] + colors.resetColor + " ");
+                        System.out.print(" " + Colors.redColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                         break;
                     case 0:
-                        System.out.print("  " + colors.greenColor + boards.checkBoard[x][y] + colors.resetColor + " ");
+                        System.out.print("  " + Colors.greenColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                         break;
                     case 1:
-                        System.out.print("  " + colors.blueColor + boards.checkBoard[x][y] + colors.resetColor + " ");
+                        System.out.print("  " + Colors.blueColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                         break;
-
+                    case 2:
+                        System.out.print(" "+ Colors.redColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                 }
             }
         }
