@@ -67,7 +67,15 @@ public class PointTrackerManager {
         }
     }
 
-    //Put the tokens into starting position
+    /**
+     * Places each player's token at the starting position on the point tracker.
+     * <p>
+     * This method iterates through the list of players in the game and performs the following actions for each player:
+     * <ol>
+     *     <li>Retrieves the player's token.</li>
+     *     <li>Adds the token to the first box (starting position) of the point tracker on the common board.</li>
+     * </ol>
+     */
     public void placeTokenAtStart(){
         //For every player into the list
         for (Player p : game.getPlayerList()) {
@@ -77,6 +85,19 @@ public class PointTrackerManager {
             game.getCommonBoard().getPointTracker().getTokenBox(0).add(token);
         }
     }
+
+    /**
+     * Moves the specified token to the corresponding point box on the point tracker.
+     * <p>
+     * This method performs the following actions:
+     * <ol>
+     *     <li>Removes the current player's token from its current position in the point tracker.</li>
+     *     <li>Moves the token to the point box corresponding to the updated player points.</li>
+     * </ol>
+     *
+     * @param token The token to be moved.
+     * @param points The updated points of the current player, determining the destination point box.
+     */
 
     public void moveToken(Token token, int points){
 
