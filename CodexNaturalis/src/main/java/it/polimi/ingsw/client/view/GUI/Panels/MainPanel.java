@@ -111,11 +111,11 @@ public class MainPanel extends JPanel {
 
         // PLACE BUTTON---
         gbc.gridx = 60;
-        gbc.gridy = 80;
+        gbc.gridy = 90;
         gbc.gridwidth = 20;
-        gbc.gridheight = 20;
+        gbc.gridheight = 10;
         gbc.weightx = 0.2;
-        gbc.weighty = 0.2;
+        gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
         JButton button = new JButton("PLACE");
         button.addMouseListener(new buttonListener(this, client));
@@ -254,18 +254,18 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 80; // Increased from 80
+        gbc.gridheight = 90; // Increased from 80
         gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.8; // Increased from 0.8
+        gbc.weighty = 0.9; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 80; // Changed from 80
+        gbc.gridy = 90; // Changed from 80
         gbc.gridwidth = 60; // Reduced from 90
-        gbc.gridheight = 20; // Reduced from 20
+        gbc.gridheight = 10; // Reduced from 20
         gbc.weightx = 0.6; // Reduced from 0.9
-        gbc.weighty = 0.2; // Increased from 0.1
+        gbc.weighty = 0.1; // Increased from 0.1
         gbc.fill = GridBagConstraints.BOTH;
         hand.setBackground(Color.gray);
         add(hand, gbc);
