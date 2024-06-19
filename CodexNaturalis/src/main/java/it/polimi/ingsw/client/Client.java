@@ -22,7 +22,8 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private stateEnum currentState;
     private List<String> playerList = new ArrayList<>();
     private List<Card> playerHand = new ArrayList<>();
-    private List<ObjectiveCard> playerObjective = new ArrayList<>();
+    private List<ObjectiveCard> listObjective = new ArrayList<>();
+    private ObjectiveCard objective;
     private List<ObjectiveCard> commonObjectives = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
     private List<String> deckPath = new ArrayList<>();
@@ -96,12 +97,12 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         this.playerHand = playerHand;
     }
 
-    public List<ObjectiveCard> getPlayerObjective() {
-        return playerObjective;
+    public List<ObjectiveCard> getListObjective() {
+        return listObjective;
     }
 
-    public void setPlayerObjective(List<ObjectiveCard> playerObjective) {
-        this.playerObjective = playerObjective;
+    public void setListObjective(List<ObjectiveCard> listObjective) {
+        this.listObjective = listObjective;
     }
 
     public List<String> getAvailableTokens() {
@@ -208,5 +209,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setCurrIndex(int currIndex) {
         this.currIndex = currIndex;
+    }
+
+    public ObjectiveCard getObjective() {
+        return objective;
+    }
+
+    public void setObjective(ObjectiveCard objective) {
+        this.objective = objective;
     }
 }

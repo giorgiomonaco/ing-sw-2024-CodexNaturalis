@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
+import it.polimi.ingsw.server.model.ObjectiveCard;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -43,8 +44,8 @@ public class SelObjPanel extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
 
         try {
-            cardImages.add(ImageIO.read(new File(client.getPlayerObjective().getFirst().getImage())));
-            cardImages.add(ImageIO.read(new File(client.getPlayerObjective().getLast().getImage())));
+            cardImages.add(ImageIO.read(new File(client.getListObjective().getFirst().getImage())));
+            cardImages.add(ImageIO.read(new File(client.getListObjective().getLast().getImage())));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -86,10 +87,12 @@ public class SelObjPanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
                 if(client.getCurrentState().equals(stateEnum.SELECT_OBJECTIVE)) {
                     try {
-                     client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
-                  } catch (RemoteException ex) {
-                     throw new RuntimeException(ex);
-                 }
+                        client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
+                        ObjectiveCard card = client.getListObjective().get(sel-1);
+                        client.setObjective(card);
+                    } catch (RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
 

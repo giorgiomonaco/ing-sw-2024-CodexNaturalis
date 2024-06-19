@@ -1,13 +1,12 @@
 package it.polimi.ingsw.network.message.allMessages;
 
-import it.polimi.ingsw.client.messageHandling.GameStartHandler;
+import it.polimi.ingsw.client.messageHandling.GameSetUpHandler;
 import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.InitialCard;
 import it.polimi.ingsw.server.model.ObjectiveCard;
-import it.polimi.ingsw.server.model.ResourceCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class GameStarting extends Message {
 
     @Override
     public MessageHandler createHandler() {
-        return new GameStartHandler();
+        return new GameSetUpHandler();
     }
 
     public List<Card> getPlayerHand() {

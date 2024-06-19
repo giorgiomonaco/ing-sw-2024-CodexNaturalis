@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvail
 import it.polimi.ingsw.client.commandsHandling.commandsException.WrongInsertionException;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
+import it.polimi.ingsw.server.model.ObjectiveCard;
 
 import java.rmi.RemoteException;
 
@@ -30,6 +31,8 @@ public class SelObjCardCommand implements CommandManager {
         }
 
         SelectionObjCard toSend = new SelectionObjCard(client.getUsername(), selection);
+        ObjectiveCard card = client.getListObjective().get(selection-1);
+        client.setObjective(card);
         client.sendMessage(toSend);
     }
 }

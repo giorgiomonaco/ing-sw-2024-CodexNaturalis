@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.view.TUI.TuiViews;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.TUI.Tui;
-import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class SelObjView implements TuiView{
     public void play(Client client) {
         System.out.println("\n\nSelect your personal objective card from the available ones:\n");
 
-        availableObj = client.getPlayerObjective();
+        availableObj = client.getListObjective();
         int i = 1;
         for(ObjectiveCard c: availableObj){
             System.out.println("\nCARD " + i + " :\n");

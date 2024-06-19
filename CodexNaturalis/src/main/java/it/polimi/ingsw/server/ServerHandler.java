@@ -103,7 +103,7 @@ public class ServerHandler {
                     mainController.getPlayerByUsername(selToken.getUsername()).setPlayerTokenS(selToken.getDescription());
                     mainController.getGame().removeAvailableTokens(selToken.getDescription());
                     sendMessageToPlayer(selToken.getUsername(),
-                            new SelectFirstSide(messEnum.SELECT_FIRST_SIDE,selToken.getUsername()));
+                            new SelectFirstSide(messEnum.SELECT_FIRST_SIDE, selToken.getUsername()));
                 }
                 break;
 
@@ -248,6 +248,12 @@ public class ServerHandler {
                     synchronized (controllerLock) {
                         Player p = mainController.getPlayerByUsername(username);
                         p.setConnected(true);
+                        sendMessageToPlayer(username,
+                                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                                        mainController.getGame().getCommonObjectives(),
+                                        mainController.getGame().getUserList(),
+                                        p.getPlayerObjectiveCard(),
+                                        p.getInitialCard()));
                     }
                     logged = true;
                     reconnected = true;

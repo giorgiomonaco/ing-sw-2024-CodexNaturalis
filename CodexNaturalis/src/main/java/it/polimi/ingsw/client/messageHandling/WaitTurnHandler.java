@@ -10,11 +10,18 @@ public class WaitTurnHandler implements MessageHandler{
     public void handle(Message msg, Client client) {
         WaitTurnMsg wait = (WaitTurnMsg) msg;
 
-        client.setPoints(wait.getPoints());
-        client.setBoards(wait.getBoards());
-        client.setPlayerHand(wait.getCard());
-        client.setResources(wait.getResources());
-        client.setCurrIndex(wait.getCurrIndex());
+        if (wait.getInit() != null) {
+            client.setInit(wait.getInit());
+            client.setCommonObjectives(wait.getCommon());
+            client.setObjective(wait.getPersonal());
+            client.setPlayerList(wait.getUserList());
+        } else {
+            client.setPoints(wait.getPoints());
+            client.setBoards(wait.getBoards());
+            client.setPlayerHand(wait.getCard());
+            client.setResources(wait.getResources());
+            client.setCurrIndex(wait.getCurrIndex());
+        }
 
         client.setCurrentState(stateEnum.WAITING_TURN);
         client.getUI().run();

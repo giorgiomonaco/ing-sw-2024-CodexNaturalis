@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.GameStarting;
 
-public class GameStartHandler implements MessageHandler {
+public class GameSetUpHandler implements MessageHandler {
     @Override
     public void handle(Message msg, Client client) {
 

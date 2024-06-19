@@ -67,12 +67,14 @@ public class Gui implements UserInterface {
                 gameSetUp = false;
                 break;
             case PLAY_CARD:
+                if(glassPane.isVisible()){
+                    glassPane.setVisible(false);
+                }
                 if(mainPanel == null) {
                     addMainPanel();
-                } else {
-                    mainPanel.setYourTurn(true);
-                    mainPanel.setIndex(client.getPlayerList().indexOf(client.getUsername()));
                 }
+                mainPanel.setYourTurn(true);
+                mainPanel.setIndex(client.getPlayerList().indexOf(client.getUsername()));
                 if(gameSetUp){
                     gameSetUp = false;
                 }
