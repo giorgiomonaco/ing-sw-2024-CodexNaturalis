@@ -1,21 +1,20 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionObjCard;
 import it.polimi.ingsw.server.model.ObjectiveCard;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SelObjPanel extends JPanel {
 
@@ -43,9 +42,15 @@ public class SelObjPanel extends JPanel {
         gbc.gridwidth = 1;
         gbc.insets = new Insets(10, 10, 10, 10);
 
+        ClassLoader cl = this.getClass().getClassLoader();
+        String pathFirst = client.getListObjective().getFirst().getImage();
+        String pathSecond = client.getListObjective().getLast().getImage();
+        InputStream isf = cl.getResourceAsStream(pathFirst);
+        InputStream iss = cl.getResourceAsStream(pathSecond);
+
         try {
-            cardImages.add(ImageIO.read(new File(client.getListObjective().getFirst().getImage())));
-            cardImages.add(ImageIO.read(new File(client.getListObjective().getLast().getImage())));
+            cardImages.add(ImageIO.read(Objects.requireNonNull(isf, "Couldn't read the image.")));
+            cardImages.add(ImageIO.read(Objects.requireNonNull(iss, "Couldn't read the image.")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -85,16 +90,16 @@ public class SelObjPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-                if(client.getCurrentState().equals(stateEnum.SELECT_OBJECTIVE)) {
-                    try {
-                        client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
-                        ObjectiveCard card = client.getListObjective().get(sel-1);
-                        client.setObjective(card);
-                    } catch (RemoteException ex) {
-                        throw new RuntimeException(ex);
-                    }
+            if(client.getCurrentState().equals(stateEnum.SELECT_OBJECTIVE)) {
+                try {
+                    client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
+                    ObjectiveCard card = client.getListObjective().get(sel-1);
+                    client.setObjective(card);
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
+        }
 
     }
 

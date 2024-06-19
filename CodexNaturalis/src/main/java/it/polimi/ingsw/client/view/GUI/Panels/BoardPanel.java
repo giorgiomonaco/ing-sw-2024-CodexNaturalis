@@ -1,14 +1,14 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.server.model.Card;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class BoardPanel extends JPanel {
     private final static int CARD_X = 150;
@@ -42,6 +42,8 @@ public class BoardPanel extends JPanel {
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension((int) (cols * (CARD_X + GAP_X)), (int) (rows * (CARD_Y + GAP_Y))));
 
+        ClassLoader cl = this.getClass().getClassLoader();
+
         // Add cards to the layeredPane
         for (int i = 0; i < rows * cols; i++) {
 
@@ -51,12 +53,24 @@ public class BoardPanel extends JPanel {
 
             if (client.getBoards().gameBoard[i % rows][i / cols] != null) {
                 Card card = client.getBoards().gameBoard[i % rows][i / cols];
-                ImageIcon originalIcon = null;
+
+                String pathF = card.getFrontImage();
+                String pathB = card.getBackImage();
+
+                InputStream is = null;
                 if (card.getSide()) {
-                    originalIcon = new ImageIcon(card.getFrontImage());
+                    is = cl.getResourceAsStream(pathF);
                 } else {
-                    originalIcon = new ImageIcon(card.getBackImage());
+                    is = cl.getResourceAsStream(pathB);
                 }
+
+                ImageIcon originalIcon = null;
+                try {
+                    originalIcon = new ImageIcon(ImageIO.read(Objects.requireNonNull(is, "Couldn't read the image.")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 Image image0 = originalIcon.getImage().getScaledInstance(CARD_X, CARD_Y, Image.SCALE_SMOOTH);
                 ImageIcon resizedIcon0 = new ImageIcon(image0);
                 cardLabel = new JLabel(resizedIcon0);
