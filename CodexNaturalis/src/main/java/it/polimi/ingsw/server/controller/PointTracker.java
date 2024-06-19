@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.Token;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +37,4 @@ public class PointTracker {
     public List<ArrayList<Token>> getPointBoxes(){
         return pointBoxes;
     }
-
 }
