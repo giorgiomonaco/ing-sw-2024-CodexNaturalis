@@ -24,4 +24,14 @@ public abstract class Symbol implements Serializable {
     public String getSymbolType() {
         return symbolType;
     }
+
+    public Object getSymbolColor() {
+        return switch (symbolName) {
+            case "fox" -> "blue";
+            case "mushroom" -> "orange";
+            case "leaf" -> "green";
+            case "butterfly" -> "purple";
+            default -> throw new IllegalStateException("Unexpected value: " + symbolName);
+        };
+    }
 }

@@ -7,10 +7,12 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.model.Player;
 
 public class ShowWinnerMessage extends Message {
-    boolean win;
-    public ShowWinnerMessage(String senderUsername, boolean win) {
+    private boolean win;
+    private String winner;
+    public ShowWinnerMessage(String senderUsername, boolean win, String winner) {
         super(messEnum.SHOW_WINNER, senderUsername);
         this.win = win;
+        this.winner = winner;
     }
 
     @Override
@@ -19,5 +21,8 @@ public class ShowWinnerMessage extends Message {
     }
     public boolean getWin(){
         return win;
+    }
+    public String getName(){
+        return winner;
     }
 }

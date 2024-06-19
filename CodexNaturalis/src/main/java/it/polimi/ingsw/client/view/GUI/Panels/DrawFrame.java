@@ -19,7 +19,7 @@ public class DrawFrame extends JFrame {
         this.selection = -1;
         setSize(new Dimension(DIM_X,DIM_Y));
         setTitle("DRAW");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
 
         initializePanel();

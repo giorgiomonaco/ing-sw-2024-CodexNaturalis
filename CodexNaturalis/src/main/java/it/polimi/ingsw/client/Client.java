@@ -33,6 +33,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<Card> visibleGoldCards = new ArrayList<>();
     private List<Card> visibleResourceCards = new ArrayList<>();
     private boolean winner = false;
+    private String winnerName;
     private List<Chat> chat;
     private String serverLastMessage;
     private int currIndex;
@@ -217,5 +218,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setObjective(ObjectiveCard objective) {
         this.objective = objective;
+    }
+
+    public String getWinnerName() {
+        return winnerName;
+    }
+
+    public void setWinnerName(String winnerName) {
+        this.winnerName = winnerName;
     }
 }
