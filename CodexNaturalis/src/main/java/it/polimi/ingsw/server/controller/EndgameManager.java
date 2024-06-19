@@ -21,7 +21,8 @@ public class EndgameManager {
 
     public int objectivePointsCounter() {
         List<ObjectiveCard> obj = new ArrayList<>();
-        obj.add(this.player.getPlayerObjectiveCard());
+        if(player.getPlayerObjectiveCard() == null || game.getCommonObjectives() == null) return 0;
+        obj.add(player.getPlayerObjectiveCard());
         obj.addAll(game.getCommonObjectives());
 
         //getting the type of the objective (1. cards position -- 2. points for each resource)
@@ -51,10 +52,10 @@ public class EndgameManager {
         Card[][] cardMatrix = gameBoard.getGameBoard();
 
 
-        for (int row = 0; row< gameBoard.getMAX_Y(); row++){
-            for (int col = 0; col< gameBoard.getMAX_X(); col++){
-                if (Objects.equals(cardMatrix[row][col].getBackSymbol().getFirst().getSymbolName(), objectiveCard.getCard1())){
-                    return findPattern(row, col, cardMatrix);
+        for (int x = 0; x< gameBoard.getMAX_Y(); x++){
+            for (int y = 0; y< gameBoard.getMAX_X(); y++){
+                if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolName(), objectiveCard.getCard1())){
+                    return findPattern(x, y, cardMatrix);
                 }
             }
         }
@@ -79,7 +80,6 @@ public class EndgameManager {
         };
     }
     private int specialCounter(){
-        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
         int[] resources = this.player.getResourcesAvailable();
         int a = Math.floorDiv(resources[4],3);
         int b = Math.floorDiv(resources[5],3);
@@ -91,23 +91,30 @@ public class EndgameManager {
     }
 
     //this function verifies if the objective pattern is present and assigns points to the player accordingly
-    private int findPattern(int row, int col, Card[][] cardMatrix){
+    int findPattern(int x, int y, Card[][] cardMatrix){
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
-        if (checkDirection(objectiveCard, cardMatrix, row, col, objectiveCard.getDirection1(), objectiveCard.getCard2())){
+        int newX = x;
+        int newY = y;
+        boolean first = checkDirection( cardMatrix, x, y, objectiveCard.getDirection1(), objectiveCard.getCard2());
+        if (first){
             switch (objectiveCard.getDirection1()) {
                 case "down":
-                    row--;
+                    newY = y + 1;
+                    break;
                 case "down-right":
-                    row--;
-                    col++;
+                    newY = y + 1;
+                    newX = x + 1;
+                    break;
                 case "down-left":
-                    row--;
-                    col--;
-            }
-            if (checkDirection(objectiveCard, cardMatrix, row, col, objectiveCard.getDirection2(), objectiveCard.getCard3())){
-                return (objectiveCard.getPoints());
+                    newY = y + 1;
+                    newX = x - 1;
+                    break;
             }
         }
+        if (checkDirection( cardMatrix, newX, newY, objectiveCard.getDirection2(), objectiveCard.getCard3()) && first) {
+            return (objectiveCard.getPoints());
+        }
+
 
         return 0;
     }
@@ -115,19 +122,40 @@ public class EndgameManager {
 
     //this function is called every for every direction findPattern() needs to verify.
     // Starting from the top card, every layout is either going down in a straight line, or on the diagonals
-    private boolean checkDirection(ObjectiveCard card, Card[][] cardMatrix, int row, int col, String direction, String toCheck){
-
+    boolean checkDirection(Card[][] cardMatrix, int x, int y, String direction, String toCheck) {
         Boards board = this.player.getGameBoards();
-        if (row == board.getMAX_Y() || col == 0 || col == board.getMAX_X()){
-            return false;
+
+
+        // Determine the new row and col values based on the direction
+        int newX = x;
+        int newY = y;
+
+
+        switch (direction) {
+            case "down" :
+                newY = y + 1;
+                break;
+            case "down-right":
+                newX = x + 1;
+                newY = y + 1;
+                break;
+            case "down-left":
+                newY = y + 1;
+                newX = x - 1;
+                break;
+
         }
-        return switch (direction) {
-            case "down" -> Objects.equals(cardMatrix[row--][col].getBackSymbol().getFirst().getSymbolName(), toCheck);
-            case "down-right" -> Objects.equals(cardMatrix[row--][col++].getBackSymbol().getFirst().getSymbolName(), toCheck);
-            case "down-left" -> Objects.equals(cardMatrix[row--][col--].getBackSymbol().getFirst().getSymbolName(), toCheck);
-            default -> false;
-        };
+
+        // Check if the new position is within the bounds of the board (use values 5 for MAX_X and MAX_Y if testing)
+        if (newX >= board.getMAX_X() || newX < 0 || newY >= board.getMAX_X() || newY < 0) {
+            throw new IllegalArgumentException("Invalid new position");
+        }
+
+        // Check if the symbol matches the one to check
+        return Objects.equals(cardMatrix[newX][newY].getBackSymbol().getFirst().getSymbolColor(), toCheck);
     }
+
+
 
 
 
