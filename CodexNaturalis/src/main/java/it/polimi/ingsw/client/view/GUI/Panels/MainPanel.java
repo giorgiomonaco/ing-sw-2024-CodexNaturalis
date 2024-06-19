@@ -109,7 +109,7 @@ public class MainPanel extends JPanel {
         add(hand, gbc);
 
 
-        // PLACE BUTTON---
+        // PLACE BUTTON----
         gbc.gridx = 60;
         gbc.gridy = 90;
         gbc.gridwidth = 20;
@@ -117,11 +117,11 @@ public class MainPanel extends JPanel {
         gbc.weightx = 0.2;
         gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
+        gbc = new GridBagConstraints();
         JButton button = new JButton("PLACE");
         button.addMouseListener(new buttonListener(this, client));
         add(button, gbc);
     }
-
 
     public boolean isYourTurn() {
         return yourTurn;
@@ -206,7 +206,6 @@ public class MainPanel extends JPanel {
         return board;
     }
 
-
     public int getxCoord() {
         return xCoord;
     }
@@ -214,7 +213,6 @@ public class MainPanel extends JPanel {
     public void setxCoord(int x) {
         this.xCoord = x;
     }
-
 
     public int getyCoord() {
         return yCoord;
@@ -254,18 +252,18 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 90; // Increased from 80
+        gbc.gridheight = 80; // Increased from 80
         gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.9; // Increased from 0.8
+        gbc.weighty = 0.8; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 90; // Changed from 80
-        gbc.gridwidth = 60; // Reduced from 90
-        gbc.gridheight = 10; // Reduced from 20
-        gbc.weightx = 0.6; // Reduced from 0.9
-        gbc.weighty = 0.1; // Increased from 0.1
+        gbc.gridy = 80; // Changed from 80
+        gbc.gridwidth = 90; // Reduced from 90
+        gbc.gridheight = 20; // Reduced from 20
+        gbc.weightx = 0.9; // Reduced from 0.9
+        gbc.weighty = 0.2; // Increased from 0.1
         gbc.fill = GridBagConstraints.BOTH;
         hand.setBackground(Color.gray);
         add(hand, gbc);
