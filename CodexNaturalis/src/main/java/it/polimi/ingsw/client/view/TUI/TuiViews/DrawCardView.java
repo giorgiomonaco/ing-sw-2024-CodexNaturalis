@@ -18,32 +18,31 @@ public class DrawCardView implements TuiView {
     public void play(Client client) {
         cardNumber = 1;
         this.client = client;
-        System.out.println("UNCOVERED GOLD CARDS:");
+        System.out.println("\nUNCOVERED GOLD CARDS:");
         printGoldCards();
-        System.out.println("UNCOVERED RESOURCE CARDS:");
+        System.out.println("\nUNCOVERED RESOURCE CARDS:");
         printResourceCards();
-        System.out.println("CHOOSE A CARD TO DRAW\n\nWrite draw <choice>\n where choice is: \n-The number of the card you want to draw or\n-Write either 5 for goldDeck, or  6 for resourceDeck, to draw a covered card");
+        System.out.println("\nCHOOSE A CARD TO DRAW\n\nWrite [draw <choice>]\n where choice is: \n-The number of the card you want to draw or\n-Write either [5] for goldDeck, or  [6] for resourceDeck, to draw a covered card");
     }
 
     private void printResourceCards() {
         List<Card> resourceCards = client.getVisibleResourceCards();
-        for (Card c : resourceCards) {
-            Tui view = (Tui) client.getUI();
-            System.out.println("CARD " + cardNumber + " :\n");
-            cardNumber++;
-            view.printCard(c);
+        Tui view = (Tui) client.getUI();
+        view.printCards(resourceCards);
 
         }
-    }
+
 
     private void printGoldCards() {
         List<Card> goldCards = client.getVisibleGoldCards();
-        for (Card c : goldCards) {
+        Tui view = (Tui) client.getUI();
+        view.printCards(goldCards);
+        /*for (Card c : goldCards) {
             Tui view = (Tui) client.getUI();
             System.out.println("CARD " + cardNumber + " :\n");
             cardNumber++;
-            view.printCard(c);
+            view.printCard(c);*/
         }
     }
 
-}
+

@@ -312,95 +312,145 @@ public class Tui implements UserInterface{
         }
     }
 
-    public void printInitialCard(InitialCard r) {
+    public void printInitialCard(InitialCard card) {
         System.out.println("\nCARTA INIZIALE:\n");
-        VisibleAngle a;
+        VisibleAngle[] visibleAngles;
+        VisibleAngle visibleAngle;
         for (int p=0;p<2;p++){
-            if(p==0) System.out.println("FRONTE:");
-            if(p==1) System.out.println("\nRETRO:");
+            if(p==0) System.out.println("FRONT:");
+            if(p==1) System.out.println("\n\nBACK:");
             if(p==0){
-                for(int i=0;i<4;i++){
-                    a=r.getFrontVisibleAngle(i);
-                    if ( a == null) {
-                        System.out.print("X");
+                for (int t = 0; t < 5; t++) {
+                        visibleAngles = card.getFrontAngles();
 
-                    } else if (a.getSymbol() == null) {
+                        if (t == 0) {
 
-                        System.out.print("E");
-                    } else
-                    switch (a.getSymbol().getSymbolName()) {
-                        case "mushroom":
-                            System.out.print("M");
-                            break;
-                        case "leaf":
-                            System.out.print("L");
-                            break;
-                        case "fox":
-                            System.out.print("F");
-                            break;
-                        case "butterfly":
-                            System.out.print("B");
-                            break;
-                        case "bottle":
-                            System.out.print("b");
-                            break;
-                        case "scroll":
-                            System.out.print("s");
-                            break;
-                        case "feather":
-                            System.out.print("f");
-                            break;
-                        default:
-                            break;
+                            for (int j = 0; j < 2; j++) {
+                                visibleAngle = card.getFrontVisibleAngle(j);
+
+                                if (visibleAngle == null) {
+                                    System.out.print("X");
+
+                                } else if (visibleAngle.getSymbol() == null) {
+
+                                    System.out.print("E");
+                                } else {
+                                    String s = visibleAngle.getSymbol().getSymbolName();
+                                    switch (s) {
+                                        case "mushroom":
+                                            System.out.print("M");
+                                            break;
+                                        case "leaf":
+                                            System.out.print("L");
+                                            break;
+                                        case "fox":
+                                            System.out.print("F");
+                                            break;
+                                        case "butterfly":
+                                            System.out.print("B");
+                                            break;
+                                        case "bottle":
+                                            System.out.print("b");
+                                            break;
+                                        case "scroll":
+                                            System.out.print("s");
+                                            break;
+                                        case "feather":
+                                            System.out.print("f");
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                }
+                                if (j == 0) {
+                                       System.out.print("=========");
+                                    }
+                                }
+                            }
+
+
+                        if (t == 1 || t==2 || t == 3) {
+                            if (t == 1) System.out.print("\n|         |");
+                            if (t == 2) System.out.print("\n|         |");
+                            if (t == 3) System.out.println("\n|         |");
+                        }
+
+
+                        if (t == 4) {
+                            for (int j = 0; j < 2; j++) {
+                                visibleAngle = card.getFrontVisibleAngle(j);
+
+                                if (visibleAngle == null) {
+                                    System.out.print("X");
+
+                                } else if (visibleAngle.getSymbol() == null) {
+
+                                    System.out.print("E");
+                                } else {
+                                    String s = visibleAngle.getSymbol().getSymbolName();
+                                    switch (s) {
+                                        case "mushroom":
+                                            System.out.print("M");
+                                            break;
+                                        case "leaf":
+                                            System.out.print("L");
+                                            break;
+                                        case "fox":
+                                            System.out.print("F");
+                                            break;
+                                        case "butterfly":
+                                            System.out.print("B");
+                                            break;
+                                        case "bottle":
+                                            System.out.print("b");
+                                            break;
+                                        case "scroll":
+                                            System.out.print("s");
+                                            break;
+                                        case "feather":
+                                            System.out.print("f");
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                }
+                                if (j == 0) {
+                                        System.out.print("=========");
+                                    }
+
+
+
+
+                                }
+                            }
+                        }
                     }
-                    if(i==0) System.out.print("=============");
-                    if (i == 1) System.out.println("\n||           ||");
-                    if(i==2) System.out.print("=============");
 
-                }
-            }
-            if(p==1){
-                for(int i=0;i<4;i++) {
-                    a=r.getBackVisibleAngle(i);
-                    if ( a == null) {
-                        System.out.print("X");
+        if(p==1){
+            List<Symbol> symbols;
 
-                    } else if (a.getSymbol() == null) {
+            for (int t = 0; t < 5; t++) {
+                visibleAngles = card.getBackAngles();
 
-                        System.out.print("E");
-                    } else
-                    switch (a.getSymbol().getSymbolName()) {
-                        case "mushroom":
-                            System.out.print("M");
-                            break;
-                        case "leaf":
-                            System.out.print("L");
-                            break;
-                        case "fox":
-                            System.out.print("F");
-                            break;
-                        case "butterfly":
-                            System.out.print("B");
-                            break;
-                        case "bottle":
-                            System.out.print("b");
-                            break;
-                        case "scroll":
-                            System.out.print("s");
-                            break;
-                        case "feather":
-                            System.out.print("f");
-                            break;
-                        default:
-                            break;
-                    }
-                    if (i == 0) System.out.print("=============");
-                    if (i == 1) {
-                        System.out.print("\n||    ");
-                        for(Symbol u : r.getBackSymbol()){
-                            switch(u.getSymbolName()) {case "mushroom":
-                                System.out.print("M");
-                                break;
+                if (t == 0) {
+
+                    for (int j = 0; j < 2; j++) {
+                        visibleAngle = card.getBackVisibleAngle(j);
+
+                        if (visibleAngle == null) {
+                            System.out.print("X");
+
+                        } else if (visibleAngle.getSymbol() == null) {
+
+                            System.out.print("E");
+                        } else {
+                            String s = visibleAngle.getSymbol().getSymbolName();
+                            switch (s) {
+                                case "mushroom":
+                                    System.out.print("M");
+                                    break;
                                 case "leaf":
                                     System.out.print("L");
                                     break;
@@ -419,49 +469,217 @@ public class Tui implements UserInterface{
                                 case "feather":
                                     System.out.print("f");
                                     break;
-
+                                default:
+                                    break;
                             }
+
                         }
-                        System.out.println("     ||");
+                        if (j == 0) {
+                            System.out.print("=========");
+                        }
                     }
-                    if (i == 2) System.out.print("=============");
+                }
+
+
+                if (t == 1 || t == 3) {
+                    if (t == 1) System.out.print("\n|         |");
+                    if (t == 3) System.out.println("\n|         |");
+                }
+                if(t==2){
+                   symbols = card.getBackSymbol();
+                    String symbolname;
+                   if(symbols.size()==3){
+
+                       System.out.print("\n|   ");
+                       for(int q=0;q<3;q++){
+                           symbolname = symbols.get(q).getSymbolName();
+                               switch (symbolname) {
+                                   case "mushroom":
+                                       System.out.print("M");
+                                       break;
+                                   case "leaf":
+                                       System.out.print("L");
+                                       break;
+                                   case "fox":
+                                       System.out.print("F");
+                                       break;
+                                   case "butterfly":
+                                       System.out.print("B");
+                                       break;
+                                   case "bottle":
+                                       System.out.print("b");
+                                       break;
+                                   case "scroll":
+                                       System.out.print("s");
+                                       break;
+                                   case "feather":
+                                       System.out.print("f");
+                                       break;
+                                   default:
+                                       break;
+                               }
+
+                       }
+                       System.out.print("   |");
+                       }
+                    if(symbols.size()==2){
+
+                        System.out.print("\n|   ");
+                        for(int q=0;q<2;q++){
+                            symbolname = symbols.get(q).getSymbolName();
+                            switch (symbolname) {
+                                case "mushroom":
+                                    System.out.print("M");
+                                    break;
+                                case "leaf":
+                                    System.out.print("L");
+                                    break;
+                                case "fox":
+                                    System.out.print("F");
+                                    break;
+                                case "butterfly":
+                                    System.out.print("B");
+                                    break;
+                                case "bottle":
+                                    System.out.print("b");
+                                    break;
+                                case "scroll":
+                                    System.out.print("s");
+                                    break;
+                                case "feather":
+                                    System.out.print("f");
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if(q==1) System.out.print(" ");
+
+                        }
+                        System.out.print("   |");
+                    }
+                    if(symbols.size()==1){
+
+                        System.out.print("\n|    ");
+                        for(int q=0;q<1;q++){
+                            symbolname = symbols.get(q).getSymbolName();
+                            switch (symbolname) {
+                                case "mushroom":
+                                    System.out.print("M");
+                                    break;
+                                case "leaf":
+                                    System.out.print("L");
+                                    break;
+                                case "fox":
+                                    System.out.print("F");
+                                    break;
+                                case "butterfly":
+                                    System.out.print("B");
+                                    break;
+                                case "bottle":
+                                    System.out.print("b");
+                                    break;
+                                case "scroll":
+                                    System.out.print("s");
+                                    break;
+                                case "feather":
+                                    System.out.print("f");
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
+                        System.out.print("    |");
+                    }
+                   }
+
+
+                if (t == 4) {
+                    for (int j = 0; j < 2; j++) {
+                        visibleAngle = card.getFrontVisibleAngle(j);
+
+                        if (visibleAngle == null) {
+                            System.out.print("X");
+
+                        } else if (visibleAngle.getSymbol() == null) {
+
+                            System.out.print("E");
+                        } else {
+                            String s = visibleAngle.getSymbol().getSymbolName();
+                            switch (s) {
+                                case "mushroom":
+                                    System.out.print("M");
+                                    break;
+                                case "leaf":
+                                    System.out.print("L");
+                                    break;
+                                case "fox":
+                                    System.out.print("F");
+                                    break;
+                                case "butterfly":
+                                    System.out.print("B");
+                                    break;
+                                case "bottle":
+                                    System.out.print("b");
+                                    break;
+                                case "scroll":
+                                    System.out.print("s");
+                                    break;
+                                case "feather":
+                                    System.out.print("f");
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
+                        if (j == 0) {
+                            System.out.print("=========");
+                        }
+
+
+
+
+                    }
                 }
             }
         }
     }
+        }
+
 
 
     public void printObjectiveCard(ObjectiveCard o){
        if(!Objects.equals(o.getType(), "position")){
            System.out.println(" ========== ");
-           System.out.println(" ||   "+o.getPoints()+"   ||");
-           System.out.println(" ||       ||");
+           System.out.println(" |    "+o.getPoints()+"   |");
+           System.out.println(" |        |");
            String q=o.getType();
            if (Objects.equals(o.getType(), "fox") || Objects.equals(o.getType(), "butterfly") || Objects.equals(o.getType(), "mushroom") || Objects.equals(o.getType(), "leaf") || Objects.equals(o.getType(), "special")|| Objects.equals(o.getType(), "feather") || Objects.equals(o.getType(), "scroll") || Objects.equals(o.getType(), "bottle"))
                switch (o.getType()){
                    case "fox":
-                       System.out.println(" || F F F ||");
+                       System.out.println(" |  F F F |");
                        break;
                    case "butterfly":
-                       System.out.println(" || B B B ||");
+                       System.out.println(" |  B B B |");
                        break;
                    case "leaf":
-                       System.out.println(" || L L L ||");
+                       System.out.println(" |  L L L |");
                        break;
                    case "mushroom":
-                       System.out.println(" || M M M ||");
+                       System.out.println(" |  M M M |");
                        break;
                    case "special":
-                       System.out.println(" || f b s ||");
+                       System.out.println(" |  f b s |");
                        break;
                        case "feather":
-                           System.out.println(" ||  f  f ||");
+                           System.out.println(" |  f   f |");
                            break;
                        case "bottle":
-                           System.out.println(" ||  b  b ||");
+                           System.out.println(" |  b   b |");
                            break;
                        case "scroll":
-                           System.out.println(" ||  s  s ||");
+                           System.out.println(" |  s   s |");
                            break;
                    default:
                        break;
@@ -472,61 +690,61 @@ public class Tui implements UserInterface{
            }
                 if(Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "blue")){
                     System.out.print("=============\n" +
-                                     "||    "+color.orangeColor+"ORA"+color.resetColor+"  ||\n"+
-                                     "||"+color.blueColor+"BLU"+color.resetColor+"      ||\n"+
-                                     "||"+color.blueColor+"BLU"+color.resetColor+"+    3 ||\n"+
+                                     "|     "+color.orangeColor+"ORA"+color.resetColor+"   | \n"+
+                                     "| "+color.blueColor+"BLU"+color.resetColor+"       | \n"+
+                                     "| "+color.blueColor+"BLU"+color.resetColor+"     3  |\n"+
                                      "=============");
                 }else if  (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "orange")) {
                     System.out.print("=============\n" +
-                        "||      "+color.orangeColor+"ORA"+color.resetColor+"||\n"+
-                        "||   "+color.orangeColor+"ORA"+color.resetColor+"   ||\n"+
-                        "||"+color.orangeColor+"ORA"+color.resetColor+"    2 ||\n"+
+                        "|       "+color.orangeColor+"ORA"+color.resetColor+" |\n"+
+                        "|    "+color.orangeColor+"ORA"+color.resetColor+"    |\n"+
+                        "| "+color.orangeColor+"ORA"+color.resetColor+"    2  |\n"+
                         "=============");}
                     else if (Objects.equals(o.getCard1(), "blue") && Objects.equals(o.getCard2(), "blue") && Objects.equals(o.getCard3(), "blue")) {
                         System.out.print("=============\n" +
-                                "||      "+color.blueColor+"BLU"+color.resetColor+"||\n"+
-                                "||   "+color.blueColor+"BLU"+color.resetColor+"   ||\n"+
-                                "||"+color.blueColor+"BLU"+color.resetColor+"    2 ||\n"+
+                                "|       "+color.blueColor+"BLU"+color.resetColor+" |\n"+
+                                "|    "+color.blueColor+"BLU"+color.resetColor+"    |\n"+
+                                "| "+color.blueColor+"BLU"+color.resetColor+"    2  |\n"+
                                 "=============");
 
                 }
                 else if (Objects.equals(o.getCard1(), "green") && Objects.equals(o.getCard2(), "green") && Objects.equals(o.getCard3(), "green")) {
                     System.out.print("=============\n" +
-                            "||"+color.greenColor+"GRE"+color.resetColor+"      ||\n"+
-                            "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
-                            "||2     "+color.greenColor+"GRE"+color.resetColor+"||\n"+
+                            "| "+color.greenColor+"GRE"+color.resetColor+"       |\n"+
+                            "|    "+color.greenColor+"GRE"+color.resetColor+"    |\n"+
+                            "| 2     "+color.greenColor+"GRE"+color.resetColor+" |\n"+
                             "=============");
 
                 } else if (Objects.equals(o.getCard1(), "purple") && Objects.equals(o.getCard2(), "purple") && Objects.equals(o.getCard3(), "purple")) {
                     System.out.print("=============\n" +
-                            "||"+color.purpleColor+"PUR"+color.resetColor+"      ||\n"+
-                            "||   "+color.purpleColor+"PUR"+color.resetColor+"   ||\n"+
-                            "||2     "+color.purpleColor+"PUR"+color.resetColor+"||\n"+
+                            "| "+color.purpleColor+"PUR"+color.resetColor+"       |\n"+
+                            "|    "+color.purpleColor+"PUR"+color.resetColor+"    |\n"+
+                            "| 2     "+color.purpleColor+"PUR"+color.resetColor+" |\n"+
                             "=============");
 
 
                 } else if (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "green")) {
         System.out.print("=============\n" +
-                "||"+color.orangeColor+"ORA"+color.resetColor+"    3 ||\n"+
-                "||"+color.orangeColor+"ORA"+color.resetColor+"      ||\n"+
-                "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
+                "| "+color.orangeColor+"ORA"+color.resetColor+"    3  |\n"+
+                "| "+color.orangeColor+"ORA"+color.resetColor+"       |\n"+
+                "|    "+color.greenColor+"GRE"+color.resetColor+"    |\n"+
                 "=============");
 
 
         }else if (Objects.equals(o.getCard1(), "green") && Objects.equals(o.getCard2(), "green") && Objects.equals(o.getCard3(), "purple")) {
                     System.out.print("=============\n" +
-                            "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
-                            "||   "+color.greenColor+"GRE"+color.resetColor+"   ||\n"+
-                            "||"+color.purpleColor+"PUR"+color.resetColor+"    3 ||\n"+
+                            "|    "+color.greenColor+"GRE"+color.resetColor+"    |\n"+
+                            "|    "+color.greenColor+"GRE"+color.resetColor+"    |\n"+
+                            "| "+color.purpleColor+"PUR"+color.resetColor+"    3  |\n"+
                             "=============");
 
 
                 }
                 else if (Objects.equals(o.getCard1(), "blue") && Objects.equals(o.getCard2(), "purple") && Objects.equals(o.getCard3(), "purple")) {
                     System.out.print("=============\n" +
-                            "||"+color.blueColor+"BLU"+color.resetColor+"    3 ||\n"+
-                            "||   "+color.purpleColor+"PUR"+color.resetColor+"   ||\n"+
-                            "||   "+color.purpleColor+"PUR"+color.resetColor+"   ||\n"+
+                            "| "+color.blueColor+"BLU"+color.resetColor+"    3  |\n"+
+                            "|    "+color.purpleColor+"PUR"+color.resetColor+"    |\n"+
+                            "|    "+color.purpleColor+"PUR"+color.resetColor+"    |\n"+
                             "=============");
 
 
@@ -538,11 +756,13 @@ public class Tui implements UserInterface{
         VisibleAngle[] visibleAngles;
         Card card;
         VisibleAngle visibleAngle;
+        int size = playerHand.size();
         System.out.println("                                  FRONTS\n");
-        System.out.println("  CARD 1                          CARD 2                         CARD 3");
-
+        System.out.print("  CARD 1                          CARD 2");
+        if (size ==3) System.out.print("                         CARD 3");
+        System.out.println();
         for (int t = 0; t < 5; t++) { //ALTEZZA
-            for (int i = 0; i < 3; i++) { //CARTA
+            for (int i = 0; i < size; i++) { //CARTA
                 card = playerHand.get(i);
                 visibleAngles = card.getFrontAngles();
 
@@ -610,9 +830,16 @@ public class Tui implements UserInterface{
                 }
 
                 if (t == 1 || t == 3) {
-                    if (i == 0) System.out.print("\n|         |                    ");
-                    if (i == 1) System.out.print("|         |                    ");
-                    if (i == 2) System.out.println("|         |");
+                    if (size==3) {
+                        if (i == 0) System.out.print("\n|         |                    ");
+                        if (i == 1) System.out.print("|         |                    ");
+                        if (i == 2) System.out.println("|         |");
+                    }
+                    else if(size==2){
+                        if (i == 0) System.out.print("\n|         |                    ");
+                        if (i == 1) System.out.println("|         |");
+
+                    }
                 }
                 if (t == 2) {
                     String q = card.getBackSymbol().getFirst().getSymbolName();
@@ -709,15 +936,15 @@ public class Tui implements UserInterface{
                                         System.out.print("===");
                                     }
                                     if (value == 5) {
-                                        System.out.print("====");
+                                        System.out.print("==");
                                         for (int o = 0; o < 4; o++) {
-                                            if (symbols[o] > 0 && o == 0) System.out.print(symbols[o] + "M");
-                                            if (symbols[o] > 0 && o == 1) System.out.print(symbols[o] + "L");
-                                            if (symbols[o] > 0 && o == 2) System.out.print(symbols[o] + "F");
-                                            if (symbols[o] > 0 && o == 3) System.out.print(symbols[o] + "B");
+                                            if (symbols[o] > 0 && o == 0) System.out.print("MMMMM");
+                                            if (symbols[o] > 0 && o == 1) System.out.print("LLLLL");
+                                            if (symbols[o] > 0 && o == 2) System.out.print("FFFFF");
+                                            if (symbols[o] > 0 && o == 3) System.out.print("BBBBB");
 
                                         }
-                                        System.out.print("====");
+                                        System.out.print("==");
                                     }
                                 }
                             }
@@ -727,10 +954,12 @@ public class Tui implements UserInterface{
             }
         }
         System.out.println("\n\n                                  BACKS\n");
-        System.out.println("  CARD 1                          CARD 2                         CARD 3");
+        System.out.print("  CARD 1                          CARD 2");
+        if (size ==3) System.out.print("                         CARD 3");
+        System.out.println();
         for (int t = 0; t < 5; t++) { //ALTEZZA
             if(t==4) System.out.println();
-            for (int i = 0; i < 3; i++) { //CARTA
+            for (int i = 0; i < size; i++) { //CARTA
                 card = playerHand.get(i);
                 visibleAngles = card.getFrontAngles();
 
@@ -753,13 +982,22 @@ public class Tui implements UserInterface{
                 }
 
                 if (t == 1 || t == 3) {
-                    if (i == 0) System.out.print("\n|         |                    ");
-                    if (i == 1) System.out.print("|         |                    ");
-                    if (i == 2) System.out.print("|         |");
+                    if (size==3) {
+                        if (i == 0) System.out.print("\n|         |                    ");
+                        if (i == 1) System.out.print("|         |                    ");
+                        if (i == 2 && t==1) System.out.println("|         |");
+                        else if (i==2) System.out.print("|         |");
+
+
+                    }
+                    else if(size==2){
+                        if (i == 0) System.out.print("\n|         |                    ");
+                        if (i == 1 && t==1) System.out.println("|         |");
+                        else if (i==1) System.out.print("|         |");
+
+                    }
                 }
                 if (t == 2) {
-                    if(i==0
-                    )System.out.println();
                     String q = card.getBackSymbol().getFirst().getSymbolName();
                     q = switch (q) {
                         case "leaf" -> "L";

@@ -10,6 +10,6 @@ public class LoginView implements TuiView{
     public void play(Client client) {
         System.out.println("\n+----------------------+\n" +
                 "|        LOGIN         |\n" +
-                "+----------------------+\n\nInsert 'login <usr>' where usr is your username: ");
+                "+----------------------+\n\nInsert [login <usr>] where usr is your username: ");
     }
 }

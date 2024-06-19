@@ -23,7 +23,7 @@ public class SelTokenView implements TuiView{
                 System.out.print(color.getColor(s) + s + color.resetColor + " ");
             }
 
-            System.out.println("\n\nInsert color <sel> where sel is the selected color.");
+            System.out.println("\n\nInsert [color <sel>] where sel is the selected color.");
 
         }
         else {
@@ -38,7 +38,7 @@ public class SelTokenView implements TuiView{
                 System.out.print(color.getColor(s) + s + color.resetColor + " ");
             }
 
-            System.out.println("\n\nInsert color <sel> where sel is the selected color.");
+            System.out.println("\n\nInsert [color <sel>] where sel is the selected color.");
         }
 
     }
