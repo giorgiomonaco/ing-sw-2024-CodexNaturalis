@@ -67,6 +67,10 @@ public class Gui implements UserInterface {
                 gameSetUp = false;
                 break;
             case PLAY_CARD:
+                if(message != null){
+                    frame.getContentPane().remove(message);
+                    frame.repaint();
+                }
                 if(glassPane.isVisible()){
                     glassPane.setVisible(false);
                 }
@@ -80,6 +84,10 @@ public class Gui implements UserInterface {
                 }
                 break;
             case WAITING_TURN:
+                if(message != null){
+                    frame.getContentPane().remove(message);
+                    frame.repaint();
+                }
                 if(gameSetUp){
                     glassPane.setVisible(true);
                     frame.setVisible(true);
@@ -99,6 +107,7 @@ public class Gui implements UserInterface {
                 manageStop();
                 break;
             case ALREADY_STARTED:
+                addAlreadyStartedPanel();
                 break;
             case DISCONNECTION:
                 break;
@@ -260,10 +269,15 @@ public class Gui implements UserInterface {
     }
 
     private void addDrawFrame() {
-
         DrawFrame drawFrame = new DrawFrame(client);
         drawFrame.setVisible(true);
+    }
 
+    private void addAlreadyStartedPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new AlreadyStartedPanel());
+        frame.setVisible(true);
     }
 
     private void manageStop(){
@@ -307,11 +321,4 @@ public class Gui implements UserInterface {
         stopPane.setVisible(true);
     }
 
-    public int getTurn() {
-        return turn;
-    }
-
-    public void setTurn(int turn) {
-        this.turn = turn;
-    }
 }

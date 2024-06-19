@@ -13,6 +13,8 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
+
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
@@ -159,10 +161,6 @@ public class ServerHandler {
                     mainController.chatUpdate(chatMsg.getUsername(), destination, chat);
                     break;
                 }
-
-
-
-
         }
     }
 
@@ -316,7 +314,7 @@ public class ServerHandler {
         }
 
         synchronized (controllerLock) {
-            if (mainController == null || mainController.isFirstTurn()) {
+            if (mainController == null) {
                 // the game has not been created yet.
                 sendMessageToAll(new GameAborted(HOSTNAME));
                 System.exit(1);

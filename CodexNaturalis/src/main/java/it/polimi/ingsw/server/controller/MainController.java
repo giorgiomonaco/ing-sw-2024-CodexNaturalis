@@ -555,6 +555,9 @@ public class MainController implements Serializable {
     public void playerDisconnect(String username) {
         if(!game.getUserList().contains(username)){
             System.out.println(Colors.redColor + "The player named " + username + " wasn't actually playing." + Colors.resetColor);
+        } else if (isFirstTurn()) {
+            serverHandler.sendMessageToAll(new GameAborted(ServerHandler.HOSTNAME));
+            System.exit(1);
         } else if (!game.getGameState().equals(gameStateEnum.END)) {
             for(Player p: game.getPlayerList()){
                 if(p.getPlayerName().equals(username)){
