@@ -163,6 +163,7 @@ public class MainController implements Serializable {
         if (game.getGameState().equals(gameStateEnum.FINAL_TURN) && currPlayerIndex == finalPlayerIndex) {
             endGame();
         } else {
+
             serverHandler.sendMessageToPlayer(
                     game.getCurrentPlayer().getPlayerName(),
                     new PlayCardReq(ServerHandler.HOSTNAME,
@@ -171,6 +172,20 @@ public class MainController implements Serializable {
                             game.getCurrentPlayer().getResourcesAvailable(),
                             game.getCurrentPlayer().getPlayerPoints())
             );
+
+            for (String p : game.getUserList()) {
+                if (!p.equals(game.getCurrentPlayer().getPlayerName())) {
+                    serverHandler.sendMessageToPlayer(
+                            p,
+                            new WaitTurnMsg(ServerHandler.HOSTNAME,
+                                    getPlayerByUsername(p).getPlayerHand(),
+                                    getPlayerByUsername(p).getGameBoards(),
+                                    getPlayerByUsername(p).getResourcesAvailable(),
+                                    getPlayerByUsername(p).getPlayerPoints(),
+                                    currPlayerIndex)
+                    );
+                }
+            }
         }
     }
 
@@ -200,6 +215,20 @@ public class MainController implements Serializable {
                             availableToken,
                             getPlayerByUsername(game.getUserList().getFirst()).getSelObjectiveCard()));
 
+            for (String p : game.getUserList()) {
+                if (!p.equals(game.getUserList().getFirst())) {
+                    serverHandler.sendMessageToPlayer(
+                            p,
+                            new WaitTurnMsg(ServerHandler.HOSTNAME,
+                                    getPlayerByUsername(p).getPlayerHand(),
+                                    getPlayerByUsername(p).getGameBoards(),
+                                    getPlayerByUsername(p).getResourcesAvailable(),
+                                    getPlayerByUsername(p).getPlayerPoints(),
+                                    firstTurnIndex)
+                    );
+                }
+            }
+
         } else {
             serverHandler.sendMessageToPlayer(game.getUserList().get(firstTurnIndex),
                     new FirstTurn(
@@ -207,6 +236,19 @@ public class MainController implements Serializable {
                             false,
                             availableToken,
                             getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
+            for (String p : game.getUserList()) {
+                if (!p.equals(game.getUserList().get(firstTurnIndex))) {
+                    serverHandler.sendMessageToPlayer(
+                            p,
+                            new WaitTurnMsg(ServerHandler.HOSTNAME,
+                                    getPlayerByUsername(p).getPlayerHand(),
+                                    getPlayerByUsername(p).getGameBoards(),
+                                    getPlayerByUsername(p).getResourcesAvailable(),
+                                    getPlayerByUsername(p).getPlayerPoints(),
+                                    firstTurnIndex)
+                    );
+                }
+            }
         }
 
     }
@@ -230,15 +272,6 @@ public class MainController implements Serializable {
             finalPlayerIndex = currPlayerIndex;
             game.setGameState(gameStateEnum.FINAL_TURN);
         }
-
-        // inviare messaggio fine turno
-        serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
-                new WaitTurnMsg(ServerHandler.HOSTNAME,
-                        game.getCurrentPlayer().getPlayerHand(),
-                        game.getCurrentPlayer().getGameBoards(),
-                        game.getCurrentPlayer().getResourcesAvailable(),
-                        game.getCurrentPlayer().getPlayerPoints()));
-
 
         beginTurn();
     }

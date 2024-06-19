@@ -14,7 +14,7 @@ public class LobbyPanel extends JPanel {
         setOpaque(false);
 
         JLabel lobbyTitle = new JLabel("LOBBY", SwingConstants.CENTER);
-        lobbyTitle.setFont(new Font("Papyrus", Font.BOLD, 54));
+        lobbyTitle.setFont(new Font("San Francisco", Font.BOLD, 54));
         lobbyTitle.setForeground(Color.BLACK);
         lobbyTitle.setOpaque(false);
 

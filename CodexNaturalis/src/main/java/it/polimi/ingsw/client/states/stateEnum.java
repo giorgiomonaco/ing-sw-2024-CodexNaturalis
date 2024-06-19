@@ -29,7 +29,7 @@ public enum stateEnum {
      * The number of players in the lobby is reached and the server starts
      * the setup phase for the game. It's not the client's turn yet.
      */
-    GAME_STARTED,
+    GAME_SETUP,
     /**
      * The game is stopped because only one player is left in the game,
      * a timer is started which decrees the end of the game if no other player enters before the end.

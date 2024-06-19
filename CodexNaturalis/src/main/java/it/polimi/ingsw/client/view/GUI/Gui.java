@@ -11,13 +11,14 @@ public class Gui implements UserInterface {
 
     private final Client client;
     private int turn;
+    private int index;
     private MyFrame frame;
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
     private JPanel message;
     private boolean permission;
     private MainPanel mainPanel;
-    private boolean yourTurn;
+    private boolean gameSetUp;
 
 
     public Gui (Client client){
@@ -25,6 +26,8 @@ public class Gui implements UserInterface {
         client.setUI(this);
         permission = true;
         turn = 2;
+        index = -1;
+        gameSetUp = true;
     }
 
     @Override
@@ -47,8 +50,8 @@ public class Gui implements UserInterface {
             case LOBBY:
                 addLobbyPanel();
                 break;
-            case GAME_STARTED:
-                addGameStartedPanel();
+            case GAME_SETUP:
+                addGameSetUpPanel();
                 break;
             case SELECT_TOKEN:
                 if(glassPane.isVisible()){
@@ -63,22 +66,27 @@ public class Gui implements UserInterface {
                 addSelObjPanel();
                 break;
             case PLAY_CARD:
-                if(glassPane.isVisible()){
-                    glassPane.setVisible(false);
-                }
                 if(mainPanel == null) {
                     addMainPanel();
+                } else {
+                    mainPanel.setYourTurn(true);
+                    mainPanel.setIndex(client.getPlayerList().indexOf(client.getUsername()));
                 }
-
-                mainPanel.setYourTurn(true);
                 break;
             case WAITING_TURN:
-                if(mainPanel == null) {
+                if(gameSetUp){
                     glassPane.setVisible(true);
                     frame.setVisible(true);
-                } else {
+                    gameSetUp = false;
+                }
+                else if(mainPanel == null) {
+                    addMainPanel();
                     mainPanel.setYourTurn(false);
+                    mainPanel.setIndex(client.getCurrIndex());
+                } else {
                     mainPanel.updatePanel();
+                    mainPanel.setYourTurn(false);
+                    mainPanel.setIndex(client.getCurrIndex());
                     frame.setVisible(true);
                     mainPanel.getBoard().scrollToMiddle();
                 }
@@ -95,7 +103,7 @@ public class Gui implements UserInterface {
             case SHOW_WINNER:
                 break;
             case DRAW_CARD:
-                addDrawPanel();
+                addDrawFrame();
                 break;
             default:
                 break;
@@ -209,7 +217,7 @@ public class Gui implements UserInterface {
         frame.setVisible(true);
     }
 
-    private void addGameStartedPanel(){
+    private void addGameSetUpPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
         frame.add(new GameStartedPanel(client), BorderLayout.CENTER);
@@ -247,7 +255,7 @@ public class Gui implements UserInterface {
         mainPanel.getBoard().scrollToMiddle();
     }
 
-    private void addDrawPanel() {
+    private void addDrawFrame() {
 
         DrawFrame drawFrame = new DrawFrame(client);
         drawFrame.setVisible(true);

@@ -19,12 +19,14 @@ public class MainPanel extends JPanel {
     private BoardPanel board;
     private HandPanel hand;
     private ObjectivePanel objectivePanel;
+    private AccessoryPanel other;
     private int xCoord;
     private int yCoord;
     private boolean side;
     private Card card;
     private int turn;
     private boolean yourTurn;
+    private int index;
 
     public MainPanel(Client client, int turn){
 
@@ -46,7 +48,7 @@ public class MainPanel extends JPanel {
         chat = new ChatPanel(client);
         board = new BoardPanel(client, this);
         objectivePanel = new ObjectivePanel(client);
-        AccessoryPanel other = new AccessoryPanel(client);
+        other = new AccessoryPanel(client);
         hand = new HandPanel(client, this);
 
         // Set proportions for each panel
@@ -55,11 +57,12 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 90; // Increased from 80
+        gbc.gridheight = 80; // Increased from 80
         gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.9; // Increased from 0.8
+        gbc.weighty = 0.8; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
+
 
         // OTHERS---
         gbc.gridx = 80; // Changed from 90
@@ -82,16 +85,6 @@ public class MainPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         add(chat, gbc);
 
-        // CARDS---
-        gbc.gridx = 0;
-        gbc.gridy = 85; // Changed from 80
-        gbc.gridwidth = 70; // Reduced from 90
-        gbc.gridheight = 15; // Reduced from 20
-        gbc.weightx = 0.7; // Reduced from 0.9
-        gbc.weighty = 0.15; // Increased from 0.1
-        gbc.fill = GridBagConstraints.BOTH;
-        hand.setBackground(Color.gray);
-        add(hand, gbc);
 
         //OBJECTIVES---
         gbc.gridx = 80;
@@ -104,19 +97,31 @@ public class MainPanel extends JPanel {
         add(objectivePanel, gbc);
 
 
+        // CARDS---
+        gbc.gridx = 0;
+        gbc.gridy = 80; // Changed from 80
+        gbc.gridwidth = 60; // Reduced from 90
+        gbc.gridheight = 20; // Reduced from 20
+        gbc.weightx = 0.6; // Reduced from 0.9
+        gbc.weighty = 0.2; // Increased from 0.1
+        gbc.fill = GridBagConstraints.BOTH;
+        hand.setBackground(Color.gray);
+        add(hand, gbc);
+
 
         // PLACE BUTTON---
-        gbc.gridx = 70;
-        gbc.gridy = 85;
-        gbc.gridwidth = 10;
-        gbc.gridheight = 15;
-        gbc.weightx = 0.1;
-        gbc.weighty = 0.15;
+        gbc.gridx = 60;
+        gbc.gridy = 80;
+        gbc.gridwidth = 20;
+        gbc.gridheight = 20;
+        gbc.weightx = 0.2;
+        gbc.weighty = 0.2;
         gbc.fill = GridBagConstraints.BOTH;
         JButton button = new JButton("PLACE");
         button.addMouseListener(new buttonListener(this, client));
         add(button, gbc);
     }
+
 
     public boolean isYourTurn() {
         return yourTurn;
@@ -125,6 +130,18 @@ public class MainPanel extends JPanel {
     public void setYourTurn(boolean yourTurn) {
         this.yourTurn = yourTurn;
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+        for (JLabel l : other.getPlayersLab()) {
+            if(other.getPlayersLab().indexOf(l) == index) {
+                l.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
+            } else {
+                l.setBorder(null);
+            }
+        }
+    }
+
 
     private static class buttonListener extends MouseAdapter {
         private MainPanel mp;
@@ -237,18 +254,18 @@ public class MainPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 90; // Increased from 80
+        gbc.gridheight = 80; // Increased from 80
         gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.9; // Increased from 0.8
+        gbc.weighty = 0.8; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 85; // Changed from 80
-        gbc.gridwidth = 70; // Reduced from 90
-        gbc.gridheight = 15; // Reduced from 20
-        gbc.weightx = 0.7; // Reduced from 0.9
-        gbc.weighty = 0.15; // Increased from 0.1
+        gbc.gridy = 80; // Changed from 80
+        gbc.gridwidth = 60; // Reduced from 90
+        gbc.gridheight = 20; // Reduced from 20
+        gbc.weightx = 0.6; // Reduced from 0.9
+        gbc.weighty = 0.2; // Increased from 0.1
         gbc.fill = GridBagConstraints.BOTH;
         hand.setBackground(Color.gray);
         add(hand, gbc);

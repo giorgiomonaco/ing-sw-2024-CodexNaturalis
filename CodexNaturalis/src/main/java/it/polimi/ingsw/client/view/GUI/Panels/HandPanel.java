@@ -26,9 +26,9 @@ public class HandPanel extends JPanel {
      */
 
     private Client client;
-    JLabel firstCard;
-    JLabel secondCard;
-    JLabel thirdCard;
+    private JLabel firstCard;
+    private JLabel secondCard;
+    private JLabel thirdCard;
 
     public HandPanel(Client client, MainPanel mainPanel) {
         this.client = client;
@@ -61,11 +61,11 @@ public class HandPanel extends JPanel {
         ImageIcon resizedIcon5 = new ImageIcon(image5);
 
         //Create the labels with the image icons
-        JLabel firstCard = new JLabel(resizedIcon0);
+        firstCard = new JLabel(resizedIcon0);
         firstCard.addMouseListener(new cardMouseListener(firstCard, 0, mainPanel, client));
-        JLabel secondCard = new JLabel(resizedIcon1);
+        secondCard = new JLabel(resizedIcon1);
         secondCard.addMouseListener(new cardMouseListener(secondCard, 1, mainPanel, client));
-        JLabel thirdCard = new JLabel(resizedIcon2);
+        thirdCard = new JLabel(resizedIcon2);
         thirdCard.addMouseListener(new cardMouseListener(thirdCard, 2, mainPanel, client));
 
         List<JLabel> cards = new ArrayList<>();
@@ -92,15 +92,17 @@ public class HandPanel extends JPanel {
 
         // Set all parameters that have to be same for all
         gbc.gridy = 0;
-        gbc.weighty = 0.5;
-        gbc.weightx = 0.5;
+        //gbc.weighty = 0.5;
+        //gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
 
         // Add the button first
         gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.WEST;
         add(actionButton, gbc);
 
         // Add every label
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridx = 1;
         add(firstCard, gbc);
 

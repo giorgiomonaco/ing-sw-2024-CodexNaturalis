@@ -121,7 +121,6 @@ public class ServerHandler {
                     String username = selObj.getUsername();
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
                     mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
-                    sendMessageToPlayer(username, new WaitTurnMsg(HOSTNAME));
 
                     if (!mainController.isLastPlayer(username)) {
                         mainController.beginFirstTurn();

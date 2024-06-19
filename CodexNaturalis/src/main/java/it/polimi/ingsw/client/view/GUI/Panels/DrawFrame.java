@@ -11,8 +11,8 @@ import java.rmi.RemoteException;
 public class DrawFrame extends JFrame {
     private final Client client;
     private int selection;
-    private static final int DIM_X = 500;
-    private static final int DIM_Y = 300;
+    private static final int DIM_X = 650;
+    private static final int DIM_Y = 450;
 
     public DrawFrame(Client client) {
         this.client = client;
@@ -29,7 +29,7 @@ public class DrawFrame extends JFrame {
         setLayout(new BorderLayout());
 
         JLabel title = new JLabel("<html><div style='text-align: center;'>DRAW A CARD FROM THE DECK<br>OR FROM THE VISIBLE ONES<div></html>", SwingConstants.CENTER);
-        title.setFont(new Font("Papyrus", Font.BOLD, 50));
+        title.setFont(new Font("San Francisco", Font.BOLD, 30));
         title.setForeground(Color.BLACK);
 
         add(title, BorderLayout.NORTH);

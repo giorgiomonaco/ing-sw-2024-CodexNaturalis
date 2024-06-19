@@ -35,6 +35,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private boolean winner = false;
     private List<Chat> chat;
     private String serverLastMessage;
+    private int currIndex;
 
 
 
@@ -208,5 +209,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setCommonObjectives(List<ObjectiveCard> commonObjectives) {
         this.commonObjectives = commonObjectives;
+    }
+
+    public int getCurrIndex() {
+        return currIndex;
+    }
+
+    public void setCurrIndex(int currIndex) {
+        this.currIndex = currIndex;
     }
 }

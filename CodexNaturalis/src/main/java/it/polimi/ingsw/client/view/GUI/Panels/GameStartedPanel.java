@@ -18,7 +18,7 @@ public class GameStartedPanel extends JPanel {
         setOpaque(false);
 
         JLabel title = new JLabel("GAME SET UP", SwingConstants.CENTER);
-        title.setFont(new Font("Papyrus", Font.BOLD, 54));
+        title.setFont(new Font("San Francisco", Font.BOLD, 54));
         title.setForeground(Color.BLACK);
         title.setOpaque(false);
 

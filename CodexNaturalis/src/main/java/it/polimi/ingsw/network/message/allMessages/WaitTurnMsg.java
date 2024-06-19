@@ -13,18 +13,16 @@ public class WaitTurnMsg  extends Message {
     private List<Card> card;
     private Boards boards;
     private int[] resources;
-    private int points = -1;
+    private int points;
+    private int currIndex;
 
-    public WaitTurnMsg(String senderUsername) {
-        super(messEnum.WAIT_TURN, senderUsername);
-    }
-
-    public WaitTurnMsg(String senderUsername, List<Card> list, Boards boards, int[] resources, int points) {
+    public WaitTurnMsg(String senderUsername, List<Card> list, Boards boards, int[] resources, int points, int currentIndex) {
         super(messEnum.WAIT_TURN, senderUsername);
         this.card = list;
         this.boards = boards;
         this.resources = resources;
         this.points = points;
+        this.currIndex = currentIndex;
     }
 
     @Override
@@ -46,5 +44,9 @@ public class WaitTurnMsg  extends Message {
 
     public List<Card> getCard() {
         return card;
+    }
+
+    public int getCurrIndex() {
+        return currIndex;
     }
 }

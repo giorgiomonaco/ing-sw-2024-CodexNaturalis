@@ -9,7 +9,7 @@ public class GameStartHandler implements MessageHandler {
     @Override
     public void handle(Message msg, Client client) {
 
-        client.setCurrentState(stateEnum.GAME_STARTED);
+        client.setCurrentState(stateEnum.GAME_SETUP);
 
         GameStarting game = (GameStarting) msg;
         client.setPlayerHand(game.getPlayerHand());

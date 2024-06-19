@@ -6,10 +6,8 @@ import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.TuiViews.*;
 import it.polimi.ingsw.client.view.UserInterface;
-import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.server.model.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -39,7 +37,7 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.DISCONNECTION, new DisconnectionView());
         phaseView.put(stateEnum.DRAW_CARD, new DrawCardView());
         phaseView.put(stateEnum.LOBBY, new LobbyView());
-        phaseView.put(stateEnum.GAME_STARTED, new GameStartedView());
+        phaseView.put(stateEnum.GAME_SETUP, new GameStartedView());
         phaseView.put(stateEnum.PLAY_CARD, new PlayCardView());
         phaseView.put(stateEnum.SELECT_NUM_PLAYERS, new SelNumPlayerView());
         phaseView.put(stateEnum.SELECT_TOKEN, new SelTokenView());
@@ -80,8 +78,8 @@ public class Tui implements UserInterface{
             case LOBBY:
                 phaseView.get(stateEnum.LOBBY).play(tuiCli);
                 break;
-            case GAME_STARTED:
-                phaseView.get(stateEnum.GAME_STARTED).play(tuiCli);
+            case GAME_SETUP:
+                phaseView.get(stateEnum.GAME_SETUP).play(tuiCli);
                 break;
             case GAME_STOPPED:
                 phaseView.get(stateEnum.GAME_STOPPED).play(tuiCli);
