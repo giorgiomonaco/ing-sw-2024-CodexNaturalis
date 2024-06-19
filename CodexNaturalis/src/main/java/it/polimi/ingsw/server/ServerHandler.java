@@ -347,7 +347,7 @@ public class ServerHandler {
 
     public void endGame(){
         // the last player win the game
-        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true));
+        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, "suca"));
 
         System.exit(2);
     }
