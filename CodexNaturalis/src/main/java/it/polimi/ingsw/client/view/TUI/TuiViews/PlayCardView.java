@@ -15,6 +15,7 @@ public class PlayCardView implements TuiView {
     private Client client;
 
 
+
     @Override
     public void play(Client client) {
         this.client = client;
@@ -59,20 +60,21 @@ public class PlayCardView implements TuiView {
 
             }
         }
+
         System.out.print("X->");
         for (int o = minX-1; o < maxX+2; o++){
             System.out.print(" "+o+" ");
         }
         for (int y = minY-1; y < maxY+2; y++) {
-
             System.out.println();
             System.out.print(y + " ");
+
 
             for (int x = minX-1; x < maxX+2; x++) {
 
                 switch (boards.checkBoard[x][y]) {
-                    case -1:
-                        System.out.print(" " + Colors.redColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
+                    case -1, -2:
+                        System.out.print("   ");
                         break;
                     case 0:
                         System.out.print("  " + Colors.greenColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
@@ -80,8 +82,6 @@ public class PlayCardView implements TuiView {
                     case 1:
                         System.out.print("  " + Colors.blueColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                         break;
-                    case 2:
-                        System.out.print(" "+ Colors.redColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
                 }
             }
         }
