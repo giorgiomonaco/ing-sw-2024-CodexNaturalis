@@ -11,10 +11,10 @@ public class Gui implements UserInterface {
 
     private final Client client;
     private int turn;
-    private int index;
     private MyFrame frame;
     // private JLayeredPane layeredPane;
     private JPanel glassPane;
+    private JPanel stopPane;
     private JPanel message;
     private boolean permission;
     private MainPanel mainPanel;
@@ -26,7 +26,6 @@ public class Gui implements UserInterface {
         client.setUI(this);
         permission = true;
         turn = 2;
-        index = -1;
         gameSetUp = true;
     }
 
@@ -73,6 +72,9 @@ public class Gui implements UserInterface {
                 }
                 if(glassPane.isVisible()){
                     glassPane.setVisible(false);
+                }
+                if(stopPane != null){
+                    stopPane.setVisible(false);
                 }
                 if(mainPanel == null) {
                     addMainPanel();
@@ -281,7 +283,7 @@ public class Gui implements UserInterface {
     }
 
     private void manageStop(){
-        JPanel stopPane = new JPanel() {
+        stopPane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);

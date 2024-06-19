@@ -325,11 +325,15 @@ public class ServerHandler {
                 synchronized (connectedClients) {
                     for (String user : connectedClients.keySet()) {
                         if (connectedClients.get(user).isConnected()) {
-                            count++;
+                            count = count + 1;
                         }
                     }
                 }
-                if(count == 1) {
+                if(count == 0) {
+                    System.out.println(Colors.redColor + "The server is closing because no one is connected anymore." + Colors.resetColor);
+                    System.exit(0);
+                }
+                else if(count == 1) {
                     stop = true;
                     gameStopper.start();
                 } else {
