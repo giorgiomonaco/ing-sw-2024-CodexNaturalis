@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.GUI;
+package it.polimi.ingsw.client.view.GUI.Frames;
 import javax.swing.*;
 import java.awt.*;
 
