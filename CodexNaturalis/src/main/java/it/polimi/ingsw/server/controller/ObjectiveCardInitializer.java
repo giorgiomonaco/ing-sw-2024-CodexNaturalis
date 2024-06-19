@@ -1,19 +1,14 @@
 package it.polimi.ingsw.server.controller;
-
-
-import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.ObjectiveCard;
 import it.polimi.ingsw.server.model.Symbol;
 import it.polimi.ingsw.server.model.Game;
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.List;
+import java.util.Objects;
 
 public class ObjectiveCardInitializer {
     private int count = 1;
@@ -32,18 +27,11 @@ public class ObjectiveCardInitializer {
      */
     public void initializeObjectiveCards(){
 
-        String osName = System.getProperty("os.name").toLowerCase();
-        String basePath = "src/main/resources/objectiveCards.json";
-        String addPath = "CodexNaturalis/";
-        String finalPath;
+        ClassLoader cl = this.getClass().getClassLoader();
+        String item = "objectiveCards.json";
+        InputStream is = cl.getResourceAsStream(item);
 
-        if(osName.contains("mac")){
-            finalPath = basePath;
-        } else {
-            finalPath = addPath + basePath;
-        }
-
-        try (Reader reader = new FileReader(finalPath);
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(is, "Couldn't find json file"));
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
@@ -64,11 +52,7 @@ public class ObjectiveCardInitializer {
 
                 String front;
 
-                if(osName.contains("mac")){
-                    front = "src/main/resources/images/objectiveCards/front/" + count + ".png";
-                } else {
-                    front = "CodexNaturalis/src/main/resources/images/objectiveCards/front/" + count + ".png";
-                }
+                front = "images/objectiveCards/front/" + count + ".png";
 
                 ObjectiveCard objectiveCard = new ObjectiveCard(count, pointsInt, type, card1, direction1, card2, direction2, card3, front);
                 addCardToGame(objectiveCard);
@@ -77,7 +61,7 @@ public class ObjectiveCardInitializer {
             }
         }
         catch (IOException e) {
-            Throwable cause = e.getCause();
+            throw new RuntimeException("Couldn't find json file");
         }
 
     }
