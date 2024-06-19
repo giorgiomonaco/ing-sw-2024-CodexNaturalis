@@ -10,6 +10,7 @@ public class ShowWinnerHandler implements MessageHandler {
     public void handle(Message message, Client client) {
         ShowWinnerMessage showWinnerMessage = (ShowWinnerMessage) message;
         client.setCurrentState(stateEnum.SHOW_WINNER);
+        client.setWinnerName(showWinnerMessage.getName());
         client.setWinner(showWinnerMessage.getWin());
         client.getUI().run();
         System.exit(1);

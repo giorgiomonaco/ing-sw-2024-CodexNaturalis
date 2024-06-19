@@ -112,11 +112,13 @@ public class Gui implements UserInterface {
                 addAlreadyStartedPanel();
                 break;
             case DISCONNECTION:
+                addDisconnectionPanel();
                 break;
             case REJECTED:
                 addRejectedPanel();
                 break;
             case SHOW_WINNER:
+                addEndGamePanel();
                 break;
             case DRAW_CARD:
                 addDrawFrame();
@@ -287,6 +289,20 @@ public class Gui implements UserInterface {
         frame.getContentPane().removeAll();
         frame.repaint();
         frame.add(new RejectedPanel());
+        frame.setVisible(true);
+    }
+
+    private void addDisconnectionPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new DisconnectionPanel());
+        frame.setVisible(true);
+    }
+
+    private void addEndGamePanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new EndGamePanel(client));
         frame.setVisible(true);
     }
 
