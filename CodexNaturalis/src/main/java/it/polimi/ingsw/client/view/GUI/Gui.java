@@ -114,6 +114,7 @@ public class Gui implements UserInterface {
             case DISCONNECTION:
                 break;
             case REJECTED:
+                addRejectedPanel();
                 break;
             case SHOW_WINNER:
                 break;
@@ -282,45 +283,56 @@ public class Gui implements UserInterface {
         frame.setVisible(true);
     }
 
+    private void addRejectedPanel(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(new RejectedPanel());
+        frame.setVisible(true);
+    }
+
     private void manageStop(){
-        stopPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Draw the semi-transparent cover
-                g.setColor(new Color(0, 0, 0, 200));
-                g.fillRect(0, 0, getWidth(), getHeight());
+        if(stopPane != null){
+            stopPane.setVisible(true);
+        } else {
+            stopPane = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    // Draw the semi-transparent cover
+                    g.setColor(new Color(0, 0, 0, 200));
+                    g.fillRect(0, 0, getWidth(), getHeight());
 
-                g.setColor(Color.WHITE);
-                g.setFont(new Font("Arial", Font.BOLD, 24));
-                String[] lines = {
-                        "-- GAME STOPPED --",
-                        "If nobody rejoin the game in 30 seconds,",
-                        "you will win the game."
-                };
-                FontMetrics metrics = g.getFontMetrics(g.getFont());
+                    g.setColor(Color.WHITE);
+                    g.setFont(new Font("Arial", Font.BOLD, 24));
+                    String[] lines = {
+                            "-- GAME STOPPED --",
+                            "If nobody rejoin the game in 30 seconds,",
+                            "you will win the game."
+                    };
+                    FontMetrics metrics = g.getFontMetrics(g.getFont());
 
-                int totalHeight = 0;
-                for (String line : lines) {
-                    totalHeight += metrics.getHeight();
+                    int totalHeight = 0;
+                    for (String line : lines) {
+                        totalHeight += metrics.getHeight();
+                    }
+                    int y = (getHeight() - totalHeight) / 2;
+
+                    for (String line : lines) {
+                        int x = (getWidth() - metrics.stringWidth(line)) / 2;
+                        g.drawString(line, x, y + metrics.getAscent());
+                        y += metrics.getHeight();
+                    }
                 }
-                int y = (getHeight() - totalHeight) / 2;
+            };
 
-                for (String line : lines) {
-                    int x = (getWidth() - metrics.stringWidth(line)) / 2;
-                    g.drawString(line, x, y + metrics.getAscent());
-                    y += metrics.getHeight();
-                }
-            }
-        };
+            stopPane.setLayout(new GridBagLayout());
+            stopPane.setOpaque(false);
+            permission = false;
 
-        stopPane.setLayout(new GridBagLayout());
-        stopPane.setOpaque(false);
-        permission = false;
-
-        // Set the stopPane as the frame GlassPane
-        frame.setGlassPane(stopPane);
-        stopPane.setVisible(true);
+            // Set the stopPane as the frame GlassPane
+            frame.setGlassPane(stopPane);
+            stopPane.setVisible(true);
+        }
     }
 
 }

@@ -31,7 +31,7 @@ public class ServerHandler {
     private final Object lobbyLock = new Object();
     private final Object controllerLock = new Object();
     private final Pinger pinger;
-    private final GameStopper gameStopper;
+    private GameStopper gameStopper;
     // Timeout for the game when only one player remain connected.
     public static int TIMEOUT = 30;
     private boolean stop;
@@ -230,7 +230,9 @@ public class ServerHandler {
                 if (!connectedClients.get(username).isConnected()) {
                     // Check if the game is in STOP phase
                     if(stop){
+                        // We interrupt the thread and we create a new one
                         gameStopper.interrupt();
+                        gameStopper = new GameStopper(this);
                         stop = false;
                         synchronized (controllerLock) {
                             mainController.beginTurn();
