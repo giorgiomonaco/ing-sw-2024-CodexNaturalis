@@ -36,14 +36,8 @@ public class GameSetUpper {
         boardsManager.initializeBoards();
 
 
-        //After we have initialized all the cards and tokens we initialize the common board
-        //to initialize all common things: Discovered cards and Points tracker
-        //we create the common board manager
-        CommonBoardManager commonBoardManager = new CommonBoardManager(game);
-        //We initialize the common board:
-        //Place the points tracker and put the tokens at start
-        //Discover the first cards onto the common board
-        commonBoardManager.initializeCommonBoard();
+
+
 
         //Creation of the draw manager
         DrawManager drawManager = new DrawManager(game);
