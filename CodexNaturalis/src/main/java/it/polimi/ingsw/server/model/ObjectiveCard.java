@@ -21,6 +21,19 @@ public class ObjectiveCard implements Serializable {
 
 
 
+    /**
+     * Constructs an ObjectiveCard object with specified attributes.
+     *
+     * @param num the number of the card
+     * @param points the points awarded by the card
+     * @param type the type of the objective card
+     * @param card1 the first card to look for if the type is "position"
+     * @param direction1 the direction associated with the first card
+     * @param card2 the second card to look for if the type is "position"
+     * @param direction2 the direction associated with the second card
+     * @param card3 the third card to look for if the type is "position"
+     * @param path the path to the image associated with the card
+     */
     public ObjectiveCard(int num, int points, String type, String card1, String direction1, String card2, String direction2, String card3, String path) {
         this.type = type;
         this.card1 = card1;

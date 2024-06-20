@@ -10,7 +10,17 @@ public class ResourceCard extends Card{
     //points the card gives when played
     private final int cardPoints;
 
-    //Constructor
+    /**
+     * Constructs a ResourceCard object with specified attributes.
+     *
+     * @param number the number of the resource card
+     * @param points the points awarded by the resource card
+     * @param frontAngles array of VisibleAngle objects representing front angles of the card
+     * @param backAngles array of VisibleAngle objects representing back angles of the card
+     * @param backSymbol list of Symbol objects for the back side of the card
+     * @param frontPath the file path to the front side image of the card
+     * @param backPath the file path to the back side image of the card
+     */
     public ResourceCard(int number, int points, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String frontPath, String backPath){
         super(frontAngles, backAngles, backSymbol, frontPath, backPath);
         this.cardNumber = number;
