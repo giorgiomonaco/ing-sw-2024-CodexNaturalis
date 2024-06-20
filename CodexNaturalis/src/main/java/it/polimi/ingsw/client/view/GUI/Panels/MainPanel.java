@@ -53,13 +53,14 @@ public class MainPanel extends JPanel {
 
         // Set proportions for each panel
         // Board panel will cover 70% of y and 80% of x space
+
         // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 80; // Reduced from 90
         gbc.gridheight = 80; // Increased from 80
-        gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.8; // Increased from 0.8
+        gbc.weightx = 1; // Reduced from 0.9
+        gbc.weighty = 1; // Increased from 0.8
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
@@ -69,9 +70,9 @@ public class MainPanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 20; // Increased from 10
         gbc.gridheight = 35;// Changed from 80
-        gbc.weightx = 0.2; // Increased from 0.1
-        gbc.weighty = 0.35; // Changed from 0.8
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1; // Increased from 0.1
+        gbc.weighty = 1; // Changed from 0.8
+
         add(other, gbc);
 
         // Reset the gbc
@@ -79,21 +80,20 @@ public class MainPanel extends JPanel {
         gbc.gridx = 80; // Changed from 90
         gbc.gridy = 35; // Changed from 80
         gbc.gridwidth = 20; // Increased from 10
-        gbc.gridheight = 15; // Reduced from 20
-        gbc.weightx = 0.2; // Reduced from 0.35
-        gbc.weighty = 0.15; // Increased from 0.1
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridheight = 30; // Reduced from 20
+        gbc.weightx = 1; // Reduced from 0.35
+        gbc.weighty = 1; // Increased from 0.1
         add(chat, gbc);
 
 
         //OBJECTIVES---
         gbc.gridx = 80;
-        gbc.gridy = 50;
+        gbc.gridy = 65;
         gbc.gridwidth = 20;
-        gbc.gridheight = 50;
-        gbc.weightx = 0.2;
-        gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridheight = 65;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+
         add(objectivePanel, gbc);
 
 
@@ -102,25 +102,28 @@ public class MainPanel extends JPanel {
         gbc.gridy = 80; // Changed from 80
         gbc.gridwidth = 60; // Reduced from 90
         gbc.gridheight = 20; // Reduced from 20
-        gbc.weightx = 0.6; // Reduced from 0.9
-        gbc.weighty = 0.2; // Increased from 0.1
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1; // Reduced from 0.9
+        gbc.weighty = 1; // Increased from 0.1
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.SOUTHEAST;
         hand.setBackground(Color.gray);
         add(hand, gbc);
 
 
         // PLACE BUTTON----
-        gbc.gridx = 60;
-        gbc.gridy = 90;
-        gbc.gridwidth = 20;
-        gbc.gridheight = 10;
-        gbc.weightx = 0.2;
-        gbc.weighty = 0.1;
-        gbc.fill = GridBagConstraints.BOTH;
         gbc = new GridBagConstraints();
+        gbc.gridx = 60;
+        gbc.gridy = 80;
+        gbc.gridwidth = 20;
+        gbc.gridheight = 40;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
         JButton button = new JButton("PLACE");
+        JPanel panel = new JPanel();
+        panel.add(button);
         button.addMouseListener(new buttonListener(this, client));
-        add(button, gbc);
+        add(panel, gbc);
     }
 
     public boolean isYourTurn() {
