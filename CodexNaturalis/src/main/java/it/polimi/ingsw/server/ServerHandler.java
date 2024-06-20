@@ -57,12 +57,9 @@ public class ServerHandler {
     public void init() {
         rmiServer.start();
         tcpServer.start();
-        //pinger.start();
+        pinger.start();
     }
 
-    public void isValid(String check){
-        // Check if the ip is valid, maybe we can assume that anyway...
-    }
 
     public void manageMessage(Message msg) {
         switch(msg.getType()) {
