@@ -29,8 +29,7 @@ public class Game {
     //deck of initial cards
     private final List<InitialCard> initialCardsDeck = new ArrayList<>();
 
-    //The place where discovered cards are stored = common game boards
-    private CommonBoard commonBoard;
+
 
     private List<String> availableTokens;
     //The player is at that moment playing the game
@@ -159,15 +158,7 @@ public class Game {
         return playerList;
     }
 
-    //set the common board
-    public void setCommonBoard(CommonBoard commonBoard){
-        this.commonBoard = commonBoard;
-    }
 
-    //get the common board
-    public CommonBoard getCommonBoard(){
-        return commonBoard;
-    }
 
     //setter of current player
     public void setCurrentPlayer(Player currentPlayer) {
@@ -193,9 +184,7 @@ public class Game {
         return this.goldDeck.size();
     }
 
-    public void setPlayersNumber(int playersNumber) {
-        this.playersNumber = playersNumber;
-    }
+
 
     public void setGameState(gameStateEnum gameState) {
         this.gameState = gameState;
