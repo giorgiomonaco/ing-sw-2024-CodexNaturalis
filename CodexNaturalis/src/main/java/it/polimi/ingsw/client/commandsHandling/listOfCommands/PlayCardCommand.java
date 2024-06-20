@@ -21,6 +21,15 @@ public class PlayCardCommand implements CommandManager {
         this.client = client;
     }
 
+    /**
+     * Handles a play card command message.
+     *
+     * @param commands array of command parameters
+     * @param clientState the current state of the client
+     * @throws RemoteException if a remote communication issue occurs
+     * @throws CommandNotAvailableException if the command is not available in the current client state
+     * @throws WrongInsertionException if the command insertion is incorrect
+     */
     @Override
     public void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException, WrongInsertionException {
         int index = Integer.parseInt(commands[1]);

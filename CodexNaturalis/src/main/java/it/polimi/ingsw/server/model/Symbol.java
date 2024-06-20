@@ -25,6 +25,12 @@ public abstract class Symbol implements Serializable {
         return symbolType;
     }
 
+    /**
+     * Retrieves the color associated with the symbol name.
+     *
+     * @return a String representing the color associated with the symbol name
+     * @throws IllegalStateException if the symbol name does not match any expected values
+     */
     public Object getSymbolColor() {
         return switch (symbolName) {
             case "fox" -> "blue";

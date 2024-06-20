@@ -15,6 +15,16 @@ public class DrawCardCommand implements CommandManager {
         this.client = client;
     }
 
+
+    /**
+     * Handles a draw card command message.
+     *
+     * @param commands array of command parameters
+     * @param currState the current state of the client
+     * @throws RemoteException if a remote communication issue occurs
+     * @throws CommandNotAvailableException if the command is not available in the current client state
+     * @throws IllegalArgumentException if the command format is invalid
+     */
     public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException {
 
 

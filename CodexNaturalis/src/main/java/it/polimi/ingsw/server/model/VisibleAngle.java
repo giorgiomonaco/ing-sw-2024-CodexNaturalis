@@ -3,16 +3,13 @@ package it.polimi.ingsw.server.model;
 
 import java.io.Serializable;
 
+/**
+ * Represents a visible angle associated with a Symbol.
+ */
 public class VisibleAngle implements Serializable {
-    //every visible VisibleAngle has a symbol in it,
-    //It may be null, so the VisibleAngle is empty
-    //!!!!!!!!!!!!!!!!!!Don't like this class cus only subclass of VisibleAngle,
-    //may be useless have a distinction
-    private final Symbol symbol;
 
-    //attribute tha determines if the VisibleAngle is visible or not,
-    //used to check how and which resources are available
-    private boolean notCovered = true;
+
+    private final Symbol symbol;
 
     //constructor
     public VisibleAngle(Symbol symbol){
@@ -24,13 +21,4 @@ public class VisibleAngle implements Serializable {
         return symbol;
     }
 
-    //get if VisibleAngle covered or not
-    public boolean isNotCovered() {
-        return notCovered;
-    }
-
-    //change the state of the coverage of the VisibleAngle
-    public void setNotCovered(boolean notCovered) {
-        this.notCovered = notCovered;
-    }
 }
