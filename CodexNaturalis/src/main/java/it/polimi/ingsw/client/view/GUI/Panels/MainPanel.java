@@ -189,16 +189,13 @@ public class MainPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            // for debugging
-            // System.out.println(mp.getxCoord() + " " + mp.getyCoord());
+
             if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide()) && mp.isYourTurn()) {
                 try {
 
                     //send message with the selection of the card
-                    System.out.println("invio");
-                    client.sendMessage(new SelectionCard(client.getUsername(), mp.getCard(), mp.getxCoord(), mp.getyCoord(), mp.isSide()));
-                    System.out.println("fatto");
                     mp.getCard().setTurn(mp.getTurn() * 10);
+                    client.sendMessage(new SelectionCard(client.getUsername(), mp.getCard(), mp.getxCoord(), mp.getyCoord(), mp.isSide()));
                     mp.setCard(null);
                     mp.setxCoord(-1);
                     mp.setyCoord(-1);
@@ -215,7 +212,6 @@ public class MainPanel extends JPanel {
                 client.getUI().printErrorMessage("You do not have enough resources to play this card. Please choose another one.");
             } else {
                 client.getUI().printErrorMessage("IT'S NOT YOUR TURN. Wait for your turn.");
-
             }
 
         }
@@ -231,6 +227,7 @@ public class MainPanel extends JPanel {
             }
             return true;
         }
+
     }
 
     public ChatPanel getChat() {

@@ -272,10 +272,16 @@ public class MainController implements Serializable {
                         currPlayer.getResourcesAvailable(),
                         game.getPlayersPoint())
         );
-        System.out.println("inviato");
+
+
 
         if (isLastPlayer(currPlayer.getPlayerName())) {
             setFirstTurn(false);
+            serverHandler.sendMessageToAll(
+                    new WaitTurnMsg(ServerHandler.HOSTNAME,
+                            currPlayer.getGameBoards().getGameBoard(),
+                            game.getPlayersPoint())
+            );
             beginTurn();
         } else {
             beginFirstTurn();

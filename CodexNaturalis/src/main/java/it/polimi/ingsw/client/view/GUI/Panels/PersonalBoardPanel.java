@@ -52,6 +52,7 @@ public class PersonalBoardPanel extends JPanel {
      * Initializes the board layout and components.
      */
     private void initializeBoard() {
+
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane to hold the cards
@@ -167,7 +168,6 @@ public class PersonalBoardPanel extends JPanel {
                     mainPanel.setxCoord(x);
                     mainPanel.setyCoord(y);
                     label.setBackground(Color.blue);
-                    System.out.println(x + " " + y);
                     isFront = !isFront;
                 }
             } else {
