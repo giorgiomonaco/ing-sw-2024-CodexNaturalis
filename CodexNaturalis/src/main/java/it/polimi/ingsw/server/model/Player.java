@@ -134,6 +134,10 @@ public class Player implements Serializable {
         //notify the view
     }
 
+    public String getPlayerTokenS() {
+        return playerTokenS;
+    }
+
     //Method to get the color of the player token
     public Token getPlayerToken() {
         return playerToken;
