@@ -229,6 +229,7 @@ public class Game {
     }
 
     public void setAvailableTokens(List<String> availableTokens) {
+
         this.availableTokens = availableTokens;
     }
 
