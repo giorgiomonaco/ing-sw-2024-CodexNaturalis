@@ -20,6 +20,9 @@ public class ShowWinnerView implements TuiView {
                     "    _|  \\___/  \\___/      _____| \\___/  _____/  _____| \n" +
                     "                                                       \n");
             //the winner is client.getWinner
+            System.out.println("\nThe winner is: " + client.getWinnerName());
         }
+
+        System.exit(1);
     }
 }

@@ -14,9 +14,9 @@ public class PlayCardReq extends Message implements Serializable {
     List<Card> card;
     Boards boards;
     int[] resources;
-    int points;
+    int[] points;
 
-    public PlayCardReq(String senderUsername, List<Card> list, Boards boards, int[] resources, int points) {
+    public PlayCardReq(String senderUsername, List<Card> list, Boards boards, int[] resources, int[] points) {
         super(messEnum.PLAY_CARD_REQUEST, senderUsername);
         this.card = list;
         this.boards = boards;
@@ -41,7 +41,7 @@ public class PlayCardReq extends Message implements Serializable {
         return resources;
     }
 
-    public int getPoints() {
+    public int[] getPoints() {
         return points;
     }
 }

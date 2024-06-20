@@ -28,8 +28,9 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<String> availableTokens = new ArrayList<>();
     private List<String> deckPath = new ArrayList<>();
     private Boards boards;
+    private Card[][][] gameBoards = new Card[4][][];
     private int[] resources;
-    private int points;
+    private int[] points;
     private List<Card> visibleGoldCards = new ArrayList<>();
     private List<Card> visibleResourceCards = new ArrayList<>();
     private boolean winner = false;
@@ -172,11 +173,11 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         getUI().run();
     }
 
-    public int getPoints() {
+    public int[] getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(int[] points) {
         this.points = points;
     }
 
@@ -226,5 +227,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setWinnerName(String winnerName) {
         this.winnerName = winnerName;
+    }
+
+    public Card[][] getGameBoards(int i) {
+        return gameBoards[i];
+    }
+
+    public void setGameBoards(Card[][] gameBoards, int i) {
+        this.gameBoards[i] = gameBoards;
     }
 }

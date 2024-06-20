@@ -12,12 +12,13 @@ public class ServerConfigNetwork {
         this.portRMI = 1234;
         this.portTCP = 1235;
         this.registryName = "RMIServerInterface";
-        try {
-            this.serverIP = Inet4Address.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            System.err.println(e.getMessage());
-            System.err.println("Couldn't get the LocalHost IP address.");
-        }
+        //try {
+        //    this.serverIP = Inet4Address.getLocalHost().getHostAddress();
+        //} catch (UnknownHostException e) {
+        //    System.err.println(e.getMessage());
+        //    System.err.println("Couldn't get the LocalHost IP address.");
+        //}
+        this.serverIP = "172.20.10.4";
     }
 
     public int getPortRMI() {

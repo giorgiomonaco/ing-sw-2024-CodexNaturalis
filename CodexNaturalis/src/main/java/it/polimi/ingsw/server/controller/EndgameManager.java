@@ -67,8 +67,10 @@ public class EndgameManager {
 
         for (int x = 0; x< gameBoard.getMAX_Y(); x++){
             for (int y = 0; y< gameBoard.getMAX_X(); y++){
-                if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolName(), objectiveCard.getCard1())){
-                    return findPattern(x, y, cardMatrix);
+                if(cardMatrix[x][y] != null && !(cardMatrix[x][y] instanceof InitialCard)) {
+                    if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolName(), objectiveCard.getCard1())) {
+                        return findPattern(x, y, cardMatrix);
+                    }
                 }
             }
         }

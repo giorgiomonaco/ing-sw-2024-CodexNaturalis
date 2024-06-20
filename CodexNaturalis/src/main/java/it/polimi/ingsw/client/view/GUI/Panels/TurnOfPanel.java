@@ -1,19 +1,22 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Frames.BoardFrame;
+import it.polimi.ingsw.client.view.GUI.Frames.DrawFrame;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccessoryPanel extends JPanel {
+public class TurnOfPanel extends JPanel {
     private Client client;
     private List<String> players;
     private List<JLabel> playersLab;
 
-    public AccessoryPanel(Client client){
+    public TurnOfPanel(Client client){
         this.client = client;
         setLayout(new BorderLayout());
 
@@ -38,15 +41,19 @@ public class AccessoryPanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
+        int i = 0;
         for (String p : players) {
 
             JLabel playerLabel = new JLabel(p.toUpperCase());
             playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            playerLabel.addMouseListener(new boardMouseListener(i, client));
             playersPanel.add(playerLabel, gbc);
             playersLab.add(playerLabel);
             gbc.gridx++;
+            i++;
 
         }
 
@@ -59,6 +66,27 @@ public class AccessoryPanel extends JPanel {
          */
 
 
+    }
+
+    private static class boardMouseListener extends MouseAdapter {
+        private final int index;
+        private final Client client;
+
+        public boardMouseListener(int index, Client client) {
+
+            this.index = index;
+            this.client = client;
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+            BoardFrame boardFrame = new BoardFrame(client.getGameBoards(index), client.getPlayerList().get(index));
+            boardFrame.getBoard().scrollToMiddle();
+            boardFrame.setVisible(true);
+
+        }
     }
 
     public List<JLabel> getPlayersLab() {

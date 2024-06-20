@@ -16,6 +16,14 @@ public class ChatCommand implements CommandManager {
         this.client = client;
     }
 
+    /**
+     * Handles a chat command message.
+     *
+     * @param commands array of command parameters
+     * @param clientState the current state of the client
+     * @throws RemoteException if a remote communication issue occurs
+     * @throws CommandNotAvailableException if the command is not available in the current client state
+     */
     @Override
     public void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException {
         if (client.getCurrentState().equals(stateEnum.LOGIN)) {
@@ -23,10 +31,10 @@ public class ChatCommand implements CommandManager {
         }
 
 
-            String[] temp = Arrays.copyOfRange(commands, 2, commands.length);
-            String result = String.join(" ", temp);
-            ChatMessage toSend = new ChatMessage(client.getUsername(), commands[1], result);
-            client.sendMessage(toSend);
+        String[] temp = Arrays.copyOfRange(commands, 2, commands.length);
+        String result = String.join(" ", temp);
+        ChatMessage toSend = new ChatMessage(client.getUsername(), commands[1], result);
+        client.sendMessage(toSend);
 
 
 

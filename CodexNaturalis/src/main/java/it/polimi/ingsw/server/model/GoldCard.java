@@ -12,17 +12,32 @@ public class GoldCard extends Card {
     //number of points the card gives when played
     private final int cardPoints;
 
-    /*
-    Visible symbols needed on the game board to play the card
-    In order:
-    0 = mushroom (res)
-    1 = leaf (res)
-    2 = fox (res)
-    3 = butterfly (res)
+    /**
+     * Visible symbols needed on the game board to play the card
+     * <p>In order:
+     * <li>0 = mushroom (res)
+     * <li>1 = leaf (res)
+     * <li>2 = fox (res)
+     * <li>3 = butterfly (res)
+     * </p>
      */
     private int[] neededSymbols;
 
-    //Constructor
+
+    /**
+     * Constructs a GoldCard object with specified attributes.
+     *
+     * @param name the name of the card,as indexed in the deck
+     * @param frontAngles array of VisibleAngle objects representing front angles of the card
+     * @param backAngles array of VisibleAngle objects representing back angles of the card
+     * @param backSymbol list of Symbol objects for the back side of the card
+     * @param condition the resources needed to play the card
+     * @param cardPoints the points value of the card
+     * @param neededSymbols array of integers representing symbols needed to play the card
+     * @param front the front side image path
+     * @param back the back side image path
+     */
+
     public GoldCard(int name, VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, int condition,
                     int cardPoints, int[] neededSymbols, String front, String back){
         super(frontAngles, backAngles, backSymbol, front, back);
@@ -35,24 +50,42 @@ public class GoldCard extends Card {
         this.neededSymbols = neededSymbols;
     }
 
-    //get of the card name
+    /**
+     * Retrieves the number of the card.
+     *
+     * @return the number of the card
+     */
     public int getCardNumber() {
         return cardNumber;
     }
 
-    //get the list of all the symbols needed to play the card
+    /**
+     * Retrieves the array of symbols needed to play the card.
+     *
+     * @return an array of integers representing symbols needed to play the card
+     */
     public int[] getNeededSymbols() {
         return neededSymbols;
     }
 
-    //get how many points the card gives when played
+    /**
+     * Retrieves the points value of the card when played.
+     *
+     * @return the points value of the card
+     */
     public int getCardPoints() {
         return cardPoints;
     }
 
+    /**
+     * Retrieves the condition of the card.
+     *
+     * @return the condition of the card
+     */
     public int getCondition() {
         return condition;
     }
+
 
 
 }

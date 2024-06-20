@@ -177,7 +177,7 @@ public class Gui implements UserInterface {
         frame = new MyFrame();
         //BufferedImage image = null;
         //try {
-        //    image = ImageIO.read(new File("src/main/resources/images/backGround.png"));
+        //    image = ImageIO.read(new File("src/main/resources/images/backGround5.png"));
         //} catch (IOException e) {
         //    throw new RuntimeException(e);
         //}

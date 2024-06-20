@@ -170,22 +170,16 @@ public class MainController implements Serializable {
                             game.getCurrentPlayer().getPlayerHand(),
                             game.getCurrentPlayer().getGameBoards(),
                             game.getCurrentPlayer().getResourcesAvailable(),
-                            game.getCurrentPlayer().getPlayerPoints())
+                            game.getPlayersPoint())
             );
 
-            for (String p : game.getUserList()) {
-                if (!p.equals(game.getCurrentPlayer().getPlayerName())) {
-                    serverHandler.sendMessageToPlayer(
-                            p,
-                            new WaitTurnMsg(ServerHandler.HOSTNAME,
-                                    getPlayerByUsername(p).getPlayerHand(),
-                                    getPlayerByUsername(p).getGameBoards(),
-                                    getPlayerByUsername(p).getResourcesAvailable(),
-                                    getPlayerByUsername(p).getPlayerPoints(),
-                                    currPlayerIndex)
-                    );
-                }
-            }
+
+            serverHandler.sendMessageToAllExcept(
+                    game.getCurrentPlayer().getPlayerName(),
+                    new WaitTurnMsg(ServerHandler.HOSTNAME,
+                            currPlayerIndex)
+            );
+
         }
     }
 
@@ -198,6 +192,7 @@ public class MainController implements Serializable {
      */
     public void beginFirstTurn(){
 
+        int i = 1;
         List<String> availableToken = game.getAvailableTokens();
 
         // Skip the turn of the disconnected players until I find a connected one or the first turn is ended.
@@ -213,21 +208,14 @@ public class MainController implements Serializable {
                         ServerHandler.HOSTNAME,
                         availableToken,
                         getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
+        System.out.println("mandato" + i);
+        serverHandler.sendMessageToAllExcept(
+                game.getCurrentPlayer().getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        firstTurnIndex)
+        );
 
-        for (String p : game.getUserList()) {
-            if (!p.equals(game.getUserList().get(firstTurnIndex))) {
-                serverHandler.sendMessageToPlayer(
-                        p,
-                        new WaitTurnMsg(ServerHandler.HOSTNAME,
-                                getPlayerByUsername(p).getPlayerHand(),
-                                getPlayerByUsername(p).getGameBoards(),
-                                getPlayerByUsername(p).getResourcesAvailable(),
-                                getPlayerByUsername(p).getPlayerPoints(),
-                                firstTurnIndex)
-                );
-
-            }
-        }
+        i++;
 
     }
 
@@ -240,18 +228,59 @@ public class MainController implements Serializable {
      *
      */
     public void endTurn(){
-        Player currPlayer = game.getPlayerList().get(currPlayerIndex);
+        Player currPlayer = game.getCurrentPlayer();
 
-        // calcolare punti e vedere se deve iniziare l'ultimo turno
+        // check if it has to start the last turn
         if(game.getGameState().equals(gameStateEnum.START) &&
-                (currPlayer.getPlayerPoints() >= 20 ||
+                (currPlayer.getPlayerPoints() >= 1 ||
                         game.getResourceDeck().isEmpty() ||
                         game.getGoldDeck().isEmpty())) {
             finalPlayerIndex = currPlayerIndex;
             game.setGameState(gameStateEnum.FINAL_TURN);
         }
 
+        // send message of end turn
+        serverHandler.sendMessageToPlayer(
+                currPlayer.getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getPlayerHand(),
+                        currPlayer.getGameBoards(),
+                        currPlayer.getResourcesAvailable(),
+                        game.getPlayersPoint())
+        );
+
+        serverHandler.sendMessageToAllExcept(
+                currPlayer.getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getGameBoards().getGameBoard(),
+                        game.getPlayersPoint())
+        );
+
         beginTurn();
+    }
+
+    public void endFirstTurn(){
+        Player currPlayer = game.getCurrentPlayer();
+
+        // send message of end turn
+
+        serverHandler.sendMessageToPlayer(
+                currPlayer.getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getPlayerHand(),
+                        currPlayer.getGameBoards(),
+                        currPlayer.getResourcesAvailable(),
+                        game.getPlayersPoint())
+        );
+        System.out.println("inviato");
+
+        if (isLastPlayer(currPlayer.getPlayerName())) {
+            setFirstTurn(false);
+            beginTurn();
+        } else {
+            beginFirstTurn();
+        }
+
     }
 
     /**
@@ -305,7 +334,6 @@ public class MainController implements Serializable {
             serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true, player.getPlayerName()));
             serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false, player.getPlayerName()));
             System.out.println(Colors.greenColor + "THE WINNER IS " + player.getPlayerName() + Colors.resetColor);
-            System.exit(1);
         }
 
 

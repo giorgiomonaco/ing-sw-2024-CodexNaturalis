@@ -28,21 +28,22 @@ public class EndGamePanel extends JPanel {
 
         // We create a panel for the winner and the track-board
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        JLabel text = new JLabel("<html><div style='text-align: center;'>THE WINNER IS:<br>" + client.getWinnerName() + "<div></html>", SwingConstants.CENTER);
+        System.out.println("the winner is: " + winner);
+        JLabel text = new JLabel("<html><div style='text-align: center;'>THE WINNER IS:<br>" + winner + "<div></html>", SwingConstants.CENTER);
         text.setFont(new Font("San Francisco", Font.BOLD, 25));
         text.setForeground(Color.BLACK);
         text.setHorizontalAlignment(SwingConstants.CENTER);
+        text.setBorder(BorderFactory.createLineBorder(Color.blue));
         text.add(panel, gbc);
 
-        gbc.gridx = 1;
+        // gbc.gridx = 1;
 
         // Add the point-tracker
         // ...
