@@ -255,4 +255,15 @@ public class Game {
     public void setCommonObjectives(List<ObjectiveCard> commonObjectives) {
         this.commonObjectives = commonObjectives;
     }
+
+    public List<Integer> getPlayersPoint() {
+
+        List<Integer> playersPoint = new ArrayList<>();
+
+        for (Player p : playerList) {
+            playersPoint.add(p.getPlayerPoints());
+        }
+
+        return playersPoint;
+    }
 }
