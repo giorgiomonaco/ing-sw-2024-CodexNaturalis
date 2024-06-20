@@ -9,9 +9,11 @@ import java.util.List;
 
 public class SelObjView implements TuiView{
 
+    List<ObjectiveCard> commonObj = new ArrayList<>();
     List<ObjectiveCard> availableObj = new ArrayList<>();
     @Override
     public void play(Client client) {
+
         System.out.println("\n\nSelect your personal objective card from the available ones:\n");
 
         availableObj = client.getListObjective();
