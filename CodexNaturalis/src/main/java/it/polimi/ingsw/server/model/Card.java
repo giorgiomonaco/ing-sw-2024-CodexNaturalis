@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Card implements Serializable {
@@ -24,7 +23,7 @@ public abstract class Card implements Serializable {
     private final VisibleAngle[] backAngles = new VisibleAngle[4];
 
     //central symbol on the back of the card
-    private List<Symbol> backSymbol = new ArrayList<>();
+    private final List<Symbol> backSymbol;
 
 
     //Attribute that defines if we are playing/considering
@@ -33,9 +32,9 @@ public abstract class Card implements Serializable {
     //if false = back visible
     private boolean frontSide;
 
-    private String frontImage;
+    private final String frontImage;
 
-    private String backImage;
+    private final String backImage;
 
     private int turn = -1;
 
@@ -79,16 +78,18 @@ public abstract class Card implements Serializable {
     }
 
 
-    /*
-    Method to cover and angle
-    May look to move it from here
-     */
-    public Symbol coverAngle(int angle) {
-        Symbol sym = frontAngles[angle].getSymbol();
-        frontAngles[angle] = null;
-        return sym;
-    }
 
+
+
+    /**
+     * Takes a position as an input, checks if there is a visible angle
+     * at the specified position in the frontAngles array, and returns it if present.
+     * If there is no visible angle at the given position, it returns null.
+     *
+     * @param position the index position to retrieve the visible angle from, must be within the bounds of the frontAngles array
+     * @return the VisibleAngle at the specified position, or null if no visible angle is present
+     * @throws ArrayIndexOutOfBoundsException if the position index is out of bounds
+     */
 
     public VisibleAngle getFrontVisibleAngle(int position) {
         if (frontAngles[position] != null) {
@@ -98,6 +99,15 @@ public abstract class Card implements Serializable {
         }
     }
 
+    /**
+     * Takes a position as an input, checks if there is a visible angle
+     * at the specified position in the backAngles array, and returns it if present.
+     * If there is no visible angle at the given position, it returns null.
+     *
+     * @param position the index position to retrieve the visible angle from, must be within the bounds of the backAngles array
+     * @return the VisibleAngle at the specified position, or null if no visible angle is present
+     * @throws ArrayIndexOutOfBoundsException if the position index is out of bounds
+     */
     public VisibleAngle getBackVisibleAngle(int position) {
         if (backAngles[position] != null) {
             return backAngles[position];
@@ -106,7 +116,13 @@ public abstract class Card implements Serializable {
         }
     }
 
-    //  we add every symbol on the front of the card to the player available resources.
+    /**
+     * Adds every symbol on the front of the card to the player's available resources.
+     * Iterates through the frontAngles array, retrieves the symbol from each non-null
+     * VisibleAngle, and adds it to the player's resources using the {@code resourceAdding} method.
+     *
+     * @param p the Player object to add resources to
+     */
     public void addResources(Player p) {
         for (VisibleAngle angle : frontAngles) {
             if (angle != null) {
@@ -118,22 +134,40 @@ public abstract class Card implements Serializable {
         }
     }
 
+
+    /**
+     * Returns the side of the card (front or back).
+     *
+     * @return true if the card is on the front side, false otherwise
+     */
     public boolean getSide() {
         return frontSide;
     }
 
 
-    //getter of the ID of the card
+    /**
+     * Getter method for retrieving the ID of the card.
+     *
+     * @return the ID of the card
+     */
     public int getCardID() {
         return cardID;
     }
 
-    public String getSymbolName() {
-        return null;
-    }
 
-    ;
 
+
+    /**
+     * Checks if two cards are equal based on their card numbers.
+     * This method compares two Card objects, 'in' and 'hand', and returns true if:
+     * <li> Both 'in' and 'hand' are instances of GoldCard, and their card numbers match, or<br>
+     * <li> Both 'in' and 'hand' are instances of ResourceCard, and their card numbers match.
+     * <li> Returns false in all other cases, including when 'in' and 'hand' are not of the same type.
+     *<br><br>
+     * @param in the first Card object to compare
+     * @param hand the second Card object to compare
+     * @return true if the card numbers of 'in' and 'hand' are equal, false otherwise
+     */
     public boolean equals(Card in, Card hand) {
         if (in instanceof GoldCard) {
             if (hand instanceof GoldCard) {
@@ -151,18 +185,42 @@ public abstract class Card implements Serializable {
         return false;
     }
 
+    /**
+     * Retrieves the path or name of the front image associated with this card.
+     *
+     * @return a String representing the front image of the card
+     */
     public String getFrontImage() {
         return frontImage;
     }
 
+
+    /**
+     * Retrieves the path or name of the back image associated with this card.
+     *
+     * @return a String representing the back image of the card
+     */
     public String getBackImage() {
         return backImage;
     }
 
+
+    /**
+     * Retrieves the turn number associated with this card.
+     *
+     * @return the turn number of the card
+     */
     public int getTurn() {
         return turn;
     }
 
+
+
+    /**
+     * Sets the turn number associated with this card.
+     *
+     * @param turn the new turn number to set
+     */
     public void setTurn(int turn) {
         this.turn = turn;
     }
