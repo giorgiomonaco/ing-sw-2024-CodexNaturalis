@@ -5,23 +5,36 @@ import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.Tui;
 import it.polimi.ingsw.server.model.Boards;
 import it.polimi.ingsw.server.model.Card;
+import it.polimi.ingsw.server.model.ObjectiveCard;
 import it.polimi.ingsw.server.model.VisibleAngle;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PlayCardView implements TuiView {
     private Boards boards;
     private List<Card> playerHand;
     private Client client;
+    List<ObjectiveCard> commonObj = new ArrayList<>();
+
 
 
 
     @Override
     public void play(Client client) {
         this.client = client;
-        System.out.println("CHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n   -Green: Position available    -Blue: Card already played");
+        System.out.println("\n\nThose are the common Objectives:");
+        commonObj = client.getListObjective();
+        int i = 1;
+        for(ObjectiveCard c: commonObj){
+            System.out.println("\nCARD " + i + " :\n");
+            Tui view = (Tui) client.getUI();
+            view.printObjectiveCard(c);
+            i++;
+        }
+        System.out.println("\n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n   -Green: Position available    -Blue: Card already played");
         playerHand = client.getPlayerHand();
         boards = client.getBoards();
         printBoard();
@@ -114,6 +127,8 @@ public class PlayCardView implements TuiView {
         int maxY = 0;
         int minX = 100;
         int minY = 100;
+        List<String>[][] elements = new ArrayList[100][100];
+        Card[][] cardBoard =client.getBoards().getGameBoard();
 
         for (int y = 99; y >= 0; y--) {
             for (int x = 99; x >= 0; x--) {
@@ -123,75 +138,40 @@ public class PlayCardView implements TuiView {
                     if (y > maxY) maxY = y;
                     if (y < minY) minY = y;
                 }
-
+                elements[x][y] = new ArrayList<>();
             }
-        }/*
-        Card[][] cardBoard =client.getBoards().getGameBoard();
+        }
 
         for (int y = minY-1; y < maxY+2; y++) {
             for (int x = minX-1; x < maxX+2; x++) {
-
-                // List to store the covered angles by neighboring cards
-                List<VisibleAngle> coveredAngle = new ArrayList<>();
-                // Check the front visible angle of the card at (x+1, y+1) if it exists
-                if (cardBoard[x + 1][y + 1] != null) {
-                    boolean front = cardBoard[x + 1][y + 1].getSide();
-                    if (front) {
-                        if (cardBoard[x + 1][y + 1].getFrontVisibleAngle(0) != null) {
-                            coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
+                if(boards.getCheckBoard()[x][y] == 1){
+                    for(int i=0;i<4;i++) {
+                        if(boards.gameBoard[x][y].getFrontVisibleAngle(i) != null && boards.gameBoard[x][y].getFrontVisibleAngle(i).getSymbol() != null){
+                            if(i==0){
+                                elements[x-1][y-1].add(boards.getGameBoard()[x][y].getFrontVisibleAngle(i).getSymbol().getSymbolName());
+                            }
+                            if(i==1){
+                                elements[x+1][y-1].add(boards.getGameBoard()[x][y].getFrontVisibleAngle(i).getSymbol().getSymbolName());
+                            }
+                            if(i==2){
+                                elements[x-1][y+1].add(boards.getGameBoard()[x][y].getFrontVisibleAngle(i).getSymbol().getSymbolName());
+                            }
+                            if(i==3){
+                                elements[x+1][y+1].add(boards.getGameBoard()[x][y].getFrontVisibleAngle(i).getSymbol().getSymbolName());
+                            }
                         }
                     }
                 }
-
-                // Check the front visible angle of the card at (x+1, y-1) if it exists
-                if (cardBoard[x + 1][y - 1] != null) {
-                    boolean front = cardBoard[x + 1][y - 1].getSide();
-                    if (front) {
-                        if (cardBoard[x + 1][y - 1].getFrontVisibleAngle(2) != null) {
-                            coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
-                        }
-                    }
-                }
-
-                // Check the front visible angle of the card at (x-1, y+1) if it exists
-                if (cardBoard[x - 1][y + 1] != null) {
-                    boolean front = cardBoard[x - 1][y + 1].getSide();
-                    if (front) {
-                        if (cardBoard[x - 1][y + 1].getFrontVisibleAngle(1) != null) {
-                            coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
-                        }
-                    }
-                }
-
-                // Check the front visible angle of the card at (x-1, y-1) if it exists
-                if (cardBoard[x - 1][y - 1] != null) {
-                    boolean front = cardBoard[x - 1][y - 1].getSide();
-                    if (front) {
-                        if (cardBoard[x - 1][y - 1].getFrontVisibleAngle(3) != null) {
-                            coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
-                        }
-                    }
-                }
-
-                // If there are covered angles, lower the player's resources based on the symbols
-                if (!coveredAngle.isEmpty()) {
-                    System.out.print("["+x+","+y+"] ->");
-                    System.out.print("[");
-                    for (VisibleAngle angle : coveredAngle) {
-                        System.out.print(angle.getSymbol().getSymbolName());
-                        if(coveredAngle.size()>1){
-                            System.out.print(", ");
-                        }
-                    }
-                    System.out.println("]");
-
-                }
-
-
-                coveredAngle.clear(); // Clear the list for future use
             }
         }
-    }*/
+        for (int y = minY-1; y < maxY+2; y++) {
+            for (int x = minX-1; x < maxX+2; x++) {
+                if (!elements[x][y].isEmpty() && boards.checkBoard[x][y]!=1){
+                        System.out.print("\n["+x+"],["+y+"] -> "+ elements[x][y] + "");
+
+                }
+            }
+        }
     }
 }
 
