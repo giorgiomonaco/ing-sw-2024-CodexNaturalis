@@ -274,4 +274,16 @@ public class Game {
 
         return playersPoint;
     }
+
+    public List<String> getPlayersToken() {
+
+        List<String> playersToken = new ArrayList<>();
+
+        for (Player p : playerList) {
+            playersToken.add(p.getPlayerTokenS());
+        }
+
+        return playersToken;
+    }
+
 }
