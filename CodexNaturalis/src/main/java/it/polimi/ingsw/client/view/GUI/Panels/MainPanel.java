@@ -17,10 +17,10 @@ public class MainPanel extends JPanel {
     private Client client;
     private GridBagConstraints gbc;
     private ChatPanel chat;
-    private BoardPanel board;
+    private PersonalBoardPanel board;
     private HandPanel hand;
     private ObjectivePanel objectivePanel;
-    private AccessoryPanel other;
+    private TurnOfPanel other;
     private int xCoord;
     private int yCoord;
     private boolean side;
@@ -60,9 +60,9 @@ public class MainPanel extends JPanel {
     public void createElements(){
         // Create all the panels in the main panel
         chat = new ChatPanel(client);
-        board = new BoardPanel(client, this);
+        board = new PersonalBoardPanel(client, this);
         objectivePanel = new ObjectivePanel(client);
-        other = new AccessoryPanel(client);
+        other = new TurnOfPanel(client);
         hand = new HandPanel(client, this);
 
 
@@ -237,7 +237,7 @@ public class MainPanel extends JPanel {
         return chat;
     }
 
-    public BoardPanel getBoard() {
+    public PersonalBoardPanel getBoard() {
         return board;
     }
 
@@ -281,7 +281,7 @@ public class MainPanel extends JPanel {
         remove(board);
         remove(hand);
 
-        board = new BoardPanel(client, this);
+        board = new PersonalBoardPanel(client, this);
         hand = new HandPanel(client, this);
 
         gbc.insets = new Insets(5, 5, 5, 5); // Add some space around components

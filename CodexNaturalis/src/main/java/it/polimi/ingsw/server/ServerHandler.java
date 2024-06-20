@@ -121,12 +121,7 @@ public class ServerHandler {
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
                     mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
 
-                    if (!mainController.isLastPlayer(username)) {
-                        mainController.beginFirstTurn();
-                    } else {
-                        mainController.setFirstTurn(false);
-                        mainController.beginTurn();
-                    }
+                    mainController.endFirstTurn();
                 }
                 break;
 

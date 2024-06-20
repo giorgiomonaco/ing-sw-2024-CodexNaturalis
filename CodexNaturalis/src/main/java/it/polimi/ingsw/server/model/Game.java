@@ -265,12 +265,14 @@ public class Game {
         this.commonObjectives = commonObjectives;
     }
 
-    public List<Integer> getPlayersPoint() {
+    public int[] getPlayersPoint() {
 
-        List<Integer> playersPoint = new ArrayList<>();
+        int[] playersPoint = new int[playersNumber];
 
+        int i = 0;
         for (Player p : playerList) {
-            playersPoint.add(p.getPlayerPoints());
+            playersPoint[i] = p.getPlayerPoints();
+            i++;
         }
 
         return playersPoint;
