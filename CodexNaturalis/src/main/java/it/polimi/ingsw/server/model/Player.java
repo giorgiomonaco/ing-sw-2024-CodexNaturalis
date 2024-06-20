@@ -28,8 +28,6 @@ public class Player implements Serializable {
     //List of the two objective cards from which the player can choose
     private List<ObjectiveCard> selObjectiveCard = new ArrayList<>();
 
-    //Every player has a counter/token
-    private Token playerToken;
 
     private String playerTokenS;
 
@@ -123,11 +121,7 @@ public class Player implements Serializable {
     }
 
 
-    //Method to assign the token to the player
-    public void setPlayerToken(Token token) {
-        this.playerToken = token;
-        //notify the view
-    }
+
 
     public void setPlayerTokenS(String token) {
         this.playerTokenS = token;
@@ -138,10 +132,7 @@ public class Player implements Serializable {
         return playerTokenS;
     }
 
-    //Method to get the color of the player token
-    public Token getPlayerToken() {
-        return playerToken;
-    }
+
 
     //Get the player name
     public String getPlayerName() {
