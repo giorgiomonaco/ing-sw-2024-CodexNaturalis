@@ -36,6 +36,10 @@ public class ServerHandler {
     public static int TIMEOUT = 30;
     private boolean stop;
 
+    /**
+     *  Constructor
+     * @param data the configuration of the server
+     */
     public ServerHandler(ServerConfigNetwork data) {
         this.configBase = data;
         connectedClients = new HashMap<>();
@@ -54,15 +58,34 @@ public class ServerHandler {
 
     }
 
+    /**
+     * Start the server
+     */
     public void init() {
         rmiServer.start();
         tcpServer.start();
         pinger.start();
     }
 
-    public void isValid(String check){
-        // Check if the ip is valid, maybe we can assume that anyway...
-    }
+
+    /**
+     * Manages incoming messages based on their type and performs appropriate actions.
+     *
+     * @param msg the message to be managed, which contains information and commands
+     *
+     * <p>Handles the following message types:</p>
+     * <ul>
+     *   <li><b>SELECTION_NUM_PLAYERS</b>: Initializes the game if it hasn't started yet.
+     *       Creates a main controller, assigns players, and manages waiting and connected clients.</li>
+     *   <li><b>SELECTION_TOKEN</b>: Sets the token selected by a player and updates the game's available tokens.</li>
+     *   <li><b>SELECTION_FIRSTCARD</b>: Handles the initial card side selection by a player and prompts for the next action.</li>
+     *   <li><b>SELECTION_OBJECTIVE</b>: Sets the objective card selected by a player and manages the turn order.</li>
+     *   <li><b>SELECTION_CARD</b>: Processes the selection of a card during the game and progresses the game state.</li>
+     *   <li><b>DRAW_CARD_RESPONSE</b>: Manages the response after a player draws a card and ends the turn.</li>
+     *   <li><b>PING</b>: Processes a ping message to keep the connection alive.</li>
+     *   <li><b>CHATMSG</b>: Handles chat messages, updating the chat between players.</li>
+     * </ul>
+     */
 
     public void manageMessage(Message msg) {
         switch(msg.getType()) {
@@ -124,12 +147,7 @@ public class ServerHandler {
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
                     mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
 
-                    if (!mainController.isLastPlayer(username)) {
-                        mainController.beginFirstTurn();
-                    } else {
-                        mainController.setFirstTurn(false);
-                        mainController.beginTurn();
-                    }
+                    mainController.endFirstTurn();
                 }
                 break;
 
@@ -164,6 +182,18 @@ public class ServerHandler {
         }
     }
 
+
+    /**
+     * <p>Sends a message to a specified player identified by their username, if they are currently connected.</p>
+     * <p>This method ensures thread safety by making a copy of the connected clients map
+     * and synchronizing on individual client connections before sending the message.</p>
+     *
+     * @param username the username of the player to whom the message is sent
+     * @param msg the message object containing the information to be sent
+     *
+
+     */
+
     public void sendMessageToPlayer(String username, Message msg){
 
         Map<String, ClientConnection> connCliCopy;
@@ -196,6 +226,15 @@ public class ServerHandler {
     }
 
 
+    /**
+     * <p>Sends a message to all connected players except the one specified by username.</p>
+     * This method ensures thread safety by making a copy of the connected clients map
+     * and synchronizing on individual client connections before sending each message.
+     *
+     * @param username the username of the player who should not receive the message
+     * @param msg the message object containing the information to be sent
+     */
+
     public void sendMessageToAllExcept(String username, Message msg){
 
         Map<String, ClientConnection> connCliCopy;
@@ -212,6 +251,14 @@ public class ServerHandler {
             }
         }
     }
+
+    /**
+     * Manages a login request from a client, either connecting a new user or handling reconnection.
+     *
+     * @param request the login request containing the username
+     * @param connection the client connection associated with the request
+     * @return a LoginResult object indicating if the login was successful and if it was a reconnection
+     */
 
     public LoginResult manageLoginRequest(LoginRequest request, ClientConnection connection){
         boolean logged = false;
@@ -266,6 +313,13 @@ public class ServerHandler {
         return new LoginResult(logged, reconnected);
     }
 
+
+    /**
+     * Processes a new login request from a client, handling joining a game or waiting in the lobby.
+     *
+     * @param request the login request containing the username
+     */
+
     public void newLoginRequest(LoginRequest request){
         String username = request.getUsername();
         synchronized (controllerLock) {
@@ -285,6 +339,11 @@ public class ServerHandler {
         }
     }
 
+    /**
+     * Returns a copy of the map containing currently connected clients.
+
+     * @return a copy of the map containing connected clients, where keys are usernames and values are ClientConnection objects
+     */
     public Map<String, ClientConnection> getConnectedClients() {
         Map<String, ClientConnection> copy;
         synchronized (connectedClients) {
@@ -292,6 +351,11 @@ public class ServerHandler {
         }
         return copy;
     }
+
+    /**
+     * Handles disconnection of a player, updating the game state and managing server shutdown if necessary.
+     * @param client the ClientConnection object representing the disconnected player
+     */
 
     public void playerDisconnection(ClientConnection client){
         System.out.println(Colors.redColor+ "Disconnection of a client..." + Colors.resetColor);
@@ -345,12 +409,29 @@ public class ServerHandler {
         }
     }
 
+
+
+    /**
+     * Ends the game, sending a message to all clients about the winner and then shutting down the server.
+     *
+     * <p>This method sends a ShowWinnerMessage to all connected clients indicating the end of the game.</p>
+     * <p>The server then exits with code 2 to signify the game's end.</p>
+     */
+
     public void endGame(){
         // the last player win the game
         sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, "suca"));
 
         System.exit(2);
     }
+
+
+    /**
+     * Converts a string representation to a boolean value.
+     *
+     * @param a the string to convert
+     * @return {@code true} if the string equals "front", {@code false} otherwise
+     */
 
     public boolean fromStringToBool(String a){
         return Objects.equals(a, "front");

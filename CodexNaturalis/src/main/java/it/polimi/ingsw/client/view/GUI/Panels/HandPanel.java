@@ -1,15 +1,15 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-
-import com.sun.tools.javac.Main;
 import it.polimi.ingsw.client.Client;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HandPanel extends JPanel {
 
@@ -36,13 +36,40 @@ public class HandPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
+
+        ClassLoader cl = this.getClass().getClassLoader();
+        String path0 = client.getPlayerHand().get(0).getFrontImage();
+        String path1 = client.getPlayerHand().get(1).getFrontImage();
+        String path2 = client.getPlayerHand().get(2).getFrontImage();
+        String path3 = client.getPlayerHand().get(0).getBackImage();
+        String path4 = client.getPlayerHand().get(1).getBackImage();
+        String path5 = client.getPlayerHand().get(2).getBackImage();
+        InputStream is0 = cl.getResourceAsStream(path0);
+        InputStream is1 = cl.getResourceAsStream(path1);
+        InputStream is2 = cl.getResourceAsStream(path2);
+        InputStream is3 = cl.getResourceAsStream(path3);
+        InputStream is4 = cl.getResourceAsStream(path4);
+        InputStream is5 = cl.getResourceAsStream(path5);
+
+
         //we retrieve the images of the cards
-        ImageIcon originalIcon0 = new ImageIcon(client.getPlayerHand().get(0).getFrontImage());
-        ImageIcon originalIcon1 = new ImageIcon(client.getPlayerHand().get(1).getFrontImage());
-        ImageIcon originalIcon2 = new ImageIcon(client.getPlayerHand().get(2).getFrontImage());
-        ImageIcon originalIcon3 = new ImageIcon(client.getPlayerHand().get(0).getBackImage());
-        ImageIcon originalIcon4 = new ImageIcon(client.getPlayerHand().get(1).getBackImage());
-        ImageIcon originalIcon5 = new ImageIcon(client.getPlayerHand().get(2).getBackImage());
+        ImageIcon originalIcon0 = null;
+        ImageIcon originalIcon1 = null;
+        ImageIcon originalIcon2 = null;
+        ImageIcon originalIcon3 = null;
+        ImageIcon originalIcon4 = null;
+        ImageIcon originalIcon5 = null;
+        try {
+            originalIcon0 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is0, "Couldn't read the image.")));
+            originalIcon1 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is1, "Couldn't read the image.")));
+            originalIcon2 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is2, "Couldn't read the image.")));
+            originalIcon3 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is3, "Couldn't read the image.")));
+            originalIcon4 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is4, "Couldn't read the image.")));
+            originalIcon5 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is5, "Couldn't read the image.")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         //then we get the images rescaled
         Image image0 = originalIcon0.getImage().getScaledInstance(CARD_X, CARD_Y, Image.SCALE_SMOOTH);
@@ -88,21 +115,14 @@ public class HandPanel extends JPanel {
         actionButton.addMouseListener(new buttonListener(cards, frontIcons, backIcons, mainPanel));
 
         // Set insets to reduce space between cards
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        // Set all parameters that have to be same for all
-        gbc.gridy = 0;
-        //gbc.weighty = 0.5;
-        //gbc.weightx = 0.5;
+        gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.BOTH;
 
         // Add the button first
         gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.WEST;
         add(actionButton, gbc);
 
         // Add every label
-        gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridx = 1;
         add(firstCard, gbc);
 

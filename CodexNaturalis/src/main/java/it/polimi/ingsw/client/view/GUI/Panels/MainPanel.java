@@ -1,14 +1,15 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.SelectionCard;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.GoldCard;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 
 public class MainPanel extends JPanel {
@@ -16,10 +17,10 @@ public class MainPanel extends JPanel {
     private Client client;
     private GridBagConstraints gbc;
     private ChatPanel chat;
-    private BoardPanel board;
+    private PersonalBoardPanel board;
     private HandPanel hand;
     private ObjectivePanel objectivePanel;
-    private AccessoryPanel other;
+    private TurnOfPanel other;
     private int xCoord;
     private int yCoord;
     private boolean side;
@@ -27,6 +28,7 @@ public class MainPanel extends JPanel {
     private int turn;
     private boolean yourTurn;
     private int index;
+    private Image backgroundImage;
 
     public MainPanel(Client client, int turn){
 
@@ -40,90 +42,120 @@ public class MainPanel extends JPanel {
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround3.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         createElements();
     }
 
     public void createElements(){
         // Create all the panels in the main panel
         chat = new ChatPanel(client);
-        board = new BoardPanel(client, this);
+        board = new PersonalBoardPanel(client, this);
         objectivePanel = new ObjectivePanel(client);
-        other = new AccessoryPanel(client);
+        other = new TurnOfPanel(client);
         hand = new HandPanel(client, this);
+
+
+        gbc.insets = new Insets(5, 5, 5, 5); // Add some space around components
 
         // Set proportions for each panel
         // Board panel will cover 70% of y and 80% of x space
-
         // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 80; // Increased from 80
-        gbc.weightx = 1; // Reduced from 0.9
-        gbc.weighty = 1; // Increased from 0.8
+        gbc.gridwidth = 150;
+        gbc.gridheight = 170;
+        gbc.weightx = 0.75;
+        gbc.weighty = 0.85;
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
 
-        // OTHERS---
-        gbc.gridx = 80; // Changed from 90
-        gbc.gridy = 0;
-        gbc.gridwidth = 20; // Increased from 10
-        gbc.gridheight = 35;// Changed from 80
-        gbc.weightx = 1; // Increased from 0.1
-        gbc.weighty = 1; // Changed from 0.8
-
-        add(other, gbc);
-
-        // Reset the gbc
-        // CHAT---
-        gbc.gridx = 80; // Changed from 90
-        gbc.gridy = 35; // Changed from 80
-        gbc.gridwidth = 20; // Increased from 10
-        gbc.gridheight = 30; // Reduced from 20
-        gbc.weightx = 1; // Reduced from 0.35
-        gbc.weighty = 1; // Increased from 0.1
-        add(chat, gbc);
-
-
-        //OBJECTIVES---
-        gbc.gridx = 80;
-        gbc.gridy = 65;
-        gbc.gridwidth = 20;
-        gbc.gridheight = 65;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-
-        add(objectivePanel, gbc);
-
-
         // CARDS---
         gbc.gridx = 0;
-        gbc.gridy = 80; // Changed from 80
-        gbc.gridwidth = 60; // Reduced from 90
-        gbc.gridheight = 20; // Reduced from 20
-        gbc.weightx = 1; // Reduced from 0.9
-        gbc.weighty = 1; // Increased from 0.1
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.SOUTHEAST;
-        hand.setBackground(Color.gray);
+        gbc.gridy = 170;
+        gbc.gridwidth = 120;
+        gbc.gridheight = 30;
+        gbc.weightx = 0.6;
+        gbc.weighty = 0.15;
+        gbc.fill = GridBagConstraints.BOTH;
         add(hand, gbc);
 
 
         // PLACE BUTTON----
-        gbc = new GridBagConstraints();
-        gbc.gridx = 60;
-        gbc.gridy = 80;
-        gbc.gridwidth = 20;
-        gbc.gridheight = 40;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
+        gbc.gridx = 120;
+        gbc.gridy = 170;
+        gbc.gridwidth = 30;
+        gbc.gridheight = 30;
+        gbc.weightx = 0.15;
+        gbc.weighty = 0.15;
         gbc.fill = GridBagConstraints.BOTH;
         JButton button = new JButton("PLACE");
-        JPanel panel = new JPanel();
-        panel.add(button);
         button.addMouseListener(new buttonListener(this, client));
-        add(panel, gbc);
+        button.setPreferredSize(new Dimension(100, 100));
+        add(button, gbc);
+
+
+        // OTHERS---
+        gbc.gridx = 150;
+        gbc.gridy = 0;
+        gbc.gridwidth = 50;
+        gbc.gridheight = 45;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.25;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(other, gbc);
+
+
+        //OBJECTIVES---
+        gbc.gridx = 150;
+        gbc.gridy = 45;
+        gbc.gridwidth = 50;
+        gbc.gridheight = 90;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(objectivePanel, gbc);
+
+
+
+        // CHAT---
+        gbc.gridx = 150;
+        gbc.gridy = 135;
+        gbc.gridwidth = 50;
+        gbc.gridheight = 65;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.25;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(chat, gbc);
+
+
+
+        board.setOpaque(false);
+        hand.setOpaque(false);
+        objectivePanel.setOpaque(false);
+        chat.setOpaque(false);
+        other.setOpaque(false);
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     public boolean isYourTurn() {
@@ -205,7 +237,7 @@ public class MainPanel extends JPanel {
         return chat;
     }
 
-    public BoardPanel getBoard() {
+    public PersonalBoardPanel getBoard() {
         return board;
     }
 
@@ -249,27 +281,35 @@ public class MainPanel extends JPanel {
         remove(board);
         remove(hand);
 
-        board = new BoardPanel(client, this);
+        board = new PersonalBoardPanel(client, this);
         hand = new HandPanel(client, this);
 
+        gbc.insets = new Insets(5, 5, 5, 5); // Add some space around components
+
+        // Set proportions for each panel
+        // Board panel will cover 70% of y and 80% of x space
+        // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 80; // Increased from 80
-        gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.8; // Increased from 0.8
+        gbc.gridwidth = 150;
+        gbc.gridheight = 170;
+        gbc.weightx = 0.75;
+        gbc.weighty = 0.85;
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
+
+        // CARDS---
         gbc.gridx = 0;
-        gbc.gridy = 80; // Changed from 80
-        gbc.gridwidth = 90; // Reduced from 90
-        gbc.gridheight = 20; // Reduced from 20
-        gbc.weightx = 0.9; // Reduced from 0.9
-        gbc.weighty = 0.2; // Increased from 0.1
+        gbc.gridy = 170;
+        gbc.gridwidth = 120;
+        gbc.gridheight = 30;
+        gbc.weightx = 0.6;
+        gbc.weighty = 0.15;
         gbc.fill = GridBagConstraints.BOTH;
-        hand.setBackground(Color.gray);
         add(hand, gbc);
 
+        board.setOpaque(false);
+        hand.setOpaque(false);
     }
 }

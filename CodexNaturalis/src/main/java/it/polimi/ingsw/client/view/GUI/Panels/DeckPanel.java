@@ -1,11 +1,14 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-
 import it.polimi.ingsw.client.Client;
-
+import it.polimi.ingsw.client.view.GUI.Frames.DrawFrame;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class DeckPanel extends JPanel {
 
@@ -24,13 +27,40 @@ public class DeckPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
+
+        ClassLoader cl = this.getClass().getClassLoader();
+        String path0 = client.getDeckPath().get(1);
+        String path1 = client.getVisibleResourceCards().get(0).getFrontImage();
+        String path2 = client.getVisibleResourceCards().get(1).getFrontImage();
+        String path3 = client.getDeckPath().getFirst();
+        String path4 = client.getVisibleGoldCards().get(0).getFrontImage();
+        String path5 = client.getVisibleGoldCards().get(1).getFrontImage();
+        InputStream is0 = cl.getResourceAsStream(path0);
+        InputStream is1 = cl.getResourceAsStream(path1);
+        InputStream is2 = cl.getResourceAsStream(path2);
+        InputStream is3 = cl.getResourceAsStream(path3);
+        InputStream is4 = cl.getResourceAsStream(path4);
+        InputStream is5 = cl.getResourceAsStream(path5);
+
+
         //we retrieve the images of the cards
-        ImageIcon originalIcon0 = new ImageIcon(client.getDeckPath().get(1));
-        ImageIcon originalIcon1 = new ImageIcon(client.getVisibleResourceCards().get(0).getFrontImage());
-        ImageIcon originalIcon2 = new ImageIcon(client.getVisibleResourceCards().get(1).getFrontImage());
-        ImageIcon originalIcon3 = new ImageIcon(client.getDeckPath().get(0));
-        ImageIcon originalIcon4 = new ImageIcon(client.getVisibleGoldCards().get(0).getFrontImage());
-        ImageIcon originalIcon5 = new ImageIcon(client.getVisibleGoldCards().get(1).getFrontImage());
+        ImageIcon originalIcon0 = null;
+        ImageIcon originalIcon1 = null;
+        ImageIcon originalIcon2 = null;
+        ImageIcon originalIcon3 = null;
+        ImageIcon originalIcon4 = null;
+        ImageIcon originalIcon5 = null;
+        try {
+            originalIcon0 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is0, "Couldn't read the image.")));
+            originalIcon1 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is1, "Couldn't read the image.")));
+            originalIcon2 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is2, "Couldn't read the image.")));
+            originalIcon3 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is3, "Couldn't read the image.")));
+            originalIcon4 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is4, "Couldn't read the image.")));
+            originalIcon5 = new ImageIcon(ImageIO.read(Objects.requireNonNull(is5, "Couldn't read the image.")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         //then we get the images rescaled
         Image image0 = originalIcon0.getImage().getScaledInstance(CARD_X, CARD_Y, Image.SCALE_SMOOTH);
@@ -40,6 +70,7 @@ public class DeckPanel extends JPanel {
         Image image4 = originalIcon4.getImage().getScaledInstance(CARD_X, CARD_Y, Image.SCALE_SMOOTH);
         Image image5 = originalIcon5.getImage().getScaledInstance(CARD_X, CARD_Y, Image.SCALE_SMOOTH);
 
+
         //Add them to the right icons
         ImageIcon resizedIcon0 = new ImageIcon(image0);
         ImageIcon resizedIcon1 = new ImageIcon(image1);
@@ -48,6 +79,7 @@ public class DeckPanel extends JPanel {
         ImageIcon resizedIcon4 = new ImageIcon(image4);
         ImageIcon resizedIcon5 = new ImageIcon(image5);
 
+
         //Create the labels with the image icons
         JLabel deckRes = new JLabel(resizedIcon0);
         JLabel firstRes = new JLabel(resizedIcon1);
@@ -55,6 +87,7 @@ public class DeckPanel extends JPanel {
         JLabel deckGold = new JLabel(resizedIcon3);
         JLabel firstGold = new JLabel(resizedIcon4);
         JLabel secondGold = new JLabel(resizedIcon5);
+
 
         //Add the listeners to the labels
         deckRes.addMouseListener(new cardMouseListener(deckRes, 6, dp));

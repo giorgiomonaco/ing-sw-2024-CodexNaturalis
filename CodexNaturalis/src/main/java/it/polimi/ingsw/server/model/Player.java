@@ -26,10 +26,8 @@ public class Player implements Serializable {
     private ObjectiveCard playerObjectiveCard;
 
     //List of the two objective cards from which the player can choose
-    private List<ObjectiveCard> selObjectiveCard = new ArrayList<>();
+    private final List<ObjectiveCard> selObjectiveCard = new ArrayList<>();
 
-    //Every player has a counter/token
-    private Token playerToken;
 
     private String playerTokenS;
 
@@ -46,48 +44,61 @@ public class Player implements Serializable {
     private final int[] resourcesAvailable = new int[7];
 
 
-    //Constructor
+    /**
+     * Constructs a Player object with the specified name.
+     *
+     * @param name the name of the player
+     */
     public Player(String name) {
         this.playerName = name;
         this.connected = true;
     }
 
-    //Getter of the list of the resource cards now in hand
+    /**
+     * Getter of the list of the resource cards now in hand
+     */
     public List<ResourceCard> getPlayerResourceCards() {
         return playerResourceCards;
     }
 
-    //Method to add a card to the list of resource cards
+    /**
+     * Method to add a card to the list of resource cards
+     */
     public void addResourceCard(ResourceCard card) {
         playerResourceCards.add(card);
         playerHand.add(card);
     }
 
-    //method to get a card from the list by index
-    public ResourceCard getResourceCardFromHand(int index) {
-        return playerResourceCards.get(index);
-    }
 
 
-
-    //Getter of the list of the gold cards now in hand
+    /**
+     * Getter of the list of the gold cards now in hand
+     */
     public List<GoldCard> getPlayerGoldCards() {
         return playerGoldCards;
     }
 
 
-    //Method to add a card to the list of gold cards
+    /**
+     * Method to add a card to the list of gold cards
+     */
     public void addGoldCard(GoldCard card) {
         playerGoldCards.add(card);
         playerHand.add(card);
     }
 
-    //method to get a card from the list by index
+    /**
+     * method to get a card from the list by index
+     */
     public GoldCard getGoldCardFromHand(int index) {
         return playerGoldCards.get(index);
     }
 
-    //method to remove a card from the player hand passing the object
+    /**
+     * Removes a specified card from the player's hand.
+     *
+     * @param card the card to be removed from the hand
+     */
     public void removeCardFromHand(Card card) {
 
         if(card instanceof ResourceCard) {
@@ -112,51 +123,58 @@ public class Player implements Serializable {
 
     }
 
-    //Getter of the list of the obj cards now in hand
+    /**
+     * Getter of the list of the obj cards now in hand
+     */
     public ObjectiveCard getPlayerObjectiveCard() {
         return playerObjectiveCard;
     }
 
-    //Method to add a card to the list of resource cards
+    /**
+     * Method to add a card to the list of resource cards
+     */
     public void setObjectiveCard(ObjectiveCard card) {
         playerObjectiveCard = card;
     }
 
 
-    //Method to assign the token to the player
-    public void setPlayerToken(Token token) {
-        this.playerToken = token;
-        //notify the view
-    }
+
 
     public void setPlayerTokenS(String token) {
         this.playerTokenS = token;
         //notify the view
     }
 
-    //Method to get the color of the player token
-    public Token getPlayerToken() {
-        return playerToken;
+    public String getPlayerTokenS() {
+        return playerTokenS;
     }
 
-    //Get the player name
+
+
+    /**
+     * Get the player name
+     */
     public String getPlayerName() {
         return playerName;
     }
 
-    //get the list of resources available
+    /**
+     * get the list of resources available
+     */
     public int[] getResourcesAvailable() {
         return resourcesAvailable;
     }
 
-    //set the quantity of a specific type
+    /**
+     * set the quantity of a specific type
+     */
     public void setResource(int index, int quantity) {
         resourcesAvailable[index] = quantity;
     }
 
+
+
     //adder, reset and getter of player points
-
-
     public void setPlayerPoints(int playerPoints) {
         this.playerPoints = playerPoints;
     }
@@ -169,6 +187,11 @@ public class Player implements Serializable {
         playerPoints += p;
     }
 
+    /**
+     * Decreases the count of a specific resource symbol available to the player.
+     *
+     * @param s the Symbol object representing the resource symbol to lower
+     */
     public void resourceLowering(Symbol s) {
         switch (s.getSymbolName()) {
             case "mushroom":
@@ -198,6 +221,11 @@ public class Player implements Serializable {
 
     }
 
+    /**
+     * Increases the count of a specific resource symbol available to the player.
+     *
+     * @param s the Symbol object representing the resource symbol to increase
+     */
     public void resourceAdding(Symbol s) {
         switch (s.getSymbolName()) {
             case "mushroom":
@@ -273,6 +301,13 @@ public class Player implements Serializable {
         this.chat = chat;
     }
 
+    /**
+     * Adds points to the player based on the conditions of a GoldCard and player resources.
+     *
+     * @param goldCard the GoldCard object for which points are added
+     * @param x the x-coordinate (used for specific conditions)
+     * @param y the y-coordinate (used for specific conditions)
+     */
     public void addGoldCardPoints(GoldCard goldCard, int x, int y) {
         switch(goldCard.getCondition()){
             case 0:
@@ -294,6 +329,14 @@ public class Player implements Serializable {
         }
     }
 
+
+    /**
+     * Calculates points based on covered angles around a specified position on the board for a GoldCard.
+     *
+     * @param goldCard the GoldCard object for which points are calculated
+     * @param x the x-coordinate of the position on the board
+     * @param y the y-coordinate of the position on the board
+     */
     private void pointsForCoveredAngle(GoldCard goldCard, int x, int y) {
         Card[][] board = Gameboard.getGameBoard();
         int count = 0;

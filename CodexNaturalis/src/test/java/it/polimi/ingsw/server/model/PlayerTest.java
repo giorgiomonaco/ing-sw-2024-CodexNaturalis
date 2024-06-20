@@ -118,29 +118,11 @@ class PlayerTest {
     }
 
 
-    @Test
-    void setPlayerToken() {
-        Player player = new Player("test");
-        Token token = new Token("red");
-        player.setPlayerToken(token);
-        assertEquals(player.getPlayerToken(), token);
-    }
 
-    @Test
-    void setPlayerTokenS() {
-        Player player = new Player("test");
-        Token token = new Token("red");
-        player.setPlayerToken(token);
-        assertEquals(player.getPlayerToken(), token);
-    }
 
-    @Test
-    void getPlayerToken() {
-        Player player = new Player("test");
-        Token token = new Token("red");
-        player.setPlayerToken(token);
-        assertEquals(player.getPlayerToken(), token);
-    }
+
+
+
 
     @Test
     void getPlayerName() {

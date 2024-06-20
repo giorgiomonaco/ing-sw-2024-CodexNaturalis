@@ -9,11 +9,21 @@ import java.util.concurrent.TimeUnit;
 
 public class GameStopper extends Thread{
 
+
     private final ServerHandler handler;
 
+    /**
+     * Constructs a GameStopper with the specified ServerHandler.
+     */
     public GameStopper(ServerHandler serverHandler){
         this.handler = serverHandler;
     }
+
+    /**
+     * Runs the game stopper process. This method sends a game stopped message to all players, waits for a specified
+     * timeout period, and then ends the game if no players rejoin during the timeout. If a player rejoins, the
+     * countdown stops.
+     */
     public void run(){
         handler.sendMessageToAll(new GameStopped(ServerHandler.HOSTNAME));
         System.out.println(Colors.redColor + "The game stopped because there is only one player connected." + Colors.resetColor);

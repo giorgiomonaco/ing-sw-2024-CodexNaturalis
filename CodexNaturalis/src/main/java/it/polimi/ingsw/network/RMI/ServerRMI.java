@@ -15,23 +15,24 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface {
     private static int PORT;
+    private String ip;
     private Registry registry;
     // private RMIServerInterface obj;
-    private ServerHandler handlerRMI;
+    private final ServerHandler handlerRMI;
 
     public ServerRMI(ServerConfigNetwork data, ServerHandler handler) throws RemoteException {
         super();
         PORT = data.getPortRMI();
+        ip = data.getServerIP();
         handlerRMI = handler;
     }
 
 
     public void start(){
         try {
-            // obj = new ServerRMI();
-            // RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(this, 0);
             registry = LocateRegistry.createRegistry(PORT);
             registry.rebind("RMIServerInterface", this);
+            System.setProperty("java.rmi.server.hostname", ip);
         } catch (RemoteException e) {
             System.err.println("Error while starting server: " + e.toString());
         }

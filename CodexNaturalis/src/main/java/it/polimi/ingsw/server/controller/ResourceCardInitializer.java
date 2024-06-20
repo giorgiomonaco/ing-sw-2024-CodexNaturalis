@@ -1,16 +1,12 @@
 package it.polimi.ingsw.server.controller;
-
-import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.ResourceCard;
 import it.polimi.ingsw.server.model.Symbol;
 import it.polimi.ingsw.server.model.VisibleAngle;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -31,21 +27,32 @@ public class ResourceCardInitializer {
         this.symbols = symbols;
     }
 
-    // Initialize cards, creation and call to adder to deck
+
+    /**
+     * Creates all the initial cards and adds them to the game's initial cards deck.
+     *
+     * This method initializes the game by creating and adding cards to the initial cards deck.
+     *
+     * List of all resource symbols angles can have:
+     * <ul>
+     *   <li>0 = mushroom (resource)</li>
+     *   <li>1 = leaf (resource)</li>
+     *   <li>2 = fox (resource)</li>
+     *   <li>3 = butterfly (resource)</li>
+     *   <li>4 = feather (object)</li>
+     *   <li>5 = bottle (object)</li>
+     *   <li>6 = scroll (object)</li>
+     * </ul>
+
+     * Initialize resource cards by reading from a JSON file, creating cards, and adding them to the game.
+     */
     public void initializeResourceCards() {
 
-        String osName = System.getProperty("os.name").toLowerCase();
-        String basePath = "src/main/resources/resCards.json";
-        String addPath = "CodexNaturalis/";
-        String finalPath;
+        ClassLoader cl = this.getClass().getClassLoader();
+        String item = "resCards.json";
+        InputStream is = cl.getResourceAsStream(item);
 
-        if(osName.contains("mac")){
-            finalPath = basePath;
-        } else {
-            finalPath = addPath + basePath;
-        }
-
-        try (Reader reader = new FileReader(finalPath);
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(is, "Couldn't find json file"));
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
@@ -135,28 +142,25 @@ public class ResourceCardInitializer {
                 String front;
                 String back;
 
-                if(osName.contains("mac")){
-                    front = "src/main/resources/images/resCards/front/" + cardNumber + ".png";
-                    back = "src/main/resources/images/resCards/back/" + type + ".png";
-                } else {
-                    front = "CodexNaturalis/src/main/resources/images/resCards/front/" + cardNumber + ".png";
-                    back = "CodexNaturalis/src/main/resources/images/resCards/back/" + type + ".png";
-                }
+                front = "images/resCards/front/" + cardNumber + ".png";
+                back = "images/resCards/back/" + type + ".png";
 
                 ResourceCard resourceCard = new  ResourceCard( cardNumber,  pointsInt,
-                resCardFrontAngles, resCardBackAngles, backSymbol, front, back);
+                        resCardFrontAngles, resCardBackAngles, backSymbol, front, back);
                 addCardToGame(resourceCard);
 
                 cardNumber++;
             }
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare le carte.");
+            throw new RuntimeException("Couldn't find json file");
         }
     }
 
-   // Add the card to the resource deck
+    /**
+     * This method gets the card from the constructor and adds it to the game
+     * @param card
+     */
     public void addCardToGame(ResourceCard card) {
         game.addResourceCardToDeck(card);
     }
 }
-

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.view.GUI.Frames;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.server.controller.PointTracker;
-import it.polimi.ingsw.server.model.Token;
 
 import javax.swing.*;
 import java.awt.*;

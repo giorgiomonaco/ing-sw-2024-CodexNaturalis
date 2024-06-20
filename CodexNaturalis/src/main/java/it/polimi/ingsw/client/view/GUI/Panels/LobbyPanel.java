@@ -2,12 +2,17 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class LobbyPanel extends JPanel {
+
+    private Image backgroundImage;
 
     public LobbyPanel(Client client) {
         setLayout(new GridBagLayout());
@@ -45,6 +50,28 @@ public class LobbyPanel extends JPanel {
         gbc1.anchor = GridBagConstraints.CENTER;
 
         add(scrollPane, gbc1);
+
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround2.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     private static class CenteredListCellRenderer extends DefaultListCellRenderer {

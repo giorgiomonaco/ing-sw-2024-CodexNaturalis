@@ -17,6 +17,7 @@ import java.util.List;
 public class SelectTokenPanel extends JPanel {
 
     private List<String> tokens;
+    private Image backgroundImage;
 
     public SelectTokenPanel(Client client){
         setLayout(new BorderLayout());
@@ -73,6 +74,18 @@ public class SelectTokenPanel extends JPanel {
 
         add(tokenPanel, BorderLayout.CENTER);
 
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround3.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static class TokenMouseListener extends MouseAdapter {
@@ -91,6 +104,15 @@ public class SelectTokenPanel extends JPanel {
             } catch (RemoteException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
 

@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.commandsHandling.CommandManager;
 import it.polimi.ingsw.client.commandsHandling.commandsException.CommandNotAvailableException;
 import it.polimi.ingsw.client.commandsHandling.commandsException.WrongInsertionException;
 import it.polimi.ingsw.client.states.stateEnum;
+import it.polimi.ingsw.client.view.GUI.Panels.LoginPanel;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.messEnum;
@@ -16,6 +17,17 @@ public class LoginCommand implements CommandManager {
     public LoginCommand(Client client) {
         this.client = client;
     }
+
+
+    /**
+     * Handles a login command message.
+     *
+     * @param commands array of command parameters
+     * @param currState the current state of the client
+     * @throws RemoteException if a remote communication issue occurs
+     * @throws CommandNotAvailableException if the command is not available in the current client state
+     * @throws WrongInsertionException if the command insertion is incorrect
+     */
     public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException, WrongInsertionException {
         if(!client.getCurrentState().equals(stateEnum.LOGIN)){
             throw new CommandNotAvailableException();
@@ -27,12 +39,7 @@ public class LoginCommand implements CommandManager {
     }
 
     public static boolean isAlphabetic(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isLetter(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return LoginPanel.isAlphabetic(str);
     }
 
 }

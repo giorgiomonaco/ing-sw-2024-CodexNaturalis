@@ -11,11 +11,10 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InitialCardsInitializer {
 
@@ -32,31 +31,32 @@ public class InitialCardsInitializer {
         this.symbols = symbols;
     }
 
-    //Create all the initial cards and add them to the game
-    //into the initial cards deck
-    //list of all resource symbols angles can have
-    //The list:
-    //0 = mushroom (res)
-    //1 = leaf (res)
-    //2 = fox (res)
-    //3 = butterfly (res)
-    //4 = feather (obj)
-    //5 = bottle (obj)
-    //6 = scroll (obj)
+    /**
+     * Creates all the initial cards and adds them to the game's initial cards deck.
+     *
+     * This method initializes the game by creating and adding cards to the initial cards deck.
+     *
+     * List of all resource symbols angles can have:
+     * <ul>
+     *   <li>0 = mushroom (resource)</li>
+     *   <li>1 = leaf (resource)</li>
+     *   <li>2 = fox (resource)</li>
+     *   <li>3 = butterfly (resource)</li>
+     *   <li>4 = feather (object)</li>
+     *   <li>5 = bottle (object)</li>
+     *   <li>6 = scroll (object)</li>
+     * </ul>
+     *
+     * Initialize the initial cards by reading from a JSON file, creating cards, and adding them to the game.
+     */
     public void initialCardInitializer() {
 
-        String osName = System.getProperty("os.name").toLowerCase();
-        String basePath = "src/main/resources/initCard.json";
-        String addPath = "CodexNaturalis/";
-        String finalPath;
+        ClassLoader cl = this.getClass().getClassLoader();
+        String item = "initCard.json";
+        InputStream is = cl.getResourceAsStream(item);
 
-        if(osName.contains("mac")){
-            finalPath = basePath;
-        } else {
-            finalPath = addPath + basePath;
-        }
-
-        try (Reader reader = new FileReader(finalPath); JsonReader jsonReader = Json.createReader(reader)) {
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(is, "Couldn't find json file"));
+             JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
 
@@ -162,16 +162,8 @@ public class InitialCardsInitializer {
                     }
                 }
 
-                String front;
-                String back;
-
-                if(osName.contains("mac")){
-                    front = "src/main/resources/images/initialCards/front/frontInitial-" + cardNumber + ".png";
-                    back = "src/main/resources/images/initialCards/back/backInitial-" + cardNumber + ".png";
-                } else {
-                    front = "CodexNaturalis/src/main/resources/images/initialCards/front/frontInitial-" + cardNumber + ".png";
-                    back = "CodexNaturalis/src/main/resources/images/initialCards/back/backInitial-" + cardNumber + ".png";
-                }
+                String front = "images/initialCards/front/frontInitial-" + cardNumber + ".png";
+                String back = "images/initialCards/back/backInitial-" + cardNumber + ".png";
 
                 InitialCard initialCard = new InitialCard(cardNumber, initialCardFrontAngles, initialCardBackAngles, backSymbol, front, back);
                 addCardToGame(initialCard);
@@ -180,12 +172,15 @@ public class InitialCardsInitializer {
             }
         }
         catch (IOException e) {
-            e.getCause();
+            throw new RuntimeException("Couldn't find json file");
         }
     }
 
 
-    //adding th card to the game
+    /**
+     *  This method gets the card from the constructor and adds it to the game
+     * @param card
+     */
     public void addCardToGame(InitialCard card){
         game.addInitialCardToDeck(card);
     }

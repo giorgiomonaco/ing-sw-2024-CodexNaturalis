@@ -13,6 +13,5 @@ public class ShowWinnerHandler implements MessageHandler {
         client.setWinnerName(showWinnerMessage.getName());
         client.setWinner(showWinnerMessage.getWin());
         client.getUI().run();
-        System.exit(1);
     }
 }

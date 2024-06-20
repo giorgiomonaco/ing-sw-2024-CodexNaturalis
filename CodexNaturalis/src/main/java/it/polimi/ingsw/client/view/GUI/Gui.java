@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Frames.DrawFrame;
 import it.polimi.ingsw.client.view.GUI.Frames.MyFrame;
 import it.polimi.ingsw.client.view.GUI.Panels.*;
 import it.polimi.ingsw.client.view.UserInterface;
@@ -176,7 +177,7 @@ public class Gui implements UserInterface {
         frame = new MyFrame();
         //BufferedImage image = null;
         //try {
-        //    image = ImageIO.read(new File("src/main/resources/images/backGround.png"));
+        //    image = ImageIO.read(new File("src/main/resources/images/backGround5.png"));
         //} catch (IOException e) {
         //    throw new RuntimeException(e);
         //}
@@ -269,7 +270,7 @@ public class Gui implements UserInterface {
         frame.repaint();
         mainPanel = new MainPanel(client, turn);
         turn++;
-        frame.add(mainPanel);
+        frame.add(mainPanel, BorderLayout.CENTER);
         frame.setVisible(true);
         mainPanel.getBoard().scrollToMiddle();
     }

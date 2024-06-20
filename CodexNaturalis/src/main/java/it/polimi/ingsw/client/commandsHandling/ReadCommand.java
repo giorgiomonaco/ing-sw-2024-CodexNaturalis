@@ -17,6 +17,13 @@ public class ReadCommand implements Runnable{
     private final Map<String, CommandManager> mapOfCommand;
     private final Client client;
 
+    /**
+     * Constructs a ReadCommand object with the specified Tui and Client instances.
+     * Initializes a command map and populates it.
+     *
+     * @param tui the Tui instance associated with the command
+     * @param tcpClient the Client instance associated with the command
+     */
     public ReadCommand(Tui tui, Client tcpClient){
         this.tui = tui;
         client = tcpClient;
@@ -24,6 +31,11 @@ public class ReadCommand implements Runnable{
         initializeMap();
     }
 
+
+    /**
+     * Runs the command reading loop, processing commands from the console input.
+     * Handles command mapping and manages disconnection in case of RemoteException.
+     */
     public void run(){
         Scanner scan = new Scanner(System.in);
 
@@ -38,6 +50,12 @@ public class ReadCommand implements Runnable{
         }
     }
 
+    /**
+     * Maps and handles a command from user input.
+     *
+     * @param command the command string to be processed
+     * @throws RemoteException if a remote communication issue occurs
+     */
     public void mapCommand(String command) throws RemoteException {
         String[] commands = command.split(" ");
 
@@ -56,6 +74,9 @@ public class ReadCommand implements Runnable{
         }
     }
 
+    /**
+     * Initializes the command map with predefined commands and their associated handlers.
+     */
     public void initializeMap(){
         mapOfCommand.put("login", new LoginCommand(client));
         mapOfCommand.put("num", new SelNumPlayersCommand(client));

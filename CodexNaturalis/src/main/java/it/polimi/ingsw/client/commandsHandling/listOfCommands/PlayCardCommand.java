@@ -21,6 +21,15 @@ public class PlayCardCommand implements CommandManager {
         this.client = client;
     }
 
+    /**
+     * Handles a play card command message.
+     *
+     * @param commands array of command parameters
+     * @param clientState the current state of the client
+     * @throws RemoteException if a remote communication issue occurs
+     * @throws CommandNotAvailableException if the command is not available in the current client state
+     * @throws WrongInsertionException if the command insertion is incorrect
+     */
     @Override
     public void handleMessage(String[] commands, stateEnum clientState) throws RemoteException, CommandNotAvailableException, WrongInsertionException {
         int index = Integer.parseInt(commands[1]);
@@ -57,69 +66,13 @@ public class PlayCardCommand implements CommandManager {
             }
         }
 
-        // List to store the covered angles by neighboring cards
-        List<VisibleAngle> coveredAngle = new ArrayList<>();
-        cardBoard = client.getBoards().getGameBoard();
-        // Check the front visible angle of the card at (x+1, y+1) if it exists
-        if (cardBoard[x + 1][y + 1] != null) {
-            boolean front = cardBoard[x + 1][y + 1].getSide();
-            if (front) {
-                if (cardBoard[x + 1][y + 1].getFrontVisibleAngle(0) != null) {
-                    coveredAngle.add(cardBoard[x + 1][y + 1].getFrontVisibleAngle(0));
-                }
-            }
-        }
 
-        // Check the front visible angle of the card at (x+1, y-1) if it exists
-        if (cardBoard[x + 1][y - 1] != null) {
-            boolean front = cardBoard[x + 1][y - 1].getSide();
-            if (front) {
-                if (cardBoard[x + 1][y - 1].getFrontVisibleAngle(2) != null) {
-                    coveredAngle.add(cardBoard[x + 1][y - 1].getFrontVisibleAngle(2));
-                }
-            }
-        }
-
-        // Check the front visible angle of the card at (x-1, y+1) if it exists
-        if (cardBoard[x - 1][y + 1] != null) {
-            boolean front = cardBoard[x - 1][y + 1].getSide();
-            if (front) {
-                if (cardBoard[x - 1][y + 1].getFrontVisibleAngle(1) != null) {
-                    coveredAngle.add(cardBoard[x - 1][y + 1].getFrontVisibleAngle(1));
-                }
-            }
-        }
-
-        // Check the front visible angle of the card at (x-1, y-1) if it exists
-        if (cardBoard[x - 1][y - 1] != null) {
-            boolean front = cardBoard[x - 1][y - 1].getSide();
-            if (front) {
-                if (cardBoard[x - 1][y - 1].getFrontVisibleAngle(3) != null) {
-                    coveredAngle.add(cardBoard[x - 1][y - 1].getFrontVisibleAngle(3));
-                }
-            }
-        }
-
-        // If there are covered angles, lower the player's resources based on the symbols
-        if (!coveredAngle.isEmpty()) {
-            System.out.print("\nSelectioning that square you are going to cover and lose those resources:\n[");
-            for (VisibleAngle angle : coveredAngle) {
-                System.out.print(""+angle.getSymbol().getSymbolName()+"");
-                }
-            System.out.println("]");
-            System.out.print("press [y] to confirm the choice or [n] to deny");
-
-            }
-
-
-        coveredAngle.clear(); // Clear the list for future use
         SelectionCard toSend = new SelectionCard(client.getUsername(), client.getPlayerHand().get(index-1), x, y, side);
         client.sendMessage(toSend);
     }
 
 
 
-    //MANDA CARTA
 
 
 }
