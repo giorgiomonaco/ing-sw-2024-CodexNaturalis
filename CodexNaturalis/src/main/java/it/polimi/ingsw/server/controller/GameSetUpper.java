@@ -38,12 +38,7 @@ public class GameSetUpper {
 
 
 
-        //We initialize the common board:
-        //Place the points tracker and put the tokens at start
-        //Discover the first cards onto the common board
-        PointTrackerManager pointTrackerManager = new PointTrackerManager(game);
-        //Then we initialize the point tracker
-        pointTrackerManager.initializePointTracker();
+
         //Creation of the draw manager
         DrawManager drawManager = new DrawManager(game);
         //Initialization of hands:
