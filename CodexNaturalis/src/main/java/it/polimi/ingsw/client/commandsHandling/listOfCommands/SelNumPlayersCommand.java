@@ -19,6 +19,16 @@ public class SelNumPlayersCommand implements CommandManager {
         this.client = client;
     }
 
+
+    /**
+     * Handles a selection of the number of players command message.
+     *
+     * @param commands array of command parameters
+     * @param currState the current state of the client
+     * @throws RemoteException if a remote communication issue occurs
+     * @throws CommandNotAvailableException if the command is not available in the current client state
+     * @throws WrongInsertionException if the command insertion is incorrect
+     */
     @Override
     public void handleMessage(String[] commands, stateEnum currState) throws RemoteException, CommandNotAvailableException, WrongInsertionException {
         if(!client.getCurrentState().equals(stateEnum.SELECT_NUM_PLAYERS)){
