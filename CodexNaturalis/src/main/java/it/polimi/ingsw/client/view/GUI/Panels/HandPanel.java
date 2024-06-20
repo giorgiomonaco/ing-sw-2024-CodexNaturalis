@@ -115,21 +115,14 @@ public class HandPanel extends JPanel {
         actionButton.addMouseListener(new buttonListener(cards, frontIcons, backIcons, mainPanel));
 
         // Set insets to reduce space between cards
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        // Set all parameters that have to be same for all
-        gbc.gridy = 0;
-        //gbc.weighty = 0.5;
-        //gbc.weightx = 0.5;
+        gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.BOTH;
 
         // Add the button first
         gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.WEST;
         add(actionButton, gbc);
 
         // Add every label
-        gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridx = 1;
         add(firstCard, gbc);
 

@@ -20,6 +20,8 @@ public class ObjectivePanel extends JPanel {
         this.client = c;
         //setting layout to gbl
         setLayout(new GridBagLayout());
+        setPreferredSize(new Dimension(350, 300));
+        setMinimumSize(new Dimension(350, 300));
         gbc = new GridBagConstraints();
         //create and displace the cards
         displaceObjectiveCards();
@@ -73,14 +75,9 @@ public class ObjectivePanel extends JPanel {
 
         //now we place the cards into the panel
         //first common parameters
-        gbc.weightx = 1.0;
-        gbc.weighty = 0.25;
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5, 5, 5, 5);
         //then for each
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(personalCard,gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -90,5 +87,9 @@ public class ObjectivePanel extends JPanel {
         gbc.gridy = 0;
         add(secondCommonObjCard,gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(personalCard,gbc);
     }
 }

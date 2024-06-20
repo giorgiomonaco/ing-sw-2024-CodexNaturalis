@@ -9,8 +9,8 @@ public class MyFrame extends JFrame {
      */
 
     //Dimensions of the frame
-    private static final int DIM_X = 1000;
-    private static final int DIM_Y = 600;
+    private static final int DIM_X = 1100;
+    private static final int DIM_Y = 650;
 
     public MyFrame(){
         setLayout(new BorderLayout());

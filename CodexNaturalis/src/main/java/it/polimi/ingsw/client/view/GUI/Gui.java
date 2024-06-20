@@ -270,7 +270,7 @@ public class Gui implements UserInterface {
         frame.repaint();
         mainPanel = new MainPanel(client, turn);
         turn++;
-        frame.add(mainPanel);
+        frame.add(mainPanel, BorderLayout.CENTER);
         frame.setVisible(true);
         mainPanel.getBoard().scrollToMiddle();
     }

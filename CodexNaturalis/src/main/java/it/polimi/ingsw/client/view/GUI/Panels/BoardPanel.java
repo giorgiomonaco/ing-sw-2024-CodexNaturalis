@@ -41,6 +41,7 @@ public class BoardPanel extends JPanel {
         // Create a JLayeredPane to hold the cards
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension((int) (cols * (CARD_X + GAP_X)), (int) (rows * (CARD_Y + GAP_Y))));
+        layeredPane.setOpaque(false);
 
         ClassLoader cl = this.getClass().getClassLoader();
 
@@ -102,6 +103,8 @@ public class BoardPanel extends JPanel {
 
         // Create a JScrollPane that contains the layeredPane
         scrollPane = new JScrollPane(layeredPane);
+        scrollPane.setPreferredSize(new Dimension(700, 550));
+        scrollPane.setMinimumSize(new Dimension(700, 550));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
