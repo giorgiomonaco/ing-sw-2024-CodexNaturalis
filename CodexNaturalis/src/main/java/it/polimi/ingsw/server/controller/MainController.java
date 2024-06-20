@@ -244,7 +244,7 @@ public class MainController implements Serializable {
 
         // calcolare punti e vedere se deve iniziare l'ultimo turno
         if(game.getGameState().equals(gameStateEnum.START) &&
-                (currPlayer.getPlayerPoints() >= 20 ||
+                (currPlayer.getPlayerPoints() >= 1 ||
                         game.getResourceDeck().isEmpty() ||
                         game.getGoldDeck().isEmpty())) {
             finalPlayerIndex = currPlayerIndex;
@@ -305,7 +305,6 @@ public class MainController implements Serializable {
             serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true, player.getPlayerName()));
             serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false, player.getPlayerName()));
             System.out.println(Colors.greenColor + "THE WINNER IS " + player.getPlayerName() + Colors.resetColor);
-            System.exit(1);
         }
 
 

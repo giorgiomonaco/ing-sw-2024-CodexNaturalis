@@ -8,7 +8,9 @@ public class ShowWinnerView implements TuiView {
         if (client.getWinner()) {
             System.out.println("YOU WIN");
         } else {
-            System.out.println("YOU LOSE");
+            System.out.println("YOU LOSE" + client.getWinnerName());
         }
+
+        System.exit(1);
     }
 }
