@@ -46,8 +46,6 @@ public class PointTrackerManager {
     public void createPointTracker(){
         //creating the point tracker
         PointTracker pointTracker = new PointTracker();
-        //Associate it to the common board of the game
-        game.getCommonBoard().setPointTracker(pointTracker);
     }
 
     /**

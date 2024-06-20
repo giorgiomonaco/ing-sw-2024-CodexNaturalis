@@ -1,16 +1,20 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
-import it.polimi.ingsw.server.saveHandlig.SaveData;
 
 import java.util.*;
+
+/**
+ * Represents a game instance, managing players, decks, game state, and visible cards.
+ */
 public class Game {
 
     public gameStateEnum gameState;
     //List of the players
+
     List<Player> playerList = new ArrayList<>();
     List<String> userList = new ArrayList<>();
-    private int playersNumber;
+    private final int playersNumber;
 
     private List<List<Chat>> playersChats = new ArrayList<>();
     //deck of resource cards (common to every player)
@@ -29,50 +33,68 @@ public class Game {
     private CommonBoard commonBoard;
 
     private List<String> availableTokens;
-
     //The player is at that moment playing the game
     private Player currentPlayer;
     public List<Card> visibleResourceCards = new ArrayList<>();
     public List<Card> visibleGoldCards = new ArrayList<>();
-
     private List<ObjectiveCard> commonObjectives = new ArrayList<>();
 
-    /*
-    private void loadGame(SaveData existingGame){
-        gameState = existingGame.getState();
-        playersNumber = existingGame.getPlayersNum();
-        userList = existingGame.getUserList();
-    }
-     */
 
-    // Constructor to create the game
+
+
+    /**
+     * Constructor to create a game instance with a specified number of players.
+     *
+     * @param playersNumber the number of players in the game
+     */
     public Game(int playersNumber){
         this.playersNumber = playersNumber;
     }
 
 
-    //Add a card to the resource deck
+    /**
+     * Adds a resource card to the resource deck.
+     *
+     * @param card the resource card to add
+     */
     public void addResourceCardToDeck(ResourceCard card){
         resourceDeck.add(card);
     }
 
-    //Get of the first card of the resource deck (aka draw)
+    /**
+     * Draws (removes and returns) the first resource card from the resource deck.
+     *
+     * @return the first resource card from the resource deck
+     */
     public ResourceCard drawResourceCard(){
         return resourceDeck.removeFirst();
     }
 
-    //Get all the list of the resource cards
+    /**
+     * Retrieves the list of resource cards in the resource deck.
+     *
+     * @return the list of resource cards in the resource deck
+     */
     public List<ResourceCard> getResourceDeck() {
         return resourceDeck;
     }
 
 
-    //Add a card to the gold deck
+    /**
+     * Adds a gold card to the gold deck.
+     *
+     * @param card the gold card to add
+     */
     public void addGoldCardToDeck(GoldCard card){
         goldDeck.add(card);
     }
 
-    //Get of the first card of the resource deck (aka draw)
+    
+    /**
+     * Draws (removes and returns) the first gold card from the gold deck.
+     *
+     * @return the first gold card from the gold deck
+     */
     public GoldCard drawGoldCard(){
         return goldDeck.removeFirst();
     }
@@ -129,10 +151,7 @@ public class Game {
             }
 
         }
-        else throw new IllegalStateException("" +
-                "" +
-                "" +
-                "The game is full");
+        else throw new IllegalStateException("The game is full");
     }
 
     //Method to get the list of the players
