@@ -16,11 +16,12 @@ public class BoardPanel extends JPanel {
     private final static double GAP_X = -(CARD_X/4.67); // Negative gap for overlap in X direction
     private final static double GAP_Y = -(CARD_Y/2.55); // Negative gap for overlap in Y direction
     private JScrollPane scrollPane;
-    private Client client;
+    private final Client client;
     private JLayeredPane layeredPane;
     int rows = 100;
     int cols = 100;
-    private MainPanel mainPanel;
+    private final MainPanel mainPanel;
+    private Image backgroundImage;
 
     /**
      * Constructor for BoardPanel.
@@ -29,7 +30,22 @@ public class BoardPanel extends JPanel {
     public BoardPanel(Client client, MainPanel mainPanel) {
         this.client = client;
         this.mainPanel = mainPanel;
+        initializeBackgroundImage();
         initializeBoard();
+    }
+
+    private void initializeBackgroundImage() {
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -39,10 +55,17 @@ public class BoardPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane to hold the cards
-        layeredPane = new JLayeredPane();
+        layeredPane = new JLayeredPane(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, (int) (20 * (CARD_X + GAP_X)), (int) (20* (CARD_Y + GAP_Y)), 7073, 3650, this);
+                }
+            }
+        };
         layeredPane.setPreferredSize(new Dimension((int) (cols * (CARD_X + GAP_X)), (int) (rows * (CARD_Y + GAP_Y))));
-        layeredPane.setOpaque(false);
-
+        layeredPane.setOpaque(true);
         ClassLoader cl = this.getClass().getClassLoader();
 
         // Add cards to the layeredPane
@@ -97,12 +120,11 @@ public class BoardPanel extends JPanel {
 
                 layeredPane.add(cardLabel, JLayeredPane.DEFAULT_LAYER); // Add to the default layer
             }
-
-            // matrix.add(cardLabel);
         }
 
         // Create a JScrollPane that contains the layeredPane
         scrollPane = new JScrollPane(layeredPane);
+
         scrollPane.setPreferredSize(new Dimension(700, 550));
         scrollPane.setMinimumSize(new Dimension(700, 550));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

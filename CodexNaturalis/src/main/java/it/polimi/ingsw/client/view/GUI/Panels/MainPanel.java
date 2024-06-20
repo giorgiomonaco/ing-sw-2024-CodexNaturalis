@@ -286,6 +286,10 @@ public class MainPanel extends JPanel {
         board = new BoardPanel(client, this);
         hand = new HandPanel(client, this);
 
+        gbc.insets = new Insets(5, 5, 5, 5); // Add some space around components
+
+        // Set proportions for each panel
+        // Board panel will cover 70% of y and 80% of x space
         // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
