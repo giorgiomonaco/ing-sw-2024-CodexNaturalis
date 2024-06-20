@@ -57,7 +57,7 @@ public class ServerHandler {
     public void init() {
         rmiServer.start();
         tcpServer.start();
-        pinger.start();
+        //pinger.start();
     }
 
     public void isValid(String check){

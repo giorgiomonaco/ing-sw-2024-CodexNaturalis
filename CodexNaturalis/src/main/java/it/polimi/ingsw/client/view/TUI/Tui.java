@@ -855,7 +855,7 @@ public class Tui implements UserInterface{
                     if (i == 2) System.out.print("|   " + q + "  |");
                 }
                     if (t == 4) {
-                        for (int j = 0; j < 2; j++) {
+                        for (int j = 2; j < 4; j++) {
                             visibleAngle = card.getFrontVisibleAngle(j);
 
                             if (visibleAngle == null) {
@@ -893,7 +893,7 @@ public class Tui implements UserInterface{
                                 }
 
                             }
-                            if (j == 0) {
+                            if (j == 0|| j==2) {
                                 if (card instanceof ResourceCard) {
                                     System.out.print("=========");
                                 }

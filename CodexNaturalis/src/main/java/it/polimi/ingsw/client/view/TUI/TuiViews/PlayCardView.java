@@ -75,15 +75,15 @@ public class PlayCardView implements TuiView {
 
             for (int x = minX-1; x < maxX+2; x++) {
 
-                switch (boards.checkBoard[x][y]) {
+                switch (boards.getCheckBoard()[x][y]) {
                     case -1, -2:
-                        System.out.print("   ");
+                        System.out.print("    ");
                         break;
                     case 0:
-                        System.out.print("  " + Colors.greenColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
+                        System.out.print("  " + Colors.greenColor + boards.getCheckBoard()[x][y] + Colors.resetColor + " ");
                         break;
                     case 1:
-                        System.out.print("  " + Colors.blueColor + boards.checkBoard[x][y] + Colors.resetColor + " ");
+                        System.out.print("  " + Colors.blueColor + boards.getCheckBoard()[x][y] + Colors.resetColor + " ");
                         break;
                 }
             }
