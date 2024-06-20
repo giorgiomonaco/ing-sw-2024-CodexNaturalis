@@ -1,23 +1,23 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.SelectionFirstCardSide;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SelFirstCardPanel extends JPanel {
 
     private final List<BufferedImage> cardImages = new ArrayList<>();
+    private Image backgroundImage;
 
     public SelFirstCardPanel(Client client){
         setLayout(new BorderLayout());
@@ -42,9 +42,15 @@ public class SelFirstCardPanel extends JPanel {
         gbc.gridwidth = 1;
         gbc.insets = new Insets(10, 10, 10, 10);
 
+        ClassLoader cl = this.getClass().getClassLoader();
+        String pathFront = client.getInit().getFrontImage();
+        String pathBack = client.getInit().getBackImage();
+        InputStream isf = cl.getResourceAsStream(pathFront);
+        InputStream isb = cl.getResourceAsStream(pathBack);
+
         try {
-            cardImages.add(ImageIO.read(new File(client.getInit().getFrontImage())));
-            cardImages.add(ImageIO.read(new File(client.getInit().getBackImage())));
+            cardImages.add(ImageIO.read(Objects.requireNonNull(isf, "Couldn't read the image.")));
+            cardImages.add(ImageIO.read(Objects.requireNonNull(isb, "Couldn't read the image.")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -75,6 +81,26 @@ public class SelFirstCardPanel extends JPanel {
 
         add(cardPanel, BorderLayout.CENTER);
 
+        try {
+            InputStream is = cl.getResourceAsStream("images/backGround3.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     private static class SelCardListener extends MouseAdapter {

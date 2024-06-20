@@ -5,10 +5,13 @@ import it.polimi.ingsw.network.message.allMessages.SelectionCard;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.GoldCard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 
 public class MainPanel extends JPanel {
@@ -27,6 +30,7 @@ public class MainPanel extends JPanel {
     private int turn;
     private boolean yourTurn;
     private int index;
+    private Image backgroundImage;
 
     public MainPanel(Client client, int turn){
 
@@ -40,6 +44,18 @@ public class MainPanel extends JPanel {
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround3.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         createElements();
     }
 
@@ -51,76 +67,97 @@ public class MainPanel extends JPanel {
         other = new AccessoryPanel(client);
         hand = new HandPanel(client, this);
 
+
+        gbc.insets = new Insets(5, 5, 5, 5); // Add some space around components
+
         // Set proportions for each panel
         // Board panel will cover 70% of y and 80% of x space
         // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 80; // Increased from 80
-        gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.8; // Increased from 0.8
+        gbc.gridwidth = 150;
+        gbc.gridheight = 170;
+        gbc.weightx = 0.75;
+        gbc.weighty = 0.85;
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
 
+        // CARDS---
+        gbc.gridx = 0;
+        gbc.gridy = 170;
+        gbc.gridwidth = 120;
+        gbc.gridheight = 30;
+        gbc.weightx = 0.6;
+        gbc.weighty = 0.15;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(hand, gbc);
+
+
+        // PLACE BUTTON----
+        gbc.gridx = 120;
+        gbc.gridy = 170;
+        gbc.gridwidth = 30;
+        gbc.gridheight = 30;
+        gbc.weightx = 0.15;
+        gbc.weighty = 0.15;
+        gbc.fill = GridBagConstraints.BOTH;
+        JButton button = new JButton("PLACE");
+        button.addMouseListener(new buttonListener(this, client));
+        button.setPreferredSize(new Dimension(100, 100));
+        add(button, gbc);
+
+
         // OTHERS---
-        gbc.gridx = 80; // Changed from 90
+        gbc.gridx = 150;
         gbc.gridy = 0;
-        gbc.gridwidth = 20; // Increased from 10
-        gbc.gridheight = 35;// Changed from 80
-        gbc.weightx = 0.2; // Increased from 0.1
-        gbc.weighty = 0.35; // Changed from 0.8
+        gbc.gridwidth = 50;
+        gbc.gridheight = 45;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.25;
         gbc.fill = GridBagConstraints.BOTH;
         add(other, gbc);
 
-        // Reset the gbc
-        // CHAT---
-        gbc.gridx = 80; // Changed from 90
-        gbc.gridy = 35; // Changed from 80
-        gbc.gridwidth = 20; // Increased from 10
-        gbc.gridheight = 15; // Reduced from 20
-        gbc.weightx = 0.2; // Reduced from 0.35
-        gbc.weighty = 0.15; // Increased from 0.1
-        gbc.fill = GridBagConstraints.BOTH;
-        add(chat, gbc);
-
 
         //OBJECTIVES---
-        gbc.gridx = 80;
-        gbc.gridy = 50;
-        gbc.gridwidth = 20;
-        gbc.gridheight = 50;
-        gbc.weightx = 0.2;
+        gbc.gridx = 150;
+        gbc.gridy = 45;
+        gbc.gridwidth = 50;
+        gbc.gridheight = 90;
+        gbc.weightx = 0.25;
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
         add(objectivePanel, gbc);
 
 
-        // CARDS---
-        gbc.gridx = 0;
-        gbc.gridy = 80; // Changed from 80
-        gbc.gridwidth = 60; // Reduced from 90
-        gbc.gridheight = 20; // Reduced from 20
-        gbc.weightx = 0.6; // Reduced from 0.9
-        gbc.weighty = 0.2; // Increased from 0.1
+
+        // CHAT---
+        gbc.gridx = 150;
+        gbc.gridy = 135;
+        gbc.gridwidth = 50;
+        gbc.gridheight = 65;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.25;
         gbc.fill = GridBagConstraints.BOTH;
-        hand.setBackground(Color.gray);
-        add(hand, gbc);
+        add(chat, gbc);
 
 
-        // PLACE BUTTON----
-        gbc.gridx = 60;
-        gbc.gridy = 90;
-        gbc.gridwidth = 20;
-        gbc.gridheight = 10;
-        gbc.weightx = 0.2;
-        gbc.weighty = 0.1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc = new GridBagConstraints();
-        JButton button = new JButton("PLACE");
-        button.addMouseListener(new buttonListener(this, client));
-        add(button, gbc);
+
+        board.setOpaque(false);
+        hand.setOpaque(false);
+        objectivePanel.setOpaque(false);
+        chat.setOpaque(false);
+        other.setOpaque(false);
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     public boolean isYourTurn() {
@@ -249,23 +286,25 @@ public class MainPanel extends JPanel {
         board = new BoardPanel(client, this);
         hand = new HandPanel(client, this);
 
+        // BOARD-----
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 80; // Reduced from 90
-        gbc.gridheight = 80; // Increased from 80
-        gbc.weightx = 0.8; // Reduced from 0.9
-        gbc.weighty = 0.8; // Increased from 0.8
+        gbc.gridwidth = 150;
+        gbc.gridheight = 170;
+        gbc.weightx = 0.75;
+        gbc.weighty = 0.85;
         gbc.fill = GridBagConstraints.BOTH;
         add(board, gbc);
 
+
+        // CARDS---
         gbc.gridx = 0;
-        gbc.gridy = 80; // Changed from 80
-        gbc.gridwidth = 90; // Reduced from 90
-        gbc.gridheight = 20; // Reduced from 20
-        gbc.weightx = 0.9; // Reduced from 0.9
-        gbc.weighty = 0.2; // Increased from 0.1
+        gbc.gridy = 170;
+        gbc.gridwidth = 120;
+        gbc.gridheight = 30;
+        gbc.weightx = 0.6;
+        gbc.weighty = 0.15;
         gbc.fill = GridBagConstraints.BOTH;
-        hand.setBackground(Color.gray);
         add(hand, gbc);
 
     }

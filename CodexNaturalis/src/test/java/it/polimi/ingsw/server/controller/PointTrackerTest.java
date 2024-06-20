@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.model.PointTracker;
 import it.polimi.ingsw.server.model.Token;
 import org.junit.jupiter.api.Test;
 

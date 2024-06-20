@@ -11,11 +11,10 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InitialCardsInitializer {
 
@@ -52,18 +51,12 @@ public class InitialCardsInitializer {
      */
     public void initialCardInitializer() {
 
-        String osName = System.getProperty("os.name").toLowerCase();
-        String basePath = "src/main/resources/initCard.json";
-        String addPath = "CodexNaturalis/";
-        String finalPath;
+        ClassLoader cl = this.getClass().getClassLoader();
+        String item = "initCard.json";
+        InputStream is = cl.getResourceAsStream(item);
 
-        if(osName.contains("mac")){
-            finalPath = basePath;
-        } else {
-            finalPath = addPath + basePath;
-        }
-
-        try (Reader reader = new FileReader(finalPath); JsonReader jsonReader = Json.createReader(reader)) {
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(is, "Couldn't find json file"));
+             JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
 
@@ -169,16 +162,8 @@ public class InitialCardsInitializer {
                     }
                 }
 
-                String front;
-                String back;
-
-                if(osName.contains("mac")){
-                    front = "src/main/resources/images/initialCards/front/frontInitial-" + cardNumber + ".png";
-                    back = "src/main/resources/images/initialCards/back/backInitial-" + cardNumber + ".png";
-                } else {
-                    front = "CodexNaturalis/src/main/resources/images/initialCards/front/frontInitial-" + cardNumber + ".png";
-                    back = "CodexNaturalis/src/main/resources/images/initialCards/back/backInitial-" + cardNumber + ".png";
-                }
+                String front = "images/initialCards/front/frontInitial-" + cardNumber + ".png";
+                String back = "images/initialCards/back/backInitial-" + cardNumber + ".png";
 
                 InitialCard initialCard = new InitialCard(cardNumber, initialCardFrontAngles, initialCardBackAngles, backSymbol, front, back);
                 addCardToGame(initialCard);
@@ -187,7 +172,7 @@ public class InitialCardsInitializer {
             }
         }
         catch (IOException e) {
-            e.getCause();
+            throw new RuntimeException("Couldn't find json file");
         }
     }
 

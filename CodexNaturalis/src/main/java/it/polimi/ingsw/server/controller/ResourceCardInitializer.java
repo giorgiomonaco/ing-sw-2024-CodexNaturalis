@@ -1,16 +1,12 @@
 package it.polimi.ingsw.server.controller;
-
-import it.polimi.ingsw.server.model.*;
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.ResourceCard;
 import it.polimi.ingsw.server.model.Symbol;
 import it.polimi.ingsw.server.model.VisibleAngle;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -52,18 +48,11 @@ public class ResourceCardInitializer {
      */
     public void initializeResourceCards() {
 
-        String osName = System.getProperty("os.name").toLowerCase();
-        String basePath = "src/main/resources/resCards.json";
-        String addPath = "CodexNaturalis/";
-        String finalPath;
+        ClassLoader cl = this.getClass().getClassLoader();
+        String item = "resCards.json";
+        InputStream is = cl.getResourceAsStream(item);
 
-        if(osName.contains("mac")){
-            finalPath = basePath;
-        } else {
-            finalPath = addPath + basePath;
-        }
-
-        try (Reader reader = new FileReader(finalPath);
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(is, "Couldn't find json file"));
              JsonReader jsonReader = Json.createReader(reader)) {
 
             JsonArray jsonArray = jsonReader.readArray();
@@ -153,13 +142,8 @@ public class ResourceCardInitializer {
                 String front;
                 String back;
 
-                if(osName.contains("mac")){
-                    front = "src/main/resources/images/resCards/front/" + cardNumber + ".png";
-                    back = "src/main/resources/images/resCards/back/" + type + ".png";
-                } else {
-                    front = "CodexNaturalis/src/main/resources/images/resCards/front/" + cardNumber + ".png";
-                    back = "CodexNaturalis/src/main/resources/images/resCards/back/" + type + ".png";
-                }
+                front = "images/resCards/front/" + cardNumber + ".png";
+                back = "images/resCards/back/" + type + ".png";
 
                 ResourceCard resourceCard = new  ResourceCard( cardNumber,  pointsInt,
                         resCardFrontAngles, resCardBackAngles, backSymbol, front, back);
@@ -168,7 +152,7 @@ public class ResourceCardInitializer {
                 cardNumber++;
             }
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare le carte.");
+            throw new RuntimeException("Couldn't find json file");
         }
     }
 
@@ -180,4 +164,3 @@ public class ResourceCardInitializer {
         game.addResourceCardToDeck(card);
     }
 }
-

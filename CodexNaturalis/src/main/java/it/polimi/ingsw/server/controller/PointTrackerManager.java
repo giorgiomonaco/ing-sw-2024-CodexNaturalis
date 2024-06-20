@@ -3,16 +3,19 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.PointTracker;
 import it.polimi.ingsw.server.model.Token;
 
 import java.util.ArrayList;
 
 public class PointTrackerManager {
-    //This class manages the point tracker:
-    //Initializes it by creating the point tracker
-    // Ita associates it to the Common board of the game
-    // creates all the boxes and adds them to the point tracker
-    //it manages the movement of a token from a box to another
+    /**
+     * This class manages the point tracker:
+     * Initializes it by creating the point tracker
+     * Ita associates it to the Common board of the game
+     * creates all the boxes and adds them to the point tracker
+     * it manages the movement of a token from a box to another
+     */
     private final Game game;
 
     //Constructor
@@ -20,7 +23,16 @@ public class PointTrackerManager {
         this.game = game;
     }
 
-    //Initialization of the point tracker:
+
+    /**
+     * Initializes the point tracker for the game.
+     * This method performs the following actions sequentially:
+     * <ol>
+     *     <li>Creates and associates the point tracker with the game.</li>
+     *     <li>Populates the point tracker with initial data.</li>
+     *     <li>Places all tokens at their starting positions on the point tracker.</li>
+     * </ol>
+     */
     public void initializePointTracker(){
         //Creation and Association
         createPointTracker();
@@ -38,7 +50,15 @@ public class PointTrackerManager {
         game.getCommonBoard().setPointTracker(pointTracker);
     }
 
-    //populating with empty boxes
+    /**
+     * Creates a point tracker for the game and associates it with the common board.
+     * <p>
+     * This method performs the following actions:
+     * <ol>
+     *     <li>Creates a new {@link PointTracker} instance.</li>
+     *     <li>Associates the created point tracker with the common board of the game.</li>
+     * </ol>
+     */
     public void populationOfPointTracker(){
         //We want to make this process for 29 boxes
         for(int i = 0; i <29; i++) {
@@ -47,7 +67,15 @@ public class PointTrackerManager {
         }
     }
 
-    //Put the tokens into starting position
+    /**
+     * Places each player's token at the starting position on the point tracker.
+     * <p>
+     * This method iterates through the list of players in the game and performs the following actions for each player:
+     * <ol>
+     *     <li>Retrieves the player's token.</li>
+     *     <li>Adds the token to the first box (starting position) of the point tracker on the common board.</li>
+     * </ol>
+     */
     public void placeTokenAtStart(){
         //For every player into the list
         for (Player p : game.getPlayerList()) {
@@ -57,6 +85,19 @@ public class PointTrackerManager {
             game.getCommonBoard().getPointTracker().getTokenBox(0).add(token);
         }
     }
+
+    /**
+     * Moves the specified token to the corresponding point box on the point tracker.
+     * <p>
+     * This method performs the following actions:
+     * <ol>
+     *     <li>Removes the current player's token from its current position in the point tracker.</li>
+     *     <li>Moves the token to the point box corresponding to the updated player points.</li>
+     * </ol>
+     *
+     * @param token The token to be moved.
+     * @param points The updated points of the current player, determining the destination point box.
+     */
 
     public void moveToken(Token token, int points){
 

@@ -4,8 +4,11 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.messEnum;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
@@ -16,7 +19,7 @@ public class LoginPanel extends JPanel {
     private JLabel label1;
     private JTextField textField;
     private JButton button;
-
+    private Image backgroundImage;
 
     public LoginPanel(Client client){
 
@@ -69,6 +72,27 @@ public class LoginPanel extends JPanel {
 
         });
 
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround1.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     private void createElements(){

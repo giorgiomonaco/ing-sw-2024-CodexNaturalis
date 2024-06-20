@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TokenManager {
-    //This class manages the assignment of the tokens to the players at start of the game
+    /**
+     * This class manages the assignment of the tokens to the players at start of the game
+     */
     private final Game game;
-
-  //  private final ViewTry view;
 
     private int tokenCounter = 0;
 
@@ -26,7 +26,15 @@ public class TokenManager {
         this.game = game;
     }
 
-    //Initialize tokens, aka assign all tokens to all players
+    /**
+     * Initializes tokens for all players by creating and assigning tokens.
+     * <p>
+     * This method performs the following actions:
+     * <ol>
+     *     <li>Creates all tokens available in the game.</li>
+     *     <li>Populates the list of available tokens with default colors.</li>
+     * </ol>
+     */
     public void initializeTokens() {
         //As first thing we create all the tokens and populate the list of tokens
         createTokens();
@@ -41,6 +49,19 @@ public class TokenManager {
         game.setAvailableTokens(availableTokens);
     }
 
+    /**
+     * Creates and initializes all tokens for the game.
+     * <p>
+     * This method creates the following tokens:
+     * <ul>
+     *     <li>1 black token</li>
+     *     <li>2 red tokens</li>
+     *     <li>2 blue tokens</li>
+     *     <li>2 green tokens</li>
+     *     <li>2 yellow tokens</li>
+     * </ul>
+     * The created tokens are added to the {@code tokens} list.
+     */
     public void createTokens() {
 
         Token blackToken = new Token("black");
@@ -66,8 +87,14 @@ public class TokenManager {
 
     }
 
-    //Method that assign a token to the player at start of game
-    //In an automatic way
+    /**
+     * Assigns a token to a player at the start of the game automatically.
+     * <p>
+     * This method assigns the next available token from the {@code tokens} list to the given player.
+     * It increments the {@code tokenCounter} to track the next available token.
+     *
+     * @param p The player to whom the token will be assigned.
+     */
     public void assignToken(Player p) {
         this.p = p;
         //Assign the color of the token for each player

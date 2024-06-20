@@ -1,12 +1,18 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class EndGamePanel extends JPanel {
 
     private String winner;
+
+    private Image backgroundImage;
 
     public EndGamePanel(Client client) {
 
@@ -43,5 +49,27 @@ public class EndGamePanel extends JPanel {
 
         add(panel, BorderLayout.CENTER);
 
+        try {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("images/backGround3.png");
+            if (is != null) {
+                backgroundImage = ImageIO.read(is);
+            } else {
+                System.err.println("Background image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
 }
