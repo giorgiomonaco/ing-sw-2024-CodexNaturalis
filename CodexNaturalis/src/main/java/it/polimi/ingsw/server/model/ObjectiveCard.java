@@ -73,6 +73,7 @@ public class ObjectiveCard implements Serializable {
     public String getType() {
         return type;
     }
+
     public int getCardName(){
         return this.cardNumber;
     }

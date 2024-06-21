@@ -150,9 +150,7 @@ public class ServerHandler {
                 break;
 
             case messEnum.SELECTION_CARD:
-                System.out.println("ricevuto");
                 synchronized (controllerLock) {
-                    System.out.println("preso lock");
                     SelectionCard selCard = (SelectionCard) msg;
                     mainController.selectionCard(selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     mainController.middleTurn();
@@ -298,7 +296,8 @@ public class ServerHandler {
                                         mainController.getGame().getCommonObjectives(),
                                         mainController.getGame().getUserList(),
                                         p.getPlayerObjectiveCard(),
-                                        p.getInitialCard()));
+                                        p.getInitialCard(),
+                                        mainController.getGame().getPlayersToken()));
                     }
                     logged = true;
                     reconnected = true;
@@ -410,17 +409,24 @@ public class ServerHandler {
 
 
     /**
-     * Ends the game, sending a message to all clients about the winner and then shutting down the server.
+     * Ends the game when only one player connected is left and the timeout is done, sending a message to the client.
      *
-     * <p>This method sends a ShowWinnerMessage to all connected clients indicating the end of the game.</p>
-     * <p>The server then exits with code 2 to signify the game's end.</p>
+     * <p>This method sends a ShowWinnerMessage to the only connected clients indicating the end of the game.</p>
      */
 
     public void endGame(){
-        // the last player win the game
-        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, "suca"));
 
-        System.exit(2);
+        // the last player win the game
+        synchronized (connectedClients) {
+            for (String name : connectedClients.keySet()) {
+                if (connectedClients.get(name).isConnected()) {
+                    sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, name));
+                    System.out.println(Colors.greenColor + "THE WINNER IS " + name.toUpperCase() + Colors.resetColor);
+                    break;
+                }
+            }
+        }
+
     }
 
 

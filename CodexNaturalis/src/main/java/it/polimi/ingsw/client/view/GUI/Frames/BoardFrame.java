@@ -2,13 +2,12 @@ package it.polimi.ingsw.client.view.GUI.Frames;
 
 import it.polimi.ingsw.client.view.GUI.Panels.BoardPanel;
 import it.polimi.ingsw.server.model.Card;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class BoardFrame extends JFrame {
 
-    private Card[][] gameBoard;
+    private final Card[][] gameBoard;
     private BoardPanel board;
     private static final int DIM_X = 650;
     private static final int DIM_Y = 450;

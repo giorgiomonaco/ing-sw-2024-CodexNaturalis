@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Card implements Serializable {
@@ -37,6 +38,8 @@ public abstract class Card implements Serializable {
     private final String backImage;
 
     private int turn = -1;
+
+    private List<Integer> checkedBy = new ArrayList<>();
 
     //Constructor
     public Card(VisibleAngle[] frontAngles, VisibleAngle[] backAngles, List<Symbol> backSymbol, String frontPath, String backPath) {
@@ -223,6 +226,15 @@ public abstract class Card implements Serializable {
      */
     public void setTurn(int turn) {
         this.turn = turn;
+    }
+
+
+    public List<Integer> getCheckedBy() {
+        return checkedBy;
+    }
+
+    public void addCheckedBy(int checkedBy) {
+        this.checkedBy.add(checkedBy);
     }
 }
 

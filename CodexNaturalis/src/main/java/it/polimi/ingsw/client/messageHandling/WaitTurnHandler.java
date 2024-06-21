@@ -28,6 +28,7 @@ public class WaitTurnHandler implements MessageHandler{
             client.setCommonObjectives(wait.getCommon());
             client.setObjective(wait.getPersonal());
             client.setPlayerList(wait.getUserList());
+            client.setPlayersToken(wait.getTokens());
         } else {
             client.setGameBoards(wait.getBoard(), client.getCurrIndex());
             client.setPoints(wait.getPoints());
