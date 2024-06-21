@@ -2,8 +2,6 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.GUI.Frames.BoardFrame;
-import it.polimi.ingsw.client.view.GUI.Frames.DrawFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -12,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TurnOfPanel extends JPanel {
-    private Client client;
-    private List<String> players;
-    private List<JLabel> playersLab;
+    private final Client client;
+    private List<JButton> playersLab;
+    private final MainPanel mp;
 
-    public TurnOfPanel(Client client){
+    public TurnOfPanel(Client client, MainPanel mp){
         this.client = client;
+        this.mp = mp;
         setLayout(new BorderLayout());
 
         createElements();
@@ -31,7 +30,7 @@ public class TurnOfPanel extends JPanel {
 
         add(title, BorderLayout.NORTH);
 
-        players = client.getPlayerList();
+        List<String> players = client.getPlayerList();
 
         JPanel playersPanel = new JPanel(new GridBagLayout());
         playersLab = new ArrayList<>();
@@ -39,19 +38,19 @@ public class TurnOfPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridheight = 1;
-        gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5, 5, 5, 5);
 
         int i = 0;
         for (String p : players) {
 
-            JLabel playerLabel = new JLabel(p.toUpperCase());
-            playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            playerLabel.addMouseListener(new boardMouseListener(i, client));
-            playersPanel.add(playerLabel, gbc);
-            playersLab.add(playerLabel);
+            JButton playerButton = new JButton(p.toUpperCase());
+            playerButton.setHorizontalAlignment(SwingConstants.CENTER);
+            if (!p.equals(client.getUsername())) {
+                playerButton.addMouseListener(new boardMouseListener(i, client, mp));
+            }
+            playersPanel.add(playerButton, gbc);
+            playersLab.add(playerButton);
             gbc.gridx++;
             i++;
 
@@ -71,25 +70,29 @@ public class TurnOfPanel extends JPanel {
     private static class boardMouseListener extends MouseAdapter {
         private final int index;
         private final Client client;
+        private final MainPanel mp;
 
-        public boardMouseListener(int index, Client client) {
+        public boardMouseListener(int index, Client client, MainPanel mp) {
 
             this.index = index;
             this.client = client;
+            this.mp = mp;
 
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            BoardFrame boardFrame = new BoardFrame(client.getGameBoards(index), client.getPlayerList().get(index));
-            boardFrame.getBoard().scrollToMiddle();
-            boardFrame.setVisible(true);
+            if(!mp.isStop() && client.getGameBoards(index) != null) {
+                BoardFrame boardFrame = new BoardFrame(client.getGameBoards(index), client.getPlayerList().get(index));
+                boardFrame.getBoard().scrollToMiddle();
+                boardFrame.setVisible(true);
+            }
 
         }
     }
 
-    public List<JLabel> getPlayersLab() {
+    public List<JButton> getPlayersLab() {
         return playersLab;
     }
 }

@@ -17,7 +17,6 @@ public class PersonalBoardPanel extends JPanel {
     private final static double GAP_Y = -(CARD_Y/2.55); // Negative gap for overlap in Y direction
     private JScrollPane scrollPane;
     private final Client client;
-    private JLayeredPane layeredPane;
     int rows = 100;
     int cols = 100;
     private final MainPanel mainPanel;
@@ -56,12 +55,12 @@ public class PersonalBoardPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane to hold the cards
-        layeredPane = new JLayeredPane(){
+        JLayeredPane layeredPane = new JLayeredPane() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, (int) (20 * (CARD_X + GAP_X)), (int) (20* (CARD_Y + GAP_Y)), 7073, 3650, this);
+                    g.drawImage(backgroundImage, (int) (20 * (CARD_X + GAP_X)), (int) (20 * (CARD_Y + GAP_Y)), 7073, 3650, this);
                 }
             }
         };
@@ -148,11 +147,11 @@ public class PersonalBoardPanel extends JPanel {
     }
 
     private static class cardMouseListener extends MouseAdapter {
-        private int x;
-        private int y;
-        private MainPanel mainPanel;
+        private final int x;
+        private final int y;
+        private final MainPanel mainPanel;
         private boolean isFront = true;
-        private JLabel label;
+        private final JLabel label;
 
         public cardMouseListener(JLabel label, int x, int y, MainPanel mainPanel) {
             this.label = label;
@@ -163,18 +162,20 @@ public class PersonalBoardPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (isFront) {
-                if(mainPanel.getyCoord() == -1 && mainPanel.getxCoord() == -1) {
-                    mainPanel.setxCoord(x);
-                    mainPanel.setyCoord(y);
-                    label.setBackground(Color.blue);
+            if(!mainPanel.isStop()) {
+                if (isFront) {
+                    if (mainPanel.getyCoord() == -1 && mainPanel.getxCoord() == -1) {
+                        mainPanel.setxCoord(x);
+                        mainPanel.setyCoord(y);
+                        label.setBackground(Color.blue);
+                        isFront = !isFront;
+                    }
+                } else {
+                    mainPanel.setxCoord(-1);
+                    mainPanel.setyCoord(-1);
+                    label.setBackground(Color.green);
                     isFront = !isFront;
                 }
-            } else {
-                mainPanel.setxCoord(-1);
-                mainPanel.setyCoord(-1);
-                label.setBackground(Color.green);
-                isFront = !isFront;
             }
         }
     }

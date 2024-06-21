@@ -149,18 +149,20 @@ public class HandPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (isFront) {
-                cardLabel.get(0).setIcon(backImage.get(0));
-                cardLabel.get(1).setIcon(backImage.get(1));
-                cardLabel.get(2).setIcon(backImage.get(2));
-                mainPanel.setSide(false);
-            } else {
-                cardLabel.get(0).setIcon(frontImage.get(0));
-                cardLabel.get(1).setIcon(frontImage.get(1));
-                cardLabel.get(2).setIcon(frontImage.get(2));
-                mainPanel.setSide(true);
+            if(!mainPanel.isStop()) {
+                if (isFront) {
+                    cardLabel.get(0).setIcon(backImage.get(0));
+                    cardLabel.get(1).setIcon(backImage.get(1));
+                    cardLabel.get(2).setIcon(backImage.get(2));
+                    mainPanel.setSide(false);
+                } else {
+                    cardLabel.get(0).setIcon(frontImage.get(0));
+                    cardLabel.get(1).setIcon(frontImage.get(1));
+                    cardLabel.get(2).setIcon(frontImage.get(2));
+                    mainPanel.setSide(true);
+                }
+                isFront = !isFront;
             }
-            isFront = !isFront;
         }
     }
 
@@ -180,18 +182,20 @@ public class HandPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (isFront) {
-                if(mainPanel.getCard() == null) {
-                    mainPanel.setCard(client.getPlayerHand().get(index));
-                    // highlight the label
-                    label.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
+            if(!mainPanel.isStop()) {
+                if (isFront) {
+                    if (mainPanel.getCard() == null) {
+                        mainPanel.setCard(client.getPlayerHand().get(index));
+                        // highlight the label
+                        label.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
+                        isFront = !isFront;
+                    }
+                } else {
+                    mainPanel.setCard(null);
+                    // remove the highlight
+                    label.setBorder(null);
                     isFront = !isFront;
                 }
-            } else {
-                mainPanel.setCard(null);
-                // remove the highlight
-                label.setBorder(null);
-                isFront = !isFront;
             }
         }
     }

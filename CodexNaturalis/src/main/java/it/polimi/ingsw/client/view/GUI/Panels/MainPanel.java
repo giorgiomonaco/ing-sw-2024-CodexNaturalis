@@ -27,17 +27,21 @@ public class MainPanel extends JPanel {
     private Card card;
     private int turn;
     private boolean yourTurn;
-    private int index;
     private Image backgroundImage;
+    private boolean stop;
 
     public MainPanel(Client client, int turn){
 
         this.client = client;
         this.turn = turn;
+
+        // Initialize parameters
         this.card = null;
         xCoord = -1;
         yCoord = -1;
         side = true;
+        stop = false;
+
         //setting right layout to manage the panel
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -58,11 +62,12 @@ public class MainPanel extends JPanel {
     }
 
     public void createElements(){
+
         // Create all the panels in the main panel
         chat = new ChatPanel(client);
         board = new PersonalBoardPanel(client, this);
         objectivePanel = new ObjectivePanel(client);
-        other = new TurnOfPanel(client);
+        other = new TurnOfPanel(client, this);
         hand = new HandPanel(client, this);
 
 
@@ -167,20 +172,27 @@ public class MainPanel extends JPanel {
     }
 
     public void setIndex(int index) {
-        this.index = index;
-        for (JLabel l : other.getPlayersLab()) {
-            if(other.getPlayersLab().indexOf(l) == index) {
-                l.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
+        for (JButton b : other.getPlayersLab()) {
+            if(other.getPlayersLab().indexOf(b) == index) {
+                b.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
             } else {
-                l.setBorder(null);
+                b.setBorder(null);
             }
         }
     }
 
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
 
     private static class buttonListener extends MouseAdapter {
-        private MainPanel mp;
-        private Client client;
+        private final MainPanel mp;
+        private final Client client;
 
         public buttonListener(MainPanel mp, Client client) {
             this.mp = mp;
@@ -190,7 +202,7 @@ public class MainPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide()) && mp.isYourTurn()) {
+            if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide()) && mp.isYourTurn() && !mp.isStop()) {
                 try {
 
                     //send message with the selection of the card
@@ -210,7 +222,7 @@ public class MainPanel extends JPanel {
                 client.getUI().printErrorMessage("WRONG SELECTION! You have to select a card first.");
             } else if (!availableResources(mp.getCard(), mp.isSide())){
                 client.getUI().printErrorMessage("You do not have enough resources to play this card. Please choose another one.");
-            } else {
+            } else if (!mp.isYourTurn()) {
                 client.getUI().printErrorMessage("IT'S NOT YOUR TURN. Wait for your turn.");
             }
 

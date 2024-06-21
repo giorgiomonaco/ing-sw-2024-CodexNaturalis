@@ -38,6 +38,8 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<Chat> chat;
     private String serverLastMessage;
     private int currIndex;
+    private List<String> playersToken;
+    private boolean endTurn;
 
 
 
@@ -235,5 +237,21 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setGameBoards(Card[][] gameBoards, int i) {
         this.gameBoards[i] = gameBoards;
+    }
+
+    public List<String> getPlayersToken() {
+        return playersToken;
+    }
+
+    public void setPlayersToken(List<String> playersToken) {
+        this.playersToken = playersToken;
+    }
+
+    public boolean isEndTurn() {
+        return endTurn;
+    }
+
+    public void setEndTurn(boolean endTurn) {
+        this.endTurn = endTurn;
     }
 }

@@ -9,8 +9,10 @@ public class WaitTurnHandler implements MessageHandler{
     @Override
     public void handle(Message msg, Client client) {
         WaitTurnMsg wait = (WaitTurnMsg) msg;
+        client.setEndTurn(false);
 
         if (wait.getFlag() == 1) {
+            client.setEndTurn(true);
             client.setPoints(wait.getPoints());
             client.setBoards(wait.getBoards());
             client.setPlayerHand(wait.getCard());
@@ -21,11 +23,15 @@ public class WaitTurnHandler implements MessageHandler{
             client.setPoints(wait.getPoints());
         } else if (wait.getFlag() == 3) {
             client.setCurrIndex(wait.getCurrIndex());
-        } else {
+        } else if (wait.getFlag() == 4) {
             client.setInit(wait.getInit());
             client.setCommonObjectives(wait.getCommon());
             client.setObjective(wait.getPersonal());
             client.setPlayerList(wait.getUserList());
+        } else {
+            client.setGameBoards(wait.getBoard(), client.getCurrIndex());
+            client.setPoints(wait.getPoints());
+            client.setPlayersToken(wait.getTokens());
         }
 
         client.setCurrentState(stateEnum.WAITING_TURN);

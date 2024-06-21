@@ -192,7 +192,7 @@ public class MainController implements Serializable {
      */
     public void beginFirstTurn(){
 
-        int i = 1;
+
         List<String> availableToken = game.getAvailableTokens();
 
         // Skip the turn of the disconnected players until I find a connected one or the first turn is ended.
@@ -208,14 +208,12 @@ public class MainController implements Serializable {
                         ServerHandler.HOSTNAME,
                         availableToken,
                         getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
-        System.out.println("mandato" + i);
+
         serverHandler.sendMessageToAllExcept(
                 game.getCurrentPlayer().getPlayerName(),
                 new WaitTurnMsg(ServerHandler.HOSTNAME,
                         firstTurnIndex)
         );
-
-        i++;
 
     }
 
@@ -263,7 +261,6 @@ public class MainController implements Serializable {
         Player currPlayer = game.getCurrentPlayer();
 
         // send message of end turn
-
         serverHandler.sendMessageToPlayer(
                 currPlayer.getPlayerName(),
                 new WaitTurnMsg(ServerHandler.HOSTNAME,
@@ -273,15 +270,16 @@ public class MainController implements Serializable {
                         game.getPlayersPoint())
         );
 
+        serverHandler.sendMessageToAll(
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getGameBoards().getGameBoard(),
+                        game.getPlayersPoint(),
+                        game.getPlayersToken())
+        );
 
 
         if (isLastPlayer(currPlayer.getPlayerName())) {
             setFirstTurn(false);
-            serverHandler.sendMessageToAll(
-                    new WaitTurnMsg(ServerHandler.HOSTNAME,
-                            currPlayer.getGameBoards().getGameBoard(),
-                            game.getPlayersPoint())
-            );
             beginTurn();
         } else {
             beginFirstTurn();
