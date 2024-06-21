@@ -60,13 +60,14 @@ public class WaitTurnMsg  extends Message {
     }
 
     // Constructor for the manage of the reconnection
-    public WaitTurnMsg(String senderUsername, List<ObjectiveCard> common, List<String> userList, ObjectiveCard personal, InitialCard init){
+    public WaitTurnMsg(String senderUsername, List<ObjectiveCard> common, List<String> userList, ObjectiveCard personal, InitialCard init, List<String> tokens){
         super(messEnum.WAIT_TURN, senderUsername);
         flag = 4;
         this.common = common;
         this.personal = personal;
         this.init = init;
         this.userList = userList;
+        this.tokens = tokens;
     }
 
     @Override

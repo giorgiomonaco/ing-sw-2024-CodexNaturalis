@@ -150,9 +150,7 @@ public class ServerHandler {
                 break;
 
             case messEnum.SELECTION_CARD:
-                System.out.println("ricevuto");
                 synchronized (controllerLock) {
-                    System.out.println("preso lock");
                     SelectionCard selCard = (SelectionCard) msg;
                     mainController.selectionCard(selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     mainController.middleTurn();
@@ -298,7 +296,8 @@ public class ServerHandler {
                                         mainController.getGame().getCommonObjectives(),
                                         mainController.getGame().getUserList(),
                                         p.getPlayerObjectiveCard(),
-                                        p.getInitialCard()));
+                                        p.getInitialCard(),
+                                        mainController.getGame().getPlayersToken()));
                     }
                     logged = true;
                     reconnected = true;
@@ -418,7 +417,7 @@ public class ServerHandler {
 
     public void endGame(){
         // the last player win the game
-        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, "suca"));
+        sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, ""));
 
         System.exit(2);
     }
