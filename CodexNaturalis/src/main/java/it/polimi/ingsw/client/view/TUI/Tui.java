@@ -322,7 +322,6 @@ public class Tui implements UserInterface{
             if(p==0){
                 for (int t = 0; t < 5; t++) {
                         visibleAngles = card.getFrontAngles();
-
                         if (t == 0) {
 
                             for (int j = 0; j < 2; j++) {
@@ -378,7 +377,7 @@ public class Tui implements UserInterface{
 
 
                         if (t == 4) {
-                            for (int j = 0; j < 2; j++) {
+                            for (int j = 2; j < 4; j++) {
                                 visibleAngle = card.getFrontVisibleAngle(j);
 
                                 if (visibleAngle == null) {
@@ -416,7 +415,7 @@ public class Tui implements UserInterface{
                                     }
 
                                 }
-                                if (j == 0) {
+                                if (j == 2) {
                                         System.out.print("=========");
                                     }
 
@@ -691,7 +690,7 @@ public class Tui implements UserInterface{
                 if(Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "blue")){
                     System.out.print("=============\n" +
                                      "|     "+color.orangeColor+"ORA"+color.resetColor+"   | \n"+
-                                     "| "+color.blueColor+"BLU"+color.resetColor+"       | \n"+
+                                     "| "+color.blueColor+"BLU"+color.resetColor+"        | \n"+
                                      "| "+color.blueColor+"BLU"+color.resetColor+"     3  |\n"+
                                      "=============");
                 }else if  (Objects.equals(o.getCard1(), "orange") && Objects.equals(o.getCard2(), "orange") && Objects.equals(o.getCard3(), "orange")) {

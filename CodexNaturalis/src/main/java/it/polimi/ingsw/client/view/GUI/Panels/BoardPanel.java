@@ -1,11 +1,9 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-import it.polimi.ingsw.client.Client;
+
 import it.polimi.ingsw.server.model.Card;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -16,23 +14,19 @@ public class BoardPanel extends JPanel {
     private final static double GAP_X = -(CARD_X/4.67); // Negative gap for overlap in X direction
     private final static double GAP_Y = -(CARD_Y/2.55); // Negative gap for overlap in Y direction
     private JScrollPane scrollPane;
-    private final Client client;
     private JLayeredPane layeredPane;
     int rows = 100;
     int cols = 100;
-    private final MainPanel mainPanel;
     private Image backgroundImage;
+    private Card[][] gameBoard;
 
-    /**
-     * Constructor for BoardPanel.
-     * @param client The client instance used for communication.
-     */
-    public BoardPanel(Client client, MainPanel mainPanel) {
-        this.client = client;
-        this.mainPanel = mainPanel;
+
+    public BoardPanel(Card[][] gameBoard) {
+        this.gameBoard = gameBoard;
         initializeBackgroundImage();
         initializeBoard();
     }
+
 
     private void initializeBackgroundImage() {
         try {
@@ -75,8 +69,8 @@ public class BoardPanel extends JPanel {
             int x = (int) ((i % cols) * (CARD_X + GAP_X));
             int y = (int) ((i / cols) * (CARD_Y + GAP_Y));
 
-            if (client.getBoards().gameBoard[i % rows][i / cols] != null) {
-                Card card = client.getBoards().gameBoard[i % rows][i / cols];
+            if (gameBoard[i % rows][i / cols] != null) {
+                Card card = gameBoard[i % rows][i / cols];
 
                 String pathF = card.getFrontImage();
                 String pathB = card.getBackImage();
@@ -106,20 +100,8 @@ public class BoardPanel extends JPanel {
                 // Add to the layer related to the turn
                 layeredPane.add(cardLabel, (Integer) card.getTurn());
 
-            } else if (client.getBoards().checkBoard[i % rows][i / cols] == 0) {
-
-                cardLabel = new JLabel();
-                cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                cardLabel.setVerticalAlignment(SwingConstants.CENTER);
-                cardLabel.setBounds(x, y, CARD_X, CARD_Y);
-
-                cardLabel.addMouseListener(new cardMouseListener(cardLabel, (i % rows), (i / cols), mainPanel));
-                cardLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                cardLabel.setBackground(Color.green);
-                cardLabel.setOpaque(true);
-
-                layeredPane.add(cardLabel, JLayeredPane.DEFAULT_LAYER); // Add to the default layer
             }
+
         }
 
         // Create a JScrollPane that contains the layeredPane
@@ -146,36 +128,4 @@ public class BoardPanel extends JPanel {
         scrollPane.getHorizontalScrollBar().setValue(middleHorizontal);
     }
 
-    private static class cardMouseListener extends MouseAdapter {
-        private int x;
-        private int y;
-        private MainPanel mainPanel;
-        private boolean isFront = true;
-        private JLabel label;
-
-        public cardMouseListener(JLabel label, int x, int y, MainPanel mainPanel) {
-            this.label = label;
-            this.x = x;
-            this.y = y;
-            this.mainPanel = mainPanel;
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (isFront) {
-                if(mainPanel.getyCoord() == -1 && mainPanel.getxCoord() == -1) {
-                    mainPanel.setxCoord(x);
-                    mainPanel.setyCoord(y);
-                    label.setBackground(Color.blue);
-                    System.out.println(x + " " + y);
-                    isFront = !isFront;
-                }
-            } else {
-                mainPanel.setxCoord(-1);
-                mainPanel.setyCoord(-1);
-                label.setBackground(Color.green);
-                isFront = !isFront;
-            }
-        }
-    }
 }

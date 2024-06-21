@@ -170,22 +170,16 @@ public class MainController implements Serializable {
                             game.getCurrentPlayer().getPlayerHand(),
                             game.getCurrentPlayer().getGameBoards(),
                             game.getCurrentPlayer().getResourcesAvailable(),
-                            game.getCurrentPlayer().getPlayerPoints())
+                            game.getPlayersPoint())
             );
 
-            for (String p : game.getUserList()) {
-                if (!p.equals(game.getCurrentPlayer().getPlayerName())) {
-                    serverHandler.sendMessageToPlayer(
-                            p,
-                            new WaitTurnMsg(ServerHandler.HOSTNAME,
-                                    getPlayerByUsername(p).getPlayerHand(),
-                                    getPlayerByUsername(p).getGameBoards(),
-                                    getPlayerByUsername(p).getResourcesAvailable(),
-                                    getPlayerByUsername(p).getPlayerPoints(),
-                                    currPlayerIndex)
-                    );
-                }
-            }
+
+            serverHandler.sendMessageToAllExcept(
+                    game.getCurrentPlayer().getPlayerName(),
+                    new WaitTurnMsg(ServerHandler.HOSTNAME,
+                            currPlayerIndex)
+            );
+
         }
     }
 
@@ -197,6 +191,7 @@ public class MainController implements Serializable {
      * @return void
      */
     public void beginFirstTurn(){
+
 
         List<String> availableToken = game.getAvailableTokens();
 
@@ -214,20 +209,11 @@ public class MainController implements Serializable {
                         availableToken,
                         getPlayerByUsername(game.getUserList().get(firstTurnIndex)).getSelObjectiveCard()));
 
-        for (String p : game.getUserList()) {
-            if (!p.equals(game.getUserList().get(firstTurnIndex))) {
-                serverHandler.sendMessageToPlayer(
-                        p,
-                        new WaitTurnMsg(ServerHandler.HOSTNAME,
-                                getPlayerByUsername(p).getPlayerHand(),
-                                getPlayerByUsername(p).getGameBoards(),
-                                getPlayerByUsername(p).getResourcesAvailable(),
-                                getPlayerByUsername(p).getPlayerPoints(),
-                                firstTurnIndex)
-                );
-
-            }
-        }
+        serverHandler.sendMessageToAllExcept(
+                game.getCurrentPlayer().getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        firstTurnIndex)
+        );
 
     }
 
@@ -240,9 +226,9 @@ public class MainController implements Serializable {
      *
      */
     public void endTurn(){
-        Player currPlayer = game.getPlayerList().get(currPlayerIndex);
+        Player currPlayer = game.getCurrentPlayer();
 
-        // calcolare punti e vedere se deve iniziare l'ultimo turno
+        // check if it has to start the last turn
         if(game.getGameState().equals(gameStateEnum.START) &&
                 (currPlayer.getPlayerPoints() >= 1 ||
                         game.getResourceDeck().isEmpty() ||
@@ -251,7 +237,54 @@ public class MainController implements Serializable {
             game.setGameState(gameStateEnum.FINAL_TURN);
         }
 
+        // send message of end turn
+        serverHandler.sendMessageToPlayer(
+                currPlayer.getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getPlayerHand(),
+                        currPlayer.getGameBoards(),
+                        currPlayer.getResourcesAvailable(),
+                        game.getPlayersPoint())
+        );
+
+        serverHandler.sendMessageToAllExcept(
+                currPlayer.getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getGameBoards().getGameBoard(),
+                        game.getPlayersPoint())
+        );
+
         beginTurn();
+    }
+
+    public void endFirstTurn(){
+        Player currPlayer = game.getCurrentPlayer();
+
+        // send message of end turn
+        serverHandler.sendMessageToPlayer(
+                currPlayer.getPlayerName(),
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getPlayerHand(),
+                        currPlayer.getGameBoards(),
+                        currPlayer.getResourcesAvailable(),
+                        game.getPlayersPoint())
+        );
+
+        serverHandler.sendMessageToAll(
+                new WaitTurnMsg(ServerHandler.HOSTNAME,
+                        currPlayer.getGameBoards().getGameBoard(),
+                        game.getPlayersPoint(),
+                        game.getPlayersToken())
+        );
+
+
+        if (isLastPlayer(currPlayer.getPlayerName())) {
+            setFirstTurn(false);
+            beginTurn();
+        } else {
+            beginFirstTurn();
+        }
+
     }
 
     /**
@@ -406,7 +439,6 @@ public class MainController implements Serializable {
             game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
         }
 
-        System.out.println("finito selcard");
     }
 
 
@@ -422,7 +454,6 @@ public class MainController implements Serializable {
             serverHandler.sendMessageToPlayer(game.getCurrentPlayer().getPlayerName(),
                     new DrawCardRequest(ServerHandler.HOSTNAME, game.getVisibleGoldCards(), game.getVisibleResourceCards(), null, game.getResourceDeck().getFirst().getBackImage()));
         }
-        System.out.println("finito middle");
     }
 
 
@@ -433,14 +464,10 @@ public class MainController implements Serializable {
 
         game.getCurrentPlayer().getGameBoards().setGameBoardXY(x, y, card);
         game.getCurrentPlayer().getGameBoards().setCheckBoardXY(x, y, 1);
-        System.out.println("prima delle res");
         card.addResources(game.getCurrentPlayer());
 
-        System.out.println("prima di update boxes");
         updateBoxes(card, x, y, side);
-        System.out.println("prima di update player res");
         updatePlayerResources(x, y, game.getCurrentPlayer().getGameBoards().getGameBoard());
-        System.out.println("finito play card");
     }
 
 

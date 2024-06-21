@@ -16,10 +16,10 @@ public class ClientConfigNetwork {
                 "instead press only ENTER if you want to use the suggested () information.");
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("Insert the IP address of the server (172.20.10.4) : ");
+        System.out.println("Insert the IP address of the server (127.0.0.1) : ");
         serverIP = scan.nextLine().trim();
         if(serverIP.isEmpty()) {
-            serverIP = "172.20.10.4";
+            serverIP = "127.0.0.1";
         }
 
         System.out.println("Insert the number of the TCP port (1235) : ");

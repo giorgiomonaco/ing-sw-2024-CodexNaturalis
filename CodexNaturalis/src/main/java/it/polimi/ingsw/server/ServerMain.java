@@ -10,7 +10,7 @@ public class ServerMain {
     public static void main(String[] args) {
         String serverIP;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Insert the server address IP if you want, instead press only ENTER: ");
+        System.out.println("Insert the server address IP (press only ENTER for localhost) : ");
         serverIP = scan.nextLine().trim();
         ServerConfigNetwork data = new ServerConfigNetwork();
 
