@@ -2,9 +2,13 @@ package it.polimi.ingsw.client.view.GUI.Frames;
 
 import it.polimi.ingsw.client.Client;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PointTrackerFrame extends JFrame {
     /*
@@ -23,10 +27,11 @@ public class PointTrackerFrame extends JFrame {
     private static java.util.List<Coordinates> boxesCoordinates = new ArrayList<>();
 
     private Client client;
-    public PointTrackerFrame(Client c){
+    public PointTrackerFrame(Client c) throws IOException {
         this.client = c;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null); //to place in an absolute spot we use no layout
+        //setLayout(null); //to place in an absolute spot we use no layout
+        setSize(500, 800);
         /*
         we want to get the dimensions of the image of the point tracker
         to use them for the frame size:
@@ -34,17 +39,27 @@ public class PointTrackerFrame extends JFrame {
         retrieve dimensions
         use them
          */
+        ClassLoader cl = this.getClass().getClassLoader();
+        String pathToPointTracker = "images/pointTracker/PointTracker.png";
+        InputStream is0 = cl.getResourceAsStream(pathToPointTracker);
+        ImageIcon x = new ImageIcon(ImageIO.read(is0));
 
-        ImageIcon originalImage = new ImageIcon("images/PointTracker/PointTracker.jpg");
-        dim_X = originalImage.getIconWidth();
-        dim_Y = originalImage.getIconHeight();
-        setSize(dim_X, dim_Y);
-        setResizable(false);
-        setVisible(true);
+        dim_X = x.getIconWidth();
+        System.out.println("image: " + dim_X);
+        dim_Y = x.getIconHeight();
+
+        JLabel imageLabel = new JLabel(x);
+        this.add(imageLabel);
+        this.setResizable(true);
+        this.setVisible(true);
+        /*
         //populates the boxesCoordinates Array
+
         defineCoordinates();
         //now we displace everything we have to
         addElementsToTracker();
+
+         */
     }
 
 

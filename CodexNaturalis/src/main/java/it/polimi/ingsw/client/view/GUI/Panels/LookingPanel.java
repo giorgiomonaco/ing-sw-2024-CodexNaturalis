@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LookingPanel extends JPanel {
 
@@ -26,9 +27,14 @@ public class LookingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //we want to displace the point tracker frame
-                PointTrackerFrame scoreFrame = new PointTrackerFrame(client);
+                try {
+                    PointTrackerFrame scoreFrame = new PointTrackerFrame(client);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
+        add(pointsLooker);
     }
 
 }

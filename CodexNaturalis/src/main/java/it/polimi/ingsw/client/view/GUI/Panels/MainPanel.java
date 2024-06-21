@@ -21,6 +21,7 @@ public class MainPanel extends JPanel {
     private HandPanel hand;
     private ObjectivePanel objectivePanel;
     private TurnOfPanel other;
+    private LookingPanel lookingPanel;
     private int xCoord;
     private int yCoord;
     private boolean side;
@@ -69,6 +70,7 @@ public class MainPanel extends JPanel {
         objectivePanel = new ObjectivePanel(client);
         other = new TurnOfPanel(client, this);
         hand = new HandPanel(client, this);
+        lookingPanel = new LookingPanel(client);
 
 
         gbc.insets = new Insets(5, 5, 5, 5); // Add some space around components
@@ -115,20 +117,32 @@ public class MainPanel extends JPanel {
         gbc.gridx = 150;
         gbc.gridy = 0;
         gbc.gridwidth = 50;
-        gbc.gridheight = 45;
+        gbc.gridheight = 35; //from 45
         gbc.weightx = 0.25;
-        gbc.weighty = 0.25;
+        gbc.weighty = 0.175; //0.25
         gbc.fill = GridBagConstraints.BOTH;
         add(other, gbc);
+
+        // LOOK PANEL----
+        gbc.gridx = 150;
+        gbc.gridy = 35;
+        gbc.gridwidth = 50;
+        gbc.gridheight = 25;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.125;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(lookingPanel,gbc);
+
+
 
 
         //OBJECTIVES---
         gbc.gridx = 150;
-        gbc.gridy = 45;
+        gbc.gridy = 60; //45
         gbc.gridwidth = 50;
-        gbc.gridheight = 90;
+        gbc.gridheight = 75; //90
         gbc.weightx = 0.25;
-        gbc.weighty = 0.5;
+        gbc.weighty = 0.375; //0.5
         gbc.fill = GridBagConstraints.BOTH;
         add(objectivePanel, gbc);
 
