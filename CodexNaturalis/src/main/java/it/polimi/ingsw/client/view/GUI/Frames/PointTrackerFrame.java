@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -17,21 +18,24 @@ public class PointTrackerFrame extends JFrame {
      */
 
     //We define dimensions of tokens
-    private final static int token_X = 50;
-    private final static int token_Y = 50;
+    private final static int token_X = 40;
+    private final static int token_Y = 40;
 
-    private static int dim_X;
-    private static int dim_Y;
+    //dimensions of the panel of point tracker
+    private final static int dim_X = 320;
+    private final static int dim_Y = 610;
+
+    private final static int REAL_IMAGE_WIDTH = 481;
+    private final static int REAL_IMAGE_HEIGHT = 955;
+
 
     //We need to store the coordinates on the image of every box
-    private static java.util.List<Coordinates> boxesCoordinates = new ArrayList<>();
-
+    private static List<Coordinates> boxesCoordinates = new ArrayList<>();
     private Client client;
+    private JPanel backgroundPanel;
     public PointTrackerFrame(Client c) throws IOException {
         this.client = c;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //setLayout(null); //to place in an absolute spot we use no layout
-        setSize(500, 800);
         /*
         we want to get the dimensions of the image of the point tracker
         to use them for the frame size:
@@ -44,22 +48,43 @@ public class PointTrackerFrame extends JFrame {
         InputStream is0 = cl.getResourceAsStream(pathToPointTracker);
         ImageIcon x = new ImageIcon(ImageIO.read(is0));
 
-        dim_X = x.getIconWidth();
-        System.out.println("image: " + dim_X);
-        dim_Y = x.getIconHeight();
+        //Now we resize the image to have proper dimension of point tracker
+        Image resizedPointTracker = x.getImage().getScaledInstance(dim_X, dim_Y, Image.SCALE_SMOOTH);
+        ImageIcon resizedPTIcon = new ImageIcon(resizedPointTracker);
 
-        JLabel imageLabel = new JLabel(x);
-        this.add(imageLabel);
-        this.setResizable(true);
-        this.setVisible(true);
         /*
-        //populates the boxesCoordinates Array
+        Let's try with the null layout
+         */
+        setLayout(null);
+        //we create the panel for the background
+        backgroundPanel = new JPanel() {
+            //now we use the image to create the background
+            protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(resizedPointTracker, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 
+        //set dimension of background
+        backgroundPanel.setBounds(0, 0, dim_X, dim_Y);
+
+        //we set not opaque the panel
+        backgroundPanel.setOpaque(false);
+
+        //add panel to the frame
+        add(backgroundPanel);
+
+        //now we set the size of the frame based on the just created icon
+        setSize(new Dimension(dim_X + 15, dim_Y + 30));
+
+        this.setResizable(false);
+        this.setVisible(true);
+
+        //populates the boxesCoordinates Array
         defineCoordinates();
         //now we displace everything we have to
         addElementsToTracker();
 
-         */
     }
 
 
@@ -94,7 +119,7 @@ public class PointTrackerFrame extends JFrame {
         boxesCoordinates.add(c);
     }
 
-    public static java.util.List<Coordinates> getBoxesCoordinates() {
+    public  List<Coordinates> getBoxesCoordinates() {
         return boxesCoordinates;
     }
 
@@ -158,29 +183,50 @@ public class PointTrackerFrame extends JFrame {
 
         //we do this for every player
         for(int i = 0; i < client.getPlayerList().size()-1; i++){
-            JLabel token = null; //creating the label for the token
+            JLabel token = new JLabel(); //creating the label for the token
             token.setSize(token_X, token_Y);
-            ImageIcon tokenIcon = null; //we assume to be able to access the player list for the players token;
-            Image resizedTokenImage = tokenIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-            token.setIcon(tokenIcon);
-            int points = 0; //we assume to be able to access to the score of every player
-            placeToken(token, points);
+            //we create the class loader
+            ClassLoader cl = this.getClass().getClassLoader();
+            //We get the corresponding token color
+            String tokenColor = client.getPlayersToken().get(i);
+            //we retrieve the corresponding image
+            InputStream is = cl.getResourceAsStream("images/token/CODEX_pion_" + tokenColor + ".png");
+            //we crete the icon with the image retrieved
+            try {
+                ImageIcon notResizedTokenIcon = new ImageIcon(ImageIO.read(is));
+                //then we extract the image from the icon and create the final image icon resized
+                ImageIcon resizedTokenIcon = new ImageIcon( notResizedTokenIcon.getImage().getScaledInstance(token_X, token_Y, Image.SCALE_SMOOTH));
+                //finally we set the icon as the icon of the label we created
+                token.setIcon(resizedTokenIcon);
+                //we retrieve the points of the player
+                int score = client.getPoints()[i];
+                //As final thing to do here we call the method that actually places the token given the score and the token
+                placeToken(token, score);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
 
     //we place the token in right spot
     private void placeToken(JLabel token, int score){
+        backgroundPanel.setLayout(null);
         //first we transform score->coordinates
         Coordinates tokenPosition = getBoxesCoordinates().get(score);
-        //now we calculate the position of the top left corner of every label
-        int cornerX = dim_X - tokenPosition.getX() - token.getWidth()/2;
-        int cornerY = dim_Y - tokenPosition.getY() - token.getHeight()/2;
+        /*
+        We calculate the relative position of the corner of the token:
+        real x : width of real image = wanted x : resized image width
+        then we obtain x and y of center -> calculate corner
+         */
+        int cornerX = (int)Math.round(((dim_X*tokenPosition.getX())/REAL_IMAGE_WIDTH) - token.getWidth()/2);
+
+        int cornerY = (int)Math.round(((dim_Y*tokenPosition.getY())/REAL_IMAGE_HEIGHT) - token.getHeight()/2);
 
         //set bounds of the label
         token.setBounds(cornerX, cornerY, token.getWidth(), token.getHeight());
         //Add the token to the frame
-        add(token);
+        backgroundPanel.add(token);
         setVisible(true);
     }
 
