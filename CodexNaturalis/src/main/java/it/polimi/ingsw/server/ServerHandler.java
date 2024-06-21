@@ -13,7 +13,6 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
-import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -146,7 +145,6 @@ public class ServerHandler {
                     String username = selObj.getUsername();
                     List<ObjectiveCard> objectiveCards = mainController.getPlayerByUsername(username).getSelObjectiveCard();
                     mainController.getPlayerByUsername(username).setObjectiveCard(objectiveCards.get(selObj.getSelection() - 1));
-
                     mainController.endFirstTurn();
                 }
                 break;

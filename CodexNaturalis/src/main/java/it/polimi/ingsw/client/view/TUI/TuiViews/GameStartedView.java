@@ -6,9 +6,7 @@ import it.polimi.ingsw.client.view.TUI.Tui;
 public class GameStartedView implements TuiView{
     @Override
     public void play(Client client) {
-        System.out.println("\n+----------------------+\n" +
-                "|     GAME STARTED     |\n" +
-                "+----------------------+\n");
+
         System.out.println("\n" +
                 "                                                                                                                    \n" +
                 "\t\t  ____    ___    ____    _____  __  __      _   _      _      _____   _   _   ____       _      _       ___   ____  \n" +

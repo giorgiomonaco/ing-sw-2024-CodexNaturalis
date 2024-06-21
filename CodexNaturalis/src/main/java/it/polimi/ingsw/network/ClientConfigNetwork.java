@@ -19,7 +19,7 @@ public class ClientConfigNetwork {
         System.out.println("Insert the IP address of the server (172.20.10.4) : ");
         serverIP = scan.nextLine().trim();
         if(serverIP.isEmpty()) {
-            serverIP = "172.20.10.4";
+            serverIP = "127.0.0.1";
         }
 
         System.out.println("Insert the number of the TCP port (1235) : ");

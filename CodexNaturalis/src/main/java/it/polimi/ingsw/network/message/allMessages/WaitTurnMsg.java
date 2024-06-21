@@ -22,7 +22,8 @@ public class WaitTurnMsg  extends Message {
     private InitialCard init = null;
     private List<String> userList;
     private Card[][] board;
-    private int flag;
+    private final int flag;
+    private List<String> tokens;
 
     // Constructor for the end of the personal turn
     public WaitTurnMsg(String senderUsername, List<Card> list, Boards boards, int[] resources, int[] points) {
@@ -40,6 +41,15 @@ public class WaitTurnMsg  extends Message {
         flag = 2;
         this.board = board;
         this.points = points;
+    }
+
+    // Constructor for the end of the other players first turn
+    public WaitTurnMsg(String senderUsername, Card[][] board, int[] points, List<String> tokens) {
+        super(messEnum.WAIT_TURN, senderUsername);
+        flag = 5;
+        this.board = board;
+        this.points = points;
+        this.tokens = tokens;
     }
 
     // Constructor to set the right turn
@@ -106,5 +116,9 @@ public class WaitTurnMsg  extends Message {
 
     public int getFlag() {
         return flag;
+    }
+
+    public List<String> getTokens() {
+        return tokens;
     }
 }

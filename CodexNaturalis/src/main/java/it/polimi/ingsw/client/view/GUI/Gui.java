@@ -14,11 +14,9 @@ public class Gui implements UserInterface {
     private final Client client;
     private int turn;
     private MyFrame frame;
-    // private JLayeredPane layeredPane;
     private JPanel glassPane;
     private JPanel stopPane;
     private JPanel message;
-    private boolean permission;
     private MainPanel mainPanel;
     private boolean gameSetUp;
 
@@ -26,7 +24,6 @@ public class Gui implements UserInterface {
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
-        permission = true;
         turn = 2;
         gameSetUp = true;
     }
@@ -68,44 +65,10 @@ public class Gui implements UserInterface {
                 gameSetUp = false;
                 break;
             case PLAY_CARD:
-                if(message != null){
-                    frame.getContentPane().remove(message);
-                    frame.repaint();
-                }
-                if(glassPane.isVisible()){
-                    glassPane.setVisible(false);
-                }
-                if(stopPane != null){
-                    stopPane.setVisible(false);
-                }
-                if(mainPanel == null) {
-                    addMainPanel();
-                }
-                mainPanel.setYourTurn(true);
-                mainPanel.setIndex(client.getPlayerList().indexOf(client.getUsername()));
-                if(gameSetUp){
-                    gameSetUp = false;
-                }
+                managePlay();
                 break;
             case WAITING_TURN:
-                if(message != null){
-                    frame.getContentPane().remove(message);
-                    frame.repaint();
-                }
-                if(gameSetUp){
-                    glassPane.setVisible(true);
-                    frame.setVisible(true);
-                } else if(mainPanel == null) {
-                    addMainPanel();
-                    mainPanel.setYourTurn(false);
-                    mainPanel.setIndex(client.getCurrIndex());
-                } else {
-                    mainPanel.updatePanel();
-                    mainPanel.setYourTurn(false);
-                    mainPanel.setIndex(client.getCurrIndex());
-                    frame.setVisible(true);
-                    mainPanel.getBoard().scrollToMiddle();
-                }
+                manageWait();
                 break;
             case GAME_STOPPED:
                 manageStop();
@@ -175,14 +138,7 @@ public class Gui implements UserInterface {
 
     private void createFrame() {
         frame = new MyFrame();
-        //BufferedImage image = null;
-        //try {
-        //    image = ImageIO.read(new File("src/main/resources/images/backGround5.png"));
-        //} catch (IOException e) {
-        //    throw new RuntimeException(e);
-        //}
-        //layeredPane = frame.getLayeredPane();
-        //layeredPane.add(new BackGroundPanel(image), JLayeredPane.DEFAULT_LAYER);
+
         glassPane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -345,12 +301,83 @@ public class Gui implements UserInterface {
 
             stopPane.setLayout(new GridBagLayout());
             stopPane.setOpaque(false);
-            permission = false;
+
+            // block every action on the main panel
+            if(mainPanel != null) {
+                mainPanel.setStop(true);
+            }
 
             // Set the stopPane as the frame GlassPane
             frame.setGlassPane(stopPane);
             stopPane.setVisible(true);
         }
+    }
+
+    public void manageWait() {
+
+        // Clean the screen if there is a visible message
+        if(message != null){
+            frame.getContentPane().remove(message);
+            frame.repaint();
+        }
+
+        // If we are in the first turn of the game set up, only cover with a glass pane
+        if(gameSetUp){
+            glassPane.setVisible(true);
+            frame.setVisible(true);
+            return;
+        }
+
+        // Check if it's a message of the client end turn and build or re-build the main panel
+        if(client.isEndTurn()) {
+            if (mainPanel == null) {
+                addMainPanel();
+            } else {
+                mainPanel.updatePanel();
+                frame.setVisible(true);
+                mainPanel.getBoard().scrollToMiddle();
+            }
+        }
+
+        // Update turns
+        if(mainPanel != null) {
+            mainPanel.setYourTurn(false);
+            mainPanel.setIndex(client.getCurrIndex());
+        }
+
+    }
+
+    public void managePlay() {
+
+        // Clean the screen if there is a visible message
+        if(message != null){
+            frame.getContentPane().remove(message);
+            frame.repaint();
+        }
+
+        // Remove the glass pane to start the turn
+        if(glassPane.isVisible()){
+            glassPane.setVisible(false);
+        }
+
+        // If the game was stopped, clean the screen and reactivate the main panel buttons
+        if(stopPane != null && stopPane.isVisible()){
+            stopPane.setVisible(false);
+            if (mainPanel != null) {
+                mainPanel.setStop(false);
+            }
+        }
+
+
+        if(mainPanel == null) {
+            addMainPanel();
+        }
+        mainPanel.setYourTurn(true);
+        mainPanel.setIndex(client.getPlayerList().indexOf(client.getUsername()));
+        if(gameSetUp){
+            gameSetUp = false;
+        }
+
     }
 
 }
