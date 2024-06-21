@@ -106,7 +106,7 @@ public class PlayCardView implements TuiView {
 
 
     private void printPoints(){
-        System.out.println("\nYour current points: " + client.getPoints());
+        System.out.println("\nYour current points: " + client.getPoints()[client.getCurrIndex()]);
     }
 
     private void printResources(){
