@@ -20,7 +20,6 @@ public class ServerConfigNetwork {
             System.err.println(e.getMessage());
             System.err.println("Couldn't get the LocalHost IP address.");
         }
-        //this.serverIP = "172.20.10.4";
     }
 
     public int getPortRMI() {
