@@ -62,7 +62,7 @@ public class EndgameManager {
         ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
         Boards gameBoard = this.player.getGameBoards();
 
-        Card[][] cardMatrix = gameBoard.getGameBoard();
+        Card[][] cardMatrix = player.getGameBoards().getGameBoard();
 
 
         for (int x = 0; x< gameBoard.getMAX_Y(); x++){
@@ -100,7 +100,7 @@ public class EndgameManager {
             case "feather" -> (objectiveCard.getPoints() * Math.floorDiv(resources[4], 3));
             case "bottle" -> (objectiveCard.getPoints() * Math.floorDiv(resources[5], 3));
             case "scroll" -> (objectiveCard.getPoints() * Math.floorDiv(resources[6], 3));
-            case "special" -> specialCounter();
+            case "special" -> (objectiveCard.getPoints() * specialCounter());
             default -> 0;
         };
     }
@@ -145,6 +145,7 @@ public class EndgameManager {
         int newX = x;
         int newY = y;
         boolean first = checkDirection( cardMatrix, x, y, objectiveCard.getDirection1(), objectiveCard.getCard2());
+        if(cardMatrix[x][y].getCheckedBy().contains(objectiveCard.getCardName())) return 0;
         if (first){
             switch (objectiveCard.getDirection1()) {
                 case "down":
@@ -160,13 +161,17 @@ public class EndgameManager {
                     break;
             }
         }
+        if(cardMatrix[newX][newY].getCheckedBy().contains(objectiveCard.getCardName())) return 0;
         if (checkDirection( cardMatrix, newX, newY, objectiveCard.getDirection2(), objectiveCard.getCard3()) && first) {
+            updateCheckedByValue(cardMatrix, newX, newY, objectiveCard);
             return (objectiveCard.getPoints());
+
         }
 
 
         return 0;
     }
+
 
 
     /**
@@ -213,8 +218,32 @@ public class EndgameManager {
         }
 
         // Check if the symbol matches the one to check
-        return Objects.equals(cardMatrix[newX][newY].getBackSymbol().getFirst().getSymbolColor(), toCheck);
+        return Objects.equals(cardMatrix[newX][newY].getBackSymbol().getFirst().getSymbolColor(), toCheck) ;
     }
+
+    private void updateCheckedByValue(Card[][] cardMatrix, int x, int y, ObjectiveCard objectiveCard) {
+
+        int newX = x;
+        int newY = y;
+
+        switch (objectiveCard.getDirection2()) {
+            case "down":
+                newY = y + 1;
+                break;
+            case "down-right":
+                newX = x + 1;
+                newY = y + 1;
+                break;
+            case "down-left":
+                newY = y + 1;
+                newX = x - 1;
+                break;
+        }
+
+        cardMatrix[newX][newY].addCheckedBy(objectiveCard.getCardName());
+
+    }
+
 
 
 

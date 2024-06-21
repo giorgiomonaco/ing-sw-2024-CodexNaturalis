@@ -254,6 +254,10 @@ class EndgameManagerTest {
         assertThrowsExactly( IllegalArgumentException.class, () ->manager.checkDirection( cardMatrix, 0, 3, "down-left", "green"));
     }
 
+
+    /**
+     *  Test the full sequence of checking directions, and assigning points
+     */
     @Test
     void testFullSequence() {
         player.setBoards(board);
@@ -281,12 +285,57 @@ class EndgameManagerTest {
         cardMatrix[5][1] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[4][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][3] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
-        cardMatrix[2][4] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+        cardMatrix[2][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[1][5] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
 
         EndgameManager manager = new EndgameManager(game,player);
 
-
+        // Test if the pattern is found
         assertEquals(2,manager.findPattern(5,1,cardMatrix));
+
+        //test if the method recognizes that the pattern had already been used to find the objective
+        assertEquals(0, manager.findPattern(4,2,cardMatrix));
+
+        // Test if the pattern checked correctly, by giving a wrong one
+        assertEquals(0, manager.findPattern(3,3,cardMatrix));
+
+    }
+
+
+    /**
+     *  Test for the resource objective
+     */
+    @Test
+    void testResourceObjectives(){
+        player.setResource(1,3);
+        EndgameManager manager = new EndgameManager(game,player);
+        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "leaf", "green", "down-left", "green", "down-left", "green", null);
+
+        player.setObjectiveCard(objectiveCard);
+        player.setBoards(board);
+
+        assertEquals(2, manager.objectivePointsCounter());
+
+    }
+
+
+    /**
+     *  Test for the special objective
+     */
+    @Test
+    void testSpecialObjectives(){
+        player.setResource(4,3);
+        player.setResource(5,6);
+        player.setResource(6,6);
+
+        EndgameManager manager = new EndgameManager(game,player);
+        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "special", "green", "down-left", "green", "down-left", "green", null);
+
+        player.setObjectiveCard(objectiveCard);
+        player.setBoards(board);
+
+        assertEquals(2, manager.objectivePointsCounter());
+
     }
 
 }
