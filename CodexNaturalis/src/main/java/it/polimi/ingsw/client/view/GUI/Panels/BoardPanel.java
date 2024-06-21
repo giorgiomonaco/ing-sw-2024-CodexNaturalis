@@ -1,11 +1,9 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
-import it.polimi.ingsw.client.Client;
+
 import it.polimi.ingsw.server.model.Card;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
