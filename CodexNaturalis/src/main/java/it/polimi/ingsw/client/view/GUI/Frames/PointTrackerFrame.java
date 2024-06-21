@@ -29,7 +29,7 @@ public class PointTrackerFrame extends JFrame {
     private Client client;
     public PointTrackerFrame(Client c) throws IOException {
         this.client = c;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //setLayout(null); //to place in an absolute spot we use no layout
         setSize(500, 800);
         /*
