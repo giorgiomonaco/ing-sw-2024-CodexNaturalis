@@ -18,8 +18,8 @@ public class PointTrackerFrame extends JFrame {
      */
 
     //We define dimensions of tokens
-    private final static int token_X = 40;
-    private final static int token_Y = 40;
+    private final static int token_X = 25;
+    private final static int token_Y = 25;
 
     //dimensions of the panel of point tracker
     private final static int dim_X = 320;
@@ -27,6 +27,8 @@ public class PointTrackerFrame extends JFrame {
 
     private final static int REAL_IMAGE_WIDTH = 481;
     private final static int REAL_IMAGE_HEIGHT = 955;
+
+    private int[] boxesPopulation = new int[30];
 
 
     //We need to store the coordinates on the image of every box
@@ -182,8 +184,9 @@ public class PointTrackerFrame extends JFrame {
          */
 
         //we do this for every player
-        for(int i = 0; i < client.getPlayerList().size()-1; i++){
+        for(int i = 0; i < client.getPlayerList().size(); i++){
             JLabel token = new JLabel(); //creating the label for the token
+            System.out.println( i + "th time in the loop of max : " + client.getPlayerList().size());
             token.setSize(token_X, token_Y);
             //we create the class loader
             ClassLoader cl = this.getClass().getClassLoader();
@@ -200,8 +203,9 @@ public class PointTrackerFrame extends JFrame {
                 token.setIcon(resizedTokenIcon);
                 //we retrieve the points of the player
                 int score = client.getPoints()[i];
-                //As final thing to do here we call the method that actually places the token given the score and the token
+                // now we call the method that actually places the token
                 placeToken(token, score);
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -211,23 +215,71 @@ public class PointTrackerFrame extends JFrame {
 
     //we place the token in right spot
     private void placeToken(JLabel token, int score){
+        //Prepare variables for token placement
+        int cornerX;
+        int cornerY;
         backgroundPanel.setLayout(null);
         //first we transform score->coordinates
         Coordinates tokenPosition = getBoxesCoordinates().get(score);
-        /*
-        We calculate the relative position of the corner of the token:
-        real x : width of real image = wanted x : resized image width
-        then we obtain x and y of center -> calculate corner
-         */
-        int cornerX = (int)Math.round(((dim_X*tokenPosition.getX())/REAL_IMAGE_WIDTH) - token.getWidth()/2);
+        //Now we need to check how many tokens are already in that box to displace them all
+        int currentBoxPopulation = boxesPopulation[score];
+        switch(currentBoxPopulation){
+            case 0:
+                System.out.println("inserting first token");
+                /*
+                We calculate the relative position of the corner of the token:
+                real x : width of real image = wanted x : resized image width
+                then we obtain x and y of center -> calculate corner
+                 */
+                 cornerX = (int)Math.round(((dim_X*tokenPosition.getX())/REAL_IMAGE_WIDTH) - token.getWidth()/2);
+                 cornerY = (int)Math.round(((dim_Y*tokenPosition.getY())/REAL_IMAGE_HEIGHT) - token.getHeight()/2);
 
-        int cornerY = (int)Math.round(((dim_Y*tokenPosition.getY())/REAL_IMAGE_HEIGHT) - token.getHeight()/2);
+                //set bounds of the label
+                token.setBounds(cornerX, cornerY, token.getWidth(), token.getHeight());
+                //Add the token to the frame
+                backgroundPanel.add(token);
+                setVisible(true);
+                break;
+            case 1:
+                System.out.println("Inserting second");
+                /*
+                we cannot place the token in same position:
+                we place it at the just right of other
+                 */
+                cornerX = (int)Math.round(((dim_X*tokenPosition.getX())/REAL_IMAGE_WIDTH) + token.getWidth()/2);
+                cornerY = (int)Math.round(((dim_Y*tokenPosition.getY())/REAL_IMAGE_HEIGHT) - token.getHeight()/2);
 
-        //set bounds of the label
-        token.setBounds(cornerX, cornerY, token.getWidth(), token.getHeight());
-        //Add the token to the frame
-        backgroundPanel.add(token);
-        setVisible(true);
+                //set bounds of the label
+                token.setBounds(cornerX, cornerY, token.getWidth(), token.getHeight());
+                //Add the token to the frame
+                backgroundPanel.add(token);
+                setVisible(true);
+                break;
+            case 2:
+                System.out.println("Inserting third");
+                cornerX = (int)Math.round(((dim_X*tokenPosition.getX())/REAL_IMAGE_WIDTH) - token.getWidth()/2);
+                cornerY = (int)Math.round(((dim_Y*tokenPosition.getY())/REAL_IMAGE_HEIGHT) + token.getHeight()/2);
+
+                //set bounds of the label
+                token.setBounds(cornerX, cornerY, token.getWidth(), token.getHeight());
+                //Add the token to the frame
+                backgroundPanel.add(token);
+                setVisible(true);
+                break;
+            case 3:
+                System.out.println("Inserting fourth");
+                cornerX = (int)Math.round(((dim_X*tokenPosition.getX())/REAL_IMAGE_WIDTH) + token.getWidth()/2);
+                cornerY = (int)Math.round(((dim_Y*tokenPosition.getY())/REAL_IMAGE_HEIGHT) + token.getHeight()/2);
+
+                //set bounds of the label
+                token.setBounds(cornerX, cornerY, token.getWidth(), token.getHeight());
+                //Add the token to the frame
+                backgroundPanel.add(token);
+                setVisible(true);
+                break;
+        }
+        boxesPopulation[score]++;
+
     }
 
 }

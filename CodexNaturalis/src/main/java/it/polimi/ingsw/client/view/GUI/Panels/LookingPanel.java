@@ -17,6 +17,7 @@ public class LookingPanel extends JPanel {
     public LookingPanel(Client c){
         this.client = c;
         createElements();
+        setOpaque(false);
     }
     private void createElements(){
         //first we create the looker of the point tracker
