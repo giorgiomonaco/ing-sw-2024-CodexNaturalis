@@ -35,7 +35,7 @@ public class PointTrackerFrame extends JFrame {
     private JPanel backgroundPanel;
     public PointTrackerFrame(Client c) throws IOException {
         this.client = c;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         /*
         we want to get the dimensions of the image of the point tracker
         to use them for the frame size:

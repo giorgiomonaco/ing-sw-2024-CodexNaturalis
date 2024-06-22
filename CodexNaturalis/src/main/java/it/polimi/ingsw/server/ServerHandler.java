@@ -422,6 +422,7 @@ public class ServerHandler {
                 if (connectedClients.get(name).isConnected()) {
                     sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, name));
                     System.out.println(Colors.greenColor + "THE WINNER IS " + name.toUpperCase() + Colors.resetColor);
+                    pinger.interrupt();
                     break;
                 }
             }
