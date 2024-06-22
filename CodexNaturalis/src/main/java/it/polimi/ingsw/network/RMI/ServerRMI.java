@@ -51,7 +51,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void receiveMessage(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException {
+    public void receiveFromClient(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException {
         if(msg.getType().equals(messEnum.LOGIN_REQUEST)){
             onLogin((LoginRequest) msg, rmiClientInterface);
         } else {
@@ -64,13 +64,13 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
         LoginResult result = handlerRMI.manageLoginRequest(request, new RMIClientHandler(handlerRMI, rmiClientInterface));
 
         if(result.isLogged() && result.isReconnected()){
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 3, request.getUsername()));
+            rmiClientInterface.getFromServer(new LoginResponse(ServerHandler.HOSTNAME, 3, request.getUsername()));
         }
         else if(result.isLogged() && !result.isReconnected()){
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
+            rmiClientInterface.getFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
             handlerRMI.newLoginRequest(request);
         } else {
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 2, "Username already in use, try to insert another one."));
+            rmiClientInterface.getFromServer(new LoginResponse(ServerHandler.HOSTNAME, 2, "Username already in use, try to insert another one."));
         }
     }
 

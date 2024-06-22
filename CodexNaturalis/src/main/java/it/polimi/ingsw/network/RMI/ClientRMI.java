@@ -36,14 +36,14 @@ public class ClientRMI extends Client implements RMIClientInterface {
     }
 
     @Override
-    public void receiveFromServer(Message msg) throws RemoteException {
+    public void getFromServer(Message msg) throws RemoteException {
         manageMessage(msg);
     }
 
     @Override
     public void sendMessage(Message msg) {
         try {
-            stub.receiveMessage(msg, this);
+            stub.receiveFromClient(msg, this);
         } catch (RemoteException e) {
             // Lost connection with the server
             manageDisconnection();

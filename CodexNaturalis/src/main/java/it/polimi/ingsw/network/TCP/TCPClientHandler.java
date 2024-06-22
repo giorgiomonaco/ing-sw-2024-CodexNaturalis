@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.TCP;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.network.ClientConnection;
 import it.polimi.ingsw.network.LoginResult;
 import it.polimi.ingsw.network.message.Message;
@@ -44,7 +45,7 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
             msg = new ConnectionActive(ServerHandler.HOSTNAME);
             out.writeObject(msg);
             out.flush();
-            System.out.println("New active connection. Starting login phase.");
+            System.out.println(Colors.yellowColor + "New active connection. Starting login phase." + Colors.resetColor);
         } catch (IOException e) {
             System.err.println("Couldn't connect with the client");
             Thread.currentThread().interrupt();
@@ -60,10 +61,10 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
                 result = manageLogin(request);
             } while(!result.isLogged());
         } catch (IOException e) {
-            System.err.println("Lost connection with the client: " + socket);
+            System.err.println("Lost connection with a client");
             handlerTCP.playerDisconnection(this);
         } catch (ClassNotFoundException e) {
-            System.err.println("Couldn't cast a message of the client: " + socket);
+            System.err.println("Couldn't cast a message of a client");
             handlerTCP.playerDisconnection(this);
         }
 
@@ -73,11 +74,12 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
                 msg = (Message) in.readObject();
                 handlerTCP.manageMessage(msg);
             } catch (IOException e) {
-                System.err.println("Lost connection with the client: " + socket);
+                System.err.println("Lost connection with the client");
                 Thread.currentThread().interrupt();
                 handlerTCP.playerDisconnection(this);
             } catch (ClassNotFoundException e) {
-                System.err.println("Couldn't cast a message of the client: " + socket);
+                System.err.println("Couldn't cast a message of the client");
+                Thread.currentThread().interrupt();
                 handlerTCP.playerDisconnection(this);
             }
         }
@@ -107,7 +109,7 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
             out.flush();
             out.reset();
         } catch (IOException e) {
-            System.err.println("Lost connection with the client: " + socket);
+            System.err.println("Lost connection with a client");
             handlerTCP.playerDisconnection(this);
         }
     }
