@@ -8,7 +8,7 @@ import it.polimi.ingsw.network.message.allMessages.NewPlayerJoin;
 
 public class NewPlayerJoinHandler implements MessageHandler{
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         NewPlayerJoin newPlayer = (NewPlayerJoin) msg;
         client.getPlayerList().add(newPlayer.getNewUser());
         client.setServerLastMessage(newPlayer.getDescription());

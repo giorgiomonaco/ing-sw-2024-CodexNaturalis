@@ -196,7 +196,7 @@ public class PointTrackerFrame extends JFrame {
             InputStream is = cl.getResourceAsStream("images/token/CODEX_pion_" + tokenColor + ".png");
             //we crete the icon with the image retrieved
             try {
-                ImageIcon notResizedTokenIcon = new ImageIcon(ImageIO.read(is));
+                ImageIcon notResizedTokenIcon = new ImageIcon(ImageIO.read(Objects.requireNonNull(is)));
                 //then we extract the image from the icon and create the final image icon resized
                 ImageIcon resizedTokenIcon = new ImageIcon( notResizedTokenIcon.getImage().getScaledInstance(token_X, token_Y, Image.SCALE_SMOOTH));
                 //finally we set the icon as the icon of the label we created

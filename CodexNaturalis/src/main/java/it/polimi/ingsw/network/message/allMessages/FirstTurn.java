@@ -19,7 +19,7 @@ public class FirstTurn extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new FirstTurnHandler();
     }
 

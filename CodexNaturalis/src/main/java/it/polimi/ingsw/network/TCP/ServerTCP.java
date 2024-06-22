@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.TCP;
 
-import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.server.ServerHandler;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class ServerTCP extends Thread{
     private ServerHandler handlerTCP;
     public List<TCPClientHandler> connectedClients;
 
-    public ServerTCP(ServerConfigNetwork data, ServerHandler handler){
+    public ServerTCP(ServerNetwork data, ServerHandler handler){
         handlerTCP = handler;
         PORT = data.getPortTCP();
         connectedClients = new ArrayList<>();

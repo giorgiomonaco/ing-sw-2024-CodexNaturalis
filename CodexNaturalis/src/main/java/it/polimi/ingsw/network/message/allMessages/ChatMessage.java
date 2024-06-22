@@ -26,6 +26,6 @@ public class ChatMessage extends Message {
 
 
     @Override
-    public MessageHandler createHandler() {return null;
+    public MessageHandler genHandler() {return null;
     }
 }

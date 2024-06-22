@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.ViewMode;
-import it.polimi.ingsw.network.ClientConfigNetwork;
+import it.polimi.ingsw.network.ClientNetwork;
 
 import java.rmi.RemoteException;
 import java.util.Scanner;
@@ -13,8 +13,8 @@ public class ClientMain {
         String selString;
         int selection = 0;
         ViewMode selectedView;
-        ClientManager cliManager = null;
-        ClientConfigNetwork data = new ClientConfigNetwork().createConfig();
+        ClientHandler cliManager = null;
+        ClientNetwork data = new ClientNetwork().createConfig();
 
         System.out.println("Hello! Please, choose one of the current options to start the game:");
         System.out.println("Press [1] for GUI");
@@ -62,13 +62,13 @@ public class ClientMain {
             // Only for debug
             System.out.println("You selected RMI.");
 
-            cliManager = new ClientManager(selectedView, data.getRegistryName(), data.getServerIP(), data.getPortRMI());
+            cliManager = new ClientHandler(selectedView, data.getRegistryName(), data.getServerIP(), data.getPortRMI());
         }
         else {
             // Only for debug
             System.out.println("You selected TCP.");
 
-            cliManager = new ClientManager(selectedView, data.getServerIP(), data.getPortTCP());
+            cliManager = new ClientHandler(selectedView, data.getServerIP(), data.getPortTCP());
         }
 
     }

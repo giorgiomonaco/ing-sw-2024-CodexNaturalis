@@ -7,7 +7,7 @@ import it.polimi.ingsw.network.message.allMessages.WaitTurnMsg;
 
 public class WaitTurnHandler implements MessageHandler{
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         WaitTurnMsg wait = (WaitTurnMsg) msg;
         client.setEndTurn(false);
 

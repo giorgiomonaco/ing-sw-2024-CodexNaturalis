@@ -14,7 +14,7 @@ public class PingMessage extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return null;
     }
 }

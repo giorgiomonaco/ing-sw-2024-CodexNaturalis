@@ -45,7 +45,7 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
-        phaseView.put(stateEnum.SHOW_WINNER, new ShowWinnerView());
+        phaseView.put(stateEnum.END_GAME, new ShowWinnerView());
         phaseView.put(stateEnum.GAME_STOPPED, new GameStoppedView());
 
     }
@@ -99,8 +99,8 @@ public class Tui implements UserInterface{
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
                 break;
-            case SHOW_WINNER:
-                phaseView.get(stateEnum.SHOW_WINNER).play(tuiCli);
+            case END_GAME:
+                phaseView.get(stateEnum.END_GAME).play(tuiCli);
                 break;
             case SEL_FIRST_CARD_SIDE:
                 phaseView.get(stateEnum.SEL_FIRST_CARD_SIDE).play(tuiCli);
@@ -124,11 +124,6 @@ public class Tui implements UserInterface{
     }
 
     @Override
-    public void endGame() {
-
-    }
-
-    @Override
     public void printErrorMessage(String msg) {
         System.err.println(msg);
     }
@@ -136,17 +131,6 @@ public class Tui implements UserInterface{
     @Override
     public void printMessage(String msg) {
         System.out.println(msg);
-    }
-
-
-    public void printCard(Card card) {
-        if (card instanceof ResourceCard) {
-            printResourceCard((ResourceCard) card);
-        } else if (card instanceof GoldCard) {
-            printGoldCard((GoldCard) card);
-        } else {
-            System.out.println(card.getCardID());
-        }
     }
 
     private void printGoldCard(GoldCard g) {

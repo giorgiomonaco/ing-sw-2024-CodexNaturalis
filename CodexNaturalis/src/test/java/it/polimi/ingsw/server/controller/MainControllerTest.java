@@ -1,9 +1,8 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LobbyCreation;
-import it.polimi.ingsw.network.message.allMessages.SelectObjCard;
 import it.polimi.ingsw.server.ServerHandler;
 import it.polimi.ingsw.server.model.*;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ class MainControllerTest {
     private Game game;
     private ServerHandler serverHandler;
     private GameSetUpper gameSetUpper;
-    private ServerConfigNetwork serverConfigNetwork;
+    private ServerNetwork serverNetwork;
     private int currPlayerIndex;
     private int finalPlayerIndex;
     private int firstTurnIndex;
@@ -52,8 +51,8 @@ class MainControllerTest {
         game.addPlayer(p2);
         assertEquals(numPlayer, game.getPlayerList().size());
 
-        serverConfigNetwork = new ServerConfigNetwork();
-        serverHandler = new ServerHandler(serverConfigNetwork);
+        serverNetwork = new ServerNetwork();
+        serverHandler = new ServerHandler(serverNetwork);
 
         // Verifica che il messaggio sia stato inviato correttamente
         serverHandler.sendMessageToPlayer(username1, new LobbyCreation(ServerHandler.HOSTNAME,
@@ -77,8 +76,8 @@ class MainControllerTest {
         game = new Game(numPlayer);
 
 
-        serverConfigNetwork = new ServerConfigNetwork();
-        serverHandler = new ServerHandler(serverConfigNetwork);
+        serverNetwork = new ServerNetwork();
+        serverHandler = new ServerHandler(serverNetwork);
         mainController = new MainController(serverHandler);
         mainController.gameCreation(username1,numPlayer);
         mainController.getGame().addPlayer(p2);
@@ -127,8 +126,8 @@ class MainControllerTest {
         game = new Game(numPlayer);
 
 
-        serverConfigNetwork = new ServerConfigNetwork();
-        serverHandler = new ServerHandler(serverConfigNetwork);
+        serverNetwork = new ServerNetwork();
+        serverHandler = new ServerHandler(serverNetwork);
         mainController = new MainController(serverHandler);
         mainController.gameCreation(username1,numPlayer);
         mainController.getGame().addPlayer(p2);
@@ -174,8 +173,8 @@ class MainControllerTest {
         game = new Game(numPlayer);
 
 
-        serverConfigNetwork = new ServerConfigNetwork();
-        serverHandler = new ServerHandler(serverConfigNetwork);
+        serverNetwork = new ServerNetwork();
+        serverHandler = new ServerHandler(serverNetwork);
         mainController = new MainController(serverHandler);
         mainController.gameCreation(username1, numPlayer);
         mainController.getGame().addPlayer(p2);
@@ -336,8 +335,8 @@ class MainControllerTest {
         game = new Game(numPlayer);
 
 
-        serverConfigNetwork = new ServerConfigNetwork();
-        serverHandler = new ServerHandler(serverConfigNetwork);
+        serverNetwork = new ServerNetwork();
+        serverHandler = new ServerHandler(serverNetwork);
         mainController = new MainController(serverHandler);
         mainController.gameCreation(username1,numPlayer);
         mainController.getGame().addPlayer(p2);

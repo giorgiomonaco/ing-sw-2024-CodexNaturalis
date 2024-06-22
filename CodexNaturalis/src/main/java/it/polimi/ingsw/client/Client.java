@@ -82,7 +82,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     }
 
     public void callHandler(Message msg){
-        msg.createHandler().handle(msg,this);
+        msg.genHandler().manage(msg,this);
     }
 
     public List<String> getPlayerList() {

@@ -24,7 +24,7 @@ public class NewPlayerJoin extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new NewPlayerJoinHandler();
     }
 }

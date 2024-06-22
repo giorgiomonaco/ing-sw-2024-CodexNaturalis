@@ -15,7 +15,7 @@ public class SelectNumPlayers extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new SelectNumPlayersHandler();
     }
 }

@@ -8,11 +8,11 @@ public abstract class Message implements Serializable {
     /**
      * The header used to recognize the type of message sent.
      */
-    private messEnum type;
+    private final messEnum type;
     /**
      * The username of the sender of the message.
      */
-    private String username;
+    private final String username;
     /**
      * This is an optional description that the sender could add to the message.
      */
@@ -40,11 +40,6 @@ public abstract class Message implements Serializable {
         description = optDescription;
     }
 
-    public void printTypeMessage() {
-        String string = type.toString();
-        System.out.println(string);
-    }
-
     public messEnum getType() {
         return type;
     }
@@ -57,5 +52,5 @@ public abstract class Message implements Serializable {
         return description;
     }
 
-    public abstract MessageHandler createHandler();
+    public abstract MessageHandler genHandler();
 }

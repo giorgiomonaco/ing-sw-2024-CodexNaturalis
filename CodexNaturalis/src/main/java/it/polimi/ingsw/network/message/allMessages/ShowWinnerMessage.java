@@ -16,7 +16,7 @@ public class ShowWinnerMessage extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new ShowWinnerHandler();
     }
     public boolean getWin(){

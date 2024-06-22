@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.RMI;
 
 import it.polimi.ingsw.network.LoginResult;
-import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.allMessages.LoginResponse;
@@ -20,7 +20,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
     // private RMIServerInterface obj;
     private final ServerHandler handlerRMI;
 
-    public ServerRMI(ServerConfigNetwork data, ServerHandler handler) throws RemoteException {
+    public ServerRMI(ServerNetwork data, ServerHandler handler) throws RemoteException {
         super();
         PORT = data.getPortRMI();
         ip = data.getServerIP();

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.ServerNetwork;
 import java.util.Scanner;
 
 /**
@@ -12,7 +12,7 @@ public class ServerMain {
         Scanner scan = new Scanner(System.in);
         System.out.println("Insert the server address IP (press only ENTER for localhost) : ");
         serverIP = scan.nextLine().trim();
-        ServerConfigNetwork data = new ServerConfigNetwork();
+        ServerNetwork data = new ServerNetwork();
 
         if(!serverIP.isEmpty()) {
             // if(isValid(serverIP)){

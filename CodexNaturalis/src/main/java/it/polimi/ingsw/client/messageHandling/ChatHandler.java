@@ -11,7 +11,7 @@ import it.polimi.ingsw.network.message.allMessages.DrawCardRequest;
 public class ChatHandler implements MessageHandler {
 
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         ChatResponse chat = (ChatResponse) msg;
         client.setChat(chat.getChat());
         client.getUI().printChat();

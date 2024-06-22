@@ -22,7 +22,7 @@ public class ChatResponse extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new ChatHandler();
     }
 

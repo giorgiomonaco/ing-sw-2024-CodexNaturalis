@@ -9,7 +9,7 @@ import it.polimi.ingsw.network.message.allMessages.LoginResponse;
 public class LoginHandler implements MessageHandler{
 
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         LoginResponse response = (LoginResponse) msg;
 
         if(response.getResult() == 1){

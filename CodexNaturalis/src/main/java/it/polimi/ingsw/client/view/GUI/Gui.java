@@ -82,7 +82,7 @@ public class Gui implements UserInterface {
             case REJECTED:
                 addRejectedPanel();
                 break;
-            case SHOW_WINNER:
+            case END_GAME:
                 addEndGamePanel();
                 break;
             case DRAW_CARD:
@@ -98,11 +98,6 @@ public class Gui implements UserInterface {
         if (mainPanel != null){
             mainPanel.getChat().addMessage();
         }
-    }
-
-    @Override
-    public void endGame() {
-
     }
 
     @Override
@@ -267,6 +262,12 @@ public class Gui implements UserInterface {
     private void manageStop(){
         if(stopPane != null){
             stopPane.setVisible(true);
+
+            // block every action on the main panel
+            if(mainPanel != null) {
+                mainPanel.setStop(true);
+            }
+
         } else {
             stopPane = new JPanel() {
                 @Override

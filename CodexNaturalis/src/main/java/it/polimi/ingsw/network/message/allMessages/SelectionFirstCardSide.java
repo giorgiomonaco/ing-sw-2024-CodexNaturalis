@@ -18,7 +18,7 @@ public class SelectionFirstCardSide extends Message {
 
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new SelectObjectiveHandler();
     }
 

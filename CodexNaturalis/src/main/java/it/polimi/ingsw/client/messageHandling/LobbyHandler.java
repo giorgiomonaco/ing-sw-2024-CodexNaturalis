@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LobbyHandler implements MessageHandler{
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         LobbyCreation lobby = (LobbyCreation) msg;
         client.setCurrentState(stateEnum.LOBBY);
         client.setPlayerList(lobby.getPlayersInLobby());

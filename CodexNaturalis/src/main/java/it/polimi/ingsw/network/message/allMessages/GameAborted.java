@@ -15,7 +15,7 @@ public class GameAborted extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new GameAbortedHandler();
     }
 }

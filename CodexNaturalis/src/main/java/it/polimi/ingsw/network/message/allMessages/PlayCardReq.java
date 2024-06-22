@@ -33,7 +33,7 @@ public class PlayCardReq extends Message implements Serializable {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new PlayCardHandler();
     }
 

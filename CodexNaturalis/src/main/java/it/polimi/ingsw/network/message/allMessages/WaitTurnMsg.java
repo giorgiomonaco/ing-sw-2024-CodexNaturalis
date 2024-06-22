@@ -71,7 +71,7 @@ public class WaitTurnMsg  extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new WaitTurnHandler();
     }
 
