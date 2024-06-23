@@ -184,9 +184,9 @@ public class PointTrackerFrame extends JFrame {
          */
 
         //we do this for every player
-        for(int i = 0; i < client.getPlayerList().size(); i++){
+        for(int i = 0; i < client.getPlayersToken().size(); i++){
             JLabel token = new JLabel(); //creating the label for the token
-            System.out.println( i + "th time in the loop of max : " + client.getPlayerList().size());
+            System.out.println( i + "th time in the loop of max : " + client.getPlayersToken().size());
             token.setSize(token_X, token_Y);
             //we create the class loader
             ClassLoader cl = this.getClass().getClassLoader();
