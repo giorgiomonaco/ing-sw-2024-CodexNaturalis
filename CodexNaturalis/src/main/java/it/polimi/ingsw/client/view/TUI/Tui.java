@@ -13,9 +13,8 @@ import java.util.List;
 
 public class Tui implements UserInterface{
 
-    private Client tuiCli;
-    private Map<stateEnum, TuiView> phaseView;
-    private ReadCommand reader;
+    private final Client tuiCli;
+    private final Map<stateEnum, TuiView> phaseView;
     List<Card> playerHand;
     Colors color = new Colors();
 
@@ -26,7 +25,7 @@ public class Tui implements UserInterface{
         tuiCli = client;
         client.setUI(this);
         phaseView = new HashMap<>();
-        reader = new ReadCommand(this, client);
+        ReadCommand reader = new ReadCommand(this, client);
         Thread readerThread = new Thread(reader);
         readerThread.start();
 
@@ -145,10 +144,10 @@ public class Tui implements UserInterface{
                 if (i == 2) {
                     String q = g.getBackSymbol().getFirst().getSymbolName();
                     q = switch (q) {
-                        case "leaf" -> color.greenColor + "GRE " + color.resetColor;
-                        case "mushroom" -> color.orangeColor + "ORA " + color.resetColor;
-                        case "butterfly" -> color.purpleColor + "PUR " + color.resetColor;
-                        case "fox" -> color.blueColor + "BLU " + color.resetColor;
+                        case "leaf" -> Colors.greenColor + "GRE " + Colors.resetColor;
+                        case "mushroom" -> Colors.orangeColor + "ORA " + Colors.resetColor;
+                        case "butterfly" -> Colors.purpleColor + "PUR " + Colors.resetColor;
+                        case "fox" -> Colors.blueColor + "BLU " + Colors.resetColor;
                         default -> q;
                     };
                     System.out.println("\n"+"||  " + q + "  ||");
@@ -233,16 +232,16 @@ public class Tui implements UserInterface{
                     String q = r.getBackSymbol().getFirst().getSymbolName();
                     switch (q) {
                         case "leaf":
-                            q = color.greenColor + "GRE " + color.resetColor;;
+                            q = Colors.greenColor + "GRE " + Colors.resetColor;
                             break;
                         case "mushroom":
-                            q = color.orangeColor + "ORA " + color.resetColor;;
+                            q = Colors.orangeColor + "ORA " + Colors.resetColor;
                             break;
                         case "butterfly":
-                            q = color.purpleColor + "PUR " + color.resetColor;;
+                            q = Colors.purpleColor + "PUR " + Colors.resetColor;
                             break;
                         case "fox":
-                            q = color.blueColor + "BLU " + color.resetColor;;
+                            q = Colors.blueColor + "BLU " + Colors.resetColor;
                             break;
                         default:
                             break;
