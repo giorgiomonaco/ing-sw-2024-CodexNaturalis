@@ -298,7 +298,8 @@ public class ServerHandler {
                                         p.getPlayerObjectiveCard(),
                                         p.getInitialCard(),
                                         p.getTurn(),
-                                        mainController.getGame().getPlayersToken()));
+                                        mainController.getGame().getPlayersToken(),
+                                        p.getChat()));
                     }
                     logged = true;
                     reconnected = true;

@@ -3,10 +3,7 @@ package it.polimi.ingsw.client.view.TUI.TuiViews;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.Tui;
-import it.polimi.ingsw.server.model.Boards;
-import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.ObjectiveCard;
-import it.polimi.ingsw.server.model.VisibleAngle;
+import it.polimi.ingsw.server.model.*;
 
 
 import java.util.ArrayList;
@@ -88,13 +85,17 @@ public class PlayCardView implements TuiView {
 
             for (int x = minX-1; x < maxX+2; x++) {
                 if(boards.getCheckBoard()[x][y] == 1){
-                    String q=boards.getGameBoard()[x][y].getBackSymbol().getFirst().getSymbolName();
-                    switch (q){
-                        case "leaf" -> System.out.print(Colors.greenColor + "  ◘ " + Colors.resetColor);
-                        case "mushroom" -> System.out.print(Colors.orangeColor + "  ◘ " + Colors.resetColor);
-                        case "butterfly" -> System.out.print(Colors.purpleColor + "  ◘ " + Colors.resetColor);
-                        case "fox" -> System.out.print(Colors.blueColor + "  ◘ " + Colors.resetColor);
+                    if(boards.getGameBoard()[x][y] instanceof InitialCard) {
+                        System.out.print("  ◘ ");
+                    } else {
+                        String q = boards.getGameBoard()[x][y].getBackSymbol().getFirst().getSymbolName();
+                        switch (q) {
+                            case "leaf" -> System.out.print(Colors.greenColor + "  ◘ " + Colors.resetColor);
+                            case "mushroom" -> System.out.print(Colors.orangeColor + "  ◘ " + Colors.resetColor);
+                            case "butterfly" -> System.out.print(Colors.purpleColor + "  ◘ " + Colors.resetColor);
+                            case "fox" -> System.out.print(Colors.blueColor + "  ◘ " + Colors.resetColor);
 
+                        }
                     }
                 } else  {
 
@@ -115,7 +116,7 @@ public class PlayCardView implements TuiView {
 
 
     private void printPoints(){
-        System.out.println("\nYour current points: " + client.getPoints()[client.getCurrIndex()]);
+        System.out.println("\nYour current points: " + client.getPoints()[client.getPlayerList().indexOf(client.getUsername())]);
     }
 
     private void printResources(){
