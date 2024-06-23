@@ -74,7 +74,7 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
                 msg = (Message) in.readObject();
                 handlerTCP.manageMessage(msg);
             } catch (IOException e) {
-                System.err.println("Lost connection with the client");
+                System.err.println("Lost connection with a client");
                 Thread.currentThread().interrupt();
                 handlerTCP.playerDisconnection(this);
             } catch (ClassNotFoundException e) {
