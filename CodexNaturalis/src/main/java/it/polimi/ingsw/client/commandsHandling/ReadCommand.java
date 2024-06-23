@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.view.TUI.Tui;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ReadCommand implements Runnable{
@@ -59,8 +60,16 @@ public class ReadCommand implements Runnable{
     public void mapCommand(String command) throws RemoteException {
         String[] commands = command.split(" ");
 
+        if(Objects.equals(commands[0], "help")){
+            client.getUI().printHelp();
+            return;
+        }
+
         if(!mapOfCommand.containsKey(commands[0])) {
             System.err.println("Command not found. Try another command.");
+        }
+        if(commands.length == 1){
+            System.err.println("Please insert all parameters needed for this command.");
         }
         else {
             try {

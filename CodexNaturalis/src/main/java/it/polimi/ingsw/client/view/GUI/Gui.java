@@ -99,6 +99,11 @@ public class Gui implements UserInterface {
     }
 
     @Override
+    public void printHelp() {
+
+    }
+
+    @Override
     public void printErrorMessage(String s) {
         if(message != null){
             frame.getContentPane().remove(message);
