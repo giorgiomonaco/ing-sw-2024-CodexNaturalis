@@ -34,7 +34,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
             registry.rebind("RMIServerInterface", this);
             System.setProperty("java.rmi.server.hostname", ip);
         } catch (RemoteException e) {
-            System.err.println("Error while starting server: " + e.toString());
+            System.err.println("Error while starting server: " + ip);
         }
         System.out.println("--- RMI server is ready on port: " + PORT + " ---");
     }

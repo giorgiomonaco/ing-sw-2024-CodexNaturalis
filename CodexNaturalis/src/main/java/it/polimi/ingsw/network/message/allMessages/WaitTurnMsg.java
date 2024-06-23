@@ -24,6 +24,7 @@ public class WaitTurnMsg  extends Message {
     private Card[][] board;
     private final int flag;
     private List<String> tokens;
+    private int turn;
 
     // Constructor for the end of the personal turn
     public WaitTurnMsg(String senderUsername, List<Card> list, Boards boards, int[] resources, int[] points) {
@@ -60,9 +61,10 @@ public class WaitTurnMsg  extends Message {
     }
 
     // Constructor for the manage of the reconnection
-    public WaitTurnMsg(String senderUsername, List<ObjectiveCard> common, List<String> userList, ObjectiveCard personal, InitialCard init, List<String> tokens){
+    public WaitTurnMsg(String senderUsername, List<ObjectiveCard> common, List<String> userList, ObjectiveCard personal, InitialCard init, int turn, List<String> tokens){
         super(messEnum.WAIT_TURN, senderUsername);
         flag = 4;
+        this.turn = turn;
         this.common = common;
         this.personal = personal;
         this.init = init;
@@ -121,5 +123,9 @@ public class WaitTurnMsg  extends Message {
 
     public List<String> getTokens() {
         return tokens;
+    }
+
+    public int getTurn() {
+        return turn;
     }
 }

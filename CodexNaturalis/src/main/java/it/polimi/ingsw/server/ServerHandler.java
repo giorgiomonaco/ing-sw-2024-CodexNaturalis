@@ -297,6 +297,7 @@ public class ServerHandler {
                                         mainController.getGame().getUserList(),
                                         p.getPlayerObjectiveCard(),
                                         p.getInitialCard(),
+                                        p.getTurn(),
                                         mainController.getGame().getPlayersToken()));
                     }
                     logged = true;

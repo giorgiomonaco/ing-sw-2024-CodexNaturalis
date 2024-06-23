@@ -41,9 +41,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private List<String> playersToken;
     private boolean endTurn;
 
+    // parameter only needed to stamp correctly the card in gui
+    private int turn;
 
 
-    protected Client() throws RemoteException {
+
+    protected Client(int turn) throws RemoteException {
+        this.turn = 2;
     }
 
 
@@ -253,5 +257,13 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public void setEndTurn(boolean endTurn) {
         this.endTurn = endTurn;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 }

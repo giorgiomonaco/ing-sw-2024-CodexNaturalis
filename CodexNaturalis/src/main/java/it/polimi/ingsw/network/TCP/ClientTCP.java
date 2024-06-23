@@ -22,7 +22,7 @@ public class ClientTCP extends Client{
 
 
     public ClientTCP(String IP, int port) throws RemoteException {
-        super();
+        super(2);
         serverIP = IP;
         serverPort = port;
         execService = Executors.newSingleThreadExecutor();

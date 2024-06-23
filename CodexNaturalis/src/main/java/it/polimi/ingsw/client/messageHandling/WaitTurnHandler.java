@@ -24,6 +24,7 @@ public class WaitTurnHandler implements MessageHandler{
         } else if (wait.getFlag() == 3) {
             client.setCurrIndex(wait.getCurrIndex());
         } else if (wait.getFlag() == 4) {
+            client.setTurn(wait.getTurn());
             client.setInit(wait.getInit());
             client.setCommonObjectives(wait.getCommon());
             client.setObjective(wait.getPersonal());

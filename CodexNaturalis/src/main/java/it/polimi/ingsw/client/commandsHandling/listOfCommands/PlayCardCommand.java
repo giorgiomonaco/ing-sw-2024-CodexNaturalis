@@ -66,14 +66,12 @@ public class PlayCardCommand implements CommandManager {
             }
         }
 
-
+        int turn = client.getTurn();
+        client.getPlayerHand().get(index-1).setTurn(turn * 10);
+        client.setTurn(turn + 1);
         SelectionCard toSend = new SelectionCard(client.getUsername(), client.getPlayerHand().get(index-1), x, y, side);
         client.sendMessage(toSend);
     }
-
-
-
-
 
 }
 

@@ -12,7 +12,6 @@ import java.awt.*;
 public class Gui implements UserInterface {
 
     private final Client client;
-    private int turn;
     private MyFrame frame;
     private JPanel glassPane;
     private JPanel stopPane;
@@ -24,7 +23,6 @@ public class Gui implements UserInterface {
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
-        turn = 2;
         gameSetUp = true;
     }
 
@@ -219,8 +217,7 @@ public class Gui implements UserInterface {
     private void addMainPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        mainPanel = new MainPanel(client, turn);
-        turn++;
+        mainPanel = new MainPanel(client, client.getTurn());
         frame.add(mainPanel, BorderLayout.CENTER);
         frame.setVisible(true);
         mainPanel.getBoard().scrollToMiddle();

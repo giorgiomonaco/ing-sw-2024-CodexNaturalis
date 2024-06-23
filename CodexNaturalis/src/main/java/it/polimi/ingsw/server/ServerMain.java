@@ -15,9 +15,10 @@ public class ServerMain {
         ServerNetwork data = new ServerNetwork();
 
         if(!serverIP.isEmpty()) {
-            // if(isValid(serverIP)){
+
             data.setServerIP(serverIP);
-            // }
+            System.setProperty("java.rmi.server.hostname", serverIP);
+
         }
 
         System.out.println("---Summary---");
@@ -26,7 +27,6 @@ public class ServerMain {
 
         ServerHandler handler = new ServerHandler(data);
         handler.init();
-
 
     }
 }
