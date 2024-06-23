@@ -5,6 +5,5 @@ public interface UserInterface {
     void printErrorMessage(String msg);
     void printMessage(String msg);
     void printChat();
-    void printHelp();
 
 }

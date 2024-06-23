@@ -133,21 +133,6 @@ public class Tui implements UserInterface{
         System.out.println(msg);
     }
 
-    @Override
-    public void printHelp() {
-            System.out.println("""
-                    List of commands:
-
-                    ->login <usr> where usr is your username
-                    ->num <x> where x is the number of player of the game you want to create.
-                    ->color <sel> where sel is the selected color
-                    ->obj <x> where x is the number of the card you want
-                    ->draw <choice> where choice is: The number of the card you want to draw or: write either [5] for goldDeck, or  [6] for resourceDeck, to draw a covered card
-                    ->card <num> <x> <y> <side>], where: num is the number of the card you want to play,x and y are the coordinates that you choose and side = front / back
-                    ->chat <to> <msg> where to is the receiver of the message, either a username or 'toAll', and msg is the message you want to send
-                    ->side <x> where x is either front or back, of the initial card""");
-
-    }
 
     private void printGoldCard(GoldCard g) {
         VisibleAngle[] array;
