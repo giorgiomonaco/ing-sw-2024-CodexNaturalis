@@ -219,13 +219,23 @@ public class MainPanel extends JPanel {
             if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide()) && mp.isYourTurn() && !mp.isStop()) {
                 try {
 
-                    //send message with the selection of the card
-                    mp.getCard().setTurn(mp.getTurn() * 10);
-                    client.sendMessage(new SelectionCard(client.getUsername(), mp.getCard(), mp.getxCoord(), mp.getyCoord(), mp.isSide()));
+                    // set the turn of the placement of the card for the correct placement on the layered pane
+                    int turn = mp.getTurn();
+                    mp.getCard().setTurn(turn * 10);
+                    mp.setTurn(turn + 1);
+
+                    // get the selections and then re-initialize parameters in the main panel
+                    Card card = mp.getCard();
+                    int x = mp.getxCoord();
+                    int y = mp.getyCoord();
+                    boolean side = mp.isSide();
                     mp.setCard(null);
                     mp.setxCoord(-1);
                     mp.setyCoord(-1);
                     mp.setSide(true);
+
+                    // send message with the selection of the card
+                    client.sendMessage(new SelectionCard(client.getUsername(), card, x, y, side));
 
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
@@ -298,6 +308,10 @@ public class MainPanel extends JPanel {
 
     public int getTurn() {
         return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 
     public void updatePanel(){

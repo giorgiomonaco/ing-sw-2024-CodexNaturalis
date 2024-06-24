@@ -43,6 +43,10 @@ public class Player implements Serializable {
     //value = how many available
     private final int[] resourcesAvailable = new int[7];
 
+    // parameter only needed to stamp correctly the card in gui,
+    // we need to save it in the server model for eventual reconnections
+    private int turn;
+
 
     /**
      * Constructs a Player object with the specified name.
@@ -52,6 +56,7 @@ public class Player implements Serializable {
     public Player(String name) {
         this.playerName = name;
         this.connected = true;
+        this.turn = 2;
     }
 
     /**
@@ -380,5 +385,13 @@ public class Player implements Serializable {
 
     public Boards getGameboard() {
         return Gameboard;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 }

@@ -191,11 +191,11 @@ public class PointTrackerFrame extends JFrame {
         we must add:
         every token at right coordinate, given by the points of the player
          */
+
         //we do this for every player
         for(int i = 0; i < client.getPlayersToken().size(); i++){
-            System.out.println("Size : " + client.getPlayersToken().size());
             JLabel token = new JLabel(); //creating the label for the token
-            System.out.println( i + "th time in the loop of max : " + client.getPlayerList().size());
+            System.out.println( i + "th time in the loop of max : " + client.getPlayersToken().size());
             token.setSize(token_X, token_Y);
             //we create the class loader
             ClassLoader cl = this.getClass().getClassLoader();
@@ -205,7 +205,7 @@ public class PointTrackerFrame extends JFrame {
             InputStream is = cl.getResourceAsStream("images/token/CODEX_pion_" + tokenColor + ".png");
             //we crete the icon with the image retrieved
             try {
-                ImageIcon notResizedTokenIcon = new ImageIcon(ImageIO.read(is));
+                ImageIcon notResizedTokenIcon = new ImageIcon(ImageIO.read(Objects.requireNonNull(is)));
                 //then we extract the image from the icon and create the final image icon resized
                 ImageIcon resizedTokenIcon = new ImageIcon( notResizedTokenIcon.getImage().getScaledInstance(token_X, token_Y, Image.SCALE_SMOOTH));
                 //finally we set the icon as the icon of the label we created

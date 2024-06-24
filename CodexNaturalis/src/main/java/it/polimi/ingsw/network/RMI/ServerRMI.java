@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.RMI;
 
 import it.polimi.ingsw.network.LoginResult;
-import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.LoginRequest;
 import it.polimi.ingsw.network.message.allMessages.LoginResponse;
@@ -20,7 +20,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
     // private RMIServerInterface obj;
     private final ServerHandler handlerRMI;
 
-    public ServerRMI(ServerConfigNetwork data, ServerHandler handler) throws RemoteException {
+    public ServerRMI(ServerNetwork data, ServerHandler handler) throws RemoteException {
         super();
         PORT = data.getPortRMI();
         ip = data.getServerIP();
@@ -34,7 +34,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
             registry.rebind("RMIServerInterface", this);
             System.setProperty("java.rmi.server.hostname", ip);
         } catch (RemoteException e) {
-            System.err.println("Error while starting server: " + e.toString());
+            System.err.println("Error while starting server: " + ip);
         }
         System.out.println("--- RMI server is ready on port: " + PORT + " ---");
     }
@@ -51,7 +51,7 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void receiveMessage(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException {
+    public void receiveFromClient(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException {
         if(msg.getType().equals(messEnum.LOGIN_REQUEST)){
             onLogin((LoginRequest) msg, rmiClientInterface);
         } else {
@@ -64,13 +64,13 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
         LoginResult result = handlerRMI.manageLoginRequest(request, new RMIClientHandler(handlerRMI, rmiClientInterface));
 
         if(result.isLogged() && result.isReconnected()){
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 3, request.getUsername()));
+            rmiClientInterface.getFromServer(new LoginResponse(ServerHandler.HOSTNAME, 3, request.getUsername()));
         }
         else if(result.isLogged() && !result.isReconnected()){
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
+            rmiClientInterface.getFromServer(new LoginResponse(ServerHandler.HOSTNAME, 1, request.getUsername()));
             handlerRMI.newLoginRequest(request);
         } else {
-            rmiClientInterface.receiveFromServer(new LoginResponse(ServerHandler.HOSTNAME, 2, "Username already in use, try to insert another one."));
+            rmiClientInterface.getFromServer(new LoginResponse(ServerHandler.HOSTNAME, 2, "Username already in use, try to insert another one."));
         }
     }
 

@@ -2,16 +2,16 @@ package it.polimi.ingsw.network;
 
 import java.util.Scanner;
 
-public class ClientConfigNetwork {
+public class ClientNetwork {
     private int portRMI;
     private int portTCP;
     private String registryName;
     private String serverIP;
 
-    public ClientConfigNetwork(){
+    public ClientNetwork(){
     }
 
-    public ClientConfigNetwork createConfig(){
+    public ClientNetwork createConfig(){
         System.out.println("Please insert the following data if you want, " +
                 "instead press only ENTER if you want to use the suggested () information.");
 

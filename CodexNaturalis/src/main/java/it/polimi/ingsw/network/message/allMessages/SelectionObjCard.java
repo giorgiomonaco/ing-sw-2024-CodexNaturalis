@@ -21,7 +21,7 @@ public class SelectionObjCard extends Message {
 
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return null;
     }
 

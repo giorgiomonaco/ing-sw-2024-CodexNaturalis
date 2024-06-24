@@ -20,7 +20,7 @@ public class RMIClientHandler extends ClientConnection {
     @Override
     public void sendMessage(Message msg) {
         try {
-            rmiClientInterface.receiveFromServer(msg);
+            rmiClientInterface.getFromServer(msg);
         } catch (RemoteException e) {
             System.err.println("Error on the remote invocation of the method.");
             handler.playerDisconnection(this);

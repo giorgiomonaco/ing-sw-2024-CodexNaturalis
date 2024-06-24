@@ -7,7 +7,7 @@ import it.polimi.ingsw.network.message.allMessages.FirstTurn;
 
 public class FirstTurnHandler implements MessageHandler{
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         FirstTurn firstTurn = (FirstTurn) msg;
         client.setListObjective(firstTurn.getListOfPersonalObjCards());
         client.setAvailableTokens(firstTurn.getListOfTokens());

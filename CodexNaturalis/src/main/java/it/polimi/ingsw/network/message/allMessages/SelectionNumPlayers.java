@@ -22,7 +22,7 @@ public class SelectionNumPlayers extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return null;
     }
 }

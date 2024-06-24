@@ -40,6 +40,10 @@ public enum stateEnum {
      */
     SELECT_TOKEN,
     /**
+     * It's asked to select which side the client wants to place the initial card.
+     */
+    SEL_FIRST_CARD_SIDE,
+    /**
      * When the game start, for the setup of the board, it's asked to select the objective card.
      */
     SELECT_OBJECTIVE,
@@ -71,6 +75,9 @@ public enum stateEnum {
      * when the game is not even started.
      */
     DISCONNECTION,
-    SHOW_WINNER,
-    SEL_FIRST_CARD_SIDE
+    /**
+     * Last state of the client, the game ends and show who won the match.
+     */
+    END_GAME
+
 }

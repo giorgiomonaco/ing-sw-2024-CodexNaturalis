@@ -13,9 +13,8 @@ import java.util.List;
 
 public class Tui implements UserInterface{
 
-    private Client tuiCli;
-    private Map<stateEnum, TuiView> phaseView;
-    private ReadCommand reader;
+    private final Client tuiCli;
+    private final Map<stateEnum, TuiView> phaseView;
     List<Card> playerHand;
     Colors color = new Colors();
 
@@ -26,7 +25,7 @@ public class Tui implements UserInterface{
         tuiCli = client;
         client.setUI(this);
         phaseView = new HashMap<>();
-        reader = new ReadCommand(this, client);
+        ReadCommand reader = new ReadCommand(this, client);
         Thread readerThread = new Thread(reader);
         readerThread.start();
 
@@ -45,7 +44,7 @@ public class Tui implements UserInterface{
         phaseView.put(stateEnum.SELECT_OBJECTIVE, new SelObjView());
         phaseView.put(stateEnum.WAITING_TURN, new WaitTurnView());
         phaseView.put(stateEnum.REJECTED, new RejectedView());
-        phaseView.put(stateEnum.SHOW_WINNER, new ShowWinnerView());
+        phaseView.put(stateEnum.END_GAME, new ShowWinnerView());
         phaseView.put(stateEnum.GAME_STOPPED, new GameStoppedView());
 
     }
@@ -99,8 +98,8 @@ public class Tui implements UserInterface{
             case WAITING_TURN:
                 phaseView.get(stateEnum.WAITING_TURN).play(tuiCli);
                 break;
-            case SHOW_WINNER:
-                phaseView.get(stateEnum.SHOW_WINNER).play(tuiCli);
+            case END_GAME:
+                phaseView.get(stateEnum.END_GAME).play(tuiCli);
                 break;
             case SEL_FIRST_CARD_SIDE:
                 phaseView.get(stateEnum.SEL_FIRST_CARD_SIDE).play(tuiCli);
@@ -124,11 +123,6 @@ public class Tui implements UserInterface{
     }
 
     @Override
-    public void endGame() {
-
-    }
-
-    @Override
     public void printErrorMessage(String msg) {
         System.err.println(msg);
     }
@@ -138,16 +132,6 @@ public class Tui implements UserInterface{
         System.out.println(msg);
     }
 
-
-    public void printCard(Card card) {
-        if (card instanceof ResourceCard) {
-            printResourceCard((ResourceCard) card);
-        } else if (card instanceof GoldCard) {
-            printGoldCard((GoldCard) card);
-        } else {
-            System.out.println(card.getCardID());
-        }
-    }
 
     private void printGoldCard(GoldCard g) {
         VisibleAngle[] array;
@@ -160,10 +144,10 @@ public class Tui implements UserInterface{
                 if (i == 2) {
                     String q = g.getBackSymbol().getFirst().getSymbolName();
                     q = switch (q) {
-                        case "leaf" -> color.greenColor + "GRE " + color.resetColor;
-                        case "mushroom" -> color.orangeColor + "ORA " + color.resetColor;
-                        case "butterfly" -> color.purpleColor + "PUR " + color.resetColor;
-                        case "fox" -> color.blueColor + "BLU " + color.resetColor;
+                        case "leaf" -> Colors.greenColor + "GRE " + Colors.resetColor;
+                        case "mushroom" -> Colors.orangeColor + "ORA " + Colors.resetColor;
+                        case "butterfly" -> Colors.purpleColor + "PUR " + Colors.resetColor;
+                        case "fox" -> Colors.blueColor + "BLU " + Colors.resetColor;
                         default -> q;
                     };
                     System.out.println("\n"+"||  " + q + "  ||");
@@ -248,16 +232,16 @@ public class Tui implements UserInterface{
                     String q = r.getBackSymbol().getFirst().getSymbolName();
                     switch (q) {
                         case "leaf":
-                            q = color.greenColor + "GRE " + color.resetColor;;
+                            q = Colors.greenColor + "GRE " + Colors.resetColor;
                             break;
                         case "mushroom":
-                            q = color.orangeColor + "ORA " + color.resetColor;;
+                            q = Colors.orangeColor + "ORA " + Colors.resetColor;
                             break;
                         case "butterfly":
-                            q = color.purpleColor + "PUR " + color.resetColor;;
+                            q = Colors.purpleColor + "PUR " + Colors.resetColor;
                             break;
                         case "fox":
-                            q = color.blueColor + "BLU " + color.resetColor;;
+                            q = Colors.blueColor + "BLU " + Colors.resetColor;
                             break;
                         default:
                             break;

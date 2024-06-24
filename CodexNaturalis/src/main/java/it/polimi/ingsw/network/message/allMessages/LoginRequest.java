@@ -14,7 +14,7 @@ public class LoginRequest extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return null;
     }
 }

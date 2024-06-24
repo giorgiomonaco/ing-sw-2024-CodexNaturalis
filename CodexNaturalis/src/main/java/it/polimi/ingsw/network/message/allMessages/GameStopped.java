@@ -11,7 +11,7 @@ public class GameStopped extends Message {
     }
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new GameStoppedHandler();
     }
 }

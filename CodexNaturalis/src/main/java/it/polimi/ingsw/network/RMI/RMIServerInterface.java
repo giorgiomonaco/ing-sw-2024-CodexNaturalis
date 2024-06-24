@@ -12,7 +12,6 @@ import java.rmi.RemoteException;
  */
 public interface RMIServerInterface extends Remote {
 
-    void receiveMessage(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException;
-
+    void receiveFromClient(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException;
 
 }

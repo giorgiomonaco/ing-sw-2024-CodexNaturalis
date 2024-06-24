@@ -430,6 +430,7 @@ public class MainController implements Serializable {
     public void selectionCard(Card card, int x, int y, boolean side){
 
         game.getCurrentPlayer().removeCardFromHand(card);
+        game.getCurrentPlayer().setTurn(card.getTurn()/10);
         playCard(card, x, y, side);
         if (card instanceof ResourceCard) {
             game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());

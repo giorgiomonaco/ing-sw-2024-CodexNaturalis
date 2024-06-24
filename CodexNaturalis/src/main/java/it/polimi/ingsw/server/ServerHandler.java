@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.ClientConnection;
 import it.polimi.ingsw.network.LoginResult;
 import it.polimi.ingsw.network.Pinger;
 import it.polimi.ingsw.network.RMI.ServerRMI;
-import it.polimi.ingsw.network.ServerConfigNetwork;
+import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.network.TCP.ServerTCP;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.*;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ServerHandler {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
-    private final ServerConfigNetwork configBase;
+    private final ServerNetwork configBase;
     public static String HOSTNAME = "Server";
     public final Map<String, ClientConnection> connectedClients;
     private MainController mainController;
@@ -39,7 +39,7 @@ public class ServerHandler {
      *  Constructor
      * @param data the configuration of the server
      */
-    public ServerHandler(ServerConfigNetwork data) {
+    public ServerHandler(ServerNetwork data) {
         this.configBase = data;
         connectedClients = new HashMap<>();
         waitingLobby = new ArrayList<>();
@@ -297,7 +297,9 @@ public class ServerHandler {
                                         mainController.getGame().getUserList(),
                                         p.getPlayerObjectiveCard(),
                                         p.getInitialCard(),
-                                        mainController.getGame().getPlayersToken()));
+                                        p.getTurn(),
+                                        mainController.getGame().getPlayersToken(),
+                                        p.getChat()));
                     }
                     logged = true;
                     reconnected = true;

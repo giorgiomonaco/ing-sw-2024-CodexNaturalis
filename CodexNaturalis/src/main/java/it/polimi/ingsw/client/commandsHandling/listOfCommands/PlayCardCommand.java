@@ -50,7 +50,7 @@ public class PlayCardCommand implements CommandManager {
         else if (y < 0 || y > client.getBoards().getMAX_Y()){
             throw new WrongInsertionException("The selected y coordinate is not available. Please choose above the available ones");
         }
-        else if (client.getBoards().getCheckBoard()[x][y] == -1 || client.getBoards().getCheckBoard()[x][y] == 1){
+        else if (client.getBoards().getCheckBoard()[x][y] == -1 || client.getBoards().getCheckBoard()[x][y] == -2){
             throw new WrongInsertionException("The selected position is not available. Please choose above the available ones");
         }
         else if(!Objects.equals(commands[4], "front") && !Objects.equals(commands[4], "back")){
@@ -66,14 +66,12 @@ public class PlayCardCommand implements CommandManager {
             }
         }
 
-
+        int turn = client.getTurn();
+        client.getPlayerHand().get(index-1).setTurn(turn * 10);
+        client.setTurn(turn + 1);
         SelectionCard toSend = new SelectionCard(client.getUsername(), client.getPlayerHand().get(index-1), x, y, side);
         client.sendMessage(toSend);
     }
-
-
-
-
 
 }
 

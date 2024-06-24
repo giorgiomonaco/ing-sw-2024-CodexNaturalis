@@ -10,6 +10,8 @@ public class LoginView implements TuiView{
     public void play(Client client) {
         System.out.println("\n+----------------------+\n" +
                 "|        LOGIN         |\n" +
-                "+----------------------+\n\nInsert [login <usr>] where usr is your username: ");
+                "+----------------------+\n\n" +
+                "Insert [login <usr>] where usr is your username: " +
+                "\n\n Insert chat <destination> <message> to send a message, where destination is either: player's username or toAll");
     }
 }

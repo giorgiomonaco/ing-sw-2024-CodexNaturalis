@@ -3,16 +3,14 @@ package it.polimi.ingsw.client.view.TUI.TuiViews;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.view.TUI.Tui;
-import it.polimi.ingsw.server.model.Boards;
-import it.polimi.ingsw.server.model.Card;
-import it.polimi.ingsw.server.model.ObjectiveCard;
-import it.polimi.ingsw.server.model.VisibleAngle;
+import it.polimi.ingsw.server.model.*;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import it.polimi.ingsw.client.view.Colors;
 public class PlayCardView implements TuiView {
     private Boards boards;
     private List<Card> playerHand;
@@ -34,7 +32,7 @@ public class PlayCardView implements TuiView {
             view.printObjectiveCard(c);
             i++;
         }
-        System.out.println("\n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n   -Green: Position available    -Blue: Card already played");
+        System.out.println("\n\nCHOOSE A SPOT ON THE BOARD TO PLACE THE CARD\n   -X: Position available    -◘: Card already played");
         playerHand = client.getPlayerHand();
         boards = client.getBoards();
         printBoard();
@@ -85,19 +83,31 @@ public class PlayCardView implements TuiView {
             System.out.println();
             System.out.print(y + " ");
 
-
             for (int x = minX-1; x < maxX+2; x++) {
+                if(boards.getCheckBoard()[x][y] == 1){
+                    if(boards.getGameBoard()[x][y] instanceof InitialCard) {
+                        System.out.print("  ◘ ");
+                    } else {
+                        String q = boards.getGameBoard()[x][y].getBackSymbol().getFirst().getSymbolName();
+                        switch (q) {
+                            case "leaf" -> System.out.print(Colors.greenColor + "  ◘ " + Colors.resetColor);
+                            case "mushroom" -> System.out.print(Colors.orangeColor + "  ◘ " + Colors.resetColor);
+                            case "butterfly" -> System.out.print(Colors.purpleColor + "  ◘ " + Colors.resetColor);
+                            case "fox" -> System.out.print(Colors.blueColor + "  ◘ " + Colors.resetColor);
+
+                        }
+                    }
+                } else  {
+
 
                 switch (boards.getCheckBoard()[x][y]) {
                     case -1, -2:
                         System.out.print("    ");
                         break;
                     case 0:
-                        System.out.print("  " + Colors.greenColor + boards.getCheckBoard()[x][y] + Colors.resetColor + " ");
+                        System.out.print("  " + Colors.lightGrayColor + "X" + Colors.resetColor + " ");
                         break;
-                    case 1:
-                        System.out.print("  " + Colors.blueColor + boards.getCheckBoard()[x][y] + Colors.resetColor + " ");
-                        break;
+                }
                 }
             }
         }
@@ -106,7 +116,7 @@ public class PlayCardView implements TuiView {
 
 
     private void printPoints(){
-        System.out.println("\nYour current points: " + client.getPoints()[client.getCurrIndex()]);
+        System.out.println("\nYour current points: " + client.getPoints()[client.getPlayerList().indexOf(client.getUsername())]);
     }
 
     private void printResources(){
@@ -144,7 +154,7 @@ public class PlayCardView implements TuiView {
 
         for (int y = minY-1; y < maxY+2; y++) {
             for (int x = minX-1; x < maxX+2; x++) {
-                if(boards.getCheckBoard()[x][y] == 1){
+                if(boards.getCheckBoard()[x][y] == 1 && boards.getGameBoard()[x][y].getSide()){
                     for(int i=0;i<4;i++) {
                         if(boards.gameBoard[x][y].getFrontVisibleAngle(i) != null && boards.gameBoard[x][y].getFrontVisibleAngle(i).getSymbol() != null){
                             if(i==0){

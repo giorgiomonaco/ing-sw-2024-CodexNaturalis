@@ -16,7 +16,7 @@ public class DrawCardRequest extends Message {
     private String resDeck;
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new DrawCardHandler();
     }
 

@@ -12,7 +12,6 @@ import java.awt.*;
 public class Gui implements UserInterface {
 
     private final Client client;
-    private int turn;
     private MyFrame frame;
     private JPanel glassPane;
     private JPanel stopPane;
@@ -24,7 +23,6 @@ public class Gui implements UserInterface {
     public Gui (Client client){
         this.client = client;
         client.setUI(this);
-        turn = 2;
         gameSetUp = true;
     }
 
@@ -82,7 +80,7 @@ public class Gui implements UserInterface {
             case REJECTED:
                 addRejectedPanel();
                 break;
-            case SHOW_WINNER:
+            case END_GAME:
                 addEndGamePanel();
                 break;
             case DRAW_CARD:
@@ -100,10 +98,7 @@ public class Gui implements UserInterface {
         }
     }
 
-    @Override
-    public void endGame() {
 
-    }
 
     @Override
     public void printErrorMessage(String s) {
@@ -224,8 +219,7 @@ public class Gui implements UserInterface {
     private void addMainPanel(){
         frame.getContentPane().removeAll();
         frame.repaint();
-        mainPanel = new MainPanel(client, turn);
-        turn++;
+        mainPanel = new MainPanel(client, client.getTurn());
         frame.add(mainPanel, BorderLayout.CENTER);
         frame.setVisible(true);
         mainPanel.getBoard().scrollToMiddle();
@@ -267,6 +261,12 @@ public class Gui implements UserInterface {
     private void manageStop(){
         if(stopPane != null){
             stopPane.setVisible(true);
+
+            // block every action on the main panel
+            if(mainPanel != null) {
+                mainPanel.setStop(true);
+            }
+
         } else {
             stopPane = new JPanel() {
                 @Override

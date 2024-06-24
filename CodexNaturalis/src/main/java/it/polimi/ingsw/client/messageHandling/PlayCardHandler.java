@@ -7,7 +7,7 @@ import it.polimi.ingsw.client.states.stateEnum;
 
 public class PlayCardHandler implements MessageHandler {
     @Override
-    public void handle(Message msg, Client client) {
+    public void manage(Message msg, Client client) {
         PlayCardReq req = (PlayCardReq) msg;
         client.setPoints(req.getPoints());
         client.setBoards(req.getBoards());

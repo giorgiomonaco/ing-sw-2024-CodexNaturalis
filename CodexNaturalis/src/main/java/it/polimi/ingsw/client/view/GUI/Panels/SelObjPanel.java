@@ -114,9 +114,9 @@ public class SelObjPanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
             if(client.getCurrentState().equals(stateEnum.SELECT_OBJECTIVE)) {
                 try {
-                    client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
                     ObjectiveCard card = client.getListObjective().get(sel-1);
                     client.setObjective(card);
+                    client.sendMessage(new SelectionObjCard(client.getUsername(), sel));
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }

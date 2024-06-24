@@ -13,7 +13,7 @@ public class SelectObjCard extends Message {
 
 
     @Override
-    public MessageHandler createHandler() {
+    public MessageHandler genHandler() {
         return new SelectObjectiveHandler();
     }
 
