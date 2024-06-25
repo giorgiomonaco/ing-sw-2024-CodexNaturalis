@@ -432,12 +432,15 @@ public class MainController implements Serializable {
         game.getCurrentPlayer().removeCardFromHand(card);
         game.getCurrentPlayer().setTurn(card.getTurn()/10);
         playCard(card, x, y, side);
-        if (card instanceof ResourceCard) {
-            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
-        }
-        else if (card instanceof GoldCard goldCard) {
-            //checks all the possible conditions for getting points
-            game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
+
+        // Add points only if the card is up front
+        if (side) {
+            if (card instanceof ResourceCard) {
+                game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
+            } else if (card instanceof GoldCard goldCard) {
+                //checks all the possible conditions for getting points
+                game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
+            }
         }
 
     }
@@ -465,7 +468,7 @@ public class MainController implements Serializable {
 
         game.getCurrentPlayer().getGameBoards().setGameBoardXY(x, y, card);
         game.getCurrentPlayer().getGameBoards().setCheckBoardXY(x, y, 1);
-        card.addResources(game.getCurrentPlayer());
+        card.addResources(game.getCurrentPlayer(), side);
 
         updateBoxes(card, x, y, side);
         updatePlayerResources(x, y, game.getCurrentPlayer().getGameBoards().getGameBoard());

@@ -29,10 +29,10 @@ public class DeckPanel extends JPanel {
 
 
         ClassLoader cl = this.getClass().getClassLoader();
-        String path0 = client.getDeckPath().get(1);
+        String path0 = client.getDeckPath()[1];
         String path1 = client.getVisibleResourceCards().get(0).getFrontImage();
         String path2 = client.getVisibleResourceCards().get(1).getFrontImage();
-        String path3 = client.getDeckPath().getFirst();
+        String path3 = client.getDeckPath()[0];
         String path4 = client.getVisibleGoldCards().get(0).getFrontImage();
         String path5 = client.getVisibleGoldCards().get(1).getFrontImage();
         InputStream is0 = cl.getResourceAsStream(path0);

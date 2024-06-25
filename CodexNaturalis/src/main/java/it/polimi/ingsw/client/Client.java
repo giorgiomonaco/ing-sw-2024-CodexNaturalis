@@ -26,7 +26,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private ObjectiveCard objective;
     private List<ObjectiveCard> commonObjectives = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
-    private List<String> deckPath = new ArrayList<>();
+    private String[] deckPath = new String[2];
     private Boards boards;
     private Card[][][] gameBoards = new Card[4][][];
     private int[] resources;
@@ -195,11 +195,12 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         this.serverLastMessage = serverLastMessage;
     }
 
-    public void addDeckPath(String deckPath) {
-        this.deckPath.add(deckPath);
+
+    public void setDeckPath(String deckPath, int i) {
+        this.deckPath[i] = deckPath;
     }
 
-    public List<String> getDeckPath() {
+    public String[] getDeckPath() {
         return deckPath;
     }
 

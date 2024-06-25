@@ -8,6 +8,7 @@ import it.polimi.ingsw.client.view.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class Gui implements UserInterface {
 
@@ -63,9 +64,20 @@ public class Gui implements UserInterface {
                 gameSetUp = false;
                 break;
             case PLAY_CARD:
+                System.out.print("Your current resources: ");
+                int count = 0;
+                java.util.List<String> resName = List.of(new String[]{"mushroom", "leaf", "fox", "butterfly", "feather", "bottle", "scroll"});
+                for(int i : client.getResources()){
+                    System.out.print(resName.get(count) + " ");
+                    System.out.print(i + " ");
+                    count++;
+                }
                 managePlay();
                 break;
             case WAITING_TURN:
+                if(client.getPoints() != null) {
+                    System.out.println("Points: " + client.getPoints()[client.getPlayerList().indexOf(client.getUsername())]);
+                }
                 manageWait();
                 break;
             case GAME_STOPPED:
@@ -252,6 +264,10 @@ public class Gui implements UserInterface {
     }
 
     private void addEndGamePanel(){
+        if(stopPane != null && stopPane.isVisible()){
+            stopPane.setVisible(false);
+        }
+
         frame.getContentPane().removeAll();
         frame.repaint();
         frame.add(new EndGamePanel(client));
