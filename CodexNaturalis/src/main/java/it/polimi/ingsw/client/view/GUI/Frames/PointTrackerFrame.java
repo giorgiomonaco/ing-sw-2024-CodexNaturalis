@@ -58,12 +58,17 @@ public class PointTrackerFrame extends JFrame {
         setSize(new Dimension(frame_X, frame_Y));
         setLayout(new BorderLayout());
 
+
+
         //we set up the coordinates to place the tokens
         defineCoordinates();
         //retrieve the tokens
         addElementsToTracker();
         //Create and place the point tracker
         paintBackgroundPanel();
+
+
+
 
         //create and place the legend panel
         if(!(client.getPlayerList().size() == tokenList.size())) {
@@ -301,7 +306,7 @@ public class PointTrackerFrame extends JFrame {
     }
 
     //class for the coordinates, used only here so create it here
-    private static class Coordinates{
+    public static class Coordinates{
 
         public Coordinates(int x, int y){
             setX(x);
@@ -331,7 +336,7 @@ public class PointTrackerFrame extends JFrame {
         index = which box
         value = x and y wrt to the whole image (in % to be consistent if frame changed in size)
     */
-    private void defineCoordinates(){
+    public void defineCoordinates(){
         setBoxesCoordinates(new Coordinates(54, 432));
         setBoxesCoordinates(new Coordinates(125, 432));
         setBoxesCoordinates(new Coordinates(185, 432));

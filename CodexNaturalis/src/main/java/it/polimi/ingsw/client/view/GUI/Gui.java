@@ -8,7 +8,7 @@ import it.polimi.ingsw.client.view.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.io.IOException;
 
 public class Gui implements UserInterface {
 
@@ -64,20 +64,9 @@ public class Gui implements UserInterface {
                 gameSetUp = false;
                 break;
             case PLAY_CARD:
-                System.out.print("Your current resources: ");
-                int count = 0;
-                java.util.List<String> resName = List.of(new String[]{"mushroom", "leaf", "fox", "butterfly", "feather", "bottle", "scroll"});
-                for(int i : client.getResources()){
-                    System.out.print(resName.get(count) + " ");
-                    System.out.print(i + " ");
-                    count++;
-                }
                 managePlay();
                 break;
             case WAITING_TURN:
-                if(client.getPoints() != null) {
-                    System.out.println("Points: " + client.getPoints()[client.getPlayerList().indexOf(client.getUsername())]);
-                }
                 manageWait();
                 break;
             case GAME_STOPPED:
@@ -92,8 +81,12 @@ public class Gui implements UserInterface {
             case REJECTED:
                 addRejectedPanel();
                 break;
-            case END_GAME:
-                addEndGamePanel();
+            case END_GAME: //Refine this!!
+                try {
+                    addEndGamePanel();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case DRAW_CARD:
                 addDrawFrame();
@@ -263,7 +256,7 @@ public class Gui implements UserInterface {
         frame.setVisible(true);
     }
 
-    private void addEndGamePanel(){
+    private void addEndGamePanel() throws IOException {
         if(stopPane != null && stopPane.isVisible()){
             stopPane.setVisible(false);
         }
