@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.client.view.Colors;
+import it.polimi.ingsw.network.RMI.RMIClientHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.allMessages.PingMessage;
 import it.polimi.ingsw.server.ServerHandler;
@@ -8,6 +9,9 @@ import it.polimi.ingsw.server.ServerHandler;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class is used to check if the RMI clients are still connected.
+ */
 public class Pinger extends Thread {
     private final ServerHandler handler;
     private Map<String, ClientConnection> connectedClients;
@@ -31,7 +35,7 @@ public class Pinger extends Thread {
             getClients();
             if(!connectedClients.isEmpty()){
                 for(String c: connectedClients.keySet()){
-                    if(connectedClients.get(c).isConnected()){
+                    if(connectedClients.get(c).isConnected() && connectedClients.get(c) instanceof RMIClientHandler){
                         System.out.println(Colors.greenColor + "Pinging to " + c + Colors.resetColor);
                         handler.sendMessageToPlayer(c,
                                 new PingMessage(ServerHandler.HOSTNAME));
