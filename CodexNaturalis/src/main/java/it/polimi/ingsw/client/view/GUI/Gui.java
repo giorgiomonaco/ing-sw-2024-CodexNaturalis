@@ -8,6 +8,7 @@ import it.polimi.ingsw.client.view.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Gui implements UserInterface {
 
@@ -80,8 +81,12 @@ public class Gui implements UserInterface {
             case REJECTED:
                 addRejectedPanel();
                 break;
-            case END_GAME:
-                addEndGamePanel();
+            case END_GAME: //Refine this!!
+                try {
+                    addEndGamePanel();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case DRAW_CARD:
                 addDrawFrame();
@@ -251,7 +256,7 @@ public class Gui implements UserInterface {
         frame.setVisible(true);
     }
 
-    private void addEndGamePanel(){
+    private void addEndGamePanel() throws IOException {
         frame.getContentPane().removeAll();
         frame.repaint();
         frame.add(new EndGamePanel(client));
