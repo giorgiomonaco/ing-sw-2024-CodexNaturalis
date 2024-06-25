@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.GUI.Frames;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.GUI.Panels.BackGroundPanel;
+import it.polimi.ingsw.client.view.GUI.Panels.PointTrackerPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,13 +33,14 @@ public class PointTrackerFrame extends JFrame {
 
     //array to keep track of how many tokens in same box
     private int[] boxesPopulation = new int[30];
+    private int[] positionInBox = new int[30];
 
     //We need to store the coordinates on the image of every box
     private List<Coordinates> boxesCoordinates = new ArrayList<>();
     private Client client;
 
     //panel to displace the point tracker
-    private JPanel backgroundPanel;
+    private PointTrackerPanel backgroundPanel;
 
     //Panel to displace relation between player name and token chosen
     private JPanel legend;
@@ -61,16 +63,135 @@ public class PointTrackerFrame extends JFrame {
         //retrieve the tokens
         addElementsToTracker();
         //Create and place the point tracker
-        fillBackgroundPanel();
+        paintBackgroundPanel();
 
         //create and place the legend panel
         if(!(client.getPlayerList().size() == tokenList.size())) {
             fillNotReadyLegendPanel();
         } else {
             fillStandardLegendPanel();
+            fillBackgroundPanel();
         }
 
         setVisible(true);
+
+    }
+
+    public void fillBackgroundPanel(){
+        //we declare local vars for transformations
+        Image token0Image;
+        Image token1Image;
+        Image token2Image;
+        Image token3Image;
+        ImageIcon resizedToken0;
+        ImageIcon resizedToken1;
+        ImageIcon resizedToken2;
+        ImageIcon resizedToken3;
+
+        //Fist thing first we check how many tokens in every box
+        for(int i = 0; i < client.getPlayerList().size(); i++){
+            //we increment the population of that box if a player has that score
+            boxesPopulation[client.getPoints()[i]]++;
+        }
+
+        //we prepare the list of resized tokens here
+        List<JLabel> resizedTokens = new ArrayList<>();
+
+        //very ugly way to solve maybe:
+        switch(client.getPlayerList().size()){
+            case 2:
+                //we add the 2 tokens to the resized list
+                token0Image = ((ImageIcon)(tokenList.get(0).getIcon())).getImage();
+                token1Image = ((ImageIcon)(tokenList.get(1).getIcon())).getImage();
+                resizedToken0 = new ImageIcon(token0Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedToken1 = new ImageIcon(token1Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedTokens.add(new JLabel(resizedToken0));
+                resizedTokens.add(new JLabel(resizedToken1));
+                break;
+            case 3:
+                token0Image = ((ImageIcon)(tokenList.get(0).getIcon())).getImage();
+                token1Image = ((ImageIcon)(tokenList.get(1).getIcon())).getImage();
+                token2Image = ((ImageIcon)(tokenList.get(2).getIcon())).getImage();
+                resizedToken0 = new ImageIcon(token0Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedToken1 = new ImageIcon(token1Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedToken2 = new ImageIcon(token2Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedTokens.add(new JLabel(resizedToken0));
+                resizedTokens.add(new JLabel(resizedToken1));
+                resizedTokens.add(new JLabel(resizedToken2));
+                break;
+            case 4:
+                token0Image = ((ImageIcon)(tokenList.get(0).getIcon())).getImage();
+                token1Image = ((ImageIcon)(tokenList.get(1).getIcon())).getImage();
+                token2Image = ((ImageIcon)(tokenList.get(2).getIcon())).getImage();
+                token3Image = ((ImageIcon)(tokenList.get(3).getIcon())).getImage();
+                resizedToken0 = new ImageIcon(token0Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedToken1 = new ImageIcon(token1Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedToken2 = new ImageIcon(token2Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedToken3 = new ImageIcon(token3Image.getScaledInstance(20,20, Image.SCALE_SMOOTH));
+                resizedTokens.add(new JLabel(resizedToken0));
+                resizedTokens.add(new JLabel(resizedToken1));
+                resizedTokens.add(new JLabel(resizedToken2));
+                resizedTokens.add(new JLabel(resizedToken3));
+        }
+
+        //Now we cycle on the token list and players scores to place tokens
+        for(int i = 0; i < resizedTokens.size(); i++){
+
+            //we retrieve the score of the player
+            int score = client.getPoints()[i];
+            //use it to get the coordinates corresponding to the box
+            int placementX = boxesCoordinates.get(score).getX();
+            int placementY = boxesCoordinates.get(score).getY();
+            //Switch case on the population of that box to displace in different manners the tokens
+            switch (boxesPopulation[score]){
+                case 1:
+                    //if only one in the box we place it in the center
+                    backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX, placementY,20,20);
+                    break;
+                case 2:
+                    //first we want to check if we are the first to access to the box
+                    if(positionInBox[score] == 0){
+                        //we place in the first spot
+                        backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX - 10, placementY,20,20);
+                    } else if(positionInBox[score] == 1){
+                        backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX + 10, placementY,20,20);
+                    }
+                    positionInBox[score]++;
+                    break;
+                case 3:
+                    //we check and place; 3 positions -> switch case
+                    switch(positionInBox[score]){
+                        case 0:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX, placementY - 10,20,20);
+                            break;
+                        case 1:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX - 10, placementY + 10,20,20);
+                            break;
+                        case 2:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX + 10, placementY + 10,20,20);
+                            break;
+                    }
+                    positionInBox[score]++;
+                    break;
+                case 4:
+                    switch(positionInBox[score]){
+                        case 0:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX - 10, placementY - 10,20,20);
+                            break;
+                        case 1:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX + 10, placementY - 10,20,20);
+                            break;
+                        case 2:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX - 10, placementY + 10,20,20);
+                            break;
+                        case 3:
+                            backgroundPanel.addLabelIntoLocation(resizedTokens.get(i), placementX + 10, placementY + 10,20,20);
+                            break;
+                    }
+                    positionInBox[score]++;
+                    break;
+            }
+        }
 
     }
 
@@ -107,7 +228,8 @@ public class PointTrackerFrame extends JFrame {
 
     }
 
-    private void fillBackgroundPanel() throws IOException{
+    private void paintBackgroundPanel() throws IOException{
+        //first thing first we paint the panel with the point tracker image;
         //we retrieve the image we want to displace
         ClassLoader cl = this.getClass().getClassLoader();
         String pathToPointTracker = "images/pointTracker/PointTracker.png";
@@ -119,7 +241,7 @@ public class PointTrackerFrame extends JFrame {
         Image resizedPointTracker = x.getImage().getScaledInstance(frame_X, frame_Y - legend_Y, Image.SCALE_SMOOTH);
 
         //now we instance the panel and fill it up with the image
-        backgroundPanel = new JPanel(){
+        backgroundPanel = new PointTrackerPanel(client, frame_X, frame_Y - legend_Y){
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if(resizedPointTracker != null){
@@ -128,64 +250,13 @@ public class PointTrackerFrame extends JFrame {
             }
         };
 
-        backgroundPanel.setPreferredSize(new Dimension(frame_X, frame_Y - legend_Y));
-        backgroundPanel.setLayout(null);
-        backgroundPanel.setOpaque(false);
-
-        //try to add the token to the box
-        populateTracker();
-
         add(backgroundPanel, BorderLayout.CENTER);
 
         setVisible(true);
 
     }
 
-    //let's go for the method in different method
-    private void populateTracker(){
 
-
-        for(int i = 0; i < client.getPlayersToken().size(); i++){
-            JLabel token = new JLabel(); //creating the label for the token
-            token.setSize(token_X, token_Y);
-            //we create the class loader
-            ClassLoader cl = this.getClass().getClassLoader();
-            //We get the corresponding token color
-            String tokenColor = client.getPlayersToken().get(i);
-            //we retrieve the corresponding image
-            InputStream is = cl.getResourceAsStream("images/token/CODEX_pion_" + tokenColor + ".png");
-            //we crete the icon with the image retrieved
-            try {
-                ImageIcon notResizedTokenIcon = new ImageIcon(ImageIO.read(is));
-                //then we extract the image from the icon and create the final image icon resized
-                ImageIcon resizedTokenIcon = new ImageIcon( notResizedTokenIcon.getImage().getScaledInstance(token_X, token_Y, Image.SCALE_SMOOTH));
-                //finally we set the icon as the icon of the label we created
-                token.setIcon(resizedTokenIcon);
-                //We also add the token to the list of tokens
-                int score = client.getPoints()[i];
-                //now we got a token and the box
-                Coordinates selectedBox = boxesCoordinates.get(score);
-                //retrieve the x and y of center of box
-                int center_X = selectedBox.getX();
-                int center_Y = selectedBox.getY();
-                System.out.println("coord: " + center_X + ", " + center_Y);
-                token.setBounds(center_X, center_Y,token.getWidth(), token.getHeight());
-                token.setOpaque(true);
-                token.setBackground(Color.orange);
-                backgroundPanel.add(token);
-                backgroundPanel.repaint();
-                backgroundPanel.revalidate();
-                backgroundPanel.setVisible(true);
-                setVisible(true);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-    }
-
-
-    //
     private void addElementsToTracker(){
         /*
         we must add:
@@ -195,7 +266,6 @@ public class PointTrackerFrame extends JFrame {
         //we do this for every player
         for(int i = 0; i < client.getPlayersToken().size(); i++){
             JLabel token = new JLabel(); //creating the label for the token
-            System.out.println( i + "th time in the loop of max : " + client.getPlayersToken().size());
             token.setSize(token_X, token_Y);
             //we create the class loader
             ClassLoader cl = this.getClass().getClassLoader();
@@ -262,36 +332,42 @@ public class PointTrackerFrame extends JFrame {
         value = x and y wrt to the whole image (in % to be consistent if frame changed in size)
     */
     private void defineCoordinates(){
-        setBoxesCoordinates(new Coordinates(70, 480));
-        setBoxesCoordinates(new Coordinates(125, 480));
-        setBoxesCoordinates(new Coordinates(185, 480));
-        setBoxesCoordinates(new Coordinates(210, 425));
-        setBoxesCoordinates(new Coordinates(155, 425));
-        setBoxesCoordinates(new Coordinates(100, 425));
-        setBoxesCoordinates(new Coordinates(40, 425));
-        setBoxesCoordinates(new Coordinates(40, 370));
-        setBoxesCoordinates(new Coordinates(100, 370));
-        setBoxesCoordinates(new Coordinates(155, 370));
-        setBoxesCoordinates(new Coordinates(210, 370));
-        setBoxesCoordinates(new Coordinates(210, 315));
-        setBoxesCoordinates(new Coordinates(155, 315));
-        setBoxesCoordinates(new Coordinates(100, 315));
-        setBoxesCoordinates(new Coordinates(40, 315));
-        setBoxesCoordinates(new Coordinates(40, 260));
-        setBoxesCoordinates(new Coordinates(100, 260));
-        setBoxesCoordinates(new Coordinates(155, 260));
-        setBoxesCoordinates(new Coordinates(210, 260));
-        setBoxesCoordinates(new Coordinates(210, 205));
-        setBoxesCoordinates(new Coordinates(125, 180));
-        setBoxesCoordinates(new Coordinates(40, 205));
-        setBoxesCoordinates(new Coordinates(40, 150));
-        setBoxesCoordinates(new Coordinates(40, 95));
-        setBoxesCoordinates(new Coordinates(75, 50));
-        setBoxesCoordinates(new Coordinates(125, 40));
-        setBoxesCoordinates(new Coordinates(180, 50));
-        setBoxesCoordinates(new Coordinates(215, 95));
-        setBoxesCoordinates(new Coordinates(210, 150));
-        setBoxesCoordinates(new Coordinates(125, 110));
+        setBoxesCoordinates(new Coordinates(54, 432));
+        setBoxesCoordinates(new Coordinates(125, 432));
+        setBoxesCoordinates(new Coordinates(185, 432));
+
+        setBoxesCoordinates(new Coordinates(186, 380));
+        setBoxesCoordinates(new Coordinates(104, 380));
+        setBoxesCoordinates(new Coordinates(82, 380));
+        setBoxesCoordinates(new Coordinates(30, 380));
+
+        setBoxesCoordinates(new Coordinates(30, 330));
+        setBoxesCoordinates(new Coordinates(82, 330));
+        setBoxesCoordinates(new Coordinates(104, 330));
+        setBoxesCoordinates(new Coordinates(186, 330));
+
+        setBoxesCoordinates(new Coordinates(186, 280));
+        setBoxesCoordinates(new Coordinates(104, 280));
+        setBoxesCoordinates(new Coordinates(82, 280));
+        setBoxesCoordinates(new Coordinates(30, 280));
+
+        setBoxesCoordinates(new Coordinates(30, 260));
+        setBoxesCoordinates(new Coordinates(82, 260));
+        setBoxesCoordinates(new Coordinates(104, 260));
+        setBoxesCoordinates(new Coordinates(186, 260));
+
+        setBoxesCoordinates(new Coordinates(186, 180));
+        setBoxesCoordinates(new Coordinates(108, 155));
+        setBoxesCoordinates(new Coordinates(30, 180));
+
+        setBoxesCoordinates(new Coordinates(30, 130));
+        setBoxesCoordinates(new Coordinates(30, 80));
+        setBoxesCoordinates(new Coordinates(60, 40));
+        setBoxesCoordinates(new Coordinates(108, 25));
+        setBoxesCoordinates(new Coordinates(155, 40));
+        setBoxesCoordinates(new Coordinates(186, 80));
+        setBoxesCoordinates(new Coordinates(186, 130));
+        setBoxesCoordinates(new Coordinates(108, 95));
     }
 
 
