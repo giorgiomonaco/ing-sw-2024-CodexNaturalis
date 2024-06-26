@@ -33,6 +33,8 @@ public class EndgameManager {
      * @return the total objective points for the current player.
      */
     public int objectivePointsCounter() {
+
+        int result = 0;
         List<ObjectiveCard> obj = new ArrayList<>();
 
         if(player.getPlayerObjectiveCard() == null || game.getCommonObjectives() == null) {
@@ -50,18 +52,11 @@ public class EndgameManager {
                 System.out.println("Objective type and number: " + o.getType() + " " + o.getCardName());
                 switch (o.getType()) {
                     case "position":
-                        objectiveCreator(o);
+                        result += objectiveCreator(o);
                         break;
-                    case "mushroom":
-                    case "fox":
-                    case "leaf":
-                    case "butterfly":
-                    case "feather":
-                    case "bottle":
-                    case "scroll":
-                    case "special":
-                         resourceCounter(o);
-                         break;
+                    case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special":
+                        result += resourceCounter(o);
+                        break;
                     default:
                         break;
                 }
@@ -70,7 +65,7 @@ public class EndgameManager {
             }
 
         }
-        return 0;
+        return result;
     }
 
 
