@@ -23,7 +23,9 @@ public class PlayCardView implements TuiView {
     @Override
     public void play(Client client) {
         this.client = client;
-        System.out.println("\n\nThose are the common Objectives:");
+        System.out.println("\n***********************************************************************************************************************************************************************" +
+                "\n***********************************************************************************************************************************************************************" +
+                "\n\nThose are the common Objectives:");
         commonObj = client.getListObjective();
         int i = 1;
         for(ObjectiveCard c: commonObj){
