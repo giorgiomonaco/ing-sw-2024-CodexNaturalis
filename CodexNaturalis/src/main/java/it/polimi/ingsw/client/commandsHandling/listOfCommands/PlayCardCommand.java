@@ -58,7 +58,7 @@ public class PlayCardCommand implements CommandManager {
         }
 
         else if(card instanceof GoldCard && side){
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 4; i++) {
                 if(!(((GoldCard) card).getNeededSymbols()[i] <= client.getResources()[i])){
                     throw new WrongInsertionException("You do not have enough resources to play this card. Please choose another one");
                 }
