@@ -17,7 +17,7 @@ class EndgameManagerTest {
 
     private Game game = new Game(1);
     private Player player = new Player("tom");
-    private Boards board = new Boards();
+    private final Boards board = new Boards();
     private EndgameManager endgameManager;
 
     @BeforeEach
@@ -84,39 +84,9 @@ class EndgameManagerTest {
     }
 
 
-    // Helper method to create a mock Card with the specified symbol name
-    private ResourceCard createCard() {
-        Symbol symbol = new Leaf();
-        VisibleAngle[] frontAngles = new VisibleAngle[4];
-        VisibleAngle[] backAngles = new VisibleAngle[4];
-        for (int i = 0; i <4 ; i++) {
-            frontAngles[i] = new VisibleAngle(symbol);
-            backAngles[i] = new VisibleAngle(null);
-        }
-
-        List<Symbol> myList = new ArrayList<>();
-        myList.add(symbol);
-        return new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);}
-
-    // Mock Boards class to simulate the game board dimensions
-    private static class MockBoards extends Boards {
-        @Override
-        public int getMAX_X() {
-            return 6; // Example width of the board
-        }
-
-        @Override
-        public int getMAX_Y() {
-            return 6; // Example height of the board
-        }
-    }
-
-
-
     @Test
     void testCheckDirectionDown() {
         player.setBoards(board);
-        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "position", "green", "down", "green", "down", "green", null);
         Card[][] cardMatrix = new Card[6][6]; // Example matrix size
 
         Symbol symbol1 = new Leaf();
@@ -152,7 +122,6 @@ class EndgameManagerTest {
     @Test
     void testCheckDirectionDownRight() {
         player.setBoards(board);
-        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "position", "green", "down", "green", "down", "green", null);
         Card[][] cardMatrix = new Card[6][6]; // Example matrix size
 
         Symbol symbol1 = new Leaf();
@@ -187,7 +156,6 @@ class EndgameManagerTest {
     @Test
     void testCheckDirectionDownLeft() {
         player.setBoards(board);
-        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "position", "green", "down", "green", "down", "green", null);
         Card[][] cardMatrix = new Card[6][6]; // Example matrix size
 
         Symbol symbol1 = new Leaf();
@@ -222,7 +190,6 @@ class EndgameManagerTest {
     @Test
     void testCheckDirectionOut() {
         player.setBoards(board);
-        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "position", "green", "down", "green", "down", "green", null);
         Card[][] cardMatrix = new Card[6][6]; // Example matrix size
 
         Symbol symbol1 = new Leaf();
