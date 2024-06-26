@@ -67,6 +67,9 @@ public class Gui implements UserInterface {
                 managePlay();
                 break;
             case WAITING_TURN:
+                if(client.getPoints() != null) {
+                    System.out.println("Points: " + client.getPoints()[client.getPlayerList().indexOf(client.getUsername())]);
+                }
                 manageWait();
                 break;
             case GAME_STOPPED:
@@ -82,6 +85,7 @@ public class Gui implements UserInterface {
                 addRejectedPanel();
                 break;
             case END_GAME: //Refine this!!
+                System.out.println("Points: " + client.getPoints()[client.getPlayerList().indexOf(client.getUsername())]);
                 try {
                     addEndGamePanel();
                 } catch (IOException e) {

@@ -323,14 +323,16 @@ public class Player implements Serializable {
                 break;
             case 2:
                 addPoints(goldCard.getCardPoints() * resourcesAvailable[4]);
+                break;
             case 3:
                 addPoints(goldCard.getCardPoints() * resourcesAvailable[5]);
+                break;
             case 4:
                 addPoints(goldCard.getCardPoints() * resourcesAvailable[6]);
+                break;
             default:
                 System.out.println("Impossible to get card points");
-
-
+                break;
         }
     }
 
