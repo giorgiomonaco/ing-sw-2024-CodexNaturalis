@@ -13,7 +13,7 @@ public class ChatResponse extends Message {
     private final List<Chat> chat;
 
     public ChatResponse(String senderUsername, List<Chat> chat) {
-        super(messEnum.CHATRESPONSE, senderUsername);
+        super(messEnum.CHAT_RESPONSE, senderUsername);
         this.chat = chat;
     }
 
