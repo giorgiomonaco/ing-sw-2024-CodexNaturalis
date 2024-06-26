@@ -100,14 +100,13 @@ public class Gui implements UserInterface {
         }
 
     }
+
     @Override
     public void printChat() {
         if (mainPanel != null){
             mainPanel.getChat().addMessage();
         }
     }
-
-
 
     @Override
     public void printErrorMessage(String s) {
@@ -148,7 +147,7 @@ public class Gui implements UserInterface {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Draw the semi-transparent cover
-                g.setColor(new Color(0, 0, 0, 150)); // Colore nero con trasparenza
+                g.setColor(new Color(0, 0, 0, 150));
                 g.fillRect(0, 0, getWidth(), getHeight());
 
                 g.setColor(Color.WHITE);
@@ -293,13 +292,13 @@ public class Gui implements UserInterface {
                     g.setFont(new Font("Arial", Font.BOLD, 24));
                     String[] lines = {
                             "-- GAME STOPPED --",
-                            "If nobody rejoin the game in 30 seconds,",
+                            "If nobody rejoin the game in 60 seconds,",
                             "you will win the game."
                     };
                     FontMetrics metrics = g.getFontMetrics(g.getFont());
 
                     int totalHeight = 0;
-                    for (String line : lines) {
+                    for (String ignored : lines) {
                         totalHeight += metrics.getHeight();
                     }
                     int y = (getHeight() - totalHeight) / 2;

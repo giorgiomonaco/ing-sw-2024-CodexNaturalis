@@ -13,6 +13,7 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -21,7 +22,6 @@ import java.util.List;
 public class ServerHandler {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
-    private final ServerNetwork configBase;
     public static String HOSTNAME = "Server";
     public final Map<String, ClientConnection> connectedClients;
     private MainController mainController;
@@ -32,7 +32,7 @@ public class ServerHandler {
     private final Pinger pinger;
     private GameStopper gameStopper;
     // Timeout for the game when only one player remain connected.
-    public static int TIMEOUT = 30;
+    public static int TIMEOUT = 60;
     private boolean stop;
 
     /**
@@ -40,7 +40,7 @@ public class ServerHandler {
      * @param data the configuration of the server
      */
     public ServerHandler(ServerNetwork data) {
-        this.configBase = data;
+
         connectedClients = new HashMap<>();
         waitingLobby = new ArrayList<>();
         creatingLobby = false;
@@ -49,8 +49,8 @@ public class ServerHandler {
         stop = false;
 
         try {
-            rmiServer = new ServerRMI(configBase, this);
-            tcpServer = new ServerTCP(configBase, this);
+            rmiServer = new ServerRMI(data, this);
+            tcpServer = new ServerTCP(data, this);
         } catch (RemoteException e) {
             System.err.println("Unable to create a new server, maybe one is already running.");
         }
@@ -386,23 +386,24 @@ public class ServerHandler {
             } else {
                 mainController.playerDisconnect(name);
 
-                int count = 0;
-                synchronized (connectedClients) {
-                    for (String user : connectedClients.keySet()) {
-                        if (connectedClients.get(user).isConnected()) {
-                            count = count + 1;
+                if (!mainController.getGame().getGameState().equals(gameStateEnum.END)) {
+                    int count = 0;
+                    synchronized (connectedClients) {
+                        for (String user : connectedClients.keySet()) {
+                            if (connectedClients.get(user).isConnected()) {
+                                count = count + 1;
+                            }
                         }
                     }
-                }
-                if(count == 0) {
-                    System.out.println(Colors.redColor + "The server is closing because no one is connected anymore." + Colors.resetColor);
-                    System.exit(0);
-                }
-                else if(count == 1) {
-                    stop = true;
-                    gameStopper.start();
-                } else {
-                    mainController.checkNextTurnForDisconnection(name);
+                    if (count == 0) {
+                        System.out.println(Colors.redColor + "The server is closing because no one is connected anymore." + Colors.resetColor);
+                        System.exit(0);
+                    } else if (count == 1) {
+                        stop = true;
+                        gameStopper.start();
+                    } else {
+                        mainController.checkNextTurnForDisconnection(name);
+                    }
                 }
             }
         }
@@ -422,7 +423,7 @@ public class ServerHandler {
         synchronized (connectedClients) {
             for (String name : connectedClients.keySet()) {
                 if (connectedClients.get(name).isConnected()) {
-                    sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, name));
+                    sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, name, null));
                     System.out.println(Colors.greenColor + "THE WINNER IS " + name.toUpperCase() + Colors.resetColor);
                     pinger.interrupt();
                     break;

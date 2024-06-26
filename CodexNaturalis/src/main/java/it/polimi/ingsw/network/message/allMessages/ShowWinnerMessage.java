@@ -4,15 +4,16 @@ import it.polimi.ingsw.client.messageHandling.MessageHandler;
 import it.polimi.ingsw.client.messageHandling.ShowWinnerHandler;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.messEnum;
-import it.polimi.ingsw.server.model.Player;
-
 public class ShowWinnerMessage extends Message {
-    private boolean win;
-    private String winner;
-    public ShowWinnerMessage(String senderUsername, boolean win, String winner) {
+    private final boolean win;
+    private final String winner;
+    private final int[] points;
+
+    public ShowWinnerMessage(String senderUsername, boolean win, String winner, int[] points) {
         super(messEnum.SHOW_WINNER, senderUsername);
         this.win = win;
         this.winner = winner;
+        this.points = points;
     }
 
     @Override
@@ -24,5 +25,9 @@ public class ShowWinnerMessage extends Message {
     }
     public String getName(){
         return winner;
+    }
+
+    public int[] getPoints() {
+        return points;
     }
 }

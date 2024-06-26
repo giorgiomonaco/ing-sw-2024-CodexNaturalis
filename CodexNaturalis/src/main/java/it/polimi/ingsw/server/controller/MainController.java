@@ -323,8 +323,12 @@ public class MainController implements Serializable {
      * Prints the winner's name and exits the program.
      */
     public void endGame(){
+
+        game.setGameState(gameStateEnum.END);
+
         Player player = null;
         int maxPoints = 0;
+
         for (int i = 0; i < game.getUserList().size(); i++) {
             EndgameManager endgameManager = new EndgameManager(game, game.getPlayerList().get(i));
             game.getPlayerList().get(i).addPoints(endgameManager.objectivePointsCounter());
@@ -334,12 +338,12 @@ public class MainController implements Serializable {
                 player = game.getPlayerList().get(i);
             }
         }
+
         if (player != null) {
-            serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true, player.getPlayerName()));
-            serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false, player.getPlayerName()));
+            serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true, player.getPlayerName(), game.getPlayersPoint()));
+            serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false, player.getPlayerName(), game.getPlayersPoint()));
             System.out.println(Colors.greenColor + "THE WINNER IS " + player.getPlayerName() + Colors.resetColor);
         }
-
 
     }
 
@@ -601,6 +605,7 @@ public class MainController implements Serializable {
             }
         }
     }
+
     /**
      * Checks if the given username is the current player and if so, initiates the next turn.
      *

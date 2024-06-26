@@ -291,13 +291,13 @@ class EndgameManagerTest {
         EndgameManager manager = new EndgameManager(game,player);
 
         // Test if the pattern is found
-        assertEquals(2,manager.findPattern(5,1,cardMatrix));
+        assertEquals(2,manager.findPattern(5,1,cardMatrix, objectiveCard));
 
         //test if the method recognizes that the pattern had already been used to find the objective
-        assertEquals(0, manager.findPattern(4,2,cardMatrix));
+        assertEquals(0, manager.findPattern(4,2,cardMatrix, objectiveCard));
 
         // Test if the pattern checked correctly, by giving a wrong one
-        assertEquals(0, manager.findPattern(3,3,cardMatrix));
+        assertEquals(0, manager.findPattern(3,3,cardMatrix, objectiveCard));
 
     }
 
