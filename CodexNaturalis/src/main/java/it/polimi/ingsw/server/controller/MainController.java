@@ -335,6 +335,7 @@ public class MainController implements Serializable {
                 maxPoints = game.getPlayerList().get(i).getPoints();
                 player = game.getPlayerList().get(i);
             }
+            System.out.println("Player final: " + game.getPlayerList().get(i).getPoints());
         }
 
         if (player != null) {

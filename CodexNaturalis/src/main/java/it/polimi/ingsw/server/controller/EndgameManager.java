@@ -41,17 +41,30 @@ public class EndgameManager {
         }
 
         obj.add(player.getPlayerObjectiveCard());
-        obj.addAll(game.getCommonObjectives());
+        obj.add(game.getCommonObjectives().get(0));
+        obj.add(game.getCommonObjectives().get(1));
 
         //getting the type of the objective (1. cards position -- 2. points for each resource)
         for (ObjectiveCard o : obj) {
             try {
-                return switch (o.getType()) {
-                    case "position" -> objectiveCreator(o);
-                    case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special" ->
-                            resourceCounter(o);
-                    default -> 0;
-                };
+                System.out.println("Objective type and number: " + o.getType() + " " + o.getCardName());
+                switch (o.getType()) {
+                    case "position":
+                        objectiveCreator(o);
+                        break;
+                    case "mushroom":
+                    case "fox":
+                    case "leaf":
+                    case "butterfly":
+                    case "feather":
+                    case "bottle":
+                    case "scroll":
+                    case "special":
+                         resourceCounter(o);
+                         break;
+                    default:
+                        break;
+                }
             } catch (NullPointerException e) {
                 System.err.println("NullPointerException: " + e.getMessage());
             }
