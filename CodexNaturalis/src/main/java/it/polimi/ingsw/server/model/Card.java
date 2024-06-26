@@ -126,14 +126,19 @@ public abstract class Card implements Serializable {
      *
      * @param p the Player object to add resources to
      */
-    public void addResources(Player p) {
-        for (VisibleAngle angle : frontAngles) {
-            if (angle != null) {
-                Symbol symbol = angle.getSymbol();
-                if (symbol != null) {
-                    p.resourceAdding(symbol);
+    public void addResources(Player p, boolean frontSide) {
+        // check if it has to add the front or back resources
+        if (frontSide) {
+            for (VisibleAngle angle : frontAngles) {
+                if (angle != null) {
+                    Symbol symbol = angle.getSymbol();
+                    if (symbol != null) {
+                        p.resourceAdding(symbol);
+                    }
                 }
             }
+        } else {
+            p.resourceAdding(getBackSymbol().getFirst());
         }
     }
 

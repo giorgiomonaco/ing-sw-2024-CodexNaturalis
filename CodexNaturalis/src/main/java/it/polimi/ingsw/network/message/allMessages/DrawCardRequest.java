@@ -10,10 +10,10 @@ import java.util.List;
 
 public class DrawCardRequest extends Message {
 
-    private List<Card> goldCards;
-    private List<Card> resourceCards;
-    private String goldDeck;
-    private String resDeck;
+    private final List<Card> goldCards;
+    private final List<Card> resourceCards;
+    private final String goldDeck;
+    private final String resDeck;
 
     @Override
     public MessageHandler genHandler() {

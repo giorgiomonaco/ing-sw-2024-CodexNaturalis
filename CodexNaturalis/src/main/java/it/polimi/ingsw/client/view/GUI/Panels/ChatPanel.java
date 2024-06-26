@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class ChatPanel extends JPanel {
 
@@ -26,9 +27,12 @@ public class ChatPanel extends JPanel {
     private JPanel chatPanel;
     private JScrollPane scrollPane;
     private Client client;
+    private JComboBox<String> menu;
+    private String destination;
 
     public ChatPanel(Client client) {
         this.client = client;
+        this.destination = "all";
         initComponents();
     }
 
@@ -54,12 +58,32 @@ public class ChatPanel extends JPanel {
         // Writing panel
         writingPanel = new JPanel();
         writingPanel.setLayout(new BorderLayout());
+        String[] players = new String[client.getPlayerList().size()];
+        players[0] = "ALL";
+        int j = 1;
+
+        for (int i = 0; i < client.getPlayerList().size(); i++) {
+            if (!client.getPlayerList().get(i).equals(client.getUsername())) {
+                players[j] = client.getPlayerList().get(i);
+                j++;
+            }
+        }
 
         textField = new JTextField();
         sendButton = new JButton("Send");
+        menu = new JComboBox<>(players);
+
+        menu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                destination = (String) menu.getSelectedItem();
+            }
+        });
 
         writingPanel.add(textField, BorderLayout.CENTER);
         writingPanel.add(sendButton, BorderLayout.EAST);
+        writingPanel.add(menu, BorderLayout.WEST);
+        writingPanel.setOpaque(false);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -79,21 +103,9 @@ public class ChatPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = textField.getText().trim();
-                String destination = null;
                 if (!message.isEmpty()) {
-                    if(!message.startsWith("/")){
+                    if (destination.equals("ALL")) {
                         destination = "all";
-                    } else {
-                        message = message.substring(1).trim();
-                        String[] words = message.split("\\s+");
-                        destination = words[0];
-                        int destLength = words[0].length();
-
-                        if (message.length() > destLength) {
-                            message = message.substring(destLength).trim();
-                        } else {
-                            message = "";
-                        }
                     }
                     try {
                         client.sendMessage(new ChatMessage(client.getUsername(), destination, message));
@@ -110,21 +122,9 @@ public class ChatPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = textField.getText().trim();
-                String destination = null;
                 if (!message.isEmpty()) {
-                    if(!message.startsWith("/")){
+                    if (destination.equals("ALL")) {
                         destination = "all";
-                    } else {
-                        message = message.substring(1).trim();
-                        String[] words = message.split("\\s+");
-                        destination = words[0];
-                        int destLength = words[0].length();
-
-                        if (message.length() > destLength) {
-                            message = message.substring(destLength).trim();
-                        } else {
-                            message = "";
-                        }
                     }
                     try {
                         client.sendMessage(new ChatMessage(client.getUsername(), destination, message));
@@ -181,4 +181,5 @@ public class ChatPanel extends JPanel {
         JScrollBar vertical = scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
     }
+
 }

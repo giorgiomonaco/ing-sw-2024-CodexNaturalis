@@ -34,7 +34,12 @@ public class EndgameManager {
      */
     public int objectivePointsCounter() {
         List<ObjectiveCard> obj = new ArrayList<>();
-        if(player.getPlayerObjectiveCard() == null || game.getCommonObjectives() == null) return 0;
+
+        if(player.getPlayerObjectiveCard() == null || game.getCommonObjectives() == null) {
+            System.err.println("Objectives not found!");
+            return 0;
+        }
+
         obj.add(player.getPlayerObjectiveCard());
         obj.addAll(game.getCommonObjectives());
 
@@ -42,9 +47,9 @@ public class EndgameManager {
         for (ObjectiveCard o : obj) {
             try {
                 return switch (o.getType()) {
-                    case "position" -> objectiveCreator();
+                    case "position" -> objectiveCreator(o);
                     case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special" ->
-                            resourceCounter(o.getType());
+                            resourceCounter(o);
                     default -> 0;
                 };
             } catch (NullPointerException e) {
@@ -57,19 +62,18 @@ public class EndgameManager {
 
 
     // this function analyzes the objective description to find how many occurrences of a same layout happen
-    private int objectiveCreator(){
+    private int objectiveCreator(ObjectiveCard objectiveCard){
         // stage one -- finding the first card basing on its color
-        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
         Boards gameBoard = this.player.getGameBoards();
 
         Card[][] cardMatrix = player.getGameBoards().getGameBoard();
 
 
-        for (int x = 0; x< gameBoard.getMAX_Y(); x++){
-            for (int y = 0; y< gameBoard.getMAX_X(); y++){
+        for (int y = 0; y < gameBoard.getMAX_Y(); y++){
+            for (int x = 0; x < gameBoard.getMAX_X(); x++){
                 if(cardMatrix[x][y] != null && !(cardMatrix[x][y] instanceof InitialCard)) {
-                    if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolName(), objectiveCard.getCard1())) {
-                        return findPattern(x, y, cardMatrix);
+                    if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolColor(), objectiveCard.getCard1())) {
+                        return findPattern(x, y, cardMatrix, objectiveCard);
                     }
                 }
             }
@@ -85,24 +89,24 @@ public class EndgameManager {
      * available resources. <br>It multiplies the points of the player's objective card by  3.
      * <br><br> The "special" resource type is calculated differently than the other resource types.
      *
-     * @param type The type of resource ("mushroom", "leaf", "fox", "butterfly", "feather", "bottle", "scroll", "special").
+     * @param objectiveCard The objective card to check.
      * @return The calculated points based on the specified resource type.
      */
-    private int resourceCounter(String type){
+    private int resourceCounter(ObjectiveCard objectiveCard){
         int[] resources = player.getResourcesAvailable();
-        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
 
-        return switch (type) {
+        return switch (objectiveCard.getType()) {
             case "mushroom" -> (objectiveCard.getPoints() * Math.floorDiv(resources[0], 3));
             case "leaf" -> (objectiveCard.getPoints() * Math.floorDiv(resources[1], 3));
             case "fox" -> (objectiveCard.getPoints() * Math.floorDiv(resources[2], 3));
             case "butterfly" -> (objectiveCard.getPoints() * Math.floorDiv(resources[3], 3));
-            case "feather" -> (objectiveCard.getPoints() * Math.floorDiv(resources[4], 3));
-            case "bottle" -> (objectiveCard.getPoints() * Math.floorDiv(resources[5], 3));
-            case "scroll" -> (objectiveCard.getPoints() * Math.floorDiv(resources[6], 3));
+            case "feather" -> (objectiveCard.getPoints() * Math.floorDiv(resources[4], 2));
+            case "bottle" -> (objectiveCard.getPoints() * Math.floorDiv(resources[5], 2));
+            case "scroll" -> (objectiveCard.getPoints() * Math.floorDiv(resources[6], 2));
             case "special" -> (objectiveCard.getPoints() * specialCounter());
             default -> 0;
         };
+
     }
 
     /**
@@ -111,10 +115,10 @@ public class EndgameManager {
      * @return The calculated points based on special conditions.
      */
     private int specialCounter(){
-        int[] resources = this.player.getResourcesAvailable();
-        int a = Math.floorDiv(resources[4],3);
-        int b = Math.floorDiv(resources[5],3);
-        int c = Math.floorDiv(resources[6],3);
+        int[] resources = player.getResourcesAvailable();
+        int a = resources[4];
+        int b = resources[5];
+        int c = resources[6];
         return (findMin(a,b,c));
     }
 
@@ -140,12 +144,15 @@ public class EndgameManager {
      * @param cardMatrix The matrix of cards where the pattern is checked.
      * @return The points assigned to the player if the objective pattern is found; otherwise, returns 0.
      */
-    int findPattern(int x, int y, Card[][] cardMatrix){
-        ObjectiveCard objectiveCard = this.player.getPlayerObjectiveCard();
+    int findPattern(int x, int y, Card[][] cardMatrix, ObjectiveCard objectiveCard){
+
+        if(cardMatrix[x][y].getCheckedBy().contains(objectiveCard.getCardName())) return 0;
+
+        boolean first = checkDirection( cardMatrix, x, y, objectiveCard.getDirection1(), objectiveCard.getCard2());
+
         int newX = x;
         int newY = y;
-        boolean first = checkDirection( cardMatrix, x, y, objectiveCard.getDirection1(), objectiveCard.getCard2());
-        if(cardMatrix[x][y].getCheckedBy().contains(objectiveCard.getCardName())) return 0;
+
         if (first){
             switch (objectiveCard.getDirection1()) {
                 case "down":
@@ -161,13 +168,15 @@ public class EndgameManager {
                     break;
             }
         }
+
         if(cardMatrix[newX][newY].getCheckedBy().contains(objectiveCard.getCardName())) return 0;
+
         if (checkDirection( cardMatrix, newX, newY, objectiveCard.getDirection2(), objectiveCard.getCard3()) && first) {
+
             updateCheckedByValue(cardMatrix, newX, newY, objectiveCard);
             return (objectiveCard.getPoints());
 
         }
-
 
         return 0;
     }
@@ -189,7 +198,8 @@ public class EndgameManager {
      * @throws IllegalArgumentException if the new position is outside the bounds of the game board.
      */
     boolean checkDirection(Card[][] cardMatrix, int x, int y, String direction, String toCheck) {
-        Boards board = this.player.getGameBoards();
+
+        Boards board = player.getGameBoards();
 
 
         // Determine the new row and col values based on the direction
@@ -213,8 +223,8 @@ public class EndgameManager {
         }
 
         // Check if the new position is within the bounds of the board (use values 5 for MAX_X and MAX_Y if testing)
-        if (newX >= board.getMAX_X() || newX < 0 || newY >= board.getMAX_X() || newY < 0) {
-            throw new IllegalArgumentException("Invalid new position");
+        if (newX >= board.getMAX_X() || newX < 0 || newY >= board.getMAX_Y() || newY < 0) {
+            return false;
         }
 
         // Check if the symbol matches the one to check
@@ -222,6 +232,8 @@ public class EndgameManager {
     }
 
     private void updateCheckedByValue(Card[][] cardMatrix, int x, int y, ObjectiveCard objectiveCard) {
+
+        cardMatrix[x][y].addCheckedBy(objectiveCard.getCardName());
 
         int newX = x;
         int newY = y;

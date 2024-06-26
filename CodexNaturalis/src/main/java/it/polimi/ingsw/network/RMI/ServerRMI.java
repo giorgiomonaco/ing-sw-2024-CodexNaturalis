@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.RMI;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.network.LoginResult;
 import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.network.message.Message;
@@ -57,6 +58,11 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
         } else {
             handlerRMI.manageMessage(msg);
         }
+    }
+
+    @Override
+    public void receivePingFromClient(String username) throws RemoteException {
+        System.out.println(Colors.greenColor + "Received ping from client: " + username + Colors.resetColor);
     }
 
     public void onLogin(LoginRequest request, RMIClientInterface rmiClientInterface) throws RemoteException {

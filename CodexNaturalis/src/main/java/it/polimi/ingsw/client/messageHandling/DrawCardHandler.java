@@ -14,8 +14,8 @@ public class DrawCardHandler implements MessageHandler {
         client.setCurrentState(stateEnum.DRAW_CARD);
         client.setVisibleGoldCards(drawCardRequest.getGoldCards());
         client.setVisibleResourceCards(drawCardRequest.getResourceCards());
-        client.addDeckPath(drawCardRequest.getGoldDeck());
-        client.addDeckPath(drawCardRequest.getResDeck());
+        client.setDeckPath(drawCardRequest.getGoldDeck(), 0);
+        client.setDeckPath(drawCardRequest.getResDeck(), 1);
         client.getUI().run();
 
     }

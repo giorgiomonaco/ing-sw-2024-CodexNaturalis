@@ -187,8 +187,6 @@ public class MainController implements Serializable {
      * Begins the first turn of the game. Skips the turn of disconnected players until a connected player is found
      * or the first turn is ended. Sends a message to the current player with information about available tokens
      * and their selected objective card.
-     *
-     * @return void
      */
     public void beginFirstTurn(){
 
@@ -230,7 +228,7 @@ public class MainController implements Serializable {
 
         // check if it has to start the last turn
         if(game.getGameState().equals(gameStateEnum.START) &&
-                (currPlayer.getPlayerPoints() >= 20 ||
+                (currPlayer.getPlayerPoints() >= 10 ||
                         game.getResourceDeck().isEmpty() ||
                         game.getGoldDeck().isEmpty())) {
             finalPlayerIndex = currPlayerIndex;
@@ -323,8 +321,12 @@ public class MainController implements Serializable {
      * Prints the winner's name and exits the program.
      */
     public void endGame(){
+
+        game.setGameState(gameStateEnum.END);
+
         Player player = null;
         int maxPoints = 0;
+
         for (int i = 0; i < game.getUserList().size(); i++) {
             EndgameManager endgameManager = new EndgameManager(game, game.getPlayerList().get(i));
             game.getPlayerList().get(i).addPoints(endgameManager.objectivePointsCounter());
@@ -334,12 +336,12 @@ public class MainController implements Serializable {
                 player = game.getPlayerList().get(i);
             }
         }
+
         if (player != null) {
-            serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true, player.getPlayerName()));
-            serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false, player.getPlayerName()));
+            serverHandler.sendMessageToPlayer(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, true, player.getPlayerName(), game.getPlayersPoint()));
+            serverHandler.sendMessageToAllExcept(player.getPlayerName(), new ShowWinnerMessage(ServerHandler.HOSTNAME, false, player.getPlayerName(), game.getPlayersPoint()));
             System.out.println(Colors.greenColor + "THE WINNER IS " + player.getPlayerName() + Colors.resetColor);
         }
-
 
     }
 
@@ -432,12 +434,15 @@ public class MainController implements Serializable {
         game.getCurrentPlayer().removeCardFromHand(card);
         game.getCurrentPlayer().setTurn(card.getTurn()/10);
         playCard(card, x, y, side);
-        if (card instanceof ResourceCard) {
-            game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
-        }
-        else if (card instanceof GoldCard goldCard) {
-            //checks all the possible conditions for getting points
-            game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
+
+        // Add points only if the card is up front
+        if (side) {
+            if (card instanceof ResourceCard) {
+                game.getCurrentPlayer().addPoints(((ResourceCard) card).getCardPoints());
+            } else if (card instanceof GoldCard goldCard) {
+                //checks all the possible conditions for getting points
+                game.getCurrentPlayer().addGoldCardPoints(goldCard, x, y);
+            }
         }
 
     }
@@ -465,7 +470,7 @@ public class MainController implements Serializable {
 
         game.getCurrentPlayer().getGameBoards().setGameBoardXY(x, y, card);
         game.getCurrentPlayer().getGameBoards().setCheckBoardXY(x, y, 1);
-        card.addResources(game.getCurrentPlayer());
+        card.addResources(game.getCurrentPlayer(), side);
 
         updateBoxes(card, x, y, side);
         updatePlayerResources(x, y, game.getCurrentPlayer().getGameBoards().getGameBoard());
@@ -598,6 +603,7 @@ public class MainController implements Serializable {
             }
         }
     }
+
     /**
      * Checks if the given username is the current player and if so, initiates the next turn.
      *

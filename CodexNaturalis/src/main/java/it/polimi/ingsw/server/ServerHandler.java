@@ -13,6 +13,7 @@ import it.polimi.ingsw.network.message.messEnum;
 import it.polimi.ingsw.server.controller.GameStopper;
 import it.polimi.ingsw.server.controller.MainController;
 import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.gameStateEnum.gameStateEnum;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -21,7 +22,6 @@ import java.util.List;
 public class ServerHandler {
     private ServerRMI rmiServer;
     private ServerTCP tcpServer;
-    private final ServerNetwork configBase;
     public static String HOSTNAME = "Server";
     public final Map<String, ClientConnection> connectedClients;
     private MainController mainController;
@@ -32,7 +32,7 @@ public class ServerHandler {
     private final Pinger pinger;
     private GameStopper gameStopper;
     // Timeout for the game when only one player remain connected.
-    public static int TIMEOUT = 30;
+    public static int TIMEOUT = 60;
     private boolean stop;
 
     /**
@@ -40,7 +40,7 @@ public class ServerHandler {
      * @param data the configuration of the server
      */
     public ServerHandler(ServerNetwork data) {
-        this.configBase = data;
+
         connectedClients = new HashMap<>();
         waitingLobby = new ArrayList<>();
         creatingLobby = false;
@@ -49,8 +49,8 @@ public class ServerHandler {
         stop = false;
 
         try {
-            rmiServer = new ServerRMI(configBase, this);
-            tcpServer = new ServerTCP(configBase, this);
+            rmiServer = new ServerRMI(data, this);
+            tcpServer = new ServerTCP(data, this);
         } catch (RemoteException e) {
             System.err.println("Unable to create a new server, maybe one is already running.");
         }
@@ -77,12 +77,12 @@ public class ServerHandler {
      *   <li><b>SELECTION_NUM_PLAYERS</b>: Initializes the game if it hasn't started yet.
      *       Creates a main controller, assigns players, and manages waiting and connected clients.</li>
      *   <li><b>SELECTION_TOKEN</b>: Sets the token selected by a player and updates the game's available tokens.</li>
-     *   <li><b>SELECTION_FIRSTCARD</b>: Handles the initial card side selection by a player and prompts for the next action.</li>
+     *   <li><b>SELECTION_FIRST_CARD</b>: Handles the initial card side selection by a player and prompts for the next action.</li>
      *   <li><b>SELECTION_OBJECTIVE</b>: Sets the objective card selected by a player and manages the turn order.</li>
      *   <li><b>SELECTION_CARD</b>: Processes the selection of a card during the game and progresses the game state.</li>
      *   <li><b>DRAW_CARD_RESPONSE</b>: Manages the response after a player draws a card and ends the turn.</li>
      *   <li><b>PING</b>: Processes a ping message to keep the connection alive.</li>
-     *   <li><b>CHATMSG</b>: Handles chat messages, updating the chat between players.</li>
+     *   <li><b>CHAT_MSG</b>: Handles chat messages, updating the chat between players.</li>
      * </ul>
      */
 
@@ -131,7 +131,7 @@ public class ServerHandler {
                 }
                 break;
 
-            case SELECTION_FIRSTCARD:
+            case SELECTION_FIRST_CARD:
                 synchronized (controllerLock) {
                     SelectionFirstCardSide selFirstSide = (SelectionFirstCardSide) msg;
                     mainController.initialCardSideSelection(fromStringToBool(selFirstSide.getSelection()));
@@ -167,7 +167,7 @@ public class ServerHandler {
             case PING:
                 pinger.loadMessage(msg);
                 break;
-            case messEnum.CHATMSG:
+            case messEnum.CHAT_MSG:
                 synchronized (controllerLock) {
                     ChatMessage chatMsg = (ChatMessage) msg;
                     String destination = chatMsg.getDestination();
@@ -357,21 +357,16 @@ public class ServerHandler {
      */
 
     public void playerDisconnection(ClientConnection client){
-        System.out.println(Colors.redColor+ "Disconnection of a client..." + Colors.resetColor);
-        String name = null;
+
+        System.out.println(Colors.redColor + "Disconnection of a client..." + Colors.resetColor);
+        String name = client.getUsername();
 
         synchronized (connectedClients) {
             // check if the client is actually connected
-            if (connectedClients.containsValue(client)) {
-                //search the nickname of the client
-                for (String user : connectedClients.keySet()) {
-                    if (connectedClients.get(user).equals(client)) {
-                        name = user;
-                        connectedClients.get(user).setConnected(false);
-                        System.out.println(Colors.redColor + user + " is now disconnected!" + Colors.resetColor);
-                        break;
-                    }
-                }
+            if (connectedClients.get(name).isConnected()) {
+                // set the client disconnected
+                connectedClients.get(name).setConnected(false);
+                System.out.println(Colors.redColor + name + " is now disconnected!" + Colors.resetColor);
             } else {
                 System.out.println(Colors.redColor + "The client was already disconnected." + Colors.resetColor);
                 return;
@@ -386,23 +381,24 @@ public class ServerHandler {
             } else {
                 mainController.playerDisconnect(name);
 
-                int count = 0;
-                synchronized (connectedClients) {
-                    for (String user : connectedClients.keySet()) {
-                        if (connectedClients.get(user).isConnected()) {
-                            count = count + 1;
+                if (!mainController.getGame().getGameState().equals(gameStateEnum.END)) {
+                    int count = 0;
+                    synchronized (connectedClients) {
+                        for (String user : connectedClients.keySet()) {
+                            if (connectedClients.get(user).isConnected()) {
+                                count = count + 1;
+                            }
                         }
                     }
-                }
-                if(count == 0) {
-                    System.out.println(Colors.redColor + "The server is closing because no one is connected anymore." + Colors.resetColor);
-                    System.exit(0);
-                }
-                else if(count == 1) {
-                    stop = true;
-                    gameStopper.start();
-                } else {
-                    mainController.checkNextTurnForDisconnection(name);
+                    if (count == 0) {
+                        System.out.println(Colors.redColor + "The server is closing because no one is connected anymore." + Colors.resetColor);
+                        System.exit(0);
+                    } else if (count == 1) {
+                        stop = true;
+                        gameStopper.start();
+                    } else {
+                        mainController.checkNextTurnForDisconnection(name);
+                    }
                 }
             }
         }
@@ -422,7 +418,7 @@ public class ServerHandler {
         synchronized (connectedClients) {
             for (String name : connectedClients.keySet()) {
                 if (connectedClients.get(name).isConnected()) {
-                    sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, name));
+                    sendMessageToAll(new ShowWinnerMessage(HOSTNAME, true, name, null));
                     System.out.println(Colors.greenColor + "THE WINNER IS " + name.toUpperCase() + Colors.resetColor);
                     pinger.interrupt();
                     break;

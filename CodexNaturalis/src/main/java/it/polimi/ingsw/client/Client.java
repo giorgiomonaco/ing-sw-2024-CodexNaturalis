@@ -26,7 +26,7 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     private ObjectiveCard objective;
     private List<ObjectiveCard> commonObjectives = new ArrayList<>();
     private List<String> availableTokens = new ArrayList<>();
-    private List<String> deckPath = new ArrayList<>();
+    private String[] deckPath = new String[2];
     private Boards boards;
     private Card[][][] gameBoards = new Card[4][][];
     private int[] resources;
@@ -44,12 +44,17 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     // parameter only needed to stamp correctly the card in gui
     private int turn;
 
-
-
     protected Client(int turn) throws RemoteException {
         this.turn = 2;
     }
 
+    public void manageMessage(Message msg) throws RemoteException {
+        if(msg.getType().equals(messEnum.PING)){
+            sendMessage(new PingMessage(username));
+        } else {
+            callHandler(msg);
+        }
+    }
 
     public stateEnum getCurrentState() {
         return currentState;
@@ -75,14 +80,6 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public String getUsername() {
         return username;
-    }
-
-    public void manageMessage(Message msg) throws RemoteException {
-        if(msg.getType().equals(messEnum.PING)){
-            sendMessage(new PingMessage(username));
-        } else {
-            callHandler(msg);
-        }
     }
 
     public void callHandler(Message msg){
@@ -195,11 +192,12 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
         this.serverLastMessage = serverLastMessage;
     }
 
-    public void addDeckPath(String deckPath) {
-        this.deckPath.add(deckPath);
+
+    public void setDeckPath(String deckPath, int i) {
+        this.deckPath[i] = deckPath;
     }
 
-    public List<String> getDeckPath() {
+    public String[] getDeckPath() {
         return deckPath;
     }
 

@@ -9,10 +9,6 @@ public class PingMessage extends Message {
         super(messEnum.PING, senderUsername);
     }
 
-    public PingMessage(String senderUsername, String optDescription) {
-        super(messEnum.PING, senderUsername, optDescription);
-    }
-
     @Override
     public MessageHandler genHandler() {
         return null;
