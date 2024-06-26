@@ -187,8 +187,6 @@ public class MainController implements Serializable {
      * Begins the first turn of the game. Skips the turn of disconnected players until a connected player is found
      * or the first turn is ended. Sends a message to the current player with information about available tokens
      * and their selected objective card.
-     *
-     * @return void
      */
     public void beginFirstTurn(){
 

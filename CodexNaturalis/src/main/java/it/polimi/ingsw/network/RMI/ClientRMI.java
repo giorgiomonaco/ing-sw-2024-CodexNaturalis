@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.RMI;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.network.message.Message;
 
 import java.rmi.NotBoundException;
@@ -20,6 +21,7 @@ public class ClientRMI extends Client implements RMIClientInterface {
     static String serverIP;
     static String registry;
     private RMIServerInterface stub;
+    private RMIClientPinger pinger;
 
 
     /**
@@ -76,7 +78,15 @@ public class ClientRMI extends Client implements RMIClientInterface {
     @Override
     public void sendMessage(Message msg) {
         try {
+
+            if(pinger == null) {
+                pinger = new RMIClientPinger(stub, this);
+                pinger.start();
+                System.out.println(Colors.greenColor + "Start pinging the server." + Colors.resetColor);
+            }
+
             stub.receiveFromClient(msg, this);
+
         } catch (RemoteException e) {
             // Lost connection with the server
             manageDisconnection();

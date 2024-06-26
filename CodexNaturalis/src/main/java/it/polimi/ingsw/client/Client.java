@@ -44,12 +44,17 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
     // parameter only needed to stamp correctly the card in gui
     private int turn;
 
-
-
     protected Client(int turn) throws RemoteException {
         this.turn = 2;
     }
 
+    public void manageMessage(Message msg) throws RemoteException {
+        if(msg.getType().equals(messEnum.PING)){
+            sendMessage(new PingMessage(username));
+        } else {
+            callHandler(msg);
+        }
+    }
 
     public stateEnum getCurrentState() {
         return currentState;
@@ -75,14 +80,6 @@ public abstract class Client extends UnicastRemoteObject implements Serializable
 
     public String getUsername() {
         return username;
-    }
-
-    public void manageMessage(Message msg) throws RemoteException {
-        if(msg.getType().equals(messEnum.PING)){
-            sendMessage(new PingMessage(username));
-        } else {
-            callHandler(msg);
-        }
     }
 
     public void callHandler(Message msg){

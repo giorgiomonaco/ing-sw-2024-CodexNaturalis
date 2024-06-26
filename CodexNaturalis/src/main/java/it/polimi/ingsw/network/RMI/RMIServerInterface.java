@@ -14,4 +14,6 @@ public interface RMIServerInterface extends Remote {
 
     void receiveFromClient(Message msg, RMIClientInterface rmiClientInterface) throws RemoteException;
 
+    void receivePingFromClient(String username) throws RemoteException;
+
 }
