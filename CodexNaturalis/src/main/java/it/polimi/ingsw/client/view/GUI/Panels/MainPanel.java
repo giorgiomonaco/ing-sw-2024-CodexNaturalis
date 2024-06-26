@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionCard;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.GoldCard;
@@ -14,7 +15,7 @@ import java.rmi.RemoteException;
 
 public class MainPanel extends JPanel {
 
-    private Client client;
+    private final Client client;
     private GridBagConstraints gbc;
     private ChatPanel chat;
     private PersonalBoardPanel board;
@@ -56,7 +57,7 @@ public class MainPanel extends JPanel {
                 System.err.println("Background image not found");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Couldn't access resources");
         }
 
         createElements();
@@ -216,7 +217,7 @@ public class MainPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide()) && mp.isYourTurn() && !mp.isStop()) {
+            if ((mp.getxCoord() != -1) && (mp.getyCoord() != -1) && (mp.getCard() != null) && availableResources(mp.getCard(), mp.isSide()) && mp.isYourTurn() && !mp.isStop() && client.getCurrentState().equals(stateEnum.PLAY_CARD)) {
                 try {
 
                     // set the turn of the placement of the card for the correct placement on the layered pane
