@@ -71,8 +71,9 @@ public class EndgameManager {
 
     // this function analyzes the objective description to find how many occurrences of a same layout happen
     private int objectiveCreator(ObjectiveCard objectiveCard){
+        int result = 0;
         // stage one -- finding the first card basing on its color
-        Boards gameBoard = this.player.getGameBoards();
+        Boards gameBoard = player.getGameBoards();
 
         Card[][] cardMatrix = player.getGameBoards().getGameBoard();
 
@@ -81,14 +82,14 @@ public class EndgameManager {
             for (int x = 0; x < gameBoard.getMAX_X(); x++){
                 if(cardMatrix[x][y] != null && !(cardMatrix[x][y] instanceof InitialCard)) {
                     if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolColor(), objectiveCard.getCard1())) {
-                        return findPattern(x, y, cardMatrix, objectiveCard);
+                        result = findPattern(x, y, cardMatrix, objectiveCard);
                     }
                 }
             }
         }
 
 
-        return 0;
+        return result;
     }
 
 
