@@ -231,7 +231,7 @@ public class EndgameManager {
         }
 
         // Check if the new position is within the bounds of the board (use values 5 for MAX_X and MAX_Y if testing)
-        if (newX >= board.getMAX_X() || newX < 0 || newY >= board.getMAX_Y() || newY < 0) {
+        if (newX >= board.getMAX_X() || newX < 0 || newY >= board.getMAX_Y() || newY < 0 || cardMatrix[newX][newY] == null) {
             return false;
         }
 
