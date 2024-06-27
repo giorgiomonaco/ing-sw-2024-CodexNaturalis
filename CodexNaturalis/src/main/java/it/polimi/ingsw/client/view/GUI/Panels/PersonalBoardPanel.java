@@ -33,14 +33,15 @@ public class PersonalBoardPanel extends JPanel {
     public PersonalBoardPanel(Client client, MainPanel mainPanel) {
         this.client = client;
         this.mainPanel = mainPanel;
-        initializeBackgroundImage();
+        //initializeBackgroundImage();
+
         initializeBoard();
     }
 
     private void initializeBackgroundImage() {
         try {
             ClassLoader cl = this.getClass().getClassLoader();
-            InputStream is = cl.getResourceAsStream("images/backGround.png");
+            InputStream is = cl.getResourceAsStream("images/alternativeBackground.jpg");
             if (is != null) {
                 backgroundImage = ImageIO.read(is);
             } else {
@@ -59,7 +60,10 @@ public class PersonalBoardPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane to hold the cards
-        layeredPane = new JLayeredPane() {
+
+        layeredPane = new JLayeredPane();
+        layeredPane.setBackground(new Color(190, 118, 56, 255));
+        /* {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -68,6 +72,8 @@ public class PersonalBoardPanel extends JPanel {
                 }
             }
         };
+
+         */
         layeredPane.setPreferredSize(new Dimension((int) (cols * (CARD_X + GAP_X)), (int) (rows * (CARD_Y + GAP_Y))));
         layeredPane.setOpaque(true);
         ClassLoader cl = this.getClass().getClassLoader();
