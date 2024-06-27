@@ -64,7 +64,7 @@ public class PersonalBoardPanel extends JPanel {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, (int) (20 * (CARD_X + GAP_X)), (int) (20 * (CARD_Y + GAP_Y)), 7073, 3650, this);
+                    g.drawImage(backgroundImage,0, 0, getWidth(), getHeight(), this);
                 }
             }
         };

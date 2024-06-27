@@ -40,6 +40,7 @@ public class LegendPanel extends JPanel {
         //Prepare vars for placement of elements into the panel
         int currentX = 0;
         int currentY = 0;
+        gbc.insets = new Insets(0, 5, 0, 5);
         //for every token
         for (int i = 0; i < tokenList.size(); i++) {
             //we create a JLabel to be placed in the legend
