@@ -51,7 +51,7 @@ public class EndGamePanel extends JPanel {
         winnerAndTrackerPanel.setOpaque(false);
 
         System.out.println("the winner is: " + winner);
-        JLabel text = new JLabel("<html><div style='text-align: center;'>THE WINNER IS:<br>" + winner + "<div></html>", SwingConstants.CENTER);
+        JLabel text = new JLabel("<html><div style='text-align: center;'>THE WINNER IS:<br>" + winner.toUpperCase() + "<div></html>", SwingConstants.CENTER);
         text.setFont(new Font("San Francisco", Font.BOLD, 25));
         text.setForeground(Color.BLACK);
         text.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,24 +101,7 @@ public class EndGamePanel extends JPanel {
             e.printStackTrace();
         }
     }
-/*
-    private void paintPanel(){
-        try {
-            ClassLoader cl = this.getClass().getClassLoader();
-            InputStream is = cl.getResourceAsStream("images/backGround2.png");
-            if (is != null) {
-                backgroundImage = ImageIO.read(is);
-            } else {
-                System.err.println("Background image not found");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-
-    }
-
- */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

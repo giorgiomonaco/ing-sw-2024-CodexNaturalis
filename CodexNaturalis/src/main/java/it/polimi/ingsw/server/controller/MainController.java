@@ -228,7 +228,7 @@ public class MainController implements Serializable {
 
         // check if it has to start the last turn
         if(game.getGameState().equals(gameStateEnum.START) &&
-                (currPlayer.getPlayerPoints() >= 10 ||
+                (currPlayer.getPlayerPoints() >= 20 ||
                         game.getResourceDeck().isEmpty() ||
                         game.getGoldDeck().isEmpty())) {
             finalPlayerIndex = currPlayerIndex;

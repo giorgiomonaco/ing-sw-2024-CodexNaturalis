@@ -14,7 +14,7 @@ public class RulesFrame extends JFrame {
     private static final int FRAME_X = 550;
     private static final int FRAME_Y = 550;
     private static final int BUTTONS_HEIGHT = 75;
-    private static final int NUM_RULE_PAGES = 10;
+    private static final int NUM_RULE_PAGES = 9;
 
     private Client client;
     private JPanel rulesContainerPanel;
@@ -28,7 +28,7 @@ public class RulesFrame extends JFrame {
         this.client = c;
         setTitle("GAME RULES");
         setSize(new Dimension(FRAME_X, FRAME_Y));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         //retrieve images from the server
