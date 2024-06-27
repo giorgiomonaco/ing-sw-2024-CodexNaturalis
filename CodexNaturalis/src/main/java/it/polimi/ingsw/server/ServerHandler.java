@@ -271,17 +271,6 @@ public class ServerHandler {
             } else {
                 // Reconnection of a known player
                 if (!connectedClients.get(username).isConnected()) {
-                    // Check if the game is in STOP phase
-                    if(stop){
-                        // We interrupt the thread and we create a new one
-                        gameStopper.interrupt();
-                        gameStopper = new GameStopper(this);
-                        stop = false;
-                        synchronized (controllerLock) {
-                            mainController.beginTurn();
-                        }
-                    }
-
                     // Update with the new connection
                     connectedClients.replace(username, connectedClients.get(username), connection);
                     connection.setUsername(username);
@@ -301,6 +290,18 @@ public class ServerHandler {
                                         mainController.getGame().getPlayersToken(),
                                         p.getChat()));
                     }
+
+                    // Check if the game is in STOP phase
+                    if(stop){
+                        // We interrupt the thread and we create a new one
+                        gameStopper.interrupt();
+                        gameStopper = new GameStopper(this);
+                        stop = false;
+                        synchronized (controllerLock) {
+                            mainController.beginTurn();
+                        }
+                    }
+
                     logged = true;
                     reconnected = true;
                 } else {
