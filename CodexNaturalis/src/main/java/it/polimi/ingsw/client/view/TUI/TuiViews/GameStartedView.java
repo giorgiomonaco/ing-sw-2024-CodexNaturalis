@@ -35,9 +35,9 @@ public class GameStartedView implements TuiView{
                 "\n             Here are the points you will receive by placing the card" +
                 "\n                                       |" +
                 "\n                                       v " +
-                "\nempty angle, you can cover it ->  E====2===="+color.greenColor+"L"+color.resetColor+" <- L means Leaf, a resource! Collect them!" +
+                "\nempty angle, you can cover it ->  E====2====L <- L means Leaf, a resource! Collect them!" +
                 "\n                                  |         |" +
-                "\n                                  |   ORA   | <- color of the card" +
+                "\n                                  |   "+color.orangeColor+"ORA"+color.resetColor+"   | <- color of the card" +
                 "\n                                  |         |" +
                 "\n        objective item, scroll -> s===FFF===X <- X means you won't be able to place a card upon" +
                 "\n                                       ^" +
@@ -51,10 +51,10 @@ public class GameStartedView implements TuiView{
     private void Legend() {
         Colors color = new Colors();
         System.out.println("\nHere is the legend:" +
-                "\n      resources:  |"+color.orangeColor+"M"+color.resetColor+" -> MUSHROOM                  "+color.purpleColor+"B"+color.resetColor+" -> BUTTERFLY               " +
-                "\n                  |"+color.blueColor+"F"+color.resetColor+" -> FOX                       "+color.greenColor+"L"+color.resetColor+" -> LEAF                      " +
+                "\n      resources:  |M -> MUSHROOM                  B -> BUTTERFLY               " +
+                "\n                  |F -> FOX                       L -> LEAF                      " +
                 "\n" +
-                "\nobjectives item:  s -> SCROLL             b -> BOTTLE           f -> fether" +
+                "\nobjectives item:  s -> SCROLL             b -> BOTTLE           f -> FEATHER" +
                 "\n" +
                 "\nX -> NO angol (not coveralbe)        E -> EMPTY angol (coverable)" +
                 "\n" +
