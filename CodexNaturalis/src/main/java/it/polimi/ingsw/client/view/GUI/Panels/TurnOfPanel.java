@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.GUI.Frames.BoardFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

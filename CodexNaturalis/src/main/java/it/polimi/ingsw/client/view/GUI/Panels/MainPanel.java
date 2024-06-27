@@ -1,9 +1,11 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
+
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.network.message.allMessages.SelectionCard;
 import it.polimi.ingsw.server.model.Card;
 import it.polimi.ingsw.server.model.GoldCard;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

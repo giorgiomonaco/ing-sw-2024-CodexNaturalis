@@ -1,9 +1,12 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.server.model.Card;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -19,6 +22,8 @@ public class BoardPanel extends JPanel {
     int cols = 100;
     private Image backgroundImage;
     private Card[][] gameBoard;
+
+    private MouseAdapter mouseAdapter;
 
 
     public BoardPanel(Card[][] gameBoard) {
@@ -112,8 +117,46 @@ public class BoardPanel extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
+        //Add the possibility to drag the panel with mouse -> mouse adapter
+        addDragToScrollPane();
+
         // Add the JScrollPane to the BoardPanel
         add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private void addDragToScrollPane(){
+        mouseAdapter = new MouseAdapter() {
+            private Point lastPoint;
+            private boolean dragging = false;
+            @Override
+            public void mousePressed(MouseEvent e) {
+                lastPoint = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), layeredPane);
+                dragging = false;
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                Point point = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), layeredPane);
+                JViewport viewport = scrollPane.getViewport();
+                Point viewPosition = viewport.getViewPosition();
+                viewPosition.translate(lastPoint.x - point.x, lastPoint.y - point.y);
+                layeredPane.scrollRectToVisible(new Rectangle(viewPosition, viewport.getSize()));
+                lastPoint = point;
+                dragging = true;
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                if (dragging) {
+                    // Consume the event if dragging
+                    e.consume();
+                }
+            }
+        };
+
+
+        //now we add the listeners to the scrollpane
+        scrollPane.getViewport().addMouseListener(mouseAdapter);
+        scrollPane.getViewport().addMouseMotionListener(mouseAdapter);
     }
 
     public void scrollToMiddle() {

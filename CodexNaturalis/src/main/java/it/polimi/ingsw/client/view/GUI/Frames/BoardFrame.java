@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.GUI.Frames;
 
 import it.polimi.ingsw.client.view.GUI.Panels.BoardPanel;
 import it.polimi.ingsw.server.model.Card;
+
 import javax.swing.*;
 import java.awt.*;
 

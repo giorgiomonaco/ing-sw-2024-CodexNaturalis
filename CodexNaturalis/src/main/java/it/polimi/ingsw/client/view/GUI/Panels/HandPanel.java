@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
+
 import it.polimi.ingsw.client.Client;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

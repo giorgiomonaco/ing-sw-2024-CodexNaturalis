@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.view.GUI.Panels;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class BackGroundPanel extends JPanel {
 
