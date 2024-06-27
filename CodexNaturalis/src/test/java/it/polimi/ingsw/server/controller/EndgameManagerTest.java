@@ -11,10 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EndgameManagerTest {
 
-
-
-
-
     private Game game = new Game(1);
     private Player player = new Player("tom");
     private final Boards board = new Boards();
@@ -25,7 +21,20 @@ class EndgameManagerTest {
         game = new Game(1);
         player = new Player("tom");
         endgameManager = new EndgameManager(game, player);
+
+        List<ObjectiveCard> common = new ArrayList<>();
+
+        ObjectiveCard objectiveCard1 = new ObjectiveCard( 1, 2, "pos", "green", "down-left", "green", "down-left", "green", null);
+        ObjectiveCard objectiveCard2 = new ObjectiveCard( 1, 2, "pos", "green", "down-left", "green", "down-left", "green", null);
+
+        common.add(objectiveCard1);
+        common.add(objectiveCard2);
+        game.setCommonObjectives(common);
+
+        player.setBoards(board);
+
     }
+
     private static class Leaf extends Symbol {
         public Leaf() {
             super("leaf", "resource");
@@ -59,7 +68,6 @@ class EndgameManagerTest {
     void testResourceCounterWithNullResources() {
         for (int i = 0; i < 7; i++) {
             player.setResource(i, 0);
-
         }
         ObjectiveCard objectiveCard = new ObjectiveCard(1, 2, "position", "purple", "down-left", "purple", "down-left", "purple", null);
         player.setObjectiveCard(objectiveCard);
@@ -107,15 +115,15 @@ class EndgameManagerTest {
 
         // Populate the matrix
         cardMatrix[1][1] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
-        cardMatrix[1][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[1][3] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[1][4] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+        cardMatrix[1][5] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
 
         EndgameManager manager = new EndgameManager(game,player);
 
         assertTrue(manager.checkDirection( cardMatrix, 1, 1, "down", "green"));
-        assertTrue(manager.checkDirection( cardMatrix, 1, 2, "down", "green"));
-        assertFalse(manager.checkDirection( cardMatrix, 1, 3, "down", "green"));
+        assertFalse(manager.checkDirection( cardMatrix, 1, 2, "down", "green"));
+        assertTrue(manager.checkDirection( cardMatrix, 1, 3, "down", "green"));
     }
 
 
@@ -189,7 +197,6 @@ class EndgameManagerTest {
 
     @Test
     void testCheckDirectionOut() {
-        player.setBoards(board);
         Card[][] cardMatrix = new Card[6][6]; // Example matrix size
 
         Symbol symbol1 = new Leaf();
@@ -216,20 +223,27 @@ class EndgameManagerTest {
 
         EndgameManager manager = new EndgameManager(game,player);
 
-        assertThrowsExactly( IllegalArgumentException.class, () -> manager.checkDirection( cardMatrix, 1, 99, "down", "green"));
-        assertThrowsExactly( IllegalArgumentException.class, () ->manager.checkDirection( cardMatrix, 99, 2, "down-right", "green"));
-        assertThrowsExactly( IllegalArgumentException.class, () ->manager.checkDirection( cardMatrix, 0, 3, "down-left", "green"));
+        assertFalse(manager.checkDirection( cardMatrix, 1, 99, "down", "green"));
+        assertFalse(manager.checkDirection( cardMatrix, 99, 2, "down-right", "green"));
+        assertFalse(manager.checkDirection( cardMatrix, 0, 3, "down-left", "green"));
     }
 
 
     /**
-     *  Test the full sequence of checking directions, and assigning points
+     *  Test the full sequence of diagonal objectives checking directions, and assigning points
      */
     @Test
-    void testFullSequence() {
+    void testDiagonalObj() {
         player.setBoards(board);
+        Card [][] cardMatrix = player.getGameBoards().getGameBoard();
+        List<ObjectiveCard> common = new ArrayList<>();
+
         ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "position", "green", "down-left", "green", "down-left", "green", null);
-        Card[][] cardMatrix = new Card[6][6]; // Example matrix size
+        ObjectiveCard objectiveCard1 = new ObjectiveCard( 1, 2, "pos", "green", "down-left", "green", "down-left", "green", null);
+        ObjectiveCard objectiveCard2 = new ObjectiveCard( 1, 2, "pos", "green", "down-left", "green", "down-left", "green", null);
+
+        common.add(objectiveCard1);
+        common.add(objectiveCard2);
 
         Symbol symbol1 = new Leaf();
         Symbol symbol2 = new Butterfly();
@@ -246,9 +260,10 @@ class EndgameManagerTest {
         List<Symbol> secondList = new ArrayList<>();
         secondList.add(symbol2);
         player.setObjectiveCard(objectiveCard);
+        game.setCommonObjectives(common);
 
 
-        // Populate the matrix
+        // Populate the matrix with four green cards and one purple card in diagonal : 2 points expected
         cardMatrix[5][1] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[4][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][3] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
@@ -257,15 +272,102 @@ class EndgameManagerTest {
 
         EndgameManager manager = new EndgameManager(game,player);
 
-        // Test if the pattern is found
-        assertEquals(2,manager.findPattern(5,1,cardMatrix, objectiveCard));
+        // Test that he recognize only one pattern
+        assertEquals(2, manager.objectivePointsCounter());
 
-        //test if the method recognizes that the pattern had already been used to find the objective
-        assertEquals(0, manager.findPattern(4,2,cardMatrix, objectiveCard));
+        // Populate the matrix with five green cards in diagonal : 2 points expected
+        cardMatrix[5][1] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[4][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][3] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[1][5] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
 
-        // Test if the pattern checked correctly, by giving a wrong one
-        assertEquals(0, manager.findPattern(3,3,cardMatrix, objectiveCard));
+        // Test that he recognize only one pattern
+        assertEquals(2, manager.objectivePointsCounter());
 
+        // Populate the matrix with six green cards in diagonal : 4 points expected
+        cardMatrix[5][1] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[4][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][3] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[1][5] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[0][6] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+
+        // Test that he recognize two patterns
+        assertEquals(4, manager.objectivePointsCounter());
+    }
+
+
+    /**
+     *  Test the full sequence of L objectives checking directions, and assigning points
+     */
+    @Test
+    void testLObj() {
+        player.setBoards(board);
+        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 3, "position", "green", "down", "green", "down-left", "purple", null);
+        ObjectiveCard objectiveCard1 = new ObjectiveCard( 1, 2, "pos", "green", "down-left", "green", "down-left", "green", null);
+        ObjectiveCard objectiveCard2 = new ObjectiveCard( 1, 2, "pos", "green", "down-left", "green", "down-left", "green", null);
+
+        Card [][] cardMatrix = player.getGameBoards().getGameBoard();
+        List<ObjectiveCard> common = new ArrayList<>();
+        common.add(objectiveCard1);
+        common.add(objectiveCard2);
+
+        Symbol symbol1 = new Leaf();
+        Symbol symbol2 = new Butterfly();
+        VisibleAngle[] frontAngles = new VisibleAngle[4];
+        VisibleAngle[] backAngles = new VisibleAngle[4];
+        for (int i = 0; i <4 ; i++) {
+            frontAngles[i] = new VisibleAngle(symbol1);
+            backAngles[i] = new VisibleAngle(null);
+        }
+
+        List<Symbol> myList = new ArrayList<>();
+        myList.add(symbol1);
+
+        List<Symbol> secondList = new ArrayList<>();
+        secondList.add(symbol2);
+        player.setObjectiveCard(objectiveCard);
+        game.setCommonObjectives(common);
+        EndgameManager manager = new EndgameManager(game,player);
+
+        // Populate the matrix with four green cards and one purple card in diagonal : 3 points expected
+        cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][5] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+
+        // Test that he recognize only one pattern
+        assertEquals(3, manager.objectivePointsCounter());
+
+        // Populate the matrix with five green cards in diagonal : 3 points expected
+        cardMatrix[3][0] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][5] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+
+        // Test that he recognize only one pattern
+        assertEquals(3, manager.objectivePointsCounter());
+
+        // Populate the matrix with six green cards in diagonal : 3 points expected
+        cardMatrix[3][0] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][3] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+        cardMatrix[3][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][5] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+
+        // Test that he recognize only one pattern
+        assertEquals(3, manager.objectivePointsCounter());
+
+        // Populate the matrix with six green cards in diagonal : 6 points expected
+        cardMatrix[3][0] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][3] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+        cardMatrix[3][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[3][6] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
+        cardMatrix[2][7] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
+
+        // Test that he recognize two patterns
+        assertEquals(6, manager.objectivePointsCounter());
     }
 
 
@@ -296,12 +398,13 @@ class EndgameManagerTest {
         player.setResource(6,6);
 
         EndgameManager manager = new EndgameManager(game,player);
-        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 2, "special", "green", "down-left", "green", "down-left", "green", null);
+        ObjectiveCard objectiveCard = new ObjectiveCard( 1, 3, "special", "green", "down-left", "green", "down-left", "green", null);
+
 
         player.setObjectiveCard(objectiveCard);
         player.setBoards(board);
 
-        assertEquals(2, manager.objectivePointsCounter());
+        assertEquals(9, manager.objectivePointsCounter());
 
     }
 

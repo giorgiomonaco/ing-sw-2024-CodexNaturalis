@@ -282,15 +282,6 @@ class PlayerTest {
     }
 
     @Test
-    void getPoints() {
-        Player player = new Player("test");
-        int points = 2;
-        player.setPlayerPoints(points);
-        assertEquals(player.getPoints(), points);
-
-    }
-
-    @Test
     void getChat() {
         Player player = new Player("test");
         List<Chat> chats= new ArrayList<>();
@@ -339,6 +330,6 @@ class PlayerTest {
         GoldCard card = new GoldCard(1, angles, angles, null, 0 ,1, array, null,null);
         player.addGoldCard(card);
         player.addGoldCardPoints(card, 49,49);
-        assertEquals(player.getPoints(), 1);
+        assertEquals(player.getPlayerPoints(), 1);
     }
 }
