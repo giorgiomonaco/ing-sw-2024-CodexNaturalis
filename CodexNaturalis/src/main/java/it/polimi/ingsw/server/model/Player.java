@@ -143,8 +143,6 @@ public class Player implements Serializable {
     }
 
 
-
-
     public void setPlayerTokenS(String token) {
         this.playerTokenS = token;
         //notify the view
@@ -153,8 +151,6 @@ public class Player implements Serializable {
     public String getPlayerTokenS() {
         return playerTokenS;
     }
-
-
 
     /**
      * Get the player name
@@ -288,8 +284,6 @@ public class Player implements Serializable {
     public void setBoards(Boards gameboard) {
         this.Gameboard = gameboard;
     }
-
-    public int getPoints() {return playerPoints;}
 
     public List<Chat> getChat() {
         return chat;

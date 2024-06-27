@@ -331,11 +331,12 @@ public class MainController implements Serializable {
             EndgameManager endgameManager = new EndgameManager(game, game.getPlayerList().get(i));
             game.getPlayerList().get(i).addPoints(endgameManager.objectivePointsCounter());
 
-            if (game.getPlayerList().get(i).getPoints() > maxPoints) {
-                maxPoints = game.getPlayerList().get(i).getPoints();
+            if (game.getPlayerList().get(i).getPlayerPoints() > maxPoints) {
+                maxPoints = game.getPlayerList().get(i).getPlayerPoints();
                 player = game.getPlayerList().get(i);
             }
-            System.out.println("Player final: " + game.getPlayerList().get(i).getPoints());
+
+            System.out.println("Player final: " + game.getPlayerList().get(i).getPlayerPoints());
         }
 
         if (player != null) {
