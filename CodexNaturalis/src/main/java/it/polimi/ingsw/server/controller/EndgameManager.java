@@ -34,55 +34,52 @@ public class EndgameManager {
      */
     public int objectivePointsCounter() {
 
-        int result = 0;
-        List<ObjectiveCard> obj = new ArrayList<>();
-
         if(player.getPlayerObjectiveCard() == null || game.getCommonObjectives() == null) {
             System.err.println("Objectives not found!");
             return 0;
         }
+
+        int result = 0;
+        List<ObjectiveCard> obj = new ArrayList<>();
 
         obj.add(player.getPlayerObjectiveCard());
         obj.add(game.getCommonObjectives().get(0));
         obj.add(game.getCommonObjectives().get(1));
 
         //getting the type of the objective (1. cards position -- 2. points for each resource)
-        for (ObjectiveCard o : obj) {
-            try {
-                System.out.println("Objective type and number: " + o.getType() + " " + o.getCardName());
-                switch (o.getType()) {
-                    case "position":
-                        result += objectiveCreator(o);
-                        break;
-                    case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special":
-                        result += resourceCounter(o);
-                        break;
-                    default:
-                        break;
-                }
-            } catch (NullPointerException e) {
-                System.err.println("NullPointerException: " + e.getMessage());
-            }
-
+        for (ObjectiveCard o: obj) {
+            result += checkCondition(o);
         }
+
         return result;
+    }
+
+    private int checkCondition(ObjectiveCard o) {
+        System.out.println("Objective type and number: " + o.getType() + " " + o.getCardName());
+
+        return switch (o.getType()) {
+            case "position" -> objectiveCreator(o);
+            case "mushroom", "fox", "leaf", "butterfly", "feather", "bottle", "scroll", "special" -> resourceCounter(o);
+            default -> 0;
+        };
     }
 
 
     // this function analyzes the objective description to find how many occurrences of a same layout happen
     private int objectiveCreator(ObjectiveCard objectiveCard){
-        int result = 0;
         // stage one -- finding the first card basing on its color
-        Boards gameBoard = player.getGameBoards();
+        Boards gameBoard = this.player.getGameBoards();
 
         Card[][] cardMatrix = player.getGameBoards().getGameBoard();
+
+        int result = 0;
 
 
         for (int y = 0; y < gameBoard.getMAX_Y(); y++){
             for (int x = 0; x < gameBoard.getMAX_X(); x++){
                 if(cardMatrix[x][y] != null && !(cardMatrix[x][y] instanceof InitialCard)) {
                     if (Objects.equals(cardMatrix[x][y].getBackSymbol().getFirst().getSymbolColor(), objectiveCard.getCard1())) {
-                        result = findPattern(x, y, cardMatrix, objectiveCard);
+                        result += findPattern(x, y, cardMatrix, objectiveCard);
                     }
                 }
             }
@@ -165,7 +162,7 @@ public class EndgameManager {
         if (first){
             switch (objectiveCard.getDirection1()) {
                 case "down":
-                    newY = y + 1;
+                    newY = y + 2;
                     break;
                 case "down-right":
                     newY = y + 1;
@@ -176,18 +173,19 @@ public class EndgameManager {
                     newX = x - 1;
                     break;
             }
+        } else {
+            return 0;
         }
 
         if(cardMatrix[newX][newY].getCheckedBy().contains(objectiveCard.getCardName())) return 0;
 
-        if (checkDirection( cardMatrix, newX, newY, objectiveCard.getDirection2(), objectiveCard.getCard3()) && first) {
-
+        if (checkDirection( cardMatrix, newX, newY, objectiveCard.getDirection2(), objectiveCard.getCard3())) {
             updateCheckedByValue(cardMatrix, newX, newY, objectiveCard);
             return (objectiveCard.getPoints());
-
+        } else {
+            return 0;
         }
 
-        return 0;
     }
 
 
@@ -218,7 +216,7 @@ public class EndgameManager {
 
         switch (direction) {
             case "down" :
-                newY = y + 1;
+                newY = y + 2;
                 break;
             case "down-right":
                 newX = x + 1;
@@ -249,7 +247,7 @@ public class EndgameManager {
 
         switch (objectiveCard.getDirection2()) {
             case "down":
-                newY = y + 1;
+                newY = y + 2;
                 break;
             case "down-right":
                 newX = x + 1;
