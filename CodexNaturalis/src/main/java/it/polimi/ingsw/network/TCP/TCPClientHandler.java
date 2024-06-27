@@ -45,7 +45,6 @@ public class TCPClientHandler extends ClientConnection implements Runnable{
             msg = new ConnectionActive(ServerHandler.HOSTNAME);
             out.writeObject(msg);
             out.flush();
-            System.out.println(Colors.yellowColor + "New active connection. Starting login phase." + Colors.resetColor);
         } catch (IOException e) {
             System.err.println("Couldn't connect with the client");
             Thread.currentThread().interrupt();

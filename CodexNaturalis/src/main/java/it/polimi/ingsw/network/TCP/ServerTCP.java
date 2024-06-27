@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.TCP;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.network.ServerNetwork;
 import it.polimi.ingsw.server.ServerHandler;
 
@@ -40,7 +41,7 @@ public class ServerTCP extends Thread{
         while(true) {
             try {
                 Socket socket = serverSocket.accept();
-                System.out.println("New TCP connection accepted on socket: " + socket);
+                System.out.println(Colors.yellowColor + "New TCP connection accepted." + Colors.resetColor);
                 TCPClientHandler acceptedClient;
                 acceptedClient = new TCPClientHandler(socket, handlerTCP);
 

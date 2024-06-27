@@ -58,15 +58,15 @@ public class Pinger extends Thread {
 
                 try{
                     TimeUnit.SECONDS.sleep(8);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                } catch (InterruptedException ignored){
+
                 }
             } else {
                 try{
                     System.out.println(Colors.greenColor + "No players connected yet." + Colors.resetColor);
                     TimeUnit.SECONDS.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                } catch (InterruptedException ignored) {
+
                 }
             }
         }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI.Frames;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.states.stateEnum;
 import it.polimi.ingsw.client.view.GUI.Panels.DeckPanel;
 import it.polimi.ingsw.network.message.allMessages.DrawCardResponse;
 
@@ -66,7 +67,7 @@ public class DrawFrame extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            if (dp.getSelection() != -1) {
+            if (dp.getSelection() != -1 && client.getCurrentState().equals(stateEnum.DRAW_CARD)) {
                 try {
                     //send message with the number of the players
                     client.sendMessage(new DrawCardResponse(client.getUsername(), dp.getSelection()));
@@ -74,8 +75,10 @@ public class DrawFrame extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-            } else {
+            } else if (dp.getSelection() == -1) {
                 client.getUI().printErrorMessage("WRONG SELECTION! You have to select a card to draw first.");
+            } else {
+                client.getUI().printErrorMessage("PERMISSION DENIED! It's not your turn to draw a card. Wait for your turn.");
             }
 
         }

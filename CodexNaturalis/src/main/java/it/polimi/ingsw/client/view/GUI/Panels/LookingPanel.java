@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.GUI.Frames.DrawFrame;
 import it.polimi.ingsw.client.view.GUI.Frames.PointTrackerFrame;
 import it.polimi.ingsw.client.view.GUI.Frames.RulesFrame;
 
@@ -17,15 +18,12 @@ public class LookingPanel extends JPanel {
     and to rules of the game
      */
 
-    //constants:
-    private static final int DRAWABLE_CARDS_FRAME_X = 650;
-    private static final int DRAWABLE_CARDS_FRAME_Y = 450;
-
     //Attributes
     private final Client client;
     private JButton pointsLooker;
     private JButton rulesButton;
     private JButton cardsSituationButton;
+
     public LookingPanel(Client c){
         this.client = c;
         createElements();
@@ -46,15 +44,20 @@ public class LookingPanel extends JPanel {
         cardsSituationButton = new JButton("Drawable Cards");
 
         //action to be performed by clicking it
-        cardsSituationButton.addActionListener(e-> showCards());
+        cardsSituationButton.addActionListener(e -> showCards());
+        add(cardsSituationButton);
     }
 
     private void showCards(){
-        //first we create the frame to contain the selection of cards
-        JFrame drawableCards = new JFrame();
-        drawableCards.setSize(new Dimension(DRAWABLE_CARDS_FRAME_X, DRAWABLE_CARDS_FRAME_Y));
-        drawableCards.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        drawableCards.setVisible(true);
+
+        if(!client.getVisibleResourceCards().isEmpty()) {
+            DrawFrame drawFrame = new DrawFrame(client);
+            drawFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            drawFrame.setVisible(true);
+        } else {
+            client.getUI().printErrorMessage("Wait for the other player to finish the setup phase.");
+        }
+
     }
 
     private void createRulesButton(){
@@ -80,9 +83,14 @@ public class LookingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //we want to displace the point tracker frame
-                PointTrackerFrame scoreFrame = new PointTrackerFrame(client);
+                if (!client.getPlayersToken().contains(null)) {
+                    PointTrackerFrame scoreFrame = new PointTrackerFrame(client);
+                } else {
+                    client.getUI().printErrorMessage("Wait for the other player to finish the setup phase.");
+                }
             }
         });
+
         add(pointsLooker);
     }
 
