@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.view.GUI.Panels;
+
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.server.model.Card;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,8 @@ public class PersonalBoardPanel extends JPanel {
     int cols = 100;
     private final MainPanel mainPanel;
     private Image backgroundImage;
+    private MouseAdapter mouseAdapter;
+    private JLayeredPane layeredPane;
 
     /**
      * Constructor for PersonalBoardPanel.
@@ -55,7 +59,7 @@ public class PersonalBoardPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane to hold the cards
-        JLayeredPane layeredPane = new JLayeredPane() {
+        layeredPane = new JLayeredPane() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -124,6 +128,8 @@ public class PersonalBoardPanel extends JPanel {
 
         // Create a JScrollPane that contains the layeredPane
         scrollPane = new JScrollPane(layeredPane);
+        //we add possibility to drag the board
+        addDragToScrollPane();
 
         scrollPane.setPreferredSize(new Dimension(700, 550));
         scrollPane.setMinimumSize(new Dimension(700, 550));
@@ -144,6 +150,41 @@ public class PersonalBoardPanel extends JPanel {
         int extentHorizontal = scrollPane.getHorizontalScrollBar().getModel().getExtent();
         int middleHorizontal = (maxHorizontal - extentHorizontal) / 2;
         scrollPane.getHorizontalScrollBar().setValue(middleHorizontal);
+    }
+
+    private void addDragToScrollPane(){
+        mouseAdapter = new MouseAdapter() {
+            private Point lastPoint;
+            private boolean dragging = false;
+            @Override
+            public void mousePressed(MouseEvent e) {
+                lastPoint = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), layeredPane);
+                dragging = false;
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                Point point = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), layeredPane);
+                JViewport viewport = scrollPane.getViewport();
+                Point viewPosition = viewport.getViewPosition();
+                viewPosition.translate(lastPoint.x - point.x, lastPoint.y - point.y);
+                layeredPane.scrollRectToVisible(new Rectangle(viewPosition, viewport.getSize()));
+                lastPoint = point;
+                dragging = true;
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                if (dragging) {
+                    // Consume the event if dragging
+                    e.consume();
+                }
+            }
+        };
+
+
+        //now we add the listeners to the scrollpane
+        scrollPane.getViewport().addMouseListener(mouseAdapter);
+        scrollPane.getViewport().addMouseMotionListener(mouseAdapter);
     }
 
     private static class cardMouseListener extends MouseAdapter {
