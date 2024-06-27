@@ -15,8 +15,11 @@ of *"Engineering of Computing Systems"* held at Politecnico di Milano (2023/2024
 The project consists of a Java version of the board game Codex Naturalis, made by Cranio Creations. You can find the real game [here] (https://www.craniocreations.it/prodotto/codex-naturalis).
 
 Project requirements : [link] (https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce/blob/main/requirements/ProjectRequirements.pdf)
-## Implemented functionalities
 
+
+
+
+## Implemented functionalities
 ### Main functionalities
 | Functionality                    | Status |
 |:---------------------------------|:------:|
@@ -38,6 +41,12 @@ Project requirements : [link] (https://github.com/giorgiomonaco/ing-sw-2024-Mona
 
 ⛔ Not implemented(or Work in Progress) &nbsp;&nbsp;&nbsp;&nbsp; ✅ Implemented
 Usage
+
+### Coverege by testing
+| Target     | % Classes |
+|:-----------|:---------:|
+| Model      |   100%    |
+| Controller |    90%    |
 
 ### Requirements
 
