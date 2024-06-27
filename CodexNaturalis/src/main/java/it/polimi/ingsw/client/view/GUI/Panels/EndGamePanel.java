@@ -111,7 +111,7 @@ public class EndGamePanel extends JPanel {
             Image resizedPointTracker = x.getImage().getScaledInstance(250, 520, Image.SCALE_SMOOTH);
 
             //now we instance the panel and fill it up with the image
-            pointTrackerPanel = new PointTrackerPanel(client, 250, 520){
+            pointTrackerPanel = new PointTrackerPanel(client){
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
                     if(resizedPointTracker != null){
