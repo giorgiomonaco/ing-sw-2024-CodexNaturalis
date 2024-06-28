@@ -54,30 +54,20 @@ Regardless of the operating system, you must have installed the following progra
 - Java 21
 - Maven []
 
-### Compile Instructions
-1. Clone this repository:
-   shell
-   git clone https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce
+### Setup
 
-2. Move to the repository folder.
-3. Build the code with maven and move the jar files from target to a new directory of your choice:
-   shell
-   mvn clean package
+* In the main/CodexNaturalis/deliverables/JAR folder there are two multi-platform jar files, one to set the server up, and the other one to start the Client:
+ >https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce/tree/main/CodexNaturalis/deliverables/JAR
+* The Server can be run with the following command, the RMI port is 1234, the socket port is 1235:
+ > java -jar ServerMain.jar 
+ 
+The Server IP can be chosen in the setup phase, if no insertion it will be automatically selected "localhost" as Server
 
-4. Move to the that directory and execute the server and/or the client:
-   shell
-   java -jar Server.jar
-   java -jar Client.jar
+* The Client can be run with the following command:
+ > java -java ClientMain.jar 
 
+In the setup phase will be asked:
+* The Server Ip and the connection ports to which connect to.
+* The wanted type of UI : TUI or GUI
+* The wanted type of connection: Socket or RMI
 
-### Run Instructions
-1. Clone this repository:
-   shell
-   git clone https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce
-
-2. Move to the repository folder.
-
-3. Move to the directory "deliverables\final\jar" and execute the server and a client:
-   shell
-   java -jar Server.jar
-   java -jar Client.jar
