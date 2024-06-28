@@ -10,7 +10,7 @@ public abstract class Card implements Serializable {
     //ID of the card, may be removed later
     private static int cardID = 0;
 
-    //If the angles array is null => not visible!!!!
+    //If the angles array is null => not visible
 
     //Array representing the 4 angles in the front side of the card
     //0 = top right
@@ -19,18 +19,21 @@ public abstract class Card implements Serializable {
     //3 = top left
     private final VisibleAngle[] frontAngles = new VisibleAngle[4];
 
-    //array representing the 4 angles of the back of the card
-    //same enumeration
+    /*
+    array representing the 4 angles of the back of the card
+    same enumeration
+     */
     private final VisibleAngle[] backAngles = new VisibleAngle[4];
 
     //central symbol on the back of the card
     private final List<Symbol> backSymbol;
 
-
-    //Attribute that defines if we are playing/considering
-    //the front or the back of the card
-    //if true = front visible
-    //if false = back visible
+    /*
+    Attribute that defines if we are playing/considering
+    the front or the back of the card
+    if true = front visible
+    if false = back visible
+     */
     private boolean frontSide;
 
     private final String frontImage;

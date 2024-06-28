@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class EndgameManager {
-    //this class gets the game and the player, and calculates the points each player gets by completing his objective
-    //every card has a different type of objective, hence the need for this class
+    /*
+    this class gets the game and the player, and calculates the points each player gets by completing his objective
+    every card has a different type of objective, hence the need for this class
+     */
     Game game;
     Player player;
 

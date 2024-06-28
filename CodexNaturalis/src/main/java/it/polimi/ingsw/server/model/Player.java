@@ -36,16 +36,21 @@ public class Player implements Serializable {
     private int playerPoints = 0;
     private InitialCard initialCard;
 
-    //List of resources available in this particular moment for this player
-    //We may use an enum to rename the indexes, may be way better, will see
-    //By now the list is the same of the "CardManager" class
-    //Index = type of resource
-    //value = how many available
+    /*
+    List of resources available in this particular moment for this player
+    We may use an enum to rename the indexes, may be way better, will see
+    By now the list is the same of the "CardManager" class
+    Index = type of resource
+    value = how many available
+     */
     private final int[] resourcesAvailable = new int[7];
 
-    // parameter only needed to stamp correctly the card in gui,
-    // we need to save it in the server model for eventual reconnections
+    /*
+     parameter only needed to stamp correctly the card in gui,
+     we need to save it in the server model for eventual reconnections
+     */
     private int turn;
+
 
 
     /**

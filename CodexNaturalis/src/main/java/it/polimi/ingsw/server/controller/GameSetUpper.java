@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameSetUpper {
-    //this class manage the creation of the managers of the game and the start of the game
-    //Things like distribution of tokens to players, creating and adding players to the game
-    //distribution of first cards to players
-
+    /*
+    this class manage the creation of the managers of the game and the start of the game
+    Things like distribution of tokens to players, creating and adding players to the game
+    distribution of first cards to players
+    */
     private final Game game;
 
     //Constructor
