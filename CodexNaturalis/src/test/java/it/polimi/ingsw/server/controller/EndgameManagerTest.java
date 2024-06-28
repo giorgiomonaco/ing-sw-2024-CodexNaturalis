@@ -331,7 +331,7 @@ class EndgameManagerTest {
         game.setCommonObjectives(common);
         EndgameManager manager = new EndgameManager(game,player);
 
-        // Populate the matrix with four green cards and one purple card in diagonal : 3 points expected
+        // Populate the matrix with two green cards and one purple card in an "L" shape : 3 points expected
         cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[2][5] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
@@ -339,7 +339,7 @@ class EndgameManagerTest {
         // Test that he recognize only one pattern
         assertEquals(3, manager.objectivePointsCounter());
 
-        // Populate the matrix with five green cards in diagonal : 3 points expected
+        // We add a green card above the others two: 3 points expected
         cardMatrix[3][0] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][4] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
@@ -348,7 +348,7 @@ class EndgameManagerTest {
         // Test that he recognize only one pattern
         assertEquals(3, manager.objectivePointsCounter());
 
-        // Populate the matrix with six green cards in diagonal : 3 points expected
+        // We add a purple card under the other purple card: 3 points expected
         cardMatrix[3][0] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[2][3] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);
@@ -358,7 +358,7 @@ class EndgameManagerTest {
         // Test that he recognize only one pattern
         assertEquals(3, manager.objectivePointsCounter());
 
-        // Populate the matrix with six green cards in diagonal : 6 points expected
+        // We add two separate patterns: 6 points expected
         cardMatrix[3][0] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[3][2] = new ResourceCard(1, 2, frontAngles, backAngles, myList, null, null);
         cardMatrix[2][3] = new ResourceCard(1, 2, frontAngles, backAngles, secondList, null, null);

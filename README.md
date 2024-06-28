@@ -6,10 +6,10 @@ of *"Engineering of Computing Systems"* held at Politecnico di Milano (2023/2024
 *Teacher* : Pierluigi San Pietro
 
 ## The Team
-* [Fabio Montuschi] (https://github.com/Feb126)
-* [Giorgio Monaco] (https://github.com/giorgiomonaco)
-* [Tammaso Neri] (https://github.com/tommasonerii)
-* [Matteo Croce] (https://github.com/TeoCroce)
+* [Fabio Montuschi](https://github.com/Feb126)
+* [Giorgio Monaco](https://github.com/giorgiomonaco)
+* [Tammaso Neri](https://github.com/tommasonerii)
+* [Matteo Croce](https://github.com/TeoCroce)
 
 ## Project specification
 The project consists of a Java version of the board game Codex Naturalis, made by Cranio Creations. You can find the real game [here] (https://www.craniocreations.it/prodotto/codex-naturalis).
@@ -56,8 +56,8 @@ Regardless of the operating system, you must have installed the following progra
 
 ### Setup
 
-* In the main/CodexNaturalis/deliverables/JAR folder there are two multi-platform jar files, one to set the server up, and the other one to start the Client:
- >https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce/tree/main/CodexNaturalis/deliverables/JAR
+* In the [JAR](https://github.com/giorgiomonaco/ing-sw-2024-Monaco-Montuschi-Neri-Croce/tree/main/CodexNaturalis/deliverables/JAR) folder there are two multi-platform jar files, one to set the server up, and the other one to start the Client:
+
 * The Server can be run with the following command, the RMI port is 1234, the socket port is 1235:
  > java -jar ServerMain.jar 
  
