@@ -16,9 +16,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface {
     private static int PORT;
-    private String ip;
+    private final String ip;
     private Registry registry;
-    // private RMIServerInterface obj;
     private final ServerHandler handlerRMI;
 
     public ServerRMI(ServerNetwork data, ServerHandler handler) throws RemoteException {
@@ -38,17 +37,6 @@ public class ServerRMI extends UnicastRemoteObject implements RMIServerInterface
             System.err.println("Error while starting server: " + ip);
         }
         System.out.println("--- RMI server is ready on port: " + PORT + " ---");
-    }
-
-    public void stop() {
-        try {
-            registry.unbind("RMIServerInterface");
-            // UnicastRemoteObject.unexportObject(obj, true);
-            UnicastRemoteObject.unexportObject(registry, true);
-            System.err.println("Server stopped.");
-        } catch (Exception e) {
-            System.err.println("Error while stopping server: " + e.getMessage());
-        }
     }
 
     @Override

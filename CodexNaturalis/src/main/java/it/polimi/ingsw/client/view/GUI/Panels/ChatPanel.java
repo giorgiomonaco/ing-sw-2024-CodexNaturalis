@@ -89,13 +89,13 @@ public class ChatPanel extends JPanel {
         gbc.weighty = 0.1;
         add(writingPanel, gbc);
 
-        if(client.getChat() != null) {
-            if (!client.getChat().isEmpty()) {
-                for (Chat c : client.getChat()) {
-                    addMessage(c);
-                }
-            }
-        }
+        // if(client.getChat() != null) {
+        //    if (!client.getChat().isEmpty()) {
+        //        for (Chat c : client.getChat()) {
+        //            addMessage(c);
+        //        }
+        //    }
+        //}
 
         // Add listener to the button
         sendButton.addActionListener(new ActionListener() {

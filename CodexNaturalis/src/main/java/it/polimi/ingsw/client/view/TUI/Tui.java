@@ -15,7 +15,6 @@ public class Tui implements UserInterface{
 
     private final Client tuiCli;
     private final Map<stateEnum, TuiView> phaseView;
-    List<Card> playerHand;
     Colors color = new Colors();
 
 
