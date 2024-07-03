@@ -88,7 +88,7 @@ public class ServerHandler {
 
     public void manageMessage(Message msg) {
         switch(msg.getType()) {
-            case messEnum.SELECTION_NUM_PLAYERS:
+            case SELECTION_NUM_PLAYERS:
                 synchronized (controllerLock) {
 
                     if (mainController == null) {
@@ -149,14 +149,14 @@ public class ServerHandler {
                 }
                 break;
 
-            case messEnum.SELECTION_CARD:
+            case SELECTION_CARD:
                 synchronized (controllerLock) {
                     SelectionCard selCard = (SelectionCard) msg;
                     mainController.selectionCard(selCard.getCard(), selCard.getX(), selCard.getY(), selCard.getSide());
                     mainController.middleTurn();
                 }
                 break;
-            case messEnum.DRAW_CARD_RESPONSE:
+            case DRAW_CARD_RESPONSE:
                 synchronized (controllerLock) {
                     DrawCardResponse draw = (DrawCardResponse) msg;
                     int choice = draw.getChoice();
@@ -167,7 +167,7 @@ public class ServerHandler {
             case PING:
                 pinger.loadMessage(msg);
                 break;
-            case messEnum.CHAT_MSG:
+            case CHAT_MSG:
                 synchronized (controllerLock) {
                     ChatMessage chatMsg = (ChatMessage) msg;
                     String destination = chatMsg.getDestination();

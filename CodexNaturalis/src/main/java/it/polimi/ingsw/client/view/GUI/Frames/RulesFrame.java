@@ -55,7 +55,7 @@ public class RulesFrame extends JFrame {
 
     private void retrieveImages() {
         for (int i = 0; i < NUM_RULE_PAGES; i++) {
-            String imagePath = "Images/rulesPages/RulePage" + i + ".png";
+            String imagePath = "images/rulesPages/RulePage" + i + ".png";
             try (InputStream is = getClass().getClassLoader().getResourceAsStream(imagePath)) {
                 if (is != null) {
                     images[i] = ImageIO.read(is);
