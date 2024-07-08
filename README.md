@@ -64,7 +64,7 @@ Regardless of the operating system, you must have installed the following progra
 The Server IP can be chosen in the setup phase, if no insertion it will be automatically selected "localhost" as Server
 
 * The Client can be run with the following command:
- > java -java ClientMain.jar 
+ > java -jar ClientMain.jar 
 
 In the setup phase will be asked:
 * The Server Ip and the connection ports to which connect to.
