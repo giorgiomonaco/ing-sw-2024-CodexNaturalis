@@ -8,7 +8,7 @@ of *"Engineering of Computing Systems"* held at Politecnico di Milano (2023/2024
 ## The Team
 * [Giorgio Monaco](https://github.com/giorgiomonaco)
 * [Fabio Montuschi](https://github.com/Feb126)
-* [Tammaso Neri](https://github.com/tommasonerii)
+* [Tommaso Neri](https://github.com/tommasonerii)
 * [Matteo Croce](https://github.com/TeoCroce)
 
 ## Project specification
