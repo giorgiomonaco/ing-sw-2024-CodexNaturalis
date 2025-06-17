@@ -1,4 +1,4 @@
-CodexNaturalis Board Game - Software Engineering Project
+## CodexNaturalis Board Game - Software Engineering Project
 <img src="https://www.craniocreations.it/storage/media/products/19/41/Codex_scatola+ombra.png" width="260" align="right" />
 CodexNaturalis Board Game is the final test of *"Software Engineering"* course of *"Software Engineering"* course
 of *"Engineering of Computing Systems"* held at Politecnico di Milano (2023/2024)
